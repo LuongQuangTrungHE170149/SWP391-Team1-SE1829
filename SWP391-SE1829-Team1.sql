@@ -1,4 +1,4 @@
-Create database SWP391_SE1829_Team1;
+create database SWP391_SE1829_Team1;
 Use SWP391_SE1829_Team1;
 
 
@@ -14,9 +14,8 @@ Create table Users(
 )
 GO
 
-
 Create table Agencies(
-			AgencyId nvarchar(255) primary key,
+			AgencyId int  identity primary key ,
 			AgencyName nvarchar(255),
 			AgencyAddress nvarchar(255),
 			HotLine int,
@@ -36,7 +35,7 @@ Create table Contracts(
 			ContractId nvarchar(255) primary key,
 			CustomerId nvarchar(255) references Users(UserId),
 			StaffId nvarchar(255) references Users(UserId),
-			AgencyId nvarchar(255) references Agencies(AgencyId),
+			AgencyId int references Agencies(AgencyId),
 			VehicleId nvarchar(255) references Vehicles(MotocycleId),
 			StartDate date,
 			EndDate date,
@@ -49,7 +48,7 @@ GO
 
 Create table Staff_Workplace(
 			swId nvarchar(255) primary key,
-			AgencyId nvarchar(255) References Agencies(AgencyId),
+			AgencyId int References Agencies(AgencyId),
 			StaffId nvarchar(255) References Users(UserId),
 			[status] nvarchar(255)
 )
@@ -102,11 +101,11 @@ VALUES
 ('U003', 'btan', 'Bao Tan', 'Customer', 'btan@example.com', 123123123, '1992-09-10', '789 Oak St, Danang');
 
 -- Thêm dữ liệu mẫu vào bảng Agencies
-INSERT INTO Agencies (AgencyId, AgencyName, AgencyAddress, HotLine)
+INSERT INTO Agencies (AgencyName, AgencyAddress, HotLine)
 VALUES 
-('A001', 'Agency One', '123 Agency St, Hanoi', 1111111),
-('A002', 'Agency Two', '456 Agency Ave, HCMC', 2222222),
-('A003', 'Agency Three', '789 Agency Blvd, Danang', 3333333);
+('Agency One', '123 Agency St, Hanoi', 1111111),
+('Agency Two', '456 Agency Ave, HCMC', 2222222),
+('Agency Three', '789 Agency Blvd, Danang', 3333333);
 
 -- Thêm dữ liệu mẫu vào bảng Vehicles
 INSERT INTO Vehicles (MotocycleId, Model, LicensePlates, OwnerId)
@@ -118,14 +117,14 @@ VALUES
 -- Thêm dữ liệu mẫu vào bảng Contracts
 INSERT INTO Contracts (ContractId, CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
 VALUES 
-('C001', 'U001', 'U002', 'A001', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
-('C002', 'U003', 'U002', 'A002', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
+('C001', 'U001', 'U002', '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
+('C002', 'U003', 'U002', '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace (swId, AgencyId, StaffId, [status])
 VALUES 
-('SW001', 'A001', 'U002', 'Active'),
-('SW002', 'A002', 'U002', 'Active');
+('SW001', '1', 'U002', 'Active'),
+('SW002', '2', 'U002', 'Active');
 
 -- Thêm dữ liệu mẫu vào bảng Punishments
 INSERT INTO Punishments (PunishmentId, ContractId, [Description], [Type], [Action])
