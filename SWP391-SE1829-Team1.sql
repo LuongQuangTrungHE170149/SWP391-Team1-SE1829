@@ -1,4 +1,4 @@
-﻿Create database SWP391_SE1829_Team1;
+Create database SWP391_SE1829_Team1;
 Use SWP391_SE1829_Team1;
 
 
@@ -14,11 +14,13 @@ Create table Users(
 )
 GO
 
+
 Create table Agencies(
 			AgencyId nvarchar(255) primary key,
 			AgencyName nvarchar(255),
 			AgencyAddress nvarchar(255),
 			HotLine int,
+			[status] nvarchar(30) default 'active'
 )
 GO
 
