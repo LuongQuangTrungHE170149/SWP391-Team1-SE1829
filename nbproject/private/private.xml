@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/0_FULearning/SU24/SWP391/SWP391-Team1-SE1829/src/java/dal/dal.txt</file>
-            <file>file:/D:/0_FULearning/SU24/SWP391/SWP391-Team1-SE1829/src/java/Model/User.java</file>
-            <file>file:/D:/0_FULearning/SU24/SWP391/SWP391-Team1-SE1829/web/CSS/HomePage.css</file>
-            <file>file:/D:/0_FULearning/SU24/SWP391/SWP391-Team1-SE1829/web/HomePage.jsp</file>
-            <file>file:/D:/0_FULearning/SU24/SWP391/SWP391-Team1-SE1829/src/java/dto/dto.txt</file>
-            <file>file:/D:/0_FULearning/SU24/SWP391/SWP391-Team1-SE1829/web/index.html</file>
-            <file>file:/D:/0_FULearning/SU24/SWP391/SWP391-Team1-SE1829/src/java/Controller/Controller.txt</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Model/Agency.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/view/agency/addAgency.jsp</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/CSS/agency.css</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/AddAgencyServlet.java</file>
         </group>
     </open-files>
 </project-private>
