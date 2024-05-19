@@ -102,6 +102,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border: 1px solid #000;
 }
 
+.error-messeage {
+    font-size: 15px;
+    margin-top: 4px;
+    display: block;
+}
+
+.invalid .error-messeage{
+    color: red;
+}
+
+.invalid input{
+    border-color: red;
+}
+
 .btn {
     min-width: 127px;
     height: 50px;
@@ -118,3 +132,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .btn.btn-continue{
     background-color: #7D36EE;
 }
+

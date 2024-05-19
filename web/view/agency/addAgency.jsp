@@ -45,21 +45,27 @@
                                         <div style="margin-bottom: 30px">
                                             <label class="input-label" for="agency-name">Tên đại lý</label></br>
                                             <input type="text" required="" id="agency-name" class="input-full" name="agencyName"/>
+                                            <span class="error-messeage"></span>
+
                                         </div>
                                         <div style="margin-bottom: 30px">
                                             <label class="input-label" for="agency-address">Địa chỉ</label></br>
                                             <input type="text" required="" id="agency-address" class="input-full" name="agencyAddress"/>
+                                            <span class="error-messeage"></span>
+
                                         </div>
 
                                         <div style="margin-bottom: 50px" class="input-wrapper">
                                             <div>
                                                 <label class="input-label" for="agency-hotline">Hotline</label></br>
                                                 <input type="text" required="" id="agency-hotline" class="input-half" name="agencyHotline"/>
-                                                <span class="error-hotline"></span>
+                                                <span class="error-messeage"></span>
                                             </div>
                                             <div>
                                                 <label class="input-label" for="agency-worktime">Giờ làm việc</label></br>
                                                 <input type="text" required="" id="agency-worktime" class="input-half" name="agencyWorktime"/>
+                                                <span class="error-messeage"></span>
+
                                             </div>
                                         </div>
                                         <div style="display: flex; justify-content: space-between; width: 473px">
@@ -88,7 +94,7 @@
                     </div>
                     <c:remove var="addSuccess" scope="session" />
                 </c:if>
-                 <c:if test="${sessionScope.addFail != null}">
+                <c:if test="${sessionScope.addFail != null}">
                     <div class="toast-container top-0 end-0 p-3">
                         <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex">
@@ -107,24 +113,60 @@
 
         <script>
             const form = document.querySelector(".add-form-agency");
-            const hotline = document.getElementsByName("agencyHotline")[0];
+            const agencyName = document.getElementById("agency-name");
+            const agencyAddress = document.getElementById("agency-address");
+            const hotline = document.getElementById("agency-hotline");
+            const worktime = document.getElementById("agency-worktime");
+            const submitBtn = document.querySelector(".btn-save");
+            const formGroup = [agencyName, agencyAddress, hotline, worktime]
 
-            const validationPhone = (phone) => {
-                const phoneRegex = /^(0[3|5|7|8|9])+([0-9]{8})$/;
 
-                // Kiểm tra số điện thoại với biểu thức chính quy
-                if (phoneRegex.test(phone)) {
-                    return true;  // Số điện thoại hợp lệ
+            const validationPhone = (value) => {
+                const phoneRegex = /^(0[1-9])+([0-9]{8})$/;
+                return phoneRegex.test(value) ? undefined : "Nhập số điện thoại hợp lệ"
+            }
+            const test = (value) => {
+                return value.trim() ? undefined : 'Vui lòng nhập trường này'
+            }
+
+
+
+            formGroup.forEach((input) => {
+                input.onblur = () => {
+                    var errorElement = input.parentElement.querySelector(".error-messeage");
+                    var errorMessage = test(input.value);
+                    if (errorMessage) {
+                        errorElement.innerText = errorMessage;
+                        input.parentElement.classList.add('invalid');
+                    } else {
+                        errorElement.innerText = '';
+                        input.parentElement.classList.remove('invalid');
+
+                    }
+
+                }
+            })
+            var isValid = true;
+            hotline.onblur = () => {
+                var errorElement = hotline.parentElement.querySelector(".error-messeage");
+                var errorMessage = validationPhone(hotline.value);
+                if (errorMessage) {
+                    errorElement.innerText = errorMessage;
+                    hotline.parentElement.classList.add('invalid');
+                    isValid = false;
                 } else {
-                    return false; // Số điện thoại không hợp lệ
+                    errorElement.innerText = '';
+                    hotline.parentElement.classList.remove('invalid');
+                    isValid = true;
                 }
             }
-//            form.addEventListener('submid', (event) => {
-//                console.log(event.target.value);
-//
-//            })
 
+            form.addEventListener('submit', function (event) {
+                if (isValid === false) {
 
+                    event.preventDefault(); // Ngăn chặn việc submit form
+                }
+            });
 
         </script>
 
