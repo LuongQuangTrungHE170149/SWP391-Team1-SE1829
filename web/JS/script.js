@@ -1,3 +1,7 @@
+
+
+
+
 document.getElementById('openFormBtn').addEventListener('click', function() {
     document.getElementById('consultationForm').classList.add('show');
 });
