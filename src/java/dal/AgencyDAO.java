@@ -52,28 +52,28 @@ public class AgencyDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return list;
     }
-    
+
     public boolean insertAgency(Agency agency) {
-        String sql = "INSERT INTO Agencies (AgencyName, AgencyAddress, HotLine) VALUES (?, ?, ?)";
-        
+        String sql = "INSERT INTO Agencies (AgencyName, AgencyAddress,Worktime, HotLine) VALUES (?,?, ?, ?)";
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, agency.getAgencyName());
             ps.setString(2, agency.getAgencyAddress());
-            ps.setInt(3, agency.getHotline());
+            ps.setString(3, agency.getWorktime());
+            ps.setInt(4, agency.getHotline());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
-        
+
         return false;
     }
-    
+
     public static void main(String[] args) {
 //        Agency a = new Agency();
 //        a.setAgencyName("Agency Four");

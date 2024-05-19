@@ -14,16 +14,18 @@ public class Agency {
     private String agencyName;
     private String agencyAddress;
     private int hotline;
+    private String worktime;
     private String status;
 
     public Agency() {
     }
 
-    public Agency(int agencyId, String agencyName, String agencyAddress, int hotline, String status) {
+    public Agency(int agencyId, String agencyName, String agencyAddress, int hotline, String worktime, String status) {
         this.agencyId = agencyId;
         this.agencyName = agencyName;
         this.agencyAddress = agencyAddress;
         this.hotline = hotline;
+        this.worktime = worktime;
         this.status = status;
     }
 
@@ -59,6 +61,14 @@ public class Agency {
         this.hotline = hotline;
     }
 
+    public String getWorktime() {
+        return worktime;
+    }
+
+    public void setWorktime(String worktime) {
+        this.worktime = worktime;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -69,8 +79,10 @@ public class Agency {
 
     @Override
     public String toString() {
-        return "Agency{" + "agencyId=" + agencyId + ", agencyName=" + agencyName + ", agencyAddress=" + agencyAddress + ", hotline=" + hotline + ", status=" + status + '}';
+        return "Agency{" + "agencyId=" + agencyId + ", agencyName=" + agencyName + ", agencyAddress=" + agencyAddress + ", hotline=" + hotline + ", worktime=" + worktime + ", status=" + status + '}';
     }
+
     
+   
     
 }
