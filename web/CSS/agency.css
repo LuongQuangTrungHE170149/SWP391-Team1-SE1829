@@ -7,8 +7,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : tranm
 */
 
+/* Add agency*/
 #addAgency-page{
-    background-image: url(../images/z5453913650721_042ca77cfeb562f813e71bf9a50dc77e.jpg);
+    background-image: url(../images/side-view-man-with-motorbike.jpg);
     background-size: cover;
 }
 
@@ -59,6 +60,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .back-btn:hover {
     background-color: #349375;
+    color: #fff;
     cursor: pointer;
 }
 
@@ -133,3 +135,58 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: #7D36EE;
 }
 
+
+/*Agency list*/
+
+.list-agency--wrapper {
+    margin-top: 100px;
+    text-align: center;
+
+
+}
+
+.list-agency--header {
+    font-weight: 700;
+}
+
+.container-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-agency--search{
+    width: 336px;
+    height: 46px;
+    position: relative;
+    background-color: rgba(22, 24, 35, 0.06);
+    border-radius: 92px;
+    padding-left: 16px;
+    display: flex;
+    border: 1.5px solid transparent;
+}
+
+.list-agency--search input{
+    height: 100%;
+    flex: 1;
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+}
+
+.search-agency--btn {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.btn-filter {
+    color: #000;
+    background-color: #d9d9d9
+}
+
+.btn-delete {
+    background-color: red;
+
+}

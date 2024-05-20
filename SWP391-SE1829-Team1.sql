@@ -5,7 +5,8 @@ Use SWP391_SE1829_Team1;
 Create table Users(
 			UserId nvarchar(255) Primary key,
 			username nvarchar(255),
-			FullName nvarchar(255),
+			FirstName nvarchar(255),
+			LastName nvarchar(255),
 			[Role] nvarchar(255),
 			Email nvarchar(255),
 			PhoneNumber int,
@@ -19,6 +20,7 @@ Create table Agencies(
 			AgencyName nvarchar(255),
 			AgencyAddress nvarchar(255),
 			HotLine int,
+			Worktime nvarchar(100),
 			[status] nvarchar(30) default 'active'
 )
 GO
@@ -42,7 +44,7 @@ Create table Contracts(
 			ContractType nvarchar(255),
 			[Description] nvarchar(1000),
 			Payment Bigint,
-			IsPay Bit
+			[status] nvarchar(255)
 )
 GO
 
@@ -94,18 +96,18 @@ Create Table News(
 )
 GO
 
-INSERT INTO Users (UserId, username, FullName, [Role], Email, PhoneNumber, Dob, [Address])
+INSERT INTO Users (UserId, username, FirstName, LastName, [Role], Email, PhoneNumber, Dob, [Address])
 VALUES 
-('U001', 'jdoe', 'John Doe', 'Customer', 'jdoe@example.com', 123456789, '1990-01-15', '123 Main St, Hanoi'),
-('U002', 'asmith', 'Anna Smith', 'Staff', 'asmith@example.com', 987654321, '1985-05-23', '456 Elm St, HCMC'),
-('U003', 'btan', 'Bao Tan', 'Customer', 'btan@example.com', 123123123, '1992-09-10', '789 Oak St, Danang');
+('U001', 'jdoe', 'John', 'Doe', 'Customer', 'jdoe@example.com', 123456789, '1990-01-15', '123 Main St, Hanoi'),
+('U002', 'asmith', 'Anna', 'Smith', 'Staff', 'asmith@example.com', 987654321, '1985-05-23', '456 Elm St, HCMC'),
+('U003', 'btan', 'Bao', 'Tan', 'Customer', 'btan@example.com', 123123123, '1992-09-10', '789 Oak St, Danang');
 
 -- Thêm dữ liệu mẫu vào bảng Agencies
-INSERT INTO Agencies (AgencyName, AgencyAddress, HotLine)
+INSERT INTO Agencies (AgencyName, AgencyAddress, Worktime, HotLine)
 VALUES 
-('Agency One', '123 Agency St, Hanoi', 1111111),
-('Agency Two', '456 Agency Ave, HCMC', 2222222),
-('Agency Three', '789 Agency Blvd, Danang', 3333333);
+('Agency One', '123 Agency St, Hanoi', '8h-17h', 1111111),
+('Agency Two', '456 Agency Ave, HCMC', '8h-17h',2222222),
+('Agency Three', '789 Agency Blvd, Danang', '8h-17h',3333333);
 
 -- Thêm dữ liệu mẫu vào bảng Vehicles
 INSERT INTO Vehicles (MotocycleId, Model, LicensePlates, OwnerId)
@@ -117,8 +119,8 @@ VALUES
 -- Thêm dữ liệu mẫu vào bảng Contracts
 INSERT INTO Contracts (ContractId, CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
 VALUES 
-('C001', 'U001', 'U002', '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
-('C002', 'U003', 'U002', '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
+('C001', 'U001', 'U002', '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'đã thanh toán'),
+('C002', 'U003', 'U002', '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'đang chờ duyệt');
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace (swId, AgencyId, StaffId, [status])
