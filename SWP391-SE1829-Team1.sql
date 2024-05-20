@@ -19,10 +19,11 @@ Create table Agencies(
 			AgencyId int  identity primary key ,
 			AgencyName nvarchar(255),
 			AgencyAddress nvarchar(255),
-			HotLine int,
+			HotLine varchar(20),
 			Worktime nvarchar(100),
 			[status] nvarchar(30) default 'active'
 )
+
 GO
 
 Create table Vehicles(
@@ -105,9 +106,9 @@ VALUES
 -- Thêm dữ liệu mẫu vào bảng Agencies
 INSERT INTO Agencies (AgencyName, AgencyAddress, Worktime, HotLine)
 VALUES 
-('Agency One', '123 Agency St, Hanoi', '8h-17h', 1111111),
-('Agency Two', '456 Agency Ave, HCMC', '8h-17h',2222222),
-('Agency Three', '789 Agency Blvd, Danang', '8h-17h',3333333);
+('Agency One', '123 Agency St, Hanoi', '8h-17h', '0111111111'),
+('Agency Two', '456 Agency Ave, HCMC', '8h-17h','02222222'),
+('Agency Three', '789 Agency Blvd, Danang', '8h-17h','03333333');
 
 -- Thêm dữ liệu mẫu vào bảng Vehicles
 INSERT INTO Vehicles (MotocycleId, Model, LicensePlates, OwnerId)
