@@ -43,7 +43,7 @@ Create table Contracts(
 			ContractType nvarchar(255),
 			[Description] nvarchar(1000),
 			Payment Bigint,
-			IsPay Bit
+			[status] nvarchar(255)
 )
 GO
 
@@ -118,8 +118,8 @@ VALUES
 -- Thêm dữ liệu mẫu vào bảng Contracts
 INSERT INTO Contracts (ContractId, CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
 VALUES 
-('C001', 'U001', 'U002', '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
-('C002', 'U003', 'U002', '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
+('C001', 'U001', 'U002', '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'đã thanh toán'),
+('C002', 'U003', 'U002', '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'đang chờ duyệt');
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace (swId, AgencyId, StaffId, [status])
