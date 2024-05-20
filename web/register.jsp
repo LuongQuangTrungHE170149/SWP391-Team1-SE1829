@@ -1,8 +1,3 @@
-<%-- 
-    Document   : register
-    Created on : May 20, 2024, 5:45:58 AM
-    Author     : nocol
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

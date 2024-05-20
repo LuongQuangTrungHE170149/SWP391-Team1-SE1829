@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package utils;
 
 import java.util.Properties;
 
-/**
- *
- * @author nocol
- */
 public class EmailHelper {
     private static final String EMAIL_USERNAME = "xxx@gmail.com";
     private static final String EMAIL_PASSWORD = "xxx";
@@ -65,25 +58,4 @@ public class EmailHelper {
         return otp.toString();
     }
 }
- 19 changes: 19 additions & 0 deletions19  
-web/register.jsp
-@@ -0,0 +1,19 @@
-<%-- 
-    Document   : register
-    Created on : May 20, 2024, 5:45:58 AM
-    Author     : nocol
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <jsp:include page="header.jsp"></jsp:include>
-
-        <jsp:include page="footer.jsp"></jsp:include>
-    </body>
-</html>
+ 
