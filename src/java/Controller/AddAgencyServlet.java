@@ -75,7 +75,7 @@ public class AddAgencyServlet extends HttpServlet {
             throws ServletException, IOException {
         String agencyName = request.getParameter("agencyName");
         String agencyAddress = request.getParameter("agencyAddress");
-        int agencyHotline = Integer.parseInt(request.getParameter("agencyHotline"));
+        String agencyHotline = request.getParameter("agencyHotline");
         String agencyWorktime = request.getParameter("agencyWorktime");
 
         Agency agency = new Agency();

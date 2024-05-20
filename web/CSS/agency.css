@@ -182,11 +182,92 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .btn-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #000;
-    background-color: #d9d9d9
+    background-color: #d9d9d9;
+    transition: background-color 0.3s, color 0.3s;
+
 }
 
+.btn-filter:hover {
+    color: #fff;
+    background-color: #555;
+}
+
+
 .btn-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: red;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.btn-delete:hover {
+    color: #fff;
+    background-color: #870f0f;
+}
+
+.btn-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #54CDD1;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.btn-add:hover {
+    color: #fff;
+    background-color: #8ec0c1;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    min-width: 400px;
+    width: 100%;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.agency-link {
+    color: #009879;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 
 }

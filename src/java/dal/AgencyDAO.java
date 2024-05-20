@@ -43,7 +43,8 @@ public class AgencyDAO extends DBContext {
                 agency.setAgencyId(rs.getInt("AgencyId"));
                 agency.setAgencyName(rs.getString("AgencyName"));
                 agency.setAgencyAddress(rs.getString("AgencyAddress"));
-                agency.setHotline(rs.getInt("HotLine"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
                 agency.setStatus(rs.getString("status"));
                 list.add(agency);
 
@@ -64,7 +65,7 @@ public class AgencyDAO extends DBContext {
             ps.setString(1, agency.getAgencyName());
             ps.setString(2, agency.getAgencyAddress());
             ps.setString(3, agency.getWorktime());
-            ps.setInt(4, agency.getHotline());
+            ps.setString(4, agency.getHotline());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -74,12 +75,39 @@ public class AgencyDAO extends DBContext {
         return false;
     }
 
+    public List<Agency> searchAgency(String key) {
+        List<Agency> list = new ArrayList<>();
+        String sql = "select * from Agencies Where AgencyName like '%" + key + "%'"
+                + " OR AgencyAddress like '%" + key + "%' OR HotLine like '% " + key
+                + "%' OR Worktime like '%" + key + "%'";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Agency agency = new Agency();
+                agency.setAgencyId(rs.getInt("AgencyId"));
+                agency.setAgencyName(rs.getString("AgencyName"));
+                agency.setAgencyAddress(rs.getString("AgencyAddress"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
+                agency.setStatus(rs.getString("status"));
+                list.add(agency);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
 //        Agency a = new Agency();
 //        a.setAgencyName("Agency Four");
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-//        System.out.println(AgencyDAO.INSTANCE.insertAgency(a));
+        System.out.println(AgencyDAO.INSTANCE.searchAgency("z"));
     }
 }

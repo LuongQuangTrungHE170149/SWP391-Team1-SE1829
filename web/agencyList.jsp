@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,19 +28,89 @@
 
             <div class="container list-agency--wrapper">
                 <h3 class="list-agency--header">Quản lí đại lý</h3>
-
                 <div class="container-action">
-                    <form action="listAgency">
+                    <form action="listAgency" method="post">
                         <div class="list-agency--search">
-                            <input  placeholder="Tìm kiếm đại lý..." name="key"/>
+                            <input  value="${key}" placeholder="Tìm kiếm đại lý..." name="key"/>
                             <button type="submit" class="search-agency--btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                     </form>
-                    <div>
-                        <button class="btn btn-filter">Sắp xếp</button>
-                        <button class="btn btn-delete">Xóa nhiều</button>
+                    <div style="display: flex;">
+                        <a href="listAgency" class="btn btn-filter">Sắp xếp</a>
+                        <a class="btn btn-delete">Xóa nhiều</a>
+                        <a href="addAgency" class="btn btn-add">Thêm đại lý</a>
 
-                    </div>
+                    </div>    
+                </div>
+
+
+
+                <div>
+
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Mã</th>
+                                <th>Tên đại lí</th>
+                                <th>Địa chỉ</th>
+                                <th>Hotline</th>
+                                <th>Giờ làm việc</th>
+                                <th>Trạng thái</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody >
+
+                            <c:if test="${requestScope.listSearchAgency == null || requestScope.listSearchAgency.size() eq 0}">
+
+                                <c:forEach var="agency" items="${requestScope.listAgency}">
+                                    <tr>
+                                        <td><input type="checkbox" /></td>
+                                        <td>${agency.agencyId}</td>
+                                        <td>${agency.agencyName}</td>
+                                        <td>${agency.agencyAddress}</td>
+                                        <td>${agency.hotline}</td>
+                                        <td>${agency.worktime}</td>
+                                        <td>${agency.status}</td>
+                                        <td>
+                                            <a class="agency-link" href="">Sửa</a>
+                                            <a class="agency-link" href="">Chi tiết</a>
+                                            <a class="agency-link" href="">Xóa</a>
+
+                                        </td>
+
+                                    </tr>
+                                </c:forEach>
+
+                            </c:if>
+
+                            <c:if test="${requestScope.listSearchAgency != null || requestScope.listSearchAgency.size() > 0}">
+                                <c:forEach var="agency" items="${requestScope.listSearchAgency}">
+                                    <tr>
+                                        <td><input type="checkbox" /></td>
+                                        <td>${agency.agencyId}</td>
+                                        <td>${agency.agencyName}</td>
+                                        <td>${agency.agencyAddress}</td>
+                                        <td>${agency.hotline}</td>
+                                        <td>${agency.worktime}</td>
+                                        <td>${agency.status}</td>
+                                        <td>
+                                            <a class="agency-link" href="">Sửa</a>
+                                            <a class="agency-link" href="">Chi tiết</a>
+                                            <a class="agency-link" href="">Xóa</a>
+
+                                        </td>
+
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                        </tbody>
+
+
+                    </table>
+
                 </div>
             </div>
 

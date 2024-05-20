@@ -13,14 +13,14 @@ public class Agency {
     private int agencyId;
     private String agencyName;
     private String agencyAddress;
-    private int hotline;
+    private String hotline;
     private String worktime;
     private String status;
 
     public Agency() {
     }
 
-    public Agency(int agencyId, String agencyName, String agencyAddress, int hotline, String worktime, String status) {
+    public Agency(int agencyId, String agencyName, String agencyAddress, String hotline, String worktime, String status) {
         this.agencyId = agencyId;
         this.agencyName = agencyName;
         this.agencyAddress = agencyAddress;
@@ -53,11 +53,11 @@ public class Agency {
         this.agencyAddress = agencyAddress;
     }
 
-    public int getHotline() {
+    public String getHotline() {
         return hotline;
     }
 
-    public void setHotline(int hotline) {
+    public void setHotline(String hotline) {
         this.hotline = hotline;
     }
 
@@ -82,6 +82,7 @@ public class Agency {
         return "Agency{" + "agencyId=" + agencyId + ", agencyName=" + agencyName + ", agencyAddress=" + agencyAddress + ", hotline=" + hotline + ", worktime=" + worktime + ", status=" + status + '}';
     }
 
+    
     
    
     
