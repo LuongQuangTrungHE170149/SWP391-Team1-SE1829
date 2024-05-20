@@ -5,7 +5,8 @@ Use SWP391_SE1829_Team1;
 Create table Users(
 			UserId nvarchar(255) Primary key,
 			username nvarchar(255),
-			FullName nvarchar(255),
+			FirstName nvarchar(255),
+			LastName nvarchar(255),
 			[Role] nvarchar(255),
 			Email nvarchar(255),
 			PhoneNumber int,
@@ -95,11 +96,11 @@ Create Table News(
 )
 GO
 
-INSERT INTO Users (UserId, username, FullName, [Role], Email, PhoneNumber, Dob, [Address])
+INSERT INTO Users (UserId, username, FirstName, LastName, [Role], Email, PhoneNumber, Dob, [Address])
 VALUES 
-('U001', 'jdoe', 'John Doe', 'Customer', 'jdoe@example.com', 123456789, '1990-01-15', '123 Main St, Hanoi'),
-('U002', 'asmith', 'Anna Smith', 'Staff', 'asmith@example.com', 987654321, '1985-05-23', '456 Elm St, HCMC'),
-('U003', 'btan', 'Bao Tan', 'Customer', 'btan@example.com', 123123123, '1992-09-10', '789 Oak St, Danang');
+('U001', 'jdoe', 'John', 'Doe', 'Customer', 'jdoe@example.com', 123456789, '1990-01-15', '123 Main St, Hanoi'),
+('U002', 'asmith', 'Anna', 'Smith', 'Staff', 'asmith@example.com', 987654321, '1985-05-23', '456 Elm St, HCMC'),
+('U003', 'btan', 'Bao', 'Tan', 'Customer', 'btan@example.com', 123123123, '1992-09-10', '789 Oak St, Danang');
 
 -- Thêm dữ liệu mẫu vào bảng Agencies
 INSERT INTO Agencies (AgencyName, AgencyAddress, Worktime, HotLine)
