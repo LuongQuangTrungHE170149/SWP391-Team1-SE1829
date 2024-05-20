@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class Contract {
     private String contractId;
-    private String agencyId;
+    private Agency agency;
     private Date startDate;
     private Date endDate;
     private String contractType;
@@ -28,12 +28,12 @@ public class Contract {
         this.contractId = contractId;
     }
 
-    public String getAgencyId() {
-        return agencyId;
+    public Agency getAgency() {
+        return agency;
     }
 
-    public void setAgencyId(String agencyId) {
-        this.agencyId = agencyId;
+    public void setAgency(Agency agency) {
+        this.agency = agency;
     }
 
     public Date getStartDate() {
