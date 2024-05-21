@@ -1,9 +1,18 @@
-
 package utils;
 
 import java.util.Properties;
+import java.util.Random;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class EmailHelper {
+
     private static final String EMAIL_USERNAME = "xxx@gmail.com";
     private static final String EMAIL_PASSWORD = "xxx";
 
@@ -58,4 +67,3 @@ public class EmailHelper {
         return otp.toString();
     }
 }
- 
