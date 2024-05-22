@@ -31,14 +31,14 @@ Create table Vehicles(
 			MotocycleId nvarchar(255) primary key,
 			Model nvarchar(255),
 			LicensePlates nvarchar(255),
-			OwnerId nvarchar(255) REFERENCES Users(id),
+			OwnerId int REFERENCES Users(id),
 )
 GO
 
 Create table Contracts(
 			ContractId nvarchar(255) primary key,
-			CustomerId nvarchar(255) references Users(id),
-			StaffId nvarchar(255) references Users(id),
+			CustomerId int references Users(id),
+			StaffId int references Users(id),
 			AgencyId int references Agencies(AgencyId),
 			VehicleId nvarchar(255) references Vehicles(MotocycleId),
 			StartDate date,
@@ -53,7 +53,7 @@ GO
 Create table Staff_Workplace(
 			swId nvarchar(255) primary key,
 			AgencyId int References Agencies(AgencyId),
-			StaffId nvarchar(255) References Users(id),
+			StaffId int References Users(id),
 			[status] nvarchar(255)
 )
 GO
@@ -92,7 +92,7 @@ Create Table News(
 			NewsId nvarchar(255) primary key,
 			Title nvarchar(255),
 			Content nvarchar(4000),
-			Author nvarchar(255) references Users(id),
+			Author int references Users(id),
 			[Date] date,
 			Type nvarchar(255),
 )
@@ -114,21 +114,21 @@ VALUES
 -- Thêm dữ liệu mẫu vào bảng Vehicles
 INSERT INTO Vehicles (MotocycleId, Model, LicensePlates, OwnerId)
 VALUES 
-('V001', 'Honda SH', '29A-123.45', 'U001'),
-('V002', 'Yamaha Exciter', '30B-678.90', 'U003'),
-('V003', 'Suzuki Raider', '31C-543.21', 'U001');
+('V001', 'Honda SH', '29A-123.45', 1),
+('V002', 'Yamaha Exciter', '30B-678.90', 3),
+('V003', 'Suzuki Raider', '31C-543.21', 1);
 
 -- Thêm dữ liệu mẫu vào bảng Contracts
-INSERT INTO Contracts (ContractId, CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
+INSERT INTO Contracts (ContractId, CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, [status])
 VALUES 
-('C001', 'U001', 'U002', '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'đã thanh toán'),
-('C002', 'U003', 'U002', '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'đang chờ duyệt');
+('C001', 1, 2, '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'đã thanh toán'),
+('C002', 3, 2, '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'đang chờ duyệt');
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace (swId, AgencyId, StaffId, [status])
 VALUES 
-('SW001', '1', 'U002', 'Active'),
-('SW002', '2', 'U002', 'Active');
+('SW001', 1, 2, 'Active'),
+('SW002', 1, 2, 'Active');
 
 -- Thêm dữ liệu mẫu vào bảng Punishments
 INSERT INTO Punishments (PunishmentId, ContractId, [Description], [Type], [Action])
@@ -150,5 +150,5 @@ VALUES
 -- Thêm dữ liệu mẫu vào bảng News
 INSERT INTO News (NewsId, Title, Content, Author, [Date], Type)
 VALUES 
-('N001', 'New Service Launch', 'We are excited to announce the launch of our new service...', 'U002', '2024-05-15', 'Announcement'),
-('N002', 'Holiday Discounts', 'Enjoy our special discounts this holiday season...', 'U002', '2024-05-10', 'Promotion');
+('N001', 'New Service Launch', 'We are excited to announce the launch of our new service...', 2, '2024-05-15', 'Announcement'),
+('N002', 'Holiday Discounts', 'Enjoy our special discounts this holiday season...', 2, '2024-05-10', 'Promotion');
