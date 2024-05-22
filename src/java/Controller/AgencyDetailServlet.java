@@ -12,14 +12,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
  * @author tranm
  */
-public class ListAgencyServlet extends HttpServlet {
+public class AgencyDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +36,10 @@ public class ListAgencyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListAgencyServlet</title>");
+            out.println("<title>Servlet AgencyDetailServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListAgencyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AgencyDetailServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,29 +57,15 @@ public class ListAgencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        String sortAction = request.getParameter("action");
-        String currentSortOrder = (String) session.getAttribute("currentSortOrder");
-
-        if ("sort".equals(sortAction)) {
-            List<Agency> listSortAgency;
-            if ("asc".equals(currentSortOrder)) {
-                listSortAgency = AgencyDAO.INSTANCE.getAllAgencies(); // Original order
-                session.setAttribute("currentSortOrder", "desc");
-            } else {
-                listSortAgency = AgencyDAO.INSTANCE.getAllAgenciesSortById(); // Sorted order
-                session.setAttribute("currentSortOrder", "asc");
-            }
-            request.setAttribute("listAgency", listSortAgency);
+        String id_raw = request.getParameter("id");
+        if (id_raw != null) {
+            int agencyId = Integer.parseInt(id_raw);
+            Agency agency = AgencyDAO.INSTANCE.getAgencyById(agencyId);
+            request.setAttribute("agency", agency);
+            request.getRequestDispatcher("agencyDetail.jsp").forward(request, response);
         } else {
-            List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
-            request.setAttribute("listAgency", listAgency);
-            session.removeAttribute("currentSortOrder"); // Reset sort order
+            response.sendRedirect("listAgency");
         }
-
-        request.getRequestDispatcher("agencyList.jsp").forward(request, response);
-
     }
 
     /**
@@ -95,13 +79,7 @@ public class ListAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String key = request.getParameter("key");
-        if (key != null) {
-            List<Agency> listSearchAgency = AgencyDAO.INSTANCE.searchAgency(key);
-            request.setAttribute("key", key);
-            request.setAttribute("listSearchAgency", listSearchAgency);
-            request.getRequestDispatcher("agencyList.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

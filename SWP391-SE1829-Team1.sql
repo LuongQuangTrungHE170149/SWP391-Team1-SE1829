@@ -3,15 +3,16 @@ Use SWP391_SE1829_Team1;
 
 
 Create table Users(
-			UserId nvarchar(255) Primary key,
-			username nvarchar(255),
-			FirstName nvarchar(255),
-			LastName nvarchar(255),
-			[Role] nvarchar(255),
-			Email nvarchar(255),
-			PhoneNumber int,
-			Dob date,
-			[Address] nvarchar(255),
+			id int identity(1,1) not null primary key,
+			username nvarchar(255) not null unique,
+			firstName nvarchar(255),
+			lastName nvarchar(255),
+			[role] nvarchar(255),
+			gender int,
+			email nvarchar(255) not null unique,
+			phoneNumber nvarchar(15) not null unique,
+			dob date,
+			[address] nvarchar(255),
 )
 GO
 
@@ -30,14 +31,14 @@ Create table Vehicles(
 			MotocycleId nvarchar(255) primary key,
 			Model nvarchar(255),
 			LicensePlates nvarchar(255),
-			OwnerId nvarchar(255) REFERENCES Users(UserId),
+			OwnerId nvarchar(255) REFERENCES Users(id),
 )
 GO
 
 Create table Contracts(
 			ContractId nvarchar(255) primary key,
-			CustomerId nvarchar(255) references Users(UserId),
-			StaffId nvarchar(255) references Users(UserId),
+			CustomerId nvarchar(255) references Users(id),
+			StaffId nvarchar(255) references Users(id),
 			AgencyId int references Agencies(AgencyId),
 			VehicleId nvarchar(255) references Vehicles(MotocycleId),
 			StartDate date,
@@ -52,7 +53,7 @@ GO
 Create table Staff_Workplace(
 			swId nvarchar(255) primary key,
 			AgencyId int References Agencies(AgencyId),
-			StaffId nvarchar(255) References Users(UserId),
+			StaffId nvarchar(255) References Users(id),
 			[status] nvarchar(255)
 )
 GO
@@ -91,17 +92,17 @@ Create Table News(
 			NewsId nvarchar(255) primary key,
 			Title nvarchar(255),
 			Content nvarchar(4000),
-			Author nvarchar(255) references Users(UserId),
+			Author nvarchar(255) references Users(id),
 			[Date] date,
 			Type nvarchar(255),
 )
 GO
 
-INSERT INTO Users (UserId, username, FirstName, LastName, [Role], Email, PhoneNumber, Dob, [Address])
+INSERT INTO Users ( username, firstName, lastName, [role], email, phoneNumber, dob, [address], gender)
 VALUES 
-('U001', 'jdoe', 'John', 'Doe', 'Customer', 'jdoe@example.com', 123456789, '1990-01-15', '123 Main St, Hanoi'),
-('U002', 'asmith', 'Anna', 'Smith', 'Staff', 'asmith@example.com', 987654321, '1985-05-23', '456 Elm St, HCMC'),
-('U003', 'btan', 'Bao', 'Tan', 'Customer', 'btan@example.com', 123123123, '1992-09-10', '789 Oak St, Danang');
+( 'jdoe', 'John', 'Doe', 'Customer', 'jdoe@example.com', '123456789', '1990-01-15', '123 Main St, Hanoi', 1),
+( 'asmith', 'Anna', 'Smith', 'Staff', 'asmith@example.com', '987654321', '1985-05-23', '456 Elm St, HCMC', 0),
+( 'btan', 'Bao', 'Tan', 'Customer', 'btan@example.com', '123123123', '1992-09-10', '789 Oak St, Danang', 2);
 
 -- Thêm dữ liệu mẫu vào bảng Agencies
 INSERT INTO Agencies (AgencyName, AgencyAddress, Worktime, HotLine)
