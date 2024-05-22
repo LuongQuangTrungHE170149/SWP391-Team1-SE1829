@@ -29,7 +29,7 @@ public class StringUtils {
     public static boolean isValidPhone(String message) {
         return message.trim().matches(REGEX_PHONE);
     }
-
+    
     public static boolean isValidEmail(String message) {
         return message.trim().matches(REGEX_EMAIL);
     }
