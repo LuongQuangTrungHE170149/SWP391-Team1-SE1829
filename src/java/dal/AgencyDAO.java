@@ -43,7 +43,8 @@ public class AgencyDAO extends DBContext {
                 agency.setAgencyId(rs.getInt("AgencyId"));
                 agency.setAgencyName(rs.getString("AgencyName"));
                 agency.setAgencyAddress(rs.getString("AgencyAddress"));
-                agency.setHotline(rs.getInt("HotLine"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
                 agency.setStatus(rs.getString("status"));
                 list.add(agency);
 
@@ -56,6 +57,57 @@ public class AgencyDAO extends DBContext {
         return list;
     }
 
+    public List<Agency> getAllAgenciesSortById() {
+        List<Agency> list = new ArrayList<>();
+        String sql = "select * from Agencies order by AgencyId desc";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Agency agency = new Agency();
+                agency.setAgencyId(rs.getInt("AgencyId"));
+                agency.setAgencyName(rs.getString("AgencyName"));
+                agency.setAgencyAddress(rs.getString("AgencyAddress"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
+                agency.setStatus(rs.getString("status"));
+                list.add(agency);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public Agency getAgencyById(int agencyId) {
+        String sql = "select * from Agencies where AgencyId = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, agencyId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                Agency agency = new Agency();
+                agency.setAgencyId(rs.getInt("AgencyId"));
+                agency.setAgencyName(rs.getString("AgencyName"));
+                agency.setAgencyAddress(rs.getString("AgencyAddress"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
+                agency.setStatus(rs.getString("status"));
+                return agency;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
     public boolean insertAgency(Agency agency) {
         String sql = "INSERT INTO Agencies (AgencyName, AgencyAddress,Worktime, HotLine) VALUES (?,?, ?, ?)";
 
@@ -64,9 +116,58 @@ public class AgencyDAO extends DBContext {
             ps.setString(1, agency.getAgencyName());
             ps.setString(2, agency.getAgencyAddress());
             ps.setString(3, agency.getWorktime());
-            ps.setInt(4, agency.getHotline());
+            ps.setString(4, agency.getHotline());
             ps.executeUpdate();
             return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
+
+    public List<Agency> searchAgency(String key) {
+        List<Agency> list = new ArrayList<>();
+        String sql = "select * from Agencies Where AgencyName like '%" + key + "%'"
+                + " OR AgencyAddress like '%" + key + "%' OR HotLine like '% " + key
+                + "%' OR Worktime like '%" + key + "%'";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Agency agency = new Agency();
+                agency.setAgencyId(rs.getInt("AgencyId"));
+                agency.setAgencyName(rs.getString("AgencyName"));
+                agency.setAgencyAddress(rs.getString("AgencyAddress"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
+                agency.setStatus(rs.getString("status"));
+                list.add(agency);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public boolean setInactiveAgency(int agencyId, int action) {
+
+        String sql;
+        if (action == 1) {
+            sql = "Update Agencies set [status] = 'inactive' where AgencyId = ?";
+        } else {
+            sql = "Update Agencies set [status] = 'active' where AgencyId = ?";
+        }
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, agencyId);
+            ps.executeUpdate();
+
+            return true;
+
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -80,6 +181,6 @@ public class AgencyDAO extends DBContext {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-//        System.out.println(AgencyDAO.INSTANCE.insertAgency(a));
+        System.out.println(AgencyDAO.INSTANCE.getAgencyById(1));
     }
 }

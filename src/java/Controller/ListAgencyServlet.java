@@ -13,12 +13,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author tranm
  */
-public class AddAgencyServlet extends HttpServlet {
+public class ListAgencyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +38,10 @@ public class AddAgencyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAgencyServlet</title>");
+            out.println("<title>Servlet ListAgencyServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAgencyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListAgencyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +60,28 @@ public class AddAgencyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("addAgency.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        String sortAction = request.getParameter("action");
+        String currentSortOrder = (String) session.getAttribute("currentSortOrder");
+
+        if ("sort".equals(sortAction)) {
+            List<Agency> listSortAgency;
+            if ("asc".equals(currentSortOrder)) {
+                listSortAgency = AgencyDAO.INSTANCE.getAllAgencies(); // Original order
+                session.setAttribute("currentSortOrder", "desc");
+            } else {
+                listSortAgency = AgencyDAO.INSTANCE.getAllAgenciesSortById(); // Sorted order
+                session.setAttribute("currentSortOrder", "asc");
+            }
+            request.setAttribute("listAgency", listSortAgency);
+        } else {
+            List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
+            request.setAttribute("listAgency", listAgency);
+            session.removeAttribute("currentSortOrder"); // Reset sort order
+        }
+
+        request.getRequestDispatcher("agencyList.jsp").forward(request, response);
+
     }
 
     /**
@@ -73,26 +95,12 @@ public class AddAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String agencyName = request.getParameter("agencyName");
-        String agencyAddress = request.getParameter("agencyAddress");
-        String agencyHotline = request.getParameter("agencyHotline");
-        String agencyWorktime = request.getParameter("agencyWorktime");
-
-        Agency agency = new Agency();
-        agency.setAgencyName(agencyName);
-        agency.setAgencyAddress(agencyAddress);
-        agency.setHotline(agencyHotline);
-        agency.setWorktime(agencyWorktime);
-
-        HttpSession session = request.getSession();
-        if (AgencyDAO.INSTANCE.insertAgency(agency)) {
-            session.setAttribute("addSuccess", "Thêm đại lý thành công");
-//            request.getRequestDispatcher("view/agency/addAgency.jsp").forward(request, response);
-            response.sendRedirect("addAgency");
-        } else {
-            request.setAttribute("addFail", "Thêm đại lý thất bại");
-            response.sendRedirect("addAgency");
-
+        String key = request.getParameter("key");
+        if (key != null) {
+            List<Agency> listSearchAgency = AgencyDAO.INSTANCE.searchAgency(key);
+            request.setAttribute("key", key);
+            request.setAttribute("listSearchAgency", listSearchAgency);
+            request.getRequestDispatcher("agencyList.jsp").forward(request, response);
         }
     }
 

@@ -22,6 +22,6 @@
             </div>
             <div class="signup-signin">
                 <a href="#" class="login-button">Đăng nhập</a>
-                <a href="/register">Đăng ký</a>
+                <a href="register.jsp">Đăng ký</a>
             </div>
         </header>

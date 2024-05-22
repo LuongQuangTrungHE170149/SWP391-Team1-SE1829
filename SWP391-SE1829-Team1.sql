@@ -4,14 +4,17 @@ Use SWP391_SE1829_Team1;
 
 
 Create table Users(
-			UserId int Identity(1,1) Primary key,
-			username nvarchar(255),
-			FullName nvarchar(255),
-			[Role] nvarchar(255),
-			Email nvarchar(255),
-			Phone varchar(11),
-			Dob date,
-			[Address] nvarchar(255),
+			id int identity(1,1) not null primary key,
+			username nvarchar(255) not null unique,
+			password nvarchar (16) not null,
+			firstName nvarchar(255),
+			lastName nvarchar(255),
+			[role] nvarchar(255),
+			gender int,
+			email nvarchar(255) not null unique,
+			phoneNumber nvarchar(15) not null unique,
+			dob date,
+			[address] nvarchar(255),
 )
 GO
 
@@ -29,14 +32,14 @@ Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
 			Model nvarchar(255),
 			LicensePlates nvarchar(255),
-			OwnerId int REFERENCES Users(UserId),
+			OwnerId int REFERENCES Users(id),
 )
 GO
 
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
-			CustomerId int references Users(UserId),
-			StaffId int references Users(UserId),
+			CustomerId int references Users(id),
+			StaffId int references Users(id),
 			AgencyId int references Agencies(AgencyId),
 			VehicleId int references Vehicles(MotocycleId),
 			StartDate date,
@@ -74,32 +77,19 @@ Create table Compensations(
 			IsPay bit,
 )
 GO
-Create table Conversation(
-            id int identity(1,1) primary key,
-			name nvarchar(255),
-			email nvarchar(255),
-			CreateAt datetime default getdate()
-)
-GO
 
-Create table Message(
-            id int identity(1,1) primary key,
-			conversationID int foreign key references Conversation(id),
-			email nvarchar(255),
-			content nvarchar(max),
-			SentAt
-)
+
+
 
 Create table Consultations(
-			ConId int Identity(1,1) primary key,
-			[name] nvarchar(255),
-			gender bit,
-			dob date,
-			Phone varchar(11),
+		    id  int Identity(1,1) primary key,
+			name nvarchar(255),
 			email nvarchar(255),
-			[Address] nvarchar(255),
-			conversationId int references Conversation(id),
-			status nvarchar(255)
+			content nvarchar(max),
+			createDate datetime default getdate(),
+			reply_message nvarchar(max),
+			staff int foreign key references Users(id),
+			status bit default 0
 )
 GO
 
@@ -109,12 +99,14 @@ Create Table News(
 			Title nvarchar(255),
 			Image nvarchar(255),
 			Content nvarchar(max),
-			Author int references Users(UserId),
-			[Date] date,
-			Type nvarchar(255),
+			Author int foreign key references Users(id),
+			[Type] nvarchar(255),
+			[Date] Datetime default getdate()
+
 )
 GO
 
+/*
 INSERT INTO Users (username, FullName, [Role], Email, phone, Dob, [Address])
 VALUES 
 ('jdoe', 'John Doe', 'Customer', 'jdoe@example.com', '123456789', '1990-01-15', '123 Main St, Hanoi'),
@@ -174,3 +166,4 @@ VALUES
 ( 'New Service Launch','null', 'We are excited to announce the launch of our new service...', 2, '2024-05-15', 'Announcement'),
 ( 'Holiday Discounts','null', 'Enjoy our special discounts this holiday season...', 2, '2024-05-10', 'Promotion');
 
+*/

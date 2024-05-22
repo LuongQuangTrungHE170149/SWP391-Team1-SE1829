@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Model.Agency;
 import dal.AgencyDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +11,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author tranm
  */
-public class AddAgencyServlet extends HttpServlet {
+public class InactiveAgencyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +35,10 @@ public class AddAgencyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAgencyServlet</title>");
+            out.println("<title>Servlet InactiveAgencyServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAgencyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InactiveAgencyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,8 +56,19 @@ public class AddAgencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.getRequestDispatcher("addAgency.jsp").forward(request, response);
+        String agencyId_raw = request.getParameter("id");
+        String action = request.getParameter("action");
+        if (agencyId_raw != null && action != null) {
+            if (action.equals("inactive")) {
+                int agencyId = Integer.parseInt(agencyId_raw);
+                AgencyDAO.INSTANCE.setInactiveAgency(agencyId, 1);
+                response.sendRedirect("listAgency");
+            } else {
+                int agencyId = Integer.parseInt(agencyId_raw);
+                AgencyDAO.INSTANCE.setInactiveAgency(agencyId, 2);
+                response.sendRedirect("listAgency");
+            }
+        }
     }
 
     /**
@@ -73,27 +82,7 @@ public class AddAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String agencyName = request.getParameter("agencyName");
-        String agencyAddress = request.getParameter("agencyAddress");
-        String agencyHotline = request.getParameter("agencyHotline");
-        String agencyWorktime = request.getParameter("agencyWorktime");
 
-        Agency agency = new Agency();
-        agency.setAgencyName(agencyName);
-        agency.setAgencyAddress(agencyAddress);
-        agency.setHotline(agencyHotline);
-        agency.setWorktime(agencyWorktime);
-
-        HttpSession session = request.getSession();
-        if (AgencyDAO.INSTANCE.insertAgency(agency)) {
-            session.setAttribute("addSuccess", "Thêm đại lý thành công");
-//            request.getRequestDispatcher("view/agency/addAgency.jsp").forward(request, response);
-            response.sendRedirect("addAgency");
-        } else {
-            request.setAttribute("addFail", "Thêm đại lý thất bại");
-            response.sendRedirect("addAgency");
-
-        }
     }
 
     /**

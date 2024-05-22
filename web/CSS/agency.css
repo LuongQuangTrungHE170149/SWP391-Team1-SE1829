@@ -7,8 +7,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : tranm
 */
 
-#addAgency-page{
-    background-image: url(../images/z5453913650721_042ca77cfeb562f813e71bf9a50dc77e.jpg);
+/* Add agency*/
+#addAgency-page,
+#agencyDetail-page {
+    background-image: url(../images/side-view-man-with-motorbike.jpg);
     background-size: cover;
 }
 
@@ -59,6 +61,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .back-btn:hover {
     background-color: #349375;
+    color: #fff;
     cursor: pointer;
 }
 
@@ -133,3 +136,194 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: #7D36EE;
 }
 
+
+/*Agency list*/
+
+.list-agency--wrapper {
+    margin-top: 100px;
+    text-align: center;
+
+
+}
+
+.list-agency--header {
+    font-weight: 700;
+}
+
+.container-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-agency--search{
+    width: 336px;
+    height: 46px;
+    position: relative;
+    background-color: rgba(22, 24, 35, 0.06);
+    border-radius: 92px;
+    padding-left: 16px;
+    display: flex;
+    border: 1.5px solid transparent;
+}
+
+.list-agency--search input{
+    height: 100%;
+    flex: 1;
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+}
+
+.search-agency--btn {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.btn-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    background-color: #d9d9d9;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.btn-filter:hover {
+    color: #fff;
+    background-color: #555;
+}
+
+
+.btn-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.btn-delete:hover {
+    color: #fff;
+    background-color: #870f0f;
+}
+
+.btn-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #54CDD1;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.btn-add:hover {
+    color: #fff;
+    background-color: #8ec0c1;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    min-width: 400px;
+    width: 100%;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.agency-link {
+    color: #009879;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+/*Agency detail*/
+
+
+
+.agency-info, .agency-review {
+    border-radius: 20px;
+    border: 1px solid #000;
+    background-color: #fff;
+    box-shadow: 1px 1px 8px #888888;
+}
+
+.agency-info {
+    height: 400px;
+
+}
+
+.agency-review {
+    min-height: 584px;
+
+
+}
+
+
+.agency-info--wrapper {
+    margin: 20px 20px 60px 20px;
+}
+
+.agency-info-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.btn-edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #fff;
+    background-color: #54CDD1;
+}
+.btn-edit:hover {
+    background-color: #4B8A8C;
+    color: #fff;
+
+}
+
+
+.agency-staffs {
+    width: 100%;
+    min-height: 216px;
+    background-color: #fff;
+}
