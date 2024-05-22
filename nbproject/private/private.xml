@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Model/Agency.java</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/AgencyDetailServlet.java</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Model/User.java</file>
@@ -10,6 +11,15 @@
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/CSS/agency.css</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/agencyDetail.jsp</file>
+=======
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/Model/User.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/modelEnum/Gender.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/utils/StringUtils.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/dal/UserDAO.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/Controller/RegisterController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/modelEnum/Role.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/utils/EmailHelper.java</file>
+>>>>>>> d5096da67f84a167d9bf9763c2970c7be3d55088
         </group>
     </open-files>
 </project-private>
