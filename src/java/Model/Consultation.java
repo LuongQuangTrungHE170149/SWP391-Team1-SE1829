@@ -4,7 +4,7 @@
  */
 package Model;
 
-
+import java.util.Date;
 
 /**
  *
@@ -13,26 +13,24 @@ package Model;
 public class Consultation {
     private int id;
     private String name;
-    private boolean gender;
-    private String dob;
-    private String phone;
     private String email;
-    private String address;
-    private String description;
-    private String status;
+    private String content;
+    private Date createDate;
+    private String replyMessage;
+    private User staff;
+    private boolean status;
 
     public Consultation() {
     }
 
-    public Consultation(int id, String name, boolean gender, String dob, String phone, String email, String address, String description, String status) {
+    public Consultation(int id, String name, String email, String content, Date createDate, String replyMessage, User staff, boolean status) {
         this.id = id;
         this.name = name;
-        this.gender = gender;
-        this.dob = dob;
-        this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.description = description;
+        this.content = content;
+        this.createDate = createDate;
+        this.replyMessage = replyMessage;
+        this.staff = staff;
         this.status = status;
     }
 
@@ -52,30 +50,6 @@ public class Consultation {
         this.name = name;
     }
 
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -84,29 +58,43 @@ public class Consultation {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getContent() {
+        return content;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getdescription() {
-        return description;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setdescription(String description) {
-        this.description = description;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public String getStatus() {
+    public String getReplyMessage() {
+        return replyMessage;
+    }
+
+    public void setReplyMessage(String replyMessage) {
+        this.replyMessage = replyMessage;
+    }
+
+    public User getStaff() {
+        return staff;
+    }
+
+    public void setStaff(User staff) {
+        this.staff = staff;
+    }
+
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
-    
-    
 }

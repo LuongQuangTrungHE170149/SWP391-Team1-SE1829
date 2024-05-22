@@ -81,7 +81,7 @@
 <button id="openFormBtn">Đăng ký tư vấn</button>
 <div id="consultationForm" class="form-container">
     <button id="closeFormBtn" class="close-btn">&times;</button>
-    <form id="form" action="Consultation" method="post" onsubmit="handleSubmit(event)">
+    <form id="form" action="addConsultation" method="post" >
         <h2>Đăng ký tư vấn</h2>
         <label for="name">Họ và Tên</label>
         <input type="text" id="name" name="name" required>
@@ -89,13 +89,18 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required>
 
-        <label for="message">Thông tin hỗ trợ</label>
-        <textarea id="message" name="message" rows="4" required></textarea>
+        <label for="content">Thông tin hỗ trợ</label>
+        <textarea id="content" name="content" rows="4" required></textarea>
 
         <button type="submit">Gửi</button>
     </form>
+    <div id="responseMessage"></div>
 </div>
+
 <script>
+    
+  
+
     document.getElementById('openFormBtn').addEventListener('click', function () {
         document.getElementById('consultationForm').classList.add('show');
     });
@@ -104,13 +109,7 @@
         document.getElementById('consultationForm').classList.remove('show');
     });
 
-//    function handleSubmit(event) {
-//        event.preventDefault();
-//        alert('Đăng ký thành công, chúng tôi sẽ sớm liên lạc qua email của bạn');
-//        document.getElementById('form').reset();
-//        document.getElementById('consultationForm').classList.remove('show');
-//    }
-    document.getElementById('form').addEventListener('subnit', function (even) {
+    document.getElementById('form').addEventListener('subnit', function (event) {
         event.preventDefault();
         var form = event.target;
         var formData = new FormData(form);
@@ -131,4 +130,6 @@
             console.error('Error:', error);
         });
     });
+
+
 </script>
