@@ -20,6 +20,10 @@
         <servlet-name>AgencyDetailServlet</servlet-name>
         <servlet-class>Controller.AgencyDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditAgencyServlet</servlet-name>
+        <servlet-class>Controller.EditAgencyServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>AgencyDetailServlet</servlet-name>
         <url-pattern>/agencyDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAgencyServlet</servlet-name>
+        <url-pattern>/editAgency</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

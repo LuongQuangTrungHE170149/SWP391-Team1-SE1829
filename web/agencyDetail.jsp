@@ -31,6 +31,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 agency-info">
+                            <a href="listAgency" class="link-back"><i class="fa-solid fa-chevron-left"></i></a>
                             <c:set var="agency" value="${requestScope.agency}"/>
                             <div class="agency-info--wrapper">
                                 <div class="agency-info-detail">
@@ -54,7 +55,7 @@
                                     <p>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</p>
                                 </div>
                             </div>
-                            <a href="" class="btn btn-edit">Sửa</a>
+                            <a href="editAgency?id=${agency.agencyId}" class="btn btn-edit">Sửa</a>
 
                         </div>
                         <div class="col-md-1">
@@ -103,7 +104,7 @@
                                             <td>${staff.getFullName()}</td>
                                             <td>${agency.agencyName}</td>
                                             <td>${staff.email}</td>
-                                            <td>${staff.phoneNumber}</td>
+                                            <td>${staff.phone}</td>
                                             <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
                                             <td>${staff.address}</td>
                                             <td>${staff.date}</td>
