@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Model.Agency;
 import dal.AgencyDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,14 +11,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
  * @author tranm
  */
-public class ListAgencyServlet extends HttpServlet {
+public class InactiveAgencyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +35,10 @@ public class ListAgencyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListAgencyServlet</title>");
+            out.println("<title>Servlet InactiveAgencyServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListAgencyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InactiveAgencyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,29 +56,19 @@ public class ListAgencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        String sortAction = request.getParameter("action");
-        String currentSortOrder = (String) session.getAttribute("currentSortOrder");
-
-        if ("sort".equals(sortAction)) {
-            List<Agency> listSortAgency;
-            if ("asc".equals(currentSortOrder)) {
-                listSortAgency = AgencyDAO.INSTANCE.getAllAgencies(); // Original order
-                session.setAttribute("currentSortOrder", "desc");
+        String agencyId_raw = request.getParameter("id");
+        String action = request.getParameter("action");
+        if (agencyId_raw != null && action != null) {
+            if (action.equals("inactive")) {
+                int agencyId = Integer.parseInt(agencyId_raw);
+                AgencyDAO.INSTANCE.setInactiveAgency(agencyId, 1);
+                response.sendRedirect("listAgency");
             } else {
-                listSortAgency = AgencyDAO.INSTANCE.getAllAgenciesSortById(); // Sorted order
-                session.setAttribute("currentSortOrder", "asc");
+                int agencyId = Integer.parseInt(agencyId_raw);
+                AgencyDAO.INSTANCE.setInactiveAgency(agencyId, 2);
+                response.sendRedirect("listAgency");
             }
-            request.setAttribute("listAgency", listSortAgency);
-        } else {
-            List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
-            request.setAttribute("listAgency", listAgency);
-            session.removeAttribute("currentSortOrder"); // Reset sort order
         }
-
-        request.getRequestDispatcher("agencyList.jsp").forward(request, response);
-
     }
 
     /**
@@ -95,13 +82,7 @@ public class ListAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String key = request.getParameter("key");
-        if (key != null) {
-            List<Agency> listSearchAgency = AgencyDAO.INSTANCE.searchAgency(key);
-            request.setAttribute("key", key);
-            request.setAttribute("listSearchAgency", listSearchAgency);
-            request.getRequestDispatcher("agencyList.jsp").forward(request, response);
-        }
+
     }
 
     /**

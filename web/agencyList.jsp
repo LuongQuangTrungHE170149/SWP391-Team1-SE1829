@@ -36,8 +36,8 @@
                         </div>
                     </form>
                     <div style="display: flex;">
-                        <a href="listAgency" class="btn btn-filter">Sắp xếp</a>
-                        <a class="btn btn-delete">Xóa nhiều</a>
+                        <a href="listAgency?action=sort" class="btn btn-filter">Sắp xếp</a>
+                        <a class="btn btn-delete">Ngưng hoạt động</a>
                         <a href="addAgency" class="btn btn-add">Thêm đại lý</a>
 
                     </div>    
@@ -57,14 +57,38 @@
                                 <th>Hotline</th>
                                 <th>Giờ làm việc</th>
                                 <th>Trạng thái</th>
-                                <th></th>
+                                <th>Hàng động</th>
 
                             </tr>
                         </thead>
                         <tbody >
 
-                            <c:if test="${requestScope.listSearchAgency == null || requestScope.listSearchAgency.size() eq 0}">
+                            <c:if test="${listSortAgency != null || requestScope.listAgency == null || requestScope.listSearchAgency == null}">
+                                <c:forEach var="agency" items="${requestScope.listSortAgency}">
+                                    <tr>
+                                        <td><input type="checkbox" /></td>
+                                        <td>${agency.agencyId}</td>
+                                        <td>${agency.agencyName}</td>
+                                        <td>${agency.agencyAddress}</td>
+                                        <td>${agency.hotline}</td>
+                                        <td>${agency.worktime}</td>
+                                        <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
+                                        <td>
+                                            <a class="agency-link" href="">Sửa</a>
+                                            <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
+                                            <c:if test="${agency.status eq 'active'}" >
+                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=inactive">Ngưng hoạt động</a>
+                                            </c:if>
+                                            <c:if test="${agency.status ne 'active'}" >
+                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=active">Hoạt động</a>
+                                            </c:if>
+                                        </td>
 
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+
+                            <c:if test="${requestScope.listSearchAgency == null || requestScope.listSearchAgency.size() eq 0}">
                                 <c:forEach var="agency" items="${requestScope.listAgency}">
                                     <tr>
                                         <td><input type="checkbox" /></td>
@@ -73,12 +97,16 @@
                                         <td>${agency.agencyAddress}</td>
                                         <td>${agency.hotline}</td>
                                         <td>${agency.worktime}</td>
-                                        <td>${agency.status}</td>
+                                        <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
                                         <td>
                                             <a class="agency-link" href="">Sửa</a>
-                                            <a class="agency-link" href="">Chi tiết</a>
-                                            <a class="agency-link" href="">Xóa</a>
-
+                                            <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
+                                            <c:if test="${agency.status eq 'active'}" >
+                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=inactive">Ngưng hoạt động</a>
+                                            </c:if>
+                                            <c:if test="${agency.status ne 'active'}" >
+                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=active">Hoạt động</a>
+                                            </c:if>
                                         </td>
 
                                     </tr>
@@ -98,8 +126,13 @@
                                         <td>${agency.status}</td>
                                         <td>
                                             <a class="agency-link" href="">Sửa</a>
-                                            <a class="agency-link" href="">Chi tiết</a>
-                                            <a class="agency-link" href="">Xóa</a>
+                                            <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
+                                            <c:if test="${agency.status eq 'active'}" >
+                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=inactive">Ngưng hoạt động</a>
+                                            </c:if>
+                                            <c:if test="${agency.status ne 'active'}" >
+                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=active">Hoạt động</a>
+                                            </c:if>
 
                                         </td>
 
