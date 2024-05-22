@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author tranm
  */
-public class AddAgencyServlet extends HttpServlet {
+public class EditAgencyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class AddAgencyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAgencyServlet</title>");
+            out.println("<title>Servlet EditAgencyServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAgencyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditAgencyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,8 +58,20 @@ public class AddAgencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id_raw = request.getParameter("id");
+        try {
+            int agencyId = Integer.parseInt(id_raw);
+            Agency agency = AgencyDAO.INSTANCE.getAgencieById(agencyId);
+            if (agency != null) {
+                request.setAttribute("agency", agency);
+                request.getRequestDispatcher("editAgency.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("listAgency"); // Redirect if agency not found
+            }
+        } catch (NumberFormatException e) {
+            response.sendRedirect("listAgency"); // Redirect if id is not a valid integer
+        }
 
-        request.getRequestDispatcher("addAgency.jsp").forward(request, response);
     }
 
     /**
@@ -73,26 +85,29 @@ public class AddAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String agencyName = request.getParameter("agencyName");
-        String agencyAddress = request.getParameter("agencyAddress");
-        String agencyHotline = request.getParameter("agencyHotline");
-        String agencyWorktime = request.getParameter("agencyWorktime");
+        try {
+            int agencyId = Integer.parseInt(request.getParameter("agencyId"));
+            String agencyName = request.getParameter("agencyName");
+            String agencyAddress = request.getParameter("agencyAddress");
+            String agencyHotline = request.getParameter("agencyHotline");
+            String agencyWorktime = request.getParameter("agencyWorktime");
+            String status = request.getParameter("agencyStatus");
 
-        Agency agency = new Agency();
-        agency.setAgencyName(agencyName);
-        agency.setAgencyAddress(agencyAddress);
-        agency.setHotline(agencyHotline);
-        agency.setWorktime(agencyWorktime);
+            Agency agency = new Agency();
+            agency.setAgencyName(agencyName);
+            agency.setAgencyAddress(agencyAddress);
+            agency.setHotline(agencyHotline);
+            agency.setWorktime(agencyWorktime);
+            agency.setStatus(status);
 
-        HttpSession session = request.getSession();
-        if (AgencyDAO.INSTANCE.insertAgency(agency)) {
-            session.setAttribute("addSuccess", "Thêm đại lý thành công");
-//            request.getRequestDispatcher("view/agency/addAgency.jsp").forward(request, response);
-            response.sendRedirect("addAgency");
-        } else {
-            session.setAttribute("addFail", "Thêm đại lý thất bại");
-            response.sendRedirect("addAgency");
-
+            boolean updateSuccess = AgencyDAO.INSTANCE.updateAgencyById(agencyId, agency);
+            if (updateSuccess) {
+                response.sendRedirect("listAgency");
+            } else {
+                response.sendRedirect("editAgency");
+            }
+        } catch (NumberFormatException e) {
+            response.sendRedirect("listAgency");
         }
     }
 
