@@ -2,7 +2,7 @@ create database SWP391_SE1829_Team1;
 Use SWP391_SE1829_Team1;
 
 
-Create table userID(
+Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
 			password nvarchar(255) not null,
@@ -17,7 +17,7 @@ Create table userID(
 )
 GO
 
-Create table AgenciesID(
+Create table Agencies(
 			AgencyId int  identity primary key ,
 			AgencyName nvarchar(255),
 			AgencyAddress nvarchar(255),
