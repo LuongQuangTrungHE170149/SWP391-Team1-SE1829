@@ -29,11 +29,11 @@ public class User {
     public User() {
     }
 
-    public User(int id, String userName, String firstName, String lastName,
-                String password, String role, int gender, String email,
-                String phone, Date date, String address, Date dateCreated, String status) {
+
+    public User(int id, String username,String password, String firstName, String lastName, String role, int gender, String email, String phone, Date date, String address) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
+        this.password =password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -61,6 +61,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
