@@ -30,7 +30,7 @@ public class UserDAO {
         String sql = """
                      INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)
                      VALUES 
-                     ( ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+                     ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
