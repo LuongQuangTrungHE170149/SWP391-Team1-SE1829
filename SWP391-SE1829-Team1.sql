@@ -14,6 +14,9 @@ Create table userID(
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
 			[address] nvarchar(255),
+			dateCreated date,
+			[status] nvarchar(30) default 'active'
+
 )
 GO
 
