@@ -30,9 +30,11 @@ public class User {
     }
 
 
-    public User(int id, String username,String password, String firstName, String lastName, String role, int gender, String email, String phone, Date date, String address) {
+    public User(int id, String userName,String password, String firstName,
+                String lastName, String role, int gender, String email,
+                String phone, Date date, String address, Date dateCreated, String status ) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.password =password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -85,14 +87,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {

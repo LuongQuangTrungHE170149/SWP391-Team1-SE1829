@@ -1,4 +1,3 @@
-
 package dal;
 
 import java.sql.Connection;
@@ -14,8 +13,7 @@ public class DBContext {
             //Change the username password and url to connect your own database
             String username = "sa";
             String password = "123456";
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=SWP391_SE1829_Team1;encrypt=false";
-
+            String url = "jdbc:sqlserver://MINHDCPC\\MINHDUC:1433;databaseName=SWP391_SE1829_Team1;encrypt=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
