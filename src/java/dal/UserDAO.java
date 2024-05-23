@@ -28,7 +28,7 @@ public class UserDAO {
 
     public User insert(User modal) {
         String sql = """
-                     INSERT INTO Users ( username, firstName, lastName, [role], email, phone, dob, [address], gender)
+                     INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)
                      VALUES 
                      ( ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
 
@@ -38,6 +38,7 @@ public class UserDAO {
             ps.setString(posParam++, modal.getUserName());
             ps.setString(posParam++, modal.getFirstName());
             ps.setString(posParam++, modal.getLastName());
+            ps.setString(posParam++, modal.getPassword());
             ps.setString(posParam++, modal.getRole());
             ps.setString(posParam++, modal.getEmail());
             ps.setString(posParam++, modal.getPhone());
