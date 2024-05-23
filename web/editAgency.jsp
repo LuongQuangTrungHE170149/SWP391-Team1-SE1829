@@ -22,6 +22,20 @@
     </head>
     <body>
         <div id="editAgency-page">
+
+            <c:if test="${sessionScope.updateFail != null}">
+                <div class="toast-container top-0 end-0 p-3">
+                    <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                ${sessionScope.updateFail}
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <c:remove var="updateFail" scope="session" />
+            </c:if>
             <div>
                 <jsp:include page="./header.jsp" />      
             </div>
@@ -88,9 +102,7 @@
                     <div class="col-md-3"></div>
                 </div>
 
-            </div>
-            <h1>${requestScope.updateSuccess}</h1>
-
+            </div>      
         </div>
 
         <script>

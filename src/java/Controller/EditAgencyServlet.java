@@ -100,10 +100,13 @@ public class EditAgencyServlet extends HttpServlet {
             agency.setWorktime(agencyWorktime);
             agency.setStatus(status);
 
+            HttpSession session = request.getSession();
             boolean updateSuccess = AgencyDAO.INSTANCE.updateAgencyById(agencyId, agency);
             if (updateSuccess) {
+                session.setAttribute("updateSuccess", "Chỉnh sửa đại lý " + agencyName + " thành công");
                 response.sendRedirect("listAgency");
             } else {
+                session.setAttribute("updateFail", "Chỉnh sửa đại lý " + agencyName + " thất bại");
                 response.sendRedirect("editAgency");
             }
         } catch (NumberFormatException e) {

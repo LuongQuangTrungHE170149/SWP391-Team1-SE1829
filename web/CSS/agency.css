@@ -88,7 +88,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .input-full{
-    width: 473px;
+    max-width: 473px;
     height: 41px;
     border-radius: 11px;
     border: 1px solid #000;
