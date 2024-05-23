@@ -13,9 +13,10 @@ import java.sql.Date;
 public class User {
 
     private int id;
-    private String username;
+    private String userName;
     private String firstName;
     private String lastName;
+    private String password;
     private String role;
     private int gender;
     private String email;
@@ -26,11 +27,12 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String firstName, String lastName, String role, int gender, String email, String phone, Date date, String address) {
+    public User(int id, String userName, String firstName, String lastName, String password, String role, int gender, String email, String phone, Date date, String address) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         this.role = role;
         this.gender = gender;
         this.email = email;
@@ -47,12 +49,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {
@@ -69,6 +71,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {
@@ -119,4 +129,6 @@ public class User {
         this.address = address;
     }
 
+   
+   
 }

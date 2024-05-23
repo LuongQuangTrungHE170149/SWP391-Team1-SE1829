@@ -35,7 +35,7 @@ public class UserDAO {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             int posParam = 1;
-            ps.setString(posParam++, modal.getUsername());
+            ps.setString(posParam++, modal.getUserName());
             ps.setString(posParam++, modal.getFirstName());
             ps.setString(posParam++, modal.getLastName());
             ps.setString(posParam++, modal.getRole());
