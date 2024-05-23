@@ -176,11 +176,11 @@ public class AgencyDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-//        Agency a = new Agency();
-//        a.setAgencyName("Agency Four");
-//        a.setAgencyAddress("4 Agency Ave, HCMC");
-//        a.setHotline(444444);
-//        
+        Agency a = new Agency();
+        a.setAgencyName("Agency Four");
+        a.setAgencyAddress("4 Agency Ave, HCMC");
+        a.setHotline("444444");
+        
         System.out.println(AgencyDAO.INSTANCE.getAgencyById(1));
     }
 }

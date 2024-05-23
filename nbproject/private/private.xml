@@ -3,13 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/Model/User.java</file>
-            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/modelEnum/Gender.java</file>
-            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/utils/StringUtils.java</file>
-            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/dal/UserDAO.java</file>
-            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/Controller/RegisterController.java</file>
-            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/modelEnum/Role.java</file>
-            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP391-Team1-SE1829/SWP391-Team1-SE1829/src/java/utils/EmailHelper.java</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/RegisterController.java</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/addAgency.jsp</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Model/Contract.java</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/register.jsp</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/header.jsp</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/utils/EmailHelper.java</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/home.jsp</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/addContract.jsp</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/consultation.jsp</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/CSS/Contract.css</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/index.html</file>
+            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddAgencyServlet.java</file>
         </group>
     </open-files>
 </project-private>
