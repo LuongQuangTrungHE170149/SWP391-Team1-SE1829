@@ -13,30 +13,38 @@ import java.sql.Date;
 public class User {
 
     private int id;
-    private String username;
+    private String userName;
     private String firstName;
     private String lastName;
+    private String password;
     private String role;
     private int gender;
     private String email;
     private String phone;
     private Date date;
     private String address;
+    private Date dateCreated;
+    private String status;
 
     public User() {
     }
 
-    public User(int id, String username, String firstName, String lastName, String role, int gender, String email, String phone, Date date, String address) {
+    public User(int id, String userName, String firstName, String lastName,
+                String password, String role, int gender, String email,
+                String phone, Date date, String address, Date dateCreated, String status) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         this.role = role;
         this.gender = gender;
         this.email = email;
         this.phone = phone;
         this.date = date;
         this.address = address;
+        this.dateCreated = dateCreated;
+        this.status = status;
     }
 
     public int getId() {
@@ -47,12 +55,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {
@@ -69,6 +77,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {
@@ -118,7 +134,25 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
+    
+
     public String getFullName() {
         return firstName + " " + lastName;
     }

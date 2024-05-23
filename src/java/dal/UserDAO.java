@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class UserDAO {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username"));
+                user.setUserName(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setRole(rs.getString("role"));
@@ -71,7 +72,7 @@ public class UserDAO {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username"));
+                user.setUserName(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setRole(rs.getString("role"));
@@ -93,22 +94,26 @@ public class UserDAO {
 
     public User insert(User modal) {
         String sql = """
-                     INSERT INTO Users ( username, firstName, lastName, [role], email, phone, dob, [address], gender)
+                     INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender, dateCreated)
                      VALUES 
-                     ( ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+                     ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             int posParam = 1;
-            ps.setString(posParam++, modal.getUsername());
+            ps.setString(posParam++, modal.getUserName());
             ps.setString(posParam++, modal.getFirstName());
             ps.setString(posParam++, modal.getLastName());
+            ps.setString(posParam++, modal.getPassword());
             ps.setString(posParam++, modal.getRole());
             ps.setString(posParam++, modal.getEmail());
             ps.setString(posParam++, modal.getPhone());
             ps.setDate(posParam++, modal.getDate());
             ps.setString(posParam++, modal.getAddress());
             ps.setInt(posParam++, modal.getGender());
+            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+            ps.setDate(posParam++, currentDate);
+
             ps.executeUpdate();
             return modal;
         } catch (SQLException e) {

@@ -5,14 +5,18 @@ Use SWP391_SE1829_Team1;
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
+			password nvarchar(255) not null,
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
-			gender int,
+		    gender int,
 			email nvarchar(255) not null unique,
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
 			[address] nvarchar(255),
+			dateCreated date,
+			[status] nvarchar(30) default 'active'
+
 )
 GO
 
