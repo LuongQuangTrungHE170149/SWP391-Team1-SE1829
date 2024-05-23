@@ -2,21 +2,25 @@ create database SWP391_SE1829_Team1;
 Use SWP391_SE1829_Team1;
 
 
-Create table Users(
+Create table userID(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
+			password nvarchar(255) not null,
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
-			gender int,
+		    gender int,
 			email nvarchar(255) not null unique,
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
 			[address] nvarchar(255),
+			dateCreated date,
+			[status] nvarchar(30) default 'active'
+
 )
 GO
 
-Create table Agencies(
+Create table AgenciesID(
 			AgencyId int  identity primary key ,
 			AgencyName nvarchar(255),
 			AgencyAddress nvarchar(255),
@@ -98,11 +102,11 @@ Create Table News(
 )
 GO
 
-INSERT INTO Users ( username, firstName, lastName, [role], email, phoneNumber, dob, [address], gender)
+INSERT INTO Users ( username, firstName, lastName, [role], email, phoneNumber, dob, [address], gender, dateCreated)
 VALUES 
-( 'jdoe', 'John', 'Doe', 'Customer', 'jdoe@example.com', '123456789', '1990-01-15', '123 Main St, Hanoi', 1),
-( 'asmith', 'Anna', 'Smith', 'Staff', 'asmith@example.com', '987654321', '1985-05-23', '456 Elm St, HCMC', 0),
-( 'btan', 'Bao', 'Tan', 'Customer', 'btan@example.com', '123123123', '1992-09-10', '789 Oak St, Danang', 2);
+( 'jdoe', 'John', 'Doe', 'Customer', 'jdoe@example.com', '123456789', '1990-01-15', '123 Main St, Hanoi', 1, '2024-05-23'),
+( 'asmith', 'Anna', 'Smith', 'Staff', 'asmith@example.com', '987654321', '1985-05-23', '456 Elm St, HCMC', 0, '2024-05-23'),
+( 'btan', 'Bao', 'Tan', 'Customer', 'btan@example.com', '123123123', '1992-09-10', '789 Oak St, Danang', 2, '2024-05-23');
 
 -- Thêm dữ liệu mẫu vào bảng Agencies
 INSERT INTO Agencies (AgencyName, AgencyAddress, Worktime, HotLine)
@@ -121,8 +125,8 @@ VALUES
 -- Thêm dữ liệu mẫu vào bảng Contracts
 INSERT INTO Contracts (ContractId, CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, [status])
 VALUES 
-('C001', 1, 2, '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'đã thanh toán'),
-('C002', 3, 2, '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'đang chờ duyệt');
+('C001', 1, 2, '1', 'V001', '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, N'đã thanh toán'),
+('C002', 3, 2, '2', 'V002', '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, N'đang chờ duyệt');
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace (swId, AgencyId, StaffId, [status])

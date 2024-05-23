@@ -1,5 +1,4 @@
 package utils;
-
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Authenticator;
@@ -26,6 +25,7 @@ public class EmailHelper {
 
         // Create a session with authentication
         Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(EMAIL_USERNAME, EMAIL_PASSWORD);
             }
