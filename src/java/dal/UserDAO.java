@@ -8,23 +8,14 @@ import Model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /**
  *
  * @author trand
  */
-public class UserDAO {
+public class UserDAO extends DBContext{
 
-    public static UserDAO INSTANCE = new UserDAO();
-    private Connection con;
-
-    public UserDAO() {
-        if (INSTANCE == null) {
-            con = new DBContext().connection;
-        } else {
-            INSTANCE = this;
-        }
-    }
 
     public User insert(User modal) {
         String sql = """
@@ -33,7 +24,7 @@ public class UserDAO {
                      ( ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;
             ps.setString(posParam++, modal.getUsername());
             ps.setString(posParam++, modal.getFirstName());
@@ -53,4 +44,46 @@ public class UserDAO {
         return null;
     }
 
+    public User getUserById(int id) {
+        String sql = "SELECT [id]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[firstName]\n"
+                + "      ,[lastName]\n"
+                + "      ,[role]\n"
+                + "      ,[gender]\n"
+                + "      ,[email]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[dob]\n"
+                + "      ,[address]\n"
+                + "  FROM [dbo].[Users] where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                User u = new User();
+                u.setId(id);
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setFirstName(rs.getString("firstName"));
+                u.setLastName(rs.getString("lastName"));
+                u.setRole(rs.getString("role"));
+                u.setGender(rs.getInt("gender"));
+                u.setDate(rs.getDate("dob"));
+                u.setPhone(rs.getString("phoneNumber"));
+                u.setEmail(rs.getString("email"));
+                u.setAddress(rs.getString("address"));
+                
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        UserDAO udb = new UserDAO();
+        System.out.println(udb.getUserById(1));
+    }
 }

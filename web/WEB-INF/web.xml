@@ -24,6 +24,10 @@
         <servlet-name>addConsultationServlet</servlet-name>
         <servlet-class>Controller.addConsultationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConsultationManagementServlet</servlet-name>
+        <servlet-class>Controller.ConsultationManagementServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>addConsultationServlet</servlet-name>
         <url-pattern>/addConsultation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultationManagementServlet</servlet-name>
+        <url-pattern>/ConsultationManagement</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

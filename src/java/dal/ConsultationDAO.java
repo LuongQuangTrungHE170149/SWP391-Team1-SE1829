@@ -61,8 +61,8 @@ public class ConsultationDAO extends DBContext {
                 c.setContent(rs.getString("content"));
                 c.setCreateDate(rs.getDate("createDate"));
                 
-                User u = new User();
-                u.setId(rs.getInt("staff"));
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
                 c.setStaff(u);
                 
                 c.setStatus(rs.getBoolean("status"));
@@ -74,9 +74,11 @@ public class ConsultationDAO extends DBContext {
         }
         return list;
     }
+    
+    
 
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println(cdb.getAll().get(1).getContent());
+        System.out.println(cdb.getAll().get(1).getStaff().getFirstName());
     }
 }
