@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>JSP Page</title>
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="CSS/home.css"/>
@@ -13,12 +13,18 @@
     
   
         <div class="form-container">
-            <p class="form-heading">Vui lòng nh?p thông tin ?? ??ng kí</p>
+            <p class="form-heading">Rgister form</p>
             <form action="register" method="post">
                 <div class="form-content">
                     <div class="form-item">
                         <label class="label">Username <span class="required">*</span></label>
                         <input type="text" name="username" required>
+                    </div>
+                    <label class="label">Password <span class="required">*</span></label>
+                        <input type="text" name="password" required>
+                    </div>
+                <label class="label">Confirm Password <span class="required">*</span></label>
+                        <input type="text" name="Confirm Password" required>
                     </div>
                     <div class="form-item">
                         <label class="label">First Name <span class="required">*</span></label>
