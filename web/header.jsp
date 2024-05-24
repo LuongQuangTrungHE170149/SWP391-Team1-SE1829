@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<link rel="stylesheet" href="CSS/header.css"/>
 <header>
             <a class="logo" href="home">
                 <div class="img-logo">

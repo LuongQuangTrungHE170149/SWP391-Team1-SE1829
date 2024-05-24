@@ -9,10 +9,8 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>F-Care Insurance</title>
+        <title>F-Care Insurance | Home</title>
         <link rel="stylesheet" href="CSS/home.css"/>
-        <link rel="stylesheet" href="CSS/header.css"/>
-        <link rel="stylesheet" href="CSS/footer.css"/>
        
         <style>
 

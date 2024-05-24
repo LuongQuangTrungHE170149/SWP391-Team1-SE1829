@@ -66,7 +66,8 @@ public class AgencyDetailServlet extends HttpServlet {
         if (id_raw != null) {
             int agencyId = Integer.parseInt(id_raw);
             Agency agency = AgencyDAO.INSTANCE.getAgencyById(agencyId);
-            List<User> users = UserDAO.INSTANCE.getStaffsByAgencyId(agencyId);
+            UserDAO userDao = new UserDAO();
+            List<User> users = userDao.getStaffsByAgencyId(agencyId);
             BigInteger totalPayment = AgencyDAO.INSTANCE.getTotalPaymentByAgencyId(agencyId);
             HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoneyByAgency(agencyId);
 

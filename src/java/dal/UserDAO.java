@@ -11,32 +11,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import java.sql.ResultSet;
+
 
 /**
  *
  * @author trand
  */
-public class UserDAO {
+public class UserDAO extends DBContext{
 
-    public static UserDAO INSTANCE = new UserDAO();
-    private Connection con;
-
-    public UserDAO() {
-        if (INSTANCE == null) {
-            con = new DBContext().connection;
-        } else {
-            INSTANCE = this;
-        }
-    }
 
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
         String sql = "select * from Users";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -66,7 +58,7 @@ public class UserDAO {
         String sql = "select * from Staff_Workplace s join Users u \n"
                 + "on s.StaffId = u.id where s.AgencyId = ?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, agencyId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -75,6 +67,7 @@ public class UserDAO {
                 user.setUserName(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
+                user.setPassword(rs.getString("password"));
                 user.setRole(rs.getString("role"));
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
@@ -99,9 +92,9 @@ public class UserDAO {
                      ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;
-            ps.setString(posParam++, modal.getUserName());
+            ps.setString(posParam++, modal.getUsername());
             ps.setString(posParam++, modal.getFirstName());
             ps.setString(posParam++, modal.getLastName());
             ps.setString(posParam++, modal.getPassword());
@@ -123,4 +116,46 @@ public class UserDAO {
         return null;
     }
 
+    public User getUserById(int id) {
+        String sql = "SELECT [id]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[firstName]\n"
+                + "      ,[lastName]\n"
+                + "      ,[role]\n"
+                + "      ,[gender]\n"
+                + "      ,[email]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[dob]\n"
+                + "      ,[address]\n"
+                + "  FROM [dbo].[Users] where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                User u = new User();
+                u.setId(id);
+                u.setUserName(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setFirstName(rs.getString("firstName"));
+                u.setLastName(rs.getString("lastName"));
+                u.setRole(rs.getString("role"));
+                u.setGender(rs.getInt("gender"));
+                u.setDate(rs.getDate("dob"));
+                u.setPhone(rs.getString("phoneNumber"));
+                u.setEmail(rs.getString("email"));
+                u.setAddress(rs.getString("address"));
+                
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        UserDAO udb = new UserDAO();
+        System.out.println(udb.getStaffsByAgencyId(2));
+    }
 }

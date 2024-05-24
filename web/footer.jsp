@@ -5,7 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
+<link rel="stylesheet" href="CSS/footer.css"/>
 <div class="top-footer">
     <div class="footer-item">
         <a href="#">Giới thiệu chung</a>
