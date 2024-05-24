@@ -52,8 +52,8 @@ public class ContractDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        ContractDAO cd = new ContractDAO();
-        List<User> users = cd.getCustomer("anna");
+        
+        List<User> users = ContractDAO.INSTANCE.getCustomer("anna");
         System.err.println(users);
     }
 }
