@@ -10,7 +10,7 @@ Create table Users(
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
-		  	gender int,
+		  gender int,
 			email nvarchar(255) not null unique,
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
@@ -19,6 +19,7 @@ Create table Users(
 
 )
 GO
+
 
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,

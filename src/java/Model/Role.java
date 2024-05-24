@@ -1,26 +1,26 @@
-package modelEnum;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package Model;
 
 /**
  *
  * @author trand
  */
-public enum Gender {
-    MALE(1),
-    FEMALE(0),
-    OTHER(2);
+public enum Role {
 
-    private final int value;
+    CUSTOMER("Customer"),
+    STAFF("Staff"),
+    MANAGER("Manager");
 
-    private Gender(int value) {
+    private final String value;
+
+    private Role(String value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
