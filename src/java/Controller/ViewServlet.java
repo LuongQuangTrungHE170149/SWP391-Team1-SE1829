@@ -53,7 +53,12 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int id =Integer.parseInt(request.getParameter("id"));
+        if(id == 1){
+            request.getRequestDispatcher("terms.jsp").forward(request, response);
+        } else if(id == 2){
+            request.getRequestDispatcher("privacy.jsp").forward(request, response);
+        }
     } 
 
     /** 

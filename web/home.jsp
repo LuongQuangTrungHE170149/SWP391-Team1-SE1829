@@ -22,7 +22,7 @@
         
          <!-- dang ky tu van -->
         <jsp:include page="consultation.jsp"></jsp:include>
-        <div class="middle">
+        <div class="middle" style="margin-top: 75px;">
             <div class="bg-img"></div>
             <div class="middle-content">
                 <div class="f-title">BẢO HIỂM F-Care</div>

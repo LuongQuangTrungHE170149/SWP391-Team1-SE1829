@@ -1,5 +1,5 @@
 <%-- 
-    Document   : terms
+    Document   : privacy
     Created on : May 26, 2024, 12:39:18 AM
     Author     : Kha21
 --%>
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Điều Khoản Sử Dụng</title>
+        <title>F-Care | Quy định về quyền riêng tư</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <style>
 
@@ -114,7 +114,7 @@
             <div class="middle" style="margin-top: 75px;">
                 <div class="bg-img"></div>
                 <div class="middle-content">
-                    <div class="f-title">Các Điều Kiện Sử Dụng</div>
+                    <div class="f-title">Quy Định Về Quyền Riêng Tư</div>
                     <!--                    <p class="f-quote">
                                             “Đến với F-Care, chúng tôi cung cấp cho bạn dịch vụ bảo hiểm xe máy với chi phí và chính sách tốt nhất.<br />
                                             Đồng hành cùng bạn mỗi bước đường. Bảo hiểm xe máy cho mọi hành trình!”
@@ -125,125 +125,115 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="list-group">
-                            <a href="view?id=1" class="list-group-item align-items-center d-flex justify-content-between active" style="background-color:#419FA3; border-color: #419FA3">
+                            <a href="view?id=1" class="list-group-item align-items-center d-flex justify-content-between" >
                                 <span>Điều khoản sử dụng</span><span class="me-2">&rarr;</span>
                             </a>
-                            <a href="view?id=2" class="list-group-item align-items-center d-flex justify-content-between">
+                            <a href="view?id=2" class="list-group-item align-items-center d-flex justify-content-between active" style="background-color:#419FA3; border-color: #419FA3;">
                                 <span>Quy định về quyền riêng tư</span> <span class="me-2">&rarr;</span>
                             </a>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <h3 style="color: #419FA3;">ĐIỀU KHOẢN SỬ DỤNG</h3>
+                        <h3 style="color: #419FA3;">QUY ĐỊNH VỀ QUYỀN RIÊNG TƯ</h3>
                         <div class="accordion" id="accordionPanelsStayOpenExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                        <h6>CÁC ĐIỀU KIỆN SỬ DỤNG</h6>
+                                        <h6>CHÍNH SÁCH QUYỀN RIÊNG TƯ TRÊN INTERNET</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                     <div class="accordion-body">
-                                        <p><strong>1. Trang web này  (<a href="#">www.fcare.com.vn</a>)</strong> do Tổng Công Ty Bảo Hiểm F-Care sở hữu và điều hành. Việc sử dụng trang web 
-                                            này phụ thuộc vào các Điều khoản và Điều Kiện của trang web này. Các <i><strong>Điều Khoản và Điều Kiện</strong></i> bao gồm:</p>
-                                        <p>(A) các điều khoản và điều kiện nêu trong văn bản này và (B) mọi điều khoản bổ sung cụ thể để điều chỉnh việc sử dụng, và truy cập vào, một số mục của trang web này, 
-                                            (và các điều khoản bổ sung đó sẽ có hiệu lực ràng buộc khi chúng xuất hiện trên trang web này).</p>
-                                        <p>2. Khi sử dụng trang web này, bạn <strong>đồng ý</strong> với các <strong>Điều khoản và Điều kiện</strong>; và đây là một hợp đồng có giá trị ràng buộc giữa bạn và F-Care. 
-                                            Vì thế, bạn hãy đọc kỹ các Điều Khoản và Điều Kiện của trang web này.</p>
+                                        <p>Tại F-Care, chúng tôi tận tâm để “mang đến một cuộc sống an toàn và đảm bảo hơn cho mọi người”, cam kết này của chúng tôi cũng được thể hiện qua việc “bảo đảm” quyền riêng tư của bạn trên trang web này. Xin đọc Chính Sách Về Quyền Riêng Tư Trên Internet dưới đây. Chính sách này giải thích rõ cách thức mà F-Care chúng tôi nỗ lực để xây dựng lòng tin của bạn và bảo đảm an toàn cho các thông tin của bạn thông qua các chính sách trên trang web của chúng tôi.</p>
+                                        <p>Chính Sách Về Quyền Riêng Tư Trên Internet áp dụng cho việc quy cập của bạn vào trang web của chúng tôi tại www.fcare.com.vn và các trang web con.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                        <h6>CÁC HẠN CHẾ VÀ SỬ DỤNG CÁC THÔNG TIN TÀI LIỆU</h6>
+                                        <h6>THU THẬP THÔNG TIN</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body">
-                                        <p>3. <strong>Trừ khi được F-Care đồng ý</strong> bằng văn bản một cách khác đi, bạn sẽ không sao chép, sao lại, tái bản, đưa lên mạng, công bố, chuyển, tạo liên kết đến hoặc phân phối dưới bất cứ hình thức nào các thông tin và tài liệu trên trang web này. Bạn có thể tải xuống các thông tin và tài liệu công bố trên trang web này để bạn sử dụng với điều kiện là bạn không dỡ bỏ các thông tin về bản quyền hoặc các quyền khác gắn với 
-                                            các thông tin và tài liệu đó. Bạn không được phân phối, sửa đổi, chuyển đi, sử dụng lại, công bố, tạo liên kết hoặc sử dụng các nội dung của trang web này cho các mục đích kinh doanh hoặc công cộng, bao gồm cả các thông tin bằng chữ, các hình ảnh, các tập tin âm thanh và hình ảnh khi chưa có sự cho phép bằng văn bản của F-Care.</p>
+                                        <p>Các thông tin được F-Care thu thập phụ thuộc vào yêu cầu của bạn. Việc thu thập các thông tin này là nhằm giúp chúng tôi cung cấp tốt hơn các sản phẩm mà chúng tôi cung cấp cho bạn. Dưới đây là vài ví dụ về các loại thông tin mà chúng tôi thu thập trên trang web của F-Care nếu bạn đồng ý cung cấp chúng:</p>
+                                        <p>"Liên lạc với chúng tôi" & các mẫu yêu cầu thư điện tử - Tên & địa chỉ thư điện tử</p>
+                                        <p>Mẫu yêu cầu cung cấp thông tin - Tên & địa chỉ thư tín và/hoặc địa chỉ thư điện tử</p>
+                                        <p>Trong một số ứng dụng trên nền tảng Mobile như app Baoviet Autoclaim sẽ thu nhập dữ liệu về vị trí của người dùng nhằm mục đích xác định được vị trí của người sử dụng, từ đó cho phép xác định được quãng đường, thời gian của người sử dụng đến địa điểm cần giám định</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                        <h6>THỜI GIAN HOẠT ĐỘNG</h6>
+                                        <h6>SỬ DỤNG CÁC THÔNG TIN THU THẬP</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                                     <div class="accordion-body">
-                                        <p>4. Trang web hoạt động <strong>24 giờ x 7 ngày</strong>. Tuy nhiên, F-Care bảo lưu quyền ngắt hệ thống để bảo trì khi cần thiết. 
-                                            F-Care sẽ cố gắng để lên kế hoạch và thông báo về việc hệ thống không sử dụng được bằng cách đưa một thông báo trên mạng trực tuyến. F-Care không chịu trách nhiệm đối với bất cứ thiệt hại hoặc mất mát nào do việc hệ thống bị ngắt trong trường hợp này.</p>
+                                        <p>Các thông tin mà F-Care thu thập sẽ được sử dụng để cung cấp báo giá khi được yêu cầu, quản lý các hợp đồng bảo hiểm, trả lời các câu hỏi hoặc thắc mắc, đăng ký tham gia vào các sự kiện do F-Care tài trợ, và cung cấp các thông tin được yêu cầu một cách kịp thời.</p>
+                                        <p>Bằng việc sử dụng trang web của chúng tôi, F-Care có thể lấy được các thông tin chung mang tính thống kê (từ các tập tin nhật ký (log files)) ví dụ như: tên miền, địa chỉ IP hoặc loại trình duyệt của những người sử dụng trang web của chúng tôi. Các thông tin lấy được từ tập tin nhật ký (log file) không chứa đựng các thông tin giúp xác định danh tính cá nhân, như tên, địa chỉ, điện thoại, v.v… và chỉ được sử dụng cho mục đích thống kê chung.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingFour">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                                        <h6>TÀI KHOẢN NGƯỜI SỬ DỤNG</h6>
+                                        <h6>COOKIES</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
                                     <div class="accordion-body">
-                                        <p>5. Bạn sẽ đăng ký và được cung cấp một Tài Khoản Người Sử Dụng để có thể mua bảo hiểm trên trang web này. Bạn sẽ giữ bí mật thông tin về Tài Khoản Người Sử Dụng này vào mọi thời điểm, và sẽ bảo đảm rằng Tài Khoản Người Sử Dụng của bạn sẽ không bị tiết lộ theo bất cứ cách thức nào cho bất kỳ ai.</p>
-                                        <p>6. F-Care sẽ không chịu trách nhiệm về bất cứ giao dịch không được phép nào do việc Tài Khoản Của Người Sử Dụng bị sử dụng sai hoặc sử dụng mà không được phép. Bạn phải lập tức thông báo cho F-Care bất cứ trường hợp nào mà Tài Khoản Của Người Sử Dụng của bạn bị sử dụng sai hoặc sử dụng mà không được phép. Bạn chịu trách nhiệm hoàn toàn về việc bảo mật tên truy cập và mật khẩu và đối với bất cứ việc truy cập nào sử dụng Tài Khoản Người Sử Dụng và mật khẩu của bạn</p>
+                                        <p>Cookie là gì? Cookies là các tập hợp thông tin mà máy chủ của trang web của chúng tôi cấp cho bạn khi bạn sử dụng trang web của chúng tôi. Cookies được sử dụng trong một vài khu vực trên trang web của chúng tôi chỉ để duy trì các thông tin giữa các trang. Chúng sẽ không được sử dụng để lưu giữ hoặc xác định các thông tin cá nhân của các khách hàng của chúng tôi. Các Cookies này đơn giản chỉ nhằm đưa các thông tin bạn cung cấp trên một trang màn hình sang trang màn hình tiếp theo, giúp bỏ bớt yêu cầu phải cung cấp lại thông tin. Các Cookies này không thu thập bất cứ thông tin cá nhân nào của bạn hoặc của máy tính của bạn. Bạn có quyền chọn chấp nhận hoặc không chấp nhận Cookie, tuy nhiên, nếu bạn từ chối Cookie hoặc nếu chức năng Cookies trên trình duyệt của bạn bị tắt, một vài phần của trang web này sẽ không hoạt động được.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingFive">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
-                                        <h6>BẢN QUYỀN VÀ NHÃN HIỆU</h6>
+                                        <h6>TRANG WEB KHÔNG THUỘC F-CARE</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
                                     <div class="accordion-body">
-                                        <p>7. Mọi nhãn hiệu hàng hóa, nhãn hiệu dịch vụ, tên thương mại, logo, biểu tượng và tên miền đặt trên trang web này là tài sản của F-Care và các đối tác khác (nếu có). Không có điều gì trên trang web này có thể được hiểu là, dù là ngầm định hay cách khác, cho phép sử dụng hoặc bất cứ quyền sử dụng nào liên quan đến bất cứ nhãn hiệu hàng hóa, nhãn hiệu dịch vụ, tên thương mại, logo, biểu tượng và tên miền đặt trên trang web này khi chưa có sự đồng ý bằng văn bản cùa F-Care hoặc bên thứ ba sở hữa các nhãn hiệu hoặc tên thương mại đặt trên trang web này. Bạn hoàn toàn không được sử dụng bất cứ nhãn hiệu hàng hóa, nhãn hiệu dịch vụ, tên thương mại, logo, biểu tượng và tên miền đặt trên trang web này hoặc bất cứ nôi dung nào khác có trên trang web này, trừ khi được cho phép trong tài liệu này. Các hình ảnh đặt trên trang web này là tài sản của F-Care hoặc được F-Care sử dụng theo sự đồng ý của chủ sở hữu. Trừ khi được cho phép cụ thể, bạn không được sử dụng bất cứ hình ảnh nào đặt trên trang web này, bạn cũng không được ủy quyền cho bất cứ người nào sử dụng bất cứ hình ảnh nào đặt trên trang web này. Bất cứ việc sử dụng không được phép nào đối với các hình ảnh này có thể vi phạm luật tác quyền, luật nhãn hiệu, luật về quyền riêng tư và luật xuất bản, và các quy định về thông tin khác.</p>
+                                        <p>F-Care không chịu trách nhiệm về các chính sách về quyền riêng tư cũng như nội dung của bất cứ trang web nào trên mạng Internet có thể có đường dẫn đến trang web của F-Care. Xin được lưu ý rằng khi bạn bấm chuột vào các trang web ngoài trang web www.baoviet.com.vn/insurance, bạn đã được chuyển sang một trang web khác có thể không thuộc quyền quản lý của F-Care. Chúng tôi khuyến nghị bạn nên đọc các chính sách về quyền riêng tư của các trang web được dẫn đến đó vì các chính sách về quyền riêng tư của họ có thể khác với chính sách của chúng tôi.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingSix">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
-                                        <h6>QUY ĐỊNH VỀ QUYỀN RIÊNG TƯ</h6>
+                                        <h6>CHIA SẺ CÁC THÔNG TIN ĐƯỢC THU THẬP</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
                                     <div class="accordion-body">
-                                        <p>8. Xin đọc kỹ Chính sách riêng tư trên website chúng tôi. Chính sách này giải thích rõ những thông tin nào F-CareCare có thể thu thập từ bạn trên trang web của chúng tôi và cách thức chúng tôi sẽ sử dụng và bảo vệ các thông tin của bạn. Chúng tôi sẽ không thu thập mất cứ thông tin xác định danh tính cá nhân nào trên trang web của chúng tôi trừ khi bạn cung cấp các thông tin đó cho chúng tôi.</p>
+                                        <p>Trang web F-Care được thiết kế để cung cấp cho các khách hàng, các khách hàng tiềm năng của chúng tôi và những người viếng thăm trang web của chúng tôi một phương thức bảo mật để có được các thông tin về Công ty chúng tôi, các dịch vụ và sản phẩm của chúng tôi, và để giao dịch với chúng tôi qua Internet. Trang web của chúng tôi sẽ chỉ thu thập các thông tin mà bạn tự nguyện cung cấp để giúp chúng tôi đáp ứng các yêu cầu của bạn. Nếu bạn đã cung cấp các thông tin cá nhân trên trang web của chúng tôi để yêu cầu cung cấp báo giá, để chúng tôi quản lý các hợp đồng bảo hiểm, hoặc để yêu cầu chúng tôi trả lời các câu hỏi,… chúng tôi có thể phải chia sẻ các thông tin đó cho các bên được ủy thác, nếu cần thiết, để phục vụ các yêu cầu của bạn. Chúng tôi cũng có thể sẽ gửi và lưu trữ các thông tin này tại các bên thứ ba làm dịch vụ xử lý, lưu trữ và/hoặc sao lưu dữ liệu cho công ty chúng tôi. Chúng tôi không bán các thông tin khách hàng cho các công ty cung cấp danh sách địa chỉ emails hay các công ty kinh doanh tiếp thị qua điện thoại.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingBay">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseBay" aria-expanded="false" aria-controls="panelsStayOpen-collapseBay">
-                                        <h6>LIÊN KẾT CÁC TRANG WEB KHÁC</h6>
+                                        <h6>BẢO VỆ CÁC THÔNG TIN THU THẬP VÀ ĐẢM BẢO AN TOÀN THÔNG TIN</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseBay" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingBay">
                                     <div class="accordion-body">
-                                        F-Care sẽ cố gắng để lên kế hoạch và thông báo về việc hệ thống không sử dụng được bằng cách đưa một thông báo trên mạng trực tuyến. F-Care không chịu trách nhiệm đối với bất cứ thiệt hại hoặc mất mát nào do việc hệ thống bị ngắt trong trường hợp này.</p>
+                                        <p>Các thông tin cá nhân bạn đã cung cấp sẽ được tiếp cận bởi một số nhân viên và đại lý của F-Care, những người cần biết các thông tin đó để phục vụ các yêu cầu của bạn. F-Care duy trì các biện pháp và quy trình bảo vệ thông tin tuân thủ các quy định của pháp luật nhằ bảo vệ các thông tin cá nhân của bạn. F-Care sẽ lưu giữ các thông tin thu thập được trong thời gian pháp luật yêu cầu hoặc cho phép.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTam">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTam" aria-expanded="false" aria-controls="panelsStayOpen-collapseTam">
-                                        <h6>AN NINH CỦA TRANG WEB</h6>
+                                        <h6>THÔNG BÁO VỀ CÁC THAY ĐỔI</h6>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseTam" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTam">
                                     <div class="accordion-body">
-                                        <p>10. Bạn sẽ không xâm phạm hoặc cố gắng xâm phạm an ninh của trang web này, bao gồm nhưng không giới hạn, các hành vi dưới đây:</p>
-                                        <p>(i) Truy cập thông tin hoặc nối vào một máy chủ hoặc tài khoản mà bạn không được phép truy cập;</p>
-                                        <p>(ii) Cố gắng thăm dò, kiểm tra hoặc thử nghiệm điểm yếu của một hệ thống hoặc hệ thống mạng để vi phạm an ninh hoặc biện pháp nhận dạng mà không được F-CareCare cho phép bằng văn bản;</p>
-                                        <p>(iii) Cố gắng can thiệp vào dịch vụ cung cấp cho bất cứ người sử dụng nào, máy chủ hoặc hệ thống mạng nào, bằng cách phát tán vi rút hoặc mã độc lên trang web, làm quá tải hoặc gây ra hiện tượng thư rác (spamming) trên trang web; và/hoặc</p>
-                                        <p>(iv) Thay đổi thông tin header của gói TCP/IP hoặc bất cứ phần thông tin nào của header trong bất cứ email hay nhóm email gửi đi.</p>
-                                        <p>11. Bạn không sử dụng Trang Web cho bất cứ mục đích bất hợp pháp nào.</p>
-                                        <p>12. Bạn phải đảm bảo rằng tất cả các thông tin được đưa lên Trang Web là đầy đủ, chính xác, có thật, phù hợp và nhất quán với các tài liệu chứa đựng các thông tin này. Vi phạm điều này sẽ dẫn đến việc chậm trễ trong quy trình xử lý hoặc các thông tin điện tử được đưa lên bị loại bỏ. Bạn phải chịu trách nhiệm đối với toàn bộ chi phí phát sinh do việc đưa thông tin giả mạo hoặc sai.</p>
-                                        <p>13. Bạn sẽ không tấn công hoặc cố gắng tấn công hoặc làm hại trang web bằng bất cứ hình thức, phương tiện nào như các công cụ tấn công, virút và chương trình máy tính có chứa các mã có thể gây hỏng máy tính. Bất cứ cố gắng nào để thực hiện các hành vi như vậy đều khiến bạn phải chịu sự truy tố theo qui định của pháp luật hiện hành.</p>
+                                        <p>Chính Sách Về Quyền Riêng Tư Trên Internet này có thể được sửa đổi vào từng thời điểm. Nếu Chính Sách Về Quyền Riêng Tư trên Internet thay đổi, chúng tôi sẽ cập nhật các thay đổi đó trên trang web này tại địa chỉ www.fcare.com.vn. Bạn có thể vào trang web này thường xuyên để đọc bản cập nhật mới nhất của Chính Sách Về Quyền Riêng Tư Trên Internet.</p>
                                     </div>
                                 </div>
                             </div>

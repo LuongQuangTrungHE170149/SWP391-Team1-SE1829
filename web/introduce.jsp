@@ -88,7 +88,7 @@
     </head>
     <jsp:include page="header.jsp"></jsp:include>
         <body>
-            <div class="middle">
+            <div class="middle" style="margin-top: 75px;">
                 <div class="bg-img"></div>
                 <div class="middle-content">
                     <div class="f-title">GIỚI THIỆU</div>
