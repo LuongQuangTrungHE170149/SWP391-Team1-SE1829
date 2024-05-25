@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="CSS/footer.css"/>
 <div class="top-footer">
     <div class="footer-item">
-        <a href="#">Giới thiệu chung</a>
+        <a href="introduce">Giới thiệu chung</a>
     </div>
     <div class="footer-item">
         <a href="#">Điều khoản sử dụng</a>

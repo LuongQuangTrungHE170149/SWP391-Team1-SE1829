@@ -14,8 +14,8 @@
                 <div class="f-care">F Care Insurance</div>
             </a>
             <div class="navbar">
-                <div><a href="home.jsp">Trang chủ</a></div>
-                <div><a href="#">Giới thiệu</a></div>
+                <div><a href="home">Trang chủ</a></div>
+                <div><a href="introduce">Giới thiệu</a></div>
                 <div><a href="#">Dịch vụ</a></div>
                 <div><a href="#">Tin tức</a></div>
                 <div><a href="#">Liên hệ</a></div>
