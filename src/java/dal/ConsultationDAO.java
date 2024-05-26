@@ -50,35 +50,65 @@ public class ConsultationDAO extends DBContext {
                 + "      ,[status]\n"
                 + "  FROM [dbo].[Consultations]\n"
                 + "  order by createDate DESC";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Consultation c = new Consultation();
                 c.setId(rs.getInt("id"));
                 c.setName(rs.getString("name"));
                 c.setEmail(rs.getString("email"));
                 c.setContent(rs.getString("content"));
                 c.setCreateDate(rs.getDate("createDate"));
-                
+
                 UserDAO udb = new UserDAO();
                 User u = udb.getUserById(rs.getInt("staff"));
                 c.setStaff(u);
-                
+
                 c.setStatus(rs.getBoolean("status"));
-                
+
                 list.add(c);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
     }
-    
-    
+
+    public Consultation getConsultationById(int id) {
+        String sql = "SELECT [id]\n"
+                + "      ,[name]\n"
+                + "      ,[email]\n"
+                + "      ,[content]\n"
+                + "      ,[createDate]\n"
+                + "      ,[reply_message]\n"
+                + "      ,[staff]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Consultations] where id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                Consultation c = new Consultation();
+                c.setId(id);
+                c.setName(rs.getString("name"));
+                c.setEmail(rs.getString("email"));
+                c.setContent(rs.getString("content"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setReplyMessage(rs.getString("reply_message"));
+                c.setStatus(rs.getBoolean("status"));
+                
+                return c;
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println(cdb.getAll().get(1).getStaff().getFirstName());
+        System.out.println(cdb.getConsultationById(1).getName());
     }
 }

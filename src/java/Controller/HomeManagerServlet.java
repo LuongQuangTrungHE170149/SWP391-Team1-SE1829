@@ -4,23 +4,24 @@
  */
 package Controller;
 
-import Model.Consultation;
 import Model.User;
-import dal.ConsultationDAO;
+import dal.ContractDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  *
- * @author Kha21
+ * @author tranm
  */
-public class ConsultationManagementServlet extends HttpServlet {
+public class HomeManagerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +40,10 @@ public class ConsultationManagementServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConsultationManagementServlet</title>");
+            out.println("<title>Servlet HomeManagerServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConsultationManagementServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HomeManagerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,28 +61,20 @@ public class ConsultationManagementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            ConsultationDAO cdb = new ConsultationDAO();
-            List<Consultation> listAll = cdb.getAll();
-//            request.setAttribute("listAll", listAll);
-            
-            //
-            int page = 1;
-            int recordPerPage = 20;
-            if(request.getParameter("page")!= null){
-                page = Integer.parseInt(request.getParameter("page"));
-            }
-            int start = (page - 1)*recordPerPage;
-            int end = Math.min(start + recordPerPage, listAll.size());
-            
-            List<Consultation> listForPage = listAll.subList(start, end);
-            int numberOfPages = (int)Math.ceil(listAll.size()*1.0/recordPerPage);
-            
-            request.setAttribute("listAll", listForPage);
-            request.setAttribute("numberOfPages", numberOfPages);
-            request.setAttribute("currentPage", page);
-            request.getRequestDispatcher("consultationManagement.jsp").forward(request, response);
-        }
-    
+
+        UserDAO udb = new UserDAO();
+        int countCustomer = udb.getCountAllCustomer();
+        int countStaff = udb.getCountAllStaffs();
+        BigInteger totalPayment = ContractDAO.INSTANCE.totalPayment();
+        HashMap<String, BigInteger> monthlyPayment = ContractDAO.INSTANCE.getMonthlyMoney();
+
+        request.setAttribute("countCustomer", countCustomer);
+        request.setAttribute("countStaff", countStaff);
+        request.setAttribute("totalPayment", totalPayment);
+        request.setAttribute("monthlyPayment", monthlyPayment);
+
+        request.getRequestDispatcher("homeManager.jsp").forward(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

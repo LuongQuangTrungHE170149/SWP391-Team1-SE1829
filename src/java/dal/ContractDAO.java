@@ -5,10 +5,13 @@
 package dal;
 
 import Model.User;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,10 +53,48 @@ public class ContractDAO extends DBContext {
         }
         return customers;
     }
+    
+    public BigInteger totalPayment() {
+        BigInteger total = BigInteger.ZERO;
+        String sql = "SELECT SUM(Payment) AS TotalPayment FROM Contracts;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                total = BigInteger.valueOf(rs.getInt("TotalPayment"));
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        return total;
+    }
+    
+     public HashMap<String, BigInteger> getMonthlyMoney() {
+        HashMap<String, BigInteger> hash = new HashMap<>();
+        String sql = "SELECT MONTH(StartDate) AS Month, SUM(Payment) AS TotalRevenue FROM Contracts GROUP BY  MONTH(StartDate) ORDER BY Month";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                hash.put(rs.getString("Month"), BigInteger.valueOf(rs.getInt("TotalRevenue")));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return hash;
+
+    }
+    
 
     public static void main(String[] args) {
         
-        List<User> users = ContractDAO.INSTANCE.getCustomer("anna");
-        System.err.println(users);
+//        List<User> users = ;
+        System.err.println(ContractDAO.INSTANCE.getMonthlyMoney());
     }
 }

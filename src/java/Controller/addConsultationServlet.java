@@ -66,7 +66,7 @@ public class addConsultationServlet extends HttpServlet {
         ConsultationDAO cdb = new ConsultationDAO();
         cdb.addConsultation(name, email, content);
         
-        request.getRequestDispatcher("home").forward(request, response);
+        response.sendRedirect("home");
     }
 
     /**

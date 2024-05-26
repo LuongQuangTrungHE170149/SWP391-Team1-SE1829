@@ -51,9 +51,9 @@
                         </div>
                     </form>
                     <div style="display: flex;">
-                        <a href="listAgency?action=sort" class="btn btn-filter">Sắp xếp</a>
+                        <a href="listAgency?action=sort" class="btn-wrapper btn-filter">Sắp xếp</a>
 
-                        <a href="addAgency" class="btn btn-add">Thêm đại lý</a>
+                        <a href="addAgency" class="btn-wrapper btn-add">Thêm đại lý</a>
 
                     </div>    
                 </div>

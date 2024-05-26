@@ -25,7 +25,6 @@
     </head>
     <body>
         <div id="addAgency-page">
-
             <div>
                 <jsp:include page="./header.jsp" />      
             </div>
@@ -72,8 +71,8 @@
                                             </div>
                                         </div>
                                         <div style="display: flex; justify-content: space-between; width: 473px">
-                                            <button type="submit" class="btn btn-save">Lưu</button>        
-                                            <button type="reset" class="btn btn-cancel">Hủy</button>
+                                            <button type="submit" class="btn-wrapper btn-save">Lưu</button>        
+                                            <button type="reset" class="btn-wrapper btn-cancel">Hủy</button>
                                         </div>
                                     </form>
                                 </div>

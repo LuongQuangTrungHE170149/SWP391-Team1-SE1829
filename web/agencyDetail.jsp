@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -17,8 +19,6 @@
         <link rel="stylesheet" href="CSS/header.css"/>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <title>Agency detail</title>
     </head>
@@ -56,7 +56,7 @@
                                     <p>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</p>
                                 </div>
                             </div>
-                            <a href="editAgency?id=${agency.agencyId}" class="btn btn-edit">Sửa</a>
+                            <a href="editAgency?id=${agency.agencyId}" class="btn-wrapper btn-edit">Sửa</a>
 
                         </div>
                         <div class="col-md-1">
@@ -67,7 +67,10 @@
 
                             <c:if test="${requestScope.totalPayment != null}">
                                 <div style="margin: 20px;">
-                                    <p><strong>Tổng doanh thu: </strong><span>${totalPayment}đ</span></p>
+                                    <p><strong>Tổng doanh thu: </strong>
+                                        <fmt:formatNumber value="${requestScope.totalPayment}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+
+                                    </p>
 
                                     <canvas id="earningsChart"></canvas>
                                         <c:forEach var="entry" items="${requestScope.monthlyPayment.entrySet()}">

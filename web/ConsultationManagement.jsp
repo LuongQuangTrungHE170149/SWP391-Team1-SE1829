@@ -13,68 +13,207 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Consultation Management</title>
-        <link rel="stylesheet" href="CSS/ConsultationManagement.css"/>
+        <!--        <link rel="stylesheet" href="CSS/ConsultationManagement.css"/>-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <!--summernote-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+
+
         <style>
 
         </style>
     </head>
     <jsp:include page="header.jsp"></jsp:include>
         <body>
-            <div class="content">
-                <div class="table-container">
-                    <h1>Consultation Management</h1>
-                    <table border="1px">
-                        <tr>
-                            <th>STT</th>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>Create Date</th>
-                            <th class="status-col">Status</th>
-                            <th>Detail</th>
+            <div class="container" style="margin-top: 75px;">
+                <div>
+                    <h1 class="text-center">Consultation Management</h1>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-10">
+                        <table class="table table-hover table-bordered">
+                            <thead class="thead-dark">
+                                <tr class="table-success">
+                                    <th scope="col">#</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Create Date</th>
+                                    <th scope="col" class="text-center">Status</th>
+                                    <th scope="col">Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:if test="${not empty listAll}">
+                                <c:forEach var="listAll" items="${listAll}" varStatus="status">
+                                    <tr>
+                                        <td>${status.index+1+(currentPage - 1)*20}</td>
+                                        <td>${listAll.id}</td>
+                                        <td>${listAll.name}</td>
+                                        <td>${listAll.email}</td>
+                                        <td><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
+                                        <c:if test="${listAll.status == true}" >
+                                            <td><span class="text-primary fw-bold">Responsed</span></td>
+                                        </c:if>
+                                        <c:if test="${listAll.status == false}" >
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-7 text-danger fw-bold" >Not Responed</div>
+                                                    <div class="col-5 d-flex justify-content-center"><a href="ReplyConsultation?id=${listAll.id}" class="text-light text-decoration-none btn btn-primary btn-sm" data-id="${listAll.id}" data-bs-toggle="modal" data-bs-target="#replyModal" style="font-size:10px;">Reply</a></div>
+                                                </div>
+                                            </td>
+                                        </c:if>    
 
-
-                        </tr>
-                        <c:if test="${not empty listAll}">
-                        <c:forEach var="listAll" items="${listAll}" varStatus="status">
-                            <tr>
-                                <td>${status.index+1+(currentPage - 1)*20}</td>
-                                <td>${listAll.id}</td>
-                                <td>${listAll.email}</td>
-                                <td><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
-                            <td>
-                                ${listAll.status == true?'<span class="response">Responsed</span>':'<span class="not-response">Not Responsed</span><span style="margin-left: 10px;" class="action"><a href="ConsultationReply?id=${listAll.id}">Reply</a></span> '}
-                            </td>
-                            <td  class="action"><a  href="ConsultationDetail?id=${listAll.id}">Detail</a></td>
-                            
-                            </tr>
-                        </c:forEach>
-                    </c:if>
-                    <c:if test="${empty listAll}">
-                        <tr>
-                            <td colspan="7">No data</td>
-                        </tr> 
-                    </c:if>
-                </table>
-                <c:if test="${numberOfPages > 1}">
-                    <div class="pagination">
-                        <c:forEach begin="1" end="${numberOfPages}" var="page">
-                            <c:choose>
-                                <c:when test="${page == currentPage}">
-                                    <span class="page-number"> ${page}</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <a style="color:black;" href="ConsultationManagement?page=${page}">${page}</a>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:if test="${page < numberOfPages}"> | </c:if>
-                        </c:forEach>
-                    </div>
-                </c:if>
+                                        <td class="text-center"><a  href="ConsultationDetail?id=${listAll.id}" class="btn btn-primary btn-sm" style="font-size:10px;">Detail</a></td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${empty listAll}">
+                                <tr>
+                                    <td colspan="7">No data</td>
+                                </tr> 
+                            </c:if>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </div>
+        <!--pagination-->
+        <c:if test="${numberOfPages > 1}">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <!-- Nút Previous -->
+                    <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                        <a class="page-link" href="ConsultationManagement?page=${currentPage - 1}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <c:forEach begin="1" end="${numberOfPages}" var="page">
+                        <c:choose>
+                            <c:when test="${page == currentPage}">
+                                <li class="page-item active">
+                                    <span class="page-link">${page}</span>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item">
+                                    <a class="page-link" href="ConsultationManagement?page=${page}">${page}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
 
-    </body>
-    <jsp:include page="footer.jsp"></jsp:include>
+                    <!-- Nút Next -->
+                    <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
+                        <a class="page-link" href="ConsultationManagement?page=${currentPage + 1}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </c:if>    
+    </div>
+
+    <!--    <div class="container mt-5">
+            <div class="col-5 d-flex justify-content-center">
+                <a href="#" class="text-light text-decoration-none btn btn-primary btn-sm" style="font-size: 10px;" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</a>
+            </div>
+        </div>-->
+
+    <!--modal-->
+    <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replyModalLabel">Trả lời tư vấn</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="replyForm">
+                        <div class="row">
+                            <div class="col-4 mb-3">
+                                <label for="title" class="form-label">Tiêu đề</label>
+                                <input type="text" class="form-control" id="title"name="title" placeholder="Tư Vấn Online" readonly>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <label for="name" class="form-label">Người gửi</label>
+                                <input type="text" class="form-control" id="name"name="name" placeholder="" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
+                            <textarea class="form-control" id="senderMessage" rows="3" readonly></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="timestamp" class="form-label">Gửi lúc</label>
+                                <input type="text" class="form-control" id="timestamp" readonly/>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="senderEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="senderEmail" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="replyMessage" class="form-label">Trả lời</label>
+                            <textarea class="form-control" id="replyMessage" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gửi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <!-- Summernote JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        $('#replyMessage').summernote({
+        height: 200
+        });
+                $('#replyModal').on('show.bs.modal', function(event){
+                    var button = $(event.relatedTarget);
+                    var recordId = button.data('id');
+                    
+                    //gui yeu cau ajax den servlet de lay du lieu
+                    $.ajax({
+                        url:'ReplyConsultation',
+                        method:'GET',
+                        data: {id: recordId},
+                        dataType: 'json',
+                        success: function(response) {
+                        
+                    }
+                    })
+                })
+
+
+
+        $('#replyForm').on('submit', function (e) {
+        e.preventDefault();
+                var title = ${'#title'}.val();
+                var name = ${'#name'}.val();
+                var senderMessage = ${'#senderMessage'}.val();
+                var timestamp = ${'#timestamp'}.val();
+                var senderEmail = ${'#senderEmail'}.val();
+                var replyMessage = ${'#replyMessage'}.val();
+                $('#replyModal').modal('hide');
+        });
+        });
+    </script>
+</body>
+<jsp:include page="footer.jsp"></jsp:include>
 
 </html>

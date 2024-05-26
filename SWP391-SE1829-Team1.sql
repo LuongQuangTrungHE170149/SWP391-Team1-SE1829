@@ -40,6 +40,7 @@ Create table Vehicles(
 )
 GO
 
+
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
