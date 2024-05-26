@@ -111,6 +111,7 @@
                                 </li>
                             </c:when>
                             <c:otherwise>
+                                <input type="hidden"id="page" value="${currentPage}">
                                 <li class="page-item">
                                     <a class="page-link" href="ConsultationManagement?page=${page}">${page}</a>
                                 </li>
@@ -161,7 +162,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6 mb-3">
-                                <label for="timestamp" class="form-label">Gửi lúc</label>
+                                <label for="timestamp" class="form-label">Ngày gửi</label>
                                 <input type="text" class="form-control" id="timestamp" placeholder="" readonly/>
                             </div>
                             <div class="col-6 mb-3">
@@ -178,7 +179,11 @@
                             <label for="replyMessage" class="form-label">Trả lời</label>
                             <textarea class="form-control" id="replyMessage" rows="5"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Gửi</button>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Gửi</button>
+                            <button type="button" class="btn btn-danger" onclick="confirmDeletion()">Xóa</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
@@ -196,6 +201,76 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+                    $(document).ready(function () {
+                        $('.badge').on('click', function (e) {
+                            e.preventDefault();
+
+                            let consultationId = $(this).data('id');
+
+                            // AJAX request to get data from the servlet
+                            $.ajax({
+                                url: 'ReplyConsultation',
+                                type: 'GET',
+                                data: {id: consultationId},
+                                success: function (data) {
+                                    // Populate the modal fields with the received data
+                                    $('#id').val(data.id);
+                                    $('#name').val(data.name);
+                                    $('#senderEmail').val(data.email);
+                                    
+                                    //handle date
+                                    var createDate = new Date(data.createDate);
+//                                    var day = String(createDate.getDate()).padStart(2,'0');
+//                                    var month = String(createDate.getMonth()+1).padStart(2,'0');
+//                                    var year = createDate.getFullYear();
+//                                    var formattedDate = day + '/' + month + '/' + year;
+                                    $('#timestamp').val(createDate);
+                                    $('#senderMessage').val(data.content);
+
+                                    // Show the modal
+                                    $('#replyModal').modal('show');
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                    alert('Failed to retrieve data. Please try again.');
+                                }
+                            });
+                        });
+
+                        $('#replyForm').on('submit', function (e) {
+                            e.preventDefault();
+
+                            let formData = {
+                                id: $('#id').val(),
+                                replyMessage: $('#replyMessage').val()
+                            };
+
+                            // AJAX request to send the reply to the servlet
+                            $.ajax({
+                                url: 'ReplyConsultation',
+                                type: 'POST',
+                                data: formData,
+                                success: function (response) {
+                                    alert('Reply sent successfully.');
+                                    location.reload(); // Reload the page
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                    alert('Failed to send the reply. Please try again.');
+                                }
+                            });
+                        });
+                    });
+                    
+                    function confirmDeletion(){
+                        var id = document.getElementById('id').value;
+                        var page = document.getElementById('page').value;
+                        if(confirm('Bạn có chắc chắn muốn xóa tin nhắn này không?')){
+                            window.location.href = 'deleteConsultation?id='+id+'&page='+page;
+                        }
+                    }
+    </script>
 </body>
 <jsp:include page="footer.jsp"></jsp:include>
 

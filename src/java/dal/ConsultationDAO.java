@@ -171,16 +171,24 @@ public class ConsultationDAO extends DBContext {
         return 0;
     }
 
+    public void deleteConsultationById(int id) {
+        String sql = "DELETE FROM [dbo].[Consultations]\n"
+                + "      WHERE id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println(cdb.getConsultationById(1).getName());
-        System.out.println(cdb.CountConsultationByStatus("all"));
-        System.out.println(cdb.getConsultationByStatus(1).get(1).getCreateDate());
-        String sql = "from FPT";
-        if (sql.equalsIgnoreCase("from fpt")) {
-            sql += " with love";
-            System.out.println(sql);
-        }
+        System.out.println();
+        cdb.deleteConsultationById(56);
+        
+       
 
     }
 }

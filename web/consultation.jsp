@@ -13,10 +13,18 @@
                 bottom: 20px;
                 z-index: 1000; /* Đảm bảo button hiển thị trên cùng */
             }
+            .btn-custom{
+                background-color: #419FA3;
+                border-color:#419FA3;
+            }
+/*            .btn-custom:hover{
+                background-color: #198754;
+                border-color: #198754;
+            }*/
         </style>
     </head>
     <body>
-        <button type="button" class="btn btn-primary btn-fixed" data-toggle="modal" data-target="#consultationModal">
+        <button type="button" class="btn btn-primary btn-custom btn-fixed" data-toggle="modal" data-target="#consultationModal">
             Đăng ký tư vấn
         </button>
         <!-- Modal -->
@@ -24,7 +32,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="consultationModalLabel">Đăng ký tư vấn</h5>
+                        <h5 class="modal-title " id="consultationModalLabel">Đăng ký tư vấn</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -44,7 +52,7 @@
                                 <label for="content">Nội dung</label>
                                 <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung tư vấn của bạn" required></textarea>
                             </div>
-                            <button id="submit" type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -56,10 +64,8 @@
         <script>
             $(document).ready(function () {
                 $('#consultationForm').submit(function (event) {
-                    // Ngăn chặn hành vi mặc định của form (tải lại trang)
+                 
                     event.preventDefault();
-
-                    // Thu thập dữ liệu từ form
                     var formData = {
                         'name': $('#name').val(),
                         'email': $('#email').val(),

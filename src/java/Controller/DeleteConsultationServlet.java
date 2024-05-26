@@ -5,7 +5,6 @@
 
 package Controller;
 
-import Model.Consultation;
 import dal.ConsultationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,16 +12,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.google.gson.Gson;
-import org.json.JSONObject;
-
 
 /**
  *
  * @author Kha21
  */
-public class ReplyConsultationServlet extends HttpServlet {
+public class DeleteConsultationServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +34,10 @@ public class ReplyConsultationServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ReplyConsultationServlet</title>");  
+            out.println("<title>Servlet DeleteConsultationServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ReplyConsultationServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeleteConsultationServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,15 +55,11 @@ public class ReplyConsultationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        
+        int page = Integer.parseInt(request.getParameter("page"));
         ConsultationDAO cdb = new ConsultationDAO();
-        Consultation c = cdb.getConsultationById(id);
-        
-        String json = new Gson().toJson(c);
-        
-        response.setContentType("application/json");
-        response.getWriter().write(json);
-        
+        cdb.deleteConsultationById(id);
+        System.out.println(page);
+        response.sendRedirect("ConsultationManagement?page="+page);
     } 
 
     /** 
@@ -81,8 +72,7 @@ public class ReplyConsultationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-     request.setCharacterEncoding("utf-8");
-     response.setCharacterEncoding("utf-8");
+        processRequest(request, response);
     }
 
     /** 
