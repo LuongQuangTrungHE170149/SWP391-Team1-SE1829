@@ -70,23 +70,23 @@
             <div class="service-list">
                 <div class="service-items">
                     <a class="simg" href="#" target="_blank"><img src="images/ho tro khach hang.png" width="100%" height="100%" alt="alt"/></a>
-                    <a href="#" class="service-items-header"><h2>TRUNG TÂM DỊCH VỤ KHÁCH HÀNG</h2></a>
+                    <a href="#" class="service-items-header" style="text-decoration: none;"><h2>TRUNG TÂM DỊCH VỤ KHÁCH HÀNG</h2></a>
                     <p>Sự ra đời Trung tâm Dịch vụ khách hàng là minh chứng 
                         cho những nỗ lực nhằm hoàn thiện phong cách phục vụ khách hàng chuyên nghiệp của Bảo hiểm F-Care.</p>
                 </div>
                 <div class="service-items">
-                    <a class="simg" href="#" target="_blank"><img src="images/tao hop dong.png" width="100%" height="100%" alt="alt"/></a>
-                    <a href="#" class="service-items-header"><h2>TẠO HỢP ĐỒNG BẢO HIỂM</h2></a>
+                    <a class="simg" href="#" target="_blank" ><img src="images/tao hop dong.png" width="100%" height="100%" alt="alt"/></a>
+                    <a href="#" class="service-items-header" style="text-decoration: none;"><h2>TẠO HỢP ĐỒNG BẢO HIỂM</h2></a>
                     <p>Bảo hiểm F-Care là doanh nghiệp đi đầu trong việc bảo đảm tài sản và đền bù thỏa đáng cho khách hàng.</p>
                 </div>
                 <div class="service-items">
                     <a class="simg" href="#" target="_blank"><img src="images/huong dan sua doi .png" width="100%" height="100%" alt="alt"/></a>
-                    <a href="#" class="service-items-header"><h2>HƯỚNG DẪN SỬA ĐỔI, BỔ SUNG/HỦY HỢP ĐỒNG BẢO HIỂM</h2></a>
+                    <a href="#" class="service-items-header"style="text-decoration: none;"><h2>HƯỚNG DẪN SỬA ĐỔI, BỔ SUNG/HỦY HỢP ĐỒNG BẢO HIỂM</h2></a>
                     <p>Những hướng dẫn chi tiết và lưu ý quan trọng khi quý khách có yêu cầu sửa đổi, bổ sung và hủy hợp đồng bảo hiểm.</p>
                 </div>
                 <div class="service-items">
                     <a  class="simg" href="#" target="_blank"><img src="images/huong dan dat mua.png" width="100%" height="100%" alt="alt"/></a>
-                    <a href="#" class="service-items-header"><h2>HƯỚNG DẪN ĐẶT MUA, THANH TOÁN, GIAO NHẬN</h2></a>
+                    <a href="#" class="service-items-header"style="text-decoration: none;"><h2>HƯỚNG DẪN ĐẶT MUA, THANH TOÁN, GIAO NHẬN</h2></a>
                     <p>Những hướng dẫn chi tiết và lưu ý quan trọng khi đặt mua, thanh toán và giao nhận giúp khách hàng mua thành công bảo hiểm trực tuyến.</p>
                 </div>
             </div>

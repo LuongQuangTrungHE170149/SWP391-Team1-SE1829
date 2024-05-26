@@ -79,7 +79,7 @@ public class ConsultationManagementServlet extends HttpServlet {
             request.setAttribute("listAll", listForPage);
             request.setAttribute("numberOfPages", numberOfPages);
             request.setAttribute("currentPage", page);
-            request.getRequestDispatcher("ConsultationManagement.jsp").forward(request, response);
+            request.getRequestDispatcher("consultationManagement.jsp").forward(request, response);
         }
     
 
