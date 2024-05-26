@@ -67,3 +67,17 @@ public class EmailHelper {
         return otp.toString();
     }
 }
+// public static void main(String[] args) {
+//        String recipientEmail = "duongtxhe160708@fpt.edu.vn"; // Thay thế bằng địa chỉ email mà bạn muốn gửi đến
+//        String subject = "Testing Email Sending";
+//        String body = "This is a test email from EmailHelper.";
+//
+//        // Gửi email
+//        SendCodeeeee.sendEmail(recipientEmail, subject, body);
+//
+//        // Tạo mã OTP và gửi qua email
+//        String otp = SendCodeeeee.generateOTP();
+//        String otpSubject = "Your OTP Code";
+//        String otpBody = "Your OTP code is: " + otp;
+//        SendCodeeeee.sendEmail(recipientEmail, otpSubject, otpBody);
+//    }
