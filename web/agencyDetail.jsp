@@ -23,16 +23,17 @@
         <title>Agency detail</title>
     </head>
     <body>
+
+        <jsp:include page="./header.jsp" />      
+
         <div id="agencyDetail-page">
-            <div>
-                <jsp:include page="./header.jsp" />      
-            </div>
+
             <div class="wrraper">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 agency-info">
                             <a href="listAgency" class="link-back"><i class="fa-solid fa-chevron-left"></i></a>
-                            <c:set var="agency" value="${requestScope.agency}"/>
+                                <c:set var="agency" value="${requestScope.agency}"/>
                             <div class="agency-info--wrapper">
                                 <div class="agency-info-detail">
                                     <span><strong>Tên đại lý: </strong></span>

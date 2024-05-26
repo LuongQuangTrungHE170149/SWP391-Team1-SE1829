@@ -21,6 +21,7 @@ Create table Users(
 GO
 
 
+
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,
 			AgencyName nvarchar(255),

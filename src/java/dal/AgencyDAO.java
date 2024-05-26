@@ -274,6 +274,6 @@ public class AgencyDAO extends DBContext {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getAgencieById(2));
+        System.out.println(AgencyDAO.INSTANCE.getAllAgencies());
     }
 }

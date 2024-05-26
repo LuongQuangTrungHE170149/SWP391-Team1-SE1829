@@ -20,25 +20,26 @@
         <title>Agency list</title>
     </head>
     <body>
+
+        <jsp:include page="./header.jsp" />      
+
         <div id="listAgency-page">
 
             <c:if test="${sessionScope.updateSuccess != null}">
-                    <div class="toast-container top-0 end-0 p-3">
-                        <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    ${sessionScope.updateSuccess}
-                                </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <div class="toast-container top-0 end-0 p-3">
+                    <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                ${sessionScope.updateSuccess}
                             </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div>
-                    <c:remove var="updateSuccess" scope="session" />
-                </c:if>
+                </div>
+                <c:remove var="updateSuccess" scope="session" />
+            </c:if>
 
-            <div>
-                <jsp:include page="./header.jsp" />      
-            </div>
+
 
             <div class="container list-agency--wrapper">
                 <h3 class="list-agency--header">Quản lí đại lý</h3>
