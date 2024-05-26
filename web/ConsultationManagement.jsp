@@ -16,6 +16,10 @@
         <!--        <link rel="stylesheet" href="CSS/ConsultationManagement.css"/>-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+        <!--summernote-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+
+
         <style>
 
         </style>
@@ -56,7 +60,7 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-7 text-danger fw-bold" >Not Responed</div>
-                                                    <div class="col-5 d-flex justify-content-center"><a href="ConsultationReply?id=${listAll.id}" class="text-light text-decoration-none btn btn-primary btn-sm" style="font-size:10px;">Reply</a></div>
+                                                    <div class="col-5 d-flex justify-content-center"><a href="ReplyConsultation?id=${listAll.id}" class="text-light text-decoration-none btn btn-primary btn-sm" data-id="${listAll.id}" data-bs-toggle="modal" data-bs-target="#replyModal" style="font-size:10px;">Reply</a></div>
                                                 </div>
                                             </td>
                                         </c:if>    
@@ -109,12 +113,106 @@
                 </ul>
             </nav>
         </c:if>    
+    </div>
 
+    <!--    <div class="container mt-5">
+            <div class="col-5 d-flex justify-content-center">
+                <a href="#" class="text-light text-decoration-none btn btn-primary btn-sm" style="font-size: 10px;" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</a>
+            </div>
+        </div>-->
 
+    <!--modal-->
+    <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replyModalLabel">Trả lời tư vấn</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="replyForm">
+                        <div class="row">
+                            <div class="col-4 mb-3">
+                                <label for="title" class="form-label">Tiêu đề</label>
+                                <input type="text" class="form-control" id="title"name="title" placeholder="Tư Vấn Online" readonly>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <label for="name" class="form-label">Người gửi</label>
+                                <input type="text" class="form-control" id="name"name="name" placeholder="" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
+                            <textarea class="form-control" id="senderMessage" rows="3" readonly></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="timestamp" class="form-label">Gửi lúc</label>
+                                <input type="text" class="form-control" id="timestamp" readonly/>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="senderEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="senderEmail" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="replyMessage" class="form-label">Trả lời</label>
+                            <textarea class="form-control" id="replyMessage" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gửi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <!-- Summernote JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        $('#replyMessage').summernote({
+        height: 200
+        });
+                $('#replyModal').on('show.bs.modal', function(event){
+                    var button = $(event.relatedTarget);
+                    var recordId = button.data('id');
+                    
+                    //gui yeu cau ajax den servlet de lay du lieu
+                    $.ajax({
+                        url:'ReplyConsultation',
+                        method:'GET',
+                        data: {id: recordId},
+                        dataType: 'json',
+                        success: function(response) {
+                        
+                    }
+                    })
+                })
+
+
+
+        $('#replyForm').on('submit', function (e) {
+        e.preventDefault();
+                var title = ${'#title'}.val();
+                var name = ${'#name'}.val();
+                var senderMessage = ${'#senderMessage'}.val();
+                var timestamp = ${'#timestamp'}.val();
+                var senderEmail = ${'#senderEmail'}.val();
+                var replyMessage = ${'#replyMessage'}.val();
+                $('#replyModal').modal('hide');
+        });
+        });
+    </script>
 </body>
 <jsp:include page="footer.jsp"></jsp:include>
 
