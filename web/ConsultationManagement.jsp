@@ -30,21 +30,34 @@
                 <div>
                     <h1 class="text-center">Consultation Management</h1>
                 </div>
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-10">
-                        <table class="table table-hover table-bordered">
-                            <thead class="thead-dark">
-                                <tr class="table-success">
-                                    <th scope="col">#</th>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Create Date</th>
-                                    <th scope="col" class="text-center">Status</th>
-                                    <th scope="col">Detail</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <div class=" d-flex justify-content-start mb-3 " style="margin-left: 110px; margin-top:70px;">
+                    <button onclick="location.href = 'ConsultationManagement?status=notReply'" class="btn btn-danger btn-sm me-2 btn-custom">
+                        Chưa trả lời <span class="badge bg-secondary">${countNotReply}</span>
+                </button>
+                <button onclick="location.href = 'ConsultationManagement?status=reply'" class="btn btn-primary btn-sm me-2 btn-custom">
+                    Đã trả lời <span class="badge bg-secondary">${countReply}</span>
+                </button>
+                <button onclick="location.href = 'ConsultationManagement?status=all'" class="btn btn-primary btn-sm me-2 btn-custom">
+                    All <span class="badge bg-secondary">${countAll}</span>
+                </button>
+
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-10">
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr class="table-success">
+                                <th scope="col">#</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Create Date</th>
+                                <th scope="col" class="text-center">Status</th>
+                                <th scope="col">Detail</th>
+                            </tr>
+                        </thead>
+
+                        <tbody >
                             <c:if test="${not empty listAll}">
                                 <c:forEach var="listAll" items="${listAll}" varStatus="status">
                                     <tr>
@@ -60,7 +73,7 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-7 text-danger fw-bold" >Not Responed</div>
-                                                    <div class="col-5 d-flex justify-content-center"><a href="ReplyConsultation?id=${listAll.id}" class="text-light text-decoration-none btn btn-primary btn-sm" data-id="${listAll.id}" data-bs-toggle="modal" data-bs-target="#replyModal" style="font-size:10px;">Reply</a></div>
+                                                    <div class="col-5 d-flex justify-content-center align-items-center"><a href="ReplyConsultation?id=${listAll.id}" class="badge rounded-pill bg-primary text-decoration-none" data-id="${listAll.id}" data-bs-toggle="modal" data-bs-target="#replyModal" style="font-size:10px;">Reply</a></div>
                                                 </div>
                                             </td>
                                         </c:if>    
@@ -79,6 +92,7 @@
                 </div>
             </div>
         </div>
+
         <!--pagination-->
         <c:if test="${numberOfPages > 1}">
             <nav aria-label="Page navigation">
@@ -132,29 +146,32 @@
                 <div class="modal-body">
                     <form action="" id="replyForm">
                         <div class="row">
+                            <div class="col-2 mb-3">
+                                <label for="title" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="id" name="title" value="" readonly>
+                            </div>
                             <div class="col-4 mb-3">
                                 <label for="title" class="form-label">Tiêu đề</label>
-                                <input type="text" class="form-control" id="title"name="title" placeholder="Tư Vấn Online" readonly>
+                                <input type="text" class="form-control" id="title"name="title" value="Tư vấn" readonly>
                             </div>
-                            <div class="col-8 mb-3">
+                            <div class="col-6 mb-3">
                                 <label for="name" class="form-label">Người gửi</label>
-                                <input type="text" class="form-control" id="name"name="name" placeholder="" readonly>
+                                <input type="text" class="form-control" id="name" name="name" value="" readonly>
                             </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
-                            <textarea class="form-control" id="senderMessage" rows="3" readonly></textarea>
                         </div>
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label for="timestamp" class="form-label">Gửi lúc</label>
-                                <input type="text" class="form-control" id="timestamp" readonly/>
+                                <input type="text" class="form-control" id="timestamp" placeholder="" readonly/>
                             </div>
                             <div class="col-6 mb-3">
                                 <label for="senderEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="senderEmail" readonly>
+                                <input type="email" class="form-control" id="senderEmail"placeholder="" readonly>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
+                            <textarea class="form-control" id="senderMessage" rows="3" placeholder=""readonly></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -178,41 +195,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-        $('#replyMessage').summernote({
-        height: 200
-        });
-                $('#replyModal').on('show.bs.modal', function(event){
-                    var button = $(event.relatedTarget);
-                    var recordId = button.data('id');
-                    
-                    //gui yeu cau ajax den servlet de lay du lieu
-                    $.ajax({
-                        url:'ReplyConsultation',
-                        method:'GET',
-                        data: {id: recordId},
-                        dataType: 'json',
-                        success: function(response) {
-                        
-                    }
-                    })
-                })
 
-
-
-        $('#replyForm').on('submit', function (e) {
-        e.preventDefault();
-                var title = ${'#title'}.val();
-                var name = ${'#name'}.val();
-                var senderMessage = ${'#senderMessage'}.val();
-                var timestamp = ${'#timestamp'}.val();
-                var senderEmail = ${'#senderEmail'}.val();
-                var replyMessage = ${'#replyMessage'}.val();
-                $('#replyModal').modal('hide');
-        });
-        });
-    </script>
 </body>
 <jsp:include page="footer.jsp"></jsp:include>
 

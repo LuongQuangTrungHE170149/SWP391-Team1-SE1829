@@ -61,10 +61,26 @@ public class ConsultationManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             ConsultationDAO cdb = new ConsultationDAO();
-            List<Consultation> listAll = cdb.getAll();
-//            request.setAttribute("listAll", listAll);
+            List<Consultation> listAll ;
             
-            //
+            String status = request.getParameter("status");
+            if(status != null){
+                switch(status){
+                    case "notReply": listAll = cdb.getConsultationByStatus(0);
+                    break;
+                    case "reply": listAll = cdb.getConsultationByStatus(1);
+                    break;
+                    default: listAll = cdb.getAll();
+                    break;
+                }
+            }else{
+                listAll = cdb.getAll();
+            }
+            
+            int countAll = cdb.CountConsultationByStatus("all");
+            int countNotReply = cdb.CountConsultationByStatus("0");
+            int countReply = cdb.CountConsultationByStatus("1");
+
             int page = 1;
             int recordPerPage = 20;
             if(request.getParameter("page")!= null){
@@ -76,6 +92,10 @@ public class ConsultationManagementServlet extends HttpServlet {
             List<Consultation> listForPage = listAll.subList(start, end);
             int numberOfPages = (int)Math.ceil(listAll.size()*1.0/recordPerPage);
             
+            
+            request.setAttribute("countAll", countAll);
+            request.setAttribute("countNotReply", countNotReply);
+            request.setAttribute("countReply", countReply);
             request.setAttribute("listAll", listForPage);
             request.setAttribute("numberOfPages", numberOfPages);
             request.setAttribute("currentPage", page);

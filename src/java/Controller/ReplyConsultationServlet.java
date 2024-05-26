@@ -5,12 +5,17 @@
 
 package Controller;
 
+import Model.Consultation;
+import dal.ConsultationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.json.JSONObject;
+
 
 /**
  *
@@ -54,6 +59,20 @@ public class ReplyConsultationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        
+        ConsultationDAO cdb = new ConsultationDAO();
+        Consultation c = cdb.getConsultationById(id);
+        
+        JSONObject json = new JSONObject();
+        JSONObject cons = new JSONObject();
+        
+        cons.put("senderMessage", c.getName());
+        cons.put("timestamp", c.getCreateDate());
+        cons.put("senderEmail", c.getEmail());
+        cons.put("cons", cons);
+        
+        response.setContentType("application/json");
+        response.getWriter().write(json.toString());
         
     } 
 
