@@ -128,6 +128,7 @@ public class UserDAO extends DBContext{
                      VALUES 
                      ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
 
+
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;

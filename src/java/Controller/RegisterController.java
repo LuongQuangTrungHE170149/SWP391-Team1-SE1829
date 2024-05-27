@@ -1,6 +1,9 @@
 package Controller;
 
+import Model.Gender;
+import Model.Role;
 import Model.User;
+import dal.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import utils.EmailHelper;
 
 @WebServlet(name = "RegisterController", urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
@@ -19,18 +23,20 @@ public class RegisterController extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String raw_username = req.getParameter("userName");
-        String raw_firstName = req.getParameter("firstName");
-        String raw_lastName = req.getParameter("lastName");
-        String raw_password = req.getParameter("password");
-        String raw_rePassword = req.getParameter("rePassword");
-        String raw_phone = req.getParameter("phone");
-        String raw_email = req.getParameter("email");
+        UserDAO dbUser = new UserDAO();
+        
+        String username = req.getParameter("userName");
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        String password = req.getParameter("password");
+        String rePassword = req.getParameter("rePassword");
+        String phone = req.getParameter("phone");
+        String email = req.getParameter("email");
         String raw_dob = req.getParameter("dob");
-        String raw_address = req.getParameter("address");
+        String address = req.getParameter("address");
         String raw_gender = req.getParameter("gender");
         int gender;
-        Date dob;
+        Date dob = null;
         try {
             gender = Integer.parseInt(raw_gender);
             dob = Date.valueOf(raw_dob);
@@ -40,7 +46,23 @@ public class RegisterController extends HttpServlet {
             req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
         User user = new User();
-        
+        user.setUserName(username);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPassword(password);
+        user.setRole(Role.CUSTOMER.getValue());
+        user.setGender(Gender.MALE.getValue());
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setDate(dob);
+        user.setAddress(address);
+        String OTPCode = EmailHelper.generateOTP();
+        String bodyEmailOTP = "Your veriftication code is: " + OTPCode;
+        req.getSession().setAttribute("OTP", OTPCode);
+        req.getSession().setAttribute("user", "userRegister");
+        EmailHelper.sendEmail(email, EmailHelper.TITLE_PROJECT, bodyEmailOTP);
+        //dbUser.insert(user);
+        req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
     
 }
