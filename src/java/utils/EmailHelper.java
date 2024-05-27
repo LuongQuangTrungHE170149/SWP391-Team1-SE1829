@@ -12,8 +12,9 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailHelper {
 
-    private static final String EMAIL_USERNAME = "xxx@gmail.com";
-    private static final String EMAIL_PASSWORD = "xxx";
+    public static final String EMAIL_USERNAME = "xxx@gmail.com";
+    public static final String EMAIL_PASSWORD = "xxx";
+    public static final String TITLE_PROJECT = "SWP391 - TEAM1 - SE1829 - Agency Project";
 
     public static void sendEmail(String recipientEmail, String subject, String body) {
         // Set up mail server properties
@@ -67,17 +68,3 @@ public class EmailHelper {
         return otp.toString();
     }
 }
-// public static void main(String[] args) {
-//        String recipientEmail = "duongtxhe160708@fpt.edu.vn"; // Thay thế bằng địa chỉ email mà bạn muốn gửi đến
-//        String subject = "Testing Email Sending";
-//        String body = "This is a test email from EmailHelper.";
-//
-//        // Gửi email
-//        SendCodeeeee.sendEmail(recipientEmail, subject, body);
-//
-//        // Tạo mã OTP và gửi qua email
-//        String otp = SendCodeeeee.generateOTP();
-//        String otpSubject = "Your OTP Code";
-//        String otpBody = "Your OTP code is: " + otp;
-//        SendCodeeeee.sendEmail(recipientEmail, otpSubject, otpBody);
-//    }

@@ -21,7 +21,7 @@ public class User {
     private int gender;
     private String email;
     private String phone;
-    private Date date;
+    private Date dob;
     private String address;
 
     public User() {
@@ -37,7 +37,7 @@ public class User {
         this.gender = gender;
         this.email = email;
         this.phone = phone;
-        this.date = date;
+        this.dob = date;
         this.address = address;
     }
 
@@ -114,11 +114,11 @@ public class User {
     }
 
     public Date getDate() {
-        return date;
+        return dob;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.dob = date;
     }
 
     public String getAddress() {
