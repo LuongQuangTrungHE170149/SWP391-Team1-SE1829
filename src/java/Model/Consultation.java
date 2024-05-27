@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * @author kharr
+ * @author Kha21
  */
 public class Consultation {
     private int id;
@@ -16,18 +16,20 @@ public class Consultation {
     private String email;
     private String content;
     private Date createDate;
+    private String replyMessage;
     private User staff;
     private boolean status;
 
     public Consultation() {
     }
 
-    public Consultation(int id, String name, String email, String content, Date createDate, User staff, boolean status) {
+    public Consultation(int id, String name, String email, String content, Date createDate, String replyMessage, User staff, boolean status) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.content = content;
         this.createDate = createDate;
+        this.replyMessage = replyMessage;
         this.staff = staff;
         this.status = status;
     }
@@ -72,6 +74,14 @@ public class Consultation {
         this.createDate = createDate;
     }
 
+    public String getReplyMessage() {
+        return replyMessage;
+    }
+
+    public void setReplyMessage(String replyMessage) {
+        this.replyMessage = replyMessage;
+    }
+
     public User getStaff() {
         return staff;
     }
@@ -87,5 +97,4 @@ public class Consultation {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
 }

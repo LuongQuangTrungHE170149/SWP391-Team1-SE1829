@@ -163,6 +163,11 @@ body{
     font-size: 18px;
     margin: 25px 0;
     padding: 0 20px;
+    
+}
+
+a .service-items-header {
+    text-decoration: none;
 }
 .service-items-header h2:hover{
     color: #BB8D09;

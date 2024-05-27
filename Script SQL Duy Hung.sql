@@ -10,22 +10,19 @@ Create table Users(
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
-		  gender int,
+			gender int,
 			email nvarchar(255) not null unique,
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
 			[address] nvarchar(255),
-		
-
 )
 GO
-
 
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,
 			AgencyName nvarchar(255),
 			AgencyAddress nvarchar(255),
-			HotLine varchar(30),
+			HotLine int,
 			Worktime nvarchar(100),
 			[status] nvarchar(30) default 'active'
 )
@@ -54,11 +51,10 @@ Create table Contracts(
 )
 GO
 
-
 Create table Staff_Workplace(
 			swId int identity(1,1) primary key,
 			AgencyId int References Agencies(AgencyId),
-			StaffId int References Users(id),
+			StaffId int References Users(UserId),
 			[status] nvarchar(255)
 )
 GO
@@ -112,21 +108,19 @@ Create Table News(
 )
 GO
 
-
-INSERT INTO Users ( username, password, firstName, lastName, [role], email, phoneNumber, dob, [address], gender)
+/*
+INSERT INTO Users (username, FullName, [Role], Email, phone, Dob, [Address])
 VALUES 
-( 'jdoe', '123', 'John', 'Doe', 'Customer', 'jdoe@example.com', '123456789', '1990-01-15', '123 Main St, Hanoi', 1),
-( 'asmith','123', 'Anna', 'Smith', 'Staff', 'asmith@example.com', '987654321', '1985-05-23', '456 Elm St, HCMC', 0),
-( 'btan', '123', 'Bao', 'Tan', 'Customer', 'btan@example.com', '123123123', '1992-09-10', '789 Oak St, Danang', 2);
-
-
+('jdoe', 'John Doe', 'Customer', 'jdoe@example.com', '123456789', '1990-01-15', '123 Main St, Hanoi'),
+('asmith', 'Anna Smith', 'Staff', 'asmith@example.com', '987654321', '1985-05-23', '456 Elm St, HCMC'),
+( 'btan', 'Bao Tan', 'Customer', 'btan@example.com','123123123', '1992-09-10', '789 Oak St, Danang');
 
 -- Thêm dữ liệu mẫu vào bảng Agencies
 INSERT INTO Agencies (AgencyName, AgencyAddress, Worktime, HotLine)
 VALUES 
-('Agency One', '123 Agency St, Hanoi', '8h-17h', '011111111'),
-('Agency Two', '456 Agency Ave, HCMC', '8h-17h','0222222222'),
-('Agency Three', '789 Agency Blvd, Danang', '8h-17h','033333333');
+('Agency One', '123 Agency St, Hanoi', '8h-17h', 1111111),
+('Agency Two', '456 Agency Ave, HCMC', '8h-17h',2222222),
+('Agency Three', '789 Agency Blvd, Danang', '8h-17h',3333333);
 
 -- Thêm dữ liệu mẫu vào bảng Vehicles
 INSERT INTO Vehicles (Model, LicensePlates, OwnerId)
@@ -136,16 +130,16 @@ VALUES
 ('Suzuki Raider', '31C-543.21', 3);
 
 -- Thêm dữ liệu mẫu vào bảng Contracts
-INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
+INSERT INTO Contracts ( CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
 VALUES 
 (1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
 (3, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
 
-
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace ( AgencyId, StaffId, [status])
-VALUES ( 1, 2, 'Active'),
-( 2, 3, 'Active');
+VALUES 
+( 1, 2, 'Active'),
+( 2, 2, 'Active');
 
 -- Thêm dữ liệu mẫu vào bảng Punishments
 INSERT INTO Punishments ( ContractId, [Description], [Type], [Action])
@@ -174,3 +168,4 @@ VALUES
 ( 'New Service Launch','null', 'We are excited to announce the launch of our new service...', 2, '2024-05-15', 'Announcement'),
 ( 'Holiday Discounts','null', 'Enjoy our special discounts this holiday season...', 2, '2024-05-10', 'Promotion');
 
+*/

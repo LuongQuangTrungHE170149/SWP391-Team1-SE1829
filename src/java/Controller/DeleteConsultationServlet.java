@@ -5,6 +5,7 @@
 
 package Controller;
 
+import dal.ConsultationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Kha21
  */
-public class HomePageServlet extends HttpServlet {
+public class DeleteConsultationServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +34,10 @@ public class HomePageServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePageServlet</title>");  
+            out.println("<title>Servlet DeleteConsultationServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomePageServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeleteConsultationServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,7 +54,12 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        int page = Integer.parseInt(request.getParameter("page"));
+        ConsultationDAO cdb = new ConsultationDAO();
+        cdb.deleteConsultationById(id);
+        System.out.println(page);
+        response.sendRedirect("ConsultationManagement?page="+page);
     } 
 
     /** 
@@ -66,7 +72,7 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /** 

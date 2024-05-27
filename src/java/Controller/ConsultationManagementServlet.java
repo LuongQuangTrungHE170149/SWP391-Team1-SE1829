@@ -4,25 +4,23 @@
  */
 package Controller;
 
-import Model.Agency;
+import Model.Consultation;
 import Model.User;
-import dal.AgencyDAO;
-import dal.UserDAO;
+import dal.ConsultationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.math.BigInteger;
-import java.util.HashMap;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  *
- * @author tranm
+ * @author Kha21
  */
-public class AgencyDetailServlet extends HttpServlet {
+public class ConsultationManagementServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +39,10 @@ public class AgencyDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AgencyDetailServlet</title>");
+            out.println("<title>Servlet ConsultationManagementServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AgencyDetailServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConsultationManagementServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,25 +60,48 @@ public class AgencyDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        if (id_raw != null) {
-            int agencyId = Integer.parseInt(id_raw);
-            Agency agency = AgencyDAO.INSTANCE.getAgencyById(agencyId);
-            UserDAO userDao = new UserDAO();
-            List<User> users = userDao.getStaffsByAgencyId(agencyId);
-            BigInteger totalPayment = AgencyDAO.INSTANCE.getTotalPaymentByAgencyId(agencyId);
-            HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoneyByAgency(agencyId);
+            ConsultationDAO cdb = new ConsultationDAO();
+            List<Consultation> listAll ;
+            
+            String status = request.getParameter("status");
+            if(status != null){
+                switch(status){
+                    case "notReply": listAll = cdb.getConsultationByStatus(0);
+                    break;
+                    case "reply": listAll = cdb.getConsultationByStatus(1);
+                    break;
+                    default: listAll = cdb.getAll();
+                    break;
+                }
+            }else{
+                listAll = cdb.getAll();
+            }
+            
+            int countAll = cdb.CountConsultationByStatus("all");
+            int countNotReply = cdb.CountConsultationByStatus("0");
+            int countReply = cdb.CountConsultationByStatus("1");
 
-            request.setAttribute("agency", agency);
-            request.setAttribute("users", users);
-            request.setAttribute("totalPayment", totalPayment);
-            request.setAttribute("monthlyPayment", monthlyPayment);
-
-            request.getRequestDispatcher("agencyDetail.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("listAgency");
+            int page = 1;
+            int recordPerPage = 20;
+            if(request.getParameter("page")!= null){
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+            int start = (page - 1)*recordPerPage;
+            int end = Math.min(start + recordPerPage, listAll.size());
+            
+            List<Consultation> listForPage = listAll.subList(start, end);
+            int numberOfPages = (int)Math.ceil(listAll.size()*1.0/recordPerPage);
+            
+            
+            request.setAttribute("countAll", countAll);
+            request.setAttribute("countNotReply", countNotReply);
+            request.setAttribute("countReply", countReply);
+            request.setAttribute("listAll", listForPage);
+            request.setAttribute("numberOfPages", numberOfPages);
+            request.setAttribute("currentPage", page);
+            request.getRequestDispatcher("consultationManagement.jsp").forward(request, response);
         }
-    }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
