@@ -174,9 +174,27 @@ public class ConsultationDAO extends DBContext {
     public void deleteConsultationById(int id) {
         String sql = "DELETE FROM [dbo].[Consultations]\n"
                 + "      WHERE id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateConsultationById(int id, String reply, int staff_id, boolean status) {
+        String sql = "UPDATE [dbo].[Consultations]\n"
+                + "   SET [reply_message] = ?\n"
+                + "      ,[staff] = ?\n"
+                + "      ,[status] = ?\n"
+                + " WHERE id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, reply);
+            st.setInt(2, staff_id);
+            st.setBoolean(3, status);
+            st.setInt(4, id);
             st.executeUpdate();
         }catch(SQLException e){
             System.out.println(e);
@@ -187,8 +205,6 @@ public class ConsultationDAO extends DBContext {
         ConsultationDAO cdb = new ConsultationDAO();
         System.out.println();
         cdb.deleteConsultationById(56);
-        
-       
 
     }
 }

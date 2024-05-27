@@ -23,7 +23,7 @@
             }*/
         </style>
     </head>
-    <body>
+    <body> 
         <button type="button" class="btn btn-primary btn-custom btn-fixed" data-toggle="modal" data-target="#consultationModal">
             Đăng ký tư vấn
         </button>

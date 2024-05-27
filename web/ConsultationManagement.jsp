@@ -145,11 +145,11 @@
                     <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" id="replyForm">
+                    <form action="ReplyConsultation" id="replyForm" method="post">
                         <div class="row">
                             <div class="col-2 mb-3">
                                 <label for="title" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="id" name="title" value="" readonly>
+                                <input type="text" class="form-control" id="id" name="id" value="" readonly>
                             </div>
                             <div class="col-4 mb-3">
                                 <label for="title" class="form-label">Tiêu đề</label>
@@ -167,12 +167,12 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <label for="senderEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="senderEmail"placeholder="" readonly>
+                                <input type="email" class="form-control" id="senderEmail"name="senderEmail" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
-                            <textarea class="form-control" id="senderMessage" rows="3" placeholder=""readonly></textarea>
+                            <textarea class="form-control" id="senderMessage" rows="3" name="senderMessage" placeholder=""readonly></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -242,8 +242,11 @@
                             e.preventDefault();
 
                             let formData = {
-                                id: $('#id').val(),
-                                replyMessage: $('#replyMessage').val()
+                                id:$('#id').val(),
+                                title: $('#title').val(),
+                                senderEmail: $('#senderEmail').val(),
+                                content: $('#replyMessage').val(),
+                                name:$('#name').val()
                             };
 
                             // AJAX request to send the reply to the servlet
