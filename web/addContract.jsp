@@ -5,12 +5,24 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*, java.sql.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    // Fetching data from the database
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SWP391_SE1829_Team1", "username", "password");
+    Statement stmt = conn.createStatement();
+    
+    // Fetch customers
+    ResultSet customers = stmt.executeQuery("SELECT id, CONCAT(firstName, ' ', lastName) AS customerName FROM Users WHERE role='Customer'");
+    // Fetch agencies
+    ResultSet agencies = stmt.executeQuery("SELECT AgencyId, AgencyName FROM Agencies");
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Add Contract</title>
-        <link rel="stylesheet" href="CSS/Contract.css"/>
+        <link rel="stylesheet" href="CSS/contract.css"/>
         <link rel="stylesheet" href="CSS/header.css"/>
         <link rel="stylesheet" href="CSS/footer.css"/>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
