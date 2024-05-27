@@ -9,7 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /* Add agency*/
 #addAgency-page,
-#agencyDetail-page {
+#agencyDetail-page,
+#editAgency-page{
     background-image: url(../images/side-view-man-with-motorbike.jpg);
     background-size: cover;
 }
@@ -77,7 +78,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin: 20px 50px;
 }
 
+.input-select {
+    width: 473px;
+    height: 41px;
+    border-radius: 11px;
+    border: 1px solid #000;
 
+
+}
 
 .input-full{
     width: 473px;
@@ -119,20 +127,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-color: red;
 }
 
-.btn {
+.btn-wrapper {
     min-width: 127px;
     height: 50px;
     border-radius: 24px;
     color: #fff;
+    text-decoration: none;
+    outline: none;
+    border: none;
 }
 
-.btn.btn-cancel{
+.btn-wrapper.btn-cancel{
     background-color: #D9D9D9;
 }
-.btn.btn-save{
+.btn-wrapper.btn-save{
     background-color: #54CDD1;
 }
-.btn.btn-continue{
+
+.btn-save:hover {
+    background-color: #418c8e;
+}
+
+.btn-cancel:hover {
+    background-color: #665f5f;
+
+}
+
+.btn-wrapper.btn-continue{
     background-color: #7D36EE;
 }
 
@@ -142,8 +163,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .list-agency--wrapper {
     margin-top: 100px;
     text-align: center;
-
-
 }
 
 .list-agency--header {
@@ -276,6 +295,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /*Agency detail*/
 
 
+.link-back {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 20px;
+    margin: 10px;
+    color: #000;
+    text-decoration: none;
+}
+
+.link-back i {
+    padding: 10px;
+
+}
+
 
 .agency-info, .agency-review {
     border-radius: 20px;
@@ -326,4 +359,87 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     width: 100%;
     min-height: 216px;
     background-color: #fff;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.employee-table th, .employee-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.employee-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.employee-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.employee-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/*Edit Agency*/
+.edit-agency--wrapper {
+    width: 100%;
+    min-height: 1000px;
+    padding-top:100px
+}
+
+.edit-form-wrapper {
+    min-height: 696px;
+    border-radius: 14px;
+    background-color: #fff;
+
+}
+
+/*Filter btn*/
+
+.select-filter {
+    width: 200px;
+    height: 30px;
+    border-color: #d9d9d9;
+}
+
+
+
+ /*Pagination*/
+ 
+ .pagination {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    color: #333;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    color: #aaa;
+    border-color: #aaa;
 }

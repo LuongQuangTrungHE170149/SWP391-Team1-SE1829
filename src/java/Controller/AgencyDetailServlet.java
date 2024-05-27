@@ -5,13 +5,18 @@
 package Controller;
 
 import Model.Agency;
+import Model.User;
 import dal.AgencyDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -61,7 +66,16 @@ public class AgencyDetailServlet extends HttpServlet {
         if (id_raw != null) {
             int agencyId = Integer.parseInt(id_raw);
             Agency agency = AgencyDAO.INSTANCE.getAgencyById(agencyId);
+            UserDAO userDao = new UserDAO();
+            List<User> users = userDao.getStaffsByAgencyId(agencyId);
+            BigInteger totalPayment = AgencyDAO.INSTANCE.getTotalPaymentByAgencyId(agencyId);
+            HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoneyByAgency(agencyId);
+
             request.setAttribute("agency", agency);
+            request.setAttribute("users", users);
+            request.setAttribute("totalPayment", totalPayment);
+            request.setAttribute("monthlyPayment", monthlyPayment);
+
             request.getRequestDispatcher("agencyDetail.jsp").forward(request, response);
         } else {
             response.sendRedirect("listAgency");
