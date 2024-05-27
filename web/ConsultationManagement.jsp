@@ -78,7 +78,7 @@
                                             </td>
                                         </c:if>    
 
-                                        <td class="text-center"><a  href="ConsultationDetail?id=${listAll.id}" class="btn btn-primary btn-sm" style="font-size:10px;">Detail</a></td>
+                                        <td class="text-center"><a  href="ReplyConsultation?id=${listAll.id}" class="badge rounded-pill bg-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#detailModal"data-id="${listAll.id}" style="font-size:10px;">Detail</a></td>
                                     </tr>
                                 </c:forEach>
                             </c:if>
@@ -170,20 +170,92 @@
                                 <input type="email" class="form-control" id="senderEmail"name="senderEmail" placeholder="" readonly>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
-                            <textarea class="form-control" id="senderMessage" rows="3" name="senderMessage" placeholder=""readonly></textarea>
-                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="replyMessage" class="form-label">Trả lời</label>
+                                <textarea class="form-control" id="replyMessage" rows="3"></textarea>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
+                                <textarea class="form-control" id="senderMessage" rows="3" name="senderMessage" placeholder=""readonly></textarea>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="replyMessage" class="form-label">Trả lời</label>
-                            <textarea class="form-control" id="replyMessage" rows="5"></textarea>
+
                         </div>
                         <div>
                             <button type="submit" class="btn btn-primary">Gửi</button>
                             <button type="button" class="btn btn-danger" onclick="confirmDeletion()">Xóa</button>
                         </div>
-                        
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--modal detail-->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replyModalLabel">Chi Tiết Thông Tin</h5>
+
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="ReplyConsultation" id="replyForm" method="post">
+                        <div class="row">
+                            <div class="col-2 mb-3">
+                                <label for="title" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="id" name="id" value="" readonly>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <label for="title" class="form-label">Tiêu đề</label>
+                                <input type="text" class="form-control" id="title"name="title" value="Tư vấn" readonly>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="name" class="form-label">Người gửi</label>
+                                <input type="text" class="form-control" id="name" name="name" value="" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="timestamp" class="form-label">Ngày gửi</label>
+                                <input type="text" class="form-control" id="timestamp" placeholder="" readonly/>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="senderEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="senderEmail"name="senderEmail" placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="timestamp" class="form-label">Tên Nhân Viên</label>
+                                <input type="text" class="form-control" id="staff_name" placeholder="" readonly/>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="senderEmail" class="form-label">Status</label>
+                                <input type="text" class="form-control" id="status"name="status" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-6 mb-3">
+                                <label for="replyMessage" class="form-label">Nhân Viên Trả Lời</label>
+                                <textarea class="form-control" id="replyMessage" rows="3"></textarea>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="senderMessage" class="form-label">Nội dung tư vấn</label>
+                                <textarea class="form-control" id="senderMessage" rows="3" name="senderMessage"readonly></textarea>
+                            </div>
+
+
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Gửi</button>
+                            <button type="button" class="btn btn-danger" onclick="confirmDeletion()">Xóa</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -202,77 +274,84 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-                    $(document).ready(function () {
-                        $('.badge').on('click', function (e) {
-                            e.preventDefault();
+                                $(document).ready(function () {
+                                    $('.badge').on('click', function (e) {
+                                        e.preventDefault();
 
-                            let consultationId = $(this).data('id');
+                                        let consultationId = $(this).data('id');
 
-                            // AJAX request to get data from the servlet
-                            $.ajax({
-                                url: 'ReplyConsultation',
-                                type: 'GET',
-                                data: {id: consultationId},
-                                success: function (data) {
-                                    // Populate the modal fields with the received data
-                                    $('#id').val(data.id);
-                                    $('#name').val(data.name);
-                                    $('#senderEmail').val(data.email);
-                                    
-                                    //handle date
-                                    var createDate = new Date(data.createDate);
+                                        // AJAX request to get data from the servlet
+                                        $.ajax({
+                                            url: 'ReplyConsultation',
+                                            type: 'GET',
+                                            data: {id: consultationId},
+                                            success: function (data) {
+                                                // Populate the modal fields with the received data
+                                                $('#id').val(data.id);
+                                                $('#name').val(data.name);
+                                                $('#senderEmail').val(data.email);
+                                                var createDate = new Date(data.createDate);
+                                                $('#timestamp').val(createDate);
+                                                $('#senderMessage').val(data.content);
+                                                $('#staff_name').val(data.staff.name);
+                                                $('#replyMessag').val(data.replyMessag);
+                                                $('#status').val(data.status);
+
+                                                //handle date
+
 //                                    var day = String(createDate.getDate()).padStart(2,'0');
 //                                    var month = String(createDate.getMonth()+1).padStart(2,'0');
 //                                    var year = createDate.getFullYear();
 //                                    var formattedDate = day + '/' + month + '/' + year;
-                                    $('#timestamp').val(createDate);
-                                    $('#senderMessage').val(data.content);
 
-                                    // Show the modal
-                                    $('#replyModal').modal('show');
-                                },
-                                error: function (err) {
-                                    console.log(err);
-                                    alert('Failed to retrieve data. Please try again.');
+
+                                                // Show the modal
+                                                $('#replyModal').modal('show');
+                                                $('#detailModal').modal('show');
+                                            }
+//                                            ,
+//                                            error: function (err) {
+//                                                console.log(err);
+//                                                alert('Failed to retrieve data. Please try again.');
+//                                            }
+                                        });
+                                    });
+
+                                    $('#replyForm').on('submit', function (e) {
+                                        e.preventDefault();
+
+                                        let formData = {
+                                            id: $('#id').val(),
+                                            title: $('#title').val(),
+                                            senderEmail: $('#senderEmail').val(),
+                                            content: $('#replyMessage').val(),
+                                            name: $('#name').val()
+                                        };
+
+                                        // AJAX request to send the reply to the servlet
+                                        $.ajax({
+                                            url: 'ReplyConsultation',
+                                            type: 'POST',
+                                            data: formData,
+                                            success: function (response) {
+                                                alert('Reply sent successfully.');
+                                                location.reload(); // Reload the page
+                                            },
+                                            error: function (err) {
+                                                console.log(err);
+                                                alert('Failed to send the reply. Please try again.');
+                                            }
+                                        });
+                                    });
+                                });
+
+                                function confirmDeletion() {
+                                    var id = document.getElementById('id').value;
+                                    var page = document.getElementById('page').value;
+                                    if (confirm('Bạn có chắc chắn muốn xóa tin nhắn này không?')) {
+                                        window.location.href = 'deleteConsultation?id=' + id + '&page=' + page;
+                                    }
                                 }
-                            });
-                        });
-
-                        $('#replyForm').on('submit', function (e) {
-                            e.preventDefault();
-
-                            let formData = {
-                                id:$('#id').val(),
-                                title: $('#title').val(),
-                                senderEmail: $('#senderEmail').val(),
-                                content: $('#replyMessage').val(),
-                                name:$('#name').val()
-                            };
-
-                            // AJAX request to send the reply to the servlet
-                            $.ajax({
-                                url: 'ReplyConsultation',
-                                type: 'POST',
-                                data: formData,
-                                success: function (response) {
-                                    alert('Reply sent successfully.');
-                                    location.reload(); // Reload the page
-                                },
-                                error: function (err) {
-                                    console.log(err);
-                                    alert('Failed to send the reply. Please try again.');
-                                }
-                            });
-                        });
-                    });
-                    
-                    function confirmDeletion(){
-                        var id = document.getElementById('id').value;
-                        var page = document.getElementById('page').value;
-                        if(confirm('Bạn có chắc chắn muốn xóa tin nhắn này không?')){
-                            window.location.href = 'deleteConsultation?id='+id+'&page='+page;
-                        }
-                    }
     </script>
 </body>
 <jsp:include page="footer.jsp"></jsp:include>

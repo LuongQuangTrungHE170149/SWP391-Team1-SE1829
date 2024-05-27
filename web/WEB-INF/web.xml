@@ -48,6 +48,10 @@
         <servlet-name>DeleteConsultationServlet</servlet-name>
         <servlet-class>Controller.DeleteConsultationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetailConsultationServlet</servlet-name>
+        <servlet-class>Controller.DetailConsultationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>DeleteConsultationServlet</servlet-name>
         <url-pattern>/deleteConsultation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailConsultationServlet</servlet-name>
+        <url-pattern>/DetailConsultation</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
