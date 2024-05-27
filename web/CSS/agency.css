@@ -127,20 +127,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-color: red;
 }
 
-.btn {
+.btn-wrapper {
     min-width: 127px;
     height: 50px;
     border-radius: 24px;
     color: #fff;
+    text-decoration: none;
+    outline: none;
+    border: none;
 }
 
-.btn.btn-cancel{
+.btn-wrapper.btn-cancel{
     background-color: #D9D9D9;
 }
-.btn.btn-save{
+.btn-wrapper.btn-save{
     background-color: #54CDD1;
 }
-.btn.btn-continue{
+
+.btn-save:hover {
+    background-color: #418c8e;
+}
+
+.btn-cancel:hover {
+    background-color: #665f5f;
+
+}
+
+.btn-wrapper.btn-continue{
     background-color: #7D36EE;
 }
 
@@ -288,6 +301,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-size: 20px;
     margin: 10px;
     color: #000;
+    text-decoration: none;
 }
 
 .link-back i {
