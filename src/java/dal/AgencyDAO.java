@@ -179,6 +179,43 @@ public class AgencyDAO extends DBContext {
         return hash;
 
     }
+    
+    public BigInteger totalPayment() {
+        BigInteger total = BigInteger.ZERO;
+        String sql = "SELECT SUM(Payment) AS TotalPayment FROM Contracts;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                total = BigInteger.valueOf(rs.getInt("TotalPayment"));
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        return total;
+    }
+    
+     public HashMap<String, BigInteger> getMonthlyMoney() {
+        HashMap<String, BigInteger> hash = new HashMap<>();
+        String sql = "SELECT MONTH(StartDate) AS Month, SUM(Payment) AS TotalRevenue FROM Contracts GROUP BY  MONTH(StartDate) ORDER BY Month";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                hash.put(rs.getString("Month"), BigInteger.valueOf(rs.getInt("TotalRevenue")));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return hash;
+
+    }
 
     public boolean insertAgency(Agency agency) {
         String sql = "INSERT INTO Agencies (AgencyName, AgencyAddress,Worktime, HotLine) VALUES (?,?, ?, ?)";

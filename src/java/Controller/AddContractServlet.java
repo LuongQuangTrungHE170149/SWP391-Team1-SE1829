@@ -5,11 +5,8 @@
 
 package Controller;
 
-import Model.User;
-import com.google.gson.Gson;
-import com.sun.jdi.connect.spi.Connection;
+import Model.Contract;
 import dal.ContractDAO;
-import dal.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,16 +14,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.sql.*;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+
+import java.sql.Date;
 
 /**
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name="CustomerSearchServlet", urlPatterns={"/CustomerSearchServlet"})
-public class CustomerSearchServlet extends HttpServlet {
+@WebServlet(name="AddContractServlet", urlPatterns={"/AddContractServlet"})
+public class AddContractServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -51,18 +49,7 @@ public class CustomerSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       response.setContentType("application/json");
-        String search = request.getParameter("search");
-        ArrayList<String> customerNames = new ArrayList<>();
-        ContractDAO cd = new ContractDAO();
-        List<User> customers = cd.getCustomer(search);
-        for (User customer : customers) {
-            customerNames.add(customer.getFirstName()+customer.getLastName());
-        }
-        PrintWriter out = response.getWriter();
-        String json = new Gson().toJson(customerNames);
-        out.print(json);
-        out.flush();
+        processRequest(request, response);
     } 
 
     /** 
@@ -75,7 +62,28 @@ public class CustomerSearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+           
+            int customerId = Integer.parseInt(request.getParameter("customerId"));
+            int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
+            int agencyId = Integer.parseInt(request.getParameter("agencyId"));
+            long contractType = Integer.parseInt(request.getParameter("contractType"));
+            Date startDate = Date.valueOf(request.getParameter("startDate"));
+            String description = request.getParameter("description");
+            long payment = Long.parseLong(request.getParameter("payment"));
+            boolean isPay = request.getParameter("isPay") != null;
+            
+            HttpSession session = request.getSession();
+            int staffId = (Integer) session.getAttribute("staffId");
+            
+            Contract contract = new Contract(agencyId, startDate, startDate, staffId, description, Double.NaN, description);
+            ContractDAO contractDAO = new ContractDAO();
+            contractDAO.addContract(contract);
+            response.sendRedirect("success.jsp");  // Redirect to a success page
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp");  // Redirect to an error page
+        }
     }
 
     /** 

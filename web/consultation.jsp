@@ -1,135 +1,102 @@
-<%-- 
-    Document   : consultation
-    Created on : May 20, 2024, 3:05:43 AM
-    Author     : Kha21
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<style>
-    #openFormBtn {
-        position: fixed;
-        top: 70%;
-        right: 0;
-        transform: translateY(-50%);
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px 0 0 5px;
-        z-index: 1000;
-    }
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            /* Tùy chỉnh vị trí của button */
+            .btn-fixed {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                z-index: 1000; /* Đảm bảo button hiển thị trên cùng */
+            }
+            .btn-custom{
+                background-color: #419FA3;
+                border-color:#419FA3;
+            }
+/*            .btn-custom:hover{
+                background-color: #198754;
+                border-color: #198754;
+            }*/
+        </style>
+    </head>
+    <body> 
+        <button type="button" class="btn btn-primary btn-custom btn-fixed" data-toggle="modal" data-target="#consultationModal">
+            Đăng ký tư vấn
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title " id="consultationModalLabel">Đăng ký tư vấn</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form đăng ký -->
+                        <form id="consultationForm" method="post" action="addConsultation">
+                            <div class="form-group">
+                                <label for="name">Họ và tên</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ và tên của bạn" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Nhập địa chỉ email của bạn" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Nội dung</label>
+                                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung tư vấn của bạn" required></textarea>
+                            </div>
+                            <button id="submit" type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#consultationForm').submit(function (event) {
+                 
+                    event.preventDefault();
+                    var formData = {
+                        'name': $('#name').val(),
+                        'email': $('#email').val(),
+                        'content': $('#content').val()
+                    };
 
-    .form-container {
-        position: fixed;
-        top: 70%;
-        right: -350px;
-        transform: translateY(-50%);
-        width: 300px;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        transition: right 0.3s;
-        z-index: 1001;
-    }
+                    // Gửi AJAX request
+                    $.ajax({
+                        type: 'POST', // Hoặc 'POST' tùy thuộc vào cách bạn cấu hình servlet
+                        url: 'addConsultation', // Đường dẫn của servlet
+                        data: formData,
+                        dataType: 'json', // Kiểu dữ liệu mong đợi từ phản hồi của servlet
+                        encode: true,
+                        success: function (response) {
+                            // Xử lý phản hồi từ servlet (nếu cần)
+                            console.log(response);
+                            // Đóng modal (nếu cần)
+                            $('#consultationModal').modal('hide');
+                        },
+                        error: function (xhr, status, error) {
+                            // Xử lý lỗi (nếu có)
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+        </script>
 
-    .form-container form {
-        display: flex;
-        flex-direction: column;
-    }
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    .form-container h2 {
-        margin-bottom: 10px;
-    }
-
-    .form-container label {
-        margin-bottom: 5px;
-    }
-
-    .form-container input,
-    .form-container textarea {
-        margin-bottom: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .form-container button {
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    .form-container.show {
-        right: 0;
-    }
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: none;
-        border: none;
-        font-size: 20px;
-        cursor: pointer;
-    }
-</style>
-
-<button id="openFormBtn">Đăng ký tư vấn</button>
-<div id="consultationForm" class="form-container">
-    <button id="closeFormBtn" class="close-btn">&times;</button>
-    <form id="form" action="addConsultation" method="post" >
-        <h2>Đăng ký tư vấn</h2>
-        <label for="name">Họ và Tên</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="content">Thông tin hỗ trợ</label>
-        <textarea id="content" name="content" rows="4" required></textarea>
-
-        <button type="submit">Gửi</button>
-    </form>
-    <div id="responseMessage"></div>
-</div>
-
-<script>
-    
-  
-
-    document.getElementById('openFormBtn').addEventListener('click', function () {
-        document.getElementById('consultationForm').classList.add('show');
-    });
-
-    document.getElementById('closeFormBtn').addEventListener('click', function () {
-        document.getElementById('consultationForm').classList.remove('show');
-    });
-
-    document.getElementById('form').addEventListener('subnit', function (event) {
-        event.preventDefault();
-        var form = event.target;
-        var formData = new FormData(form);
-
-        fetch(form.action, {
-            method: form.method,
-            body: formData
-        })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Đăng ký thành công, chúng tôi sẽ sớm liên lạc qua email của bạn');
-                        form.reset();
-                        document.getElementById('consultationForm').classList.remove('show');
-                    } else {
-                        alert('Có lỗi xảy ra, vui lòng thử lại sau.');
-                    }
-                }).catch(error => {
-            console.error('Error:', error);
-        });
-    });
-
-
-</script>
+    </body>
+</html>

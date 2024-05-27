@@ -84,9 +84,6 @@ Create table Compensations(
 )
 GO
 
-
-
-
 Create table Consultations(
 		    id  int Identity(1,1) primary key,
 			name nvarchar(255),

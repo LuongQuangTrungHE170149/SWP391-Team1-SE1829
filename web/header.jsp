@@ -54,7 +54,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top ">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="home">
                 <img src="images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-top">
                 <span style="font-size: 28px; color: white;">F-Care Insurance</span>
             </a>
