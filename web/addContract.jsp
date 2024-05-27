@@ -38,20 +38,54 @@
     <body>
         <div>
             <jsp:include page="./header.jsp" />      
-        </div>
-        <div class="box">
-            <form action="processContract.jsp" method="post">
-                <div class="group-14">
-                    <label for="customer" class="text-wrapper-8">Khách hàng</label>
-                    <input type="text" id="customerSearch" name="customer" list="customerList" required>
-                    <datalist id="customerList">
-                        <!-- Options will be populated by JavaScript -->
-                    </datalist>
-                </div>
-                <!-- Other form fields -->
-                <button type="submit">Tạo</button>
-            </form>
-        </div>
+        <h2>Add New Contract</h2>
+    <form action="AddContractServlet" method="post">
+        <label for="customerId">Customer:</label>
+        <select name="customerId" id="customerId">
+            <c:forEach var="customer" items="${customers}">
+                <option value="${customer.id}">${customer.customerName}</option>
+            </c:forEach>
+        </select><br>
+
+        <label for="vehicleId">Vehicle:</label>
+        <select name="vehicleId" id="vehicleId">
+            <!-- To be filled dynamically with customer's vehicles via AJAX or JavaScript -->
+        </select><br>
+
+        <label for="agencyId">Agency:</label>
+        <select name="agencyId" id="agencyId">
+            <c:forEach var="agency" items="${agencies}">
+                <option value="${agency.AgencyId}">${agency.AgencyName}</option>
+            </c:forEach>
+        </select><br>
+
+        <label for="contractType">Contract Type:</label>
+        <select name="contractType" id="contractType">
+            <option value="1">1 Year</option>
+            <option value="2">2 Years</option>
+            <option value="5">5 Years</option>
+        </select><br>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" name="startDate" id="startDate" required><br>
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"></textarea><br>
+
+        <label for="payment">Payment:</label>
+        <input type="number" name="payment" id="payment" required><br>
+
+        <label for="isPay">Is Pay:</label>
+        <input type="checkbox" name="isPay" id="isPay"><br>
+
+        <input type="submit" value="Add Contract">
+    </form>
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
 </html>
+<%
+    customers.close();
+    agencies.close();
+    stmt.close();
+    conn.close();
+%>
