@@ -86,11 +86,8 @@ public class UserDAO extends DBContext{
     }
 
     public User insert(User modal) {
-        String sql = """
-                     INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender, dateCreated)
-                     VALUES 
-                     ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
-
+        String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender, dateCreated)"
+                     +"VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;
