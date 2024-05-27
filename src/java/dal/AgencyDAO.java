@@ -136,6 +136,33 @@ public class AgencyDAO extends DBContext {
 
         return null;
     }
+    
+    public List<Agency> getAllAgenciesByAddress(String key) {
+        List<Agency> list = new ArrayList<>();
+        String sql = "select * from Agencies where AgencyAddress like N'%" + key +"%'";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Agency agency = new Agency();
+                agency.setAgencyId(rs.getInt("AgencyId"));
+                agency.setAgencyName(rs.getString("AgencyName"));
+                agency.setAgencyAddress(rs.getString("AgencyAddress"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
+                agency.setStatus(rs.getString("status"));
+                list.add(agency);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    
 
     public BigInteger getTotalPaymentByAgencyId(int agencyId) {
         BigInteger total = BigInteger.ZERO;
@@ -259,7 +286,7 @@ public class AgencyDAO extends DBContext {
     public List<Agency> searchAgency(String key) {
         List<Agency> list = new ArrayList<>();
         String sql = "select * from Agencies Where AgencyName like '%" + key + "%'"
-                + " OR AgencyAddress like '%" + key + "%' OR HotLine like '% " + key
+                + " OR AgencyAddress like '%" + key + "%' OR HotLine like '%" + key
                 + "%' OR Worktime like '%" + key + "%'";
 
         try {
@@ -311,6 +338,6 @@ public class AgencyDAO extends DBContext {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getAllAgencies());
+        System.out.println(AgencyDAO.INSTANCE.getAllAgenciesByAddress("Hà Nội"));
     }
 }

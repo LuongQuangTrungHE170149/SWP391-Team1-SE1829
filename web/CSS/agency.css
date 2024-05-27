@@ -400,3 +400,46 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: #fff;
 
 }
+
+/*Filter btn*/
+
+.select-filter {
+    width: 200px;
+    height: 30px;
+    border-color: #d9d9d9;
+}
+
+
+
+ /*Pagination*/
+ 
+ .pagination {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    color: #333;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    color: #aaa;
+    border-color: #aaa;
+}
