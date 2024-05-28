@@ -44,9 +44,9 @@
 
         <label for="contractType">Contract Type:</label>
         <select name="contractType" id="contractType">
-            <option value="1">1 Year</option>
-            <option value="2">2 Years</option>
-            <option value="5">5 Years</option>
+            <option value="1">1 năm</option>
+            <option value="2">2 năm</option>
+            <option value="5">5 năm</option>
         </select><br>
 
         <label for="startDate">Ngày bắt đầu :</label>
