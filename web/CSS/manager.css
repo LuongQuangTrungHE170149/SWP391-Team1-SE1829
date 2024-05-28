@@ -1,0 +1,104 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 25, 2024, 4:39:02 PM
+    Author     : tranm
+*/
+
+#homeManager-page {
+    background-image: url(../images/side-view-man-with-motorbike.jpg);
+    background-size: cover;
+}
+
+.home-manager--wrapper {
+    width: 100%;
+    min-height: 1000px;
+    padding-top:100px
+}
+
+.nav-manager {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    height: 100%;
+    width: 260px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-manager .sidebar {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    height: 100%;
+    width: 260px;
+    padding: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.list {
+    list-style: none;
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    padding: 14px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.nav-link:hover {
+    background-color: #4070f4;
+}
+.nav-link .link {
+    font-size: 16px;
+    color: #707070;
+    font-weight: 400;
+}
+
+.nav-link:hover .link {
+    color: #fff;
+}
+
+
+/*Content*/
+
+.home-manager--content {
+    width: 100%;
+    min-height: 500px;
+    background-color: #fff;
+}
+
+.title {
+    font-size: 30px;
+}
+
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    width: 100%;
+    height: 129px;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+
+.sub-title {
+    font-size: 20px;
+
+}
+
+.count {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
