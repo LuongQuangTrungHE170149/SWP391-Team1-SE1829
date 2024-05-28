@@ -6,10 +6,13 @@ package dal;
 
 import Model.Contract;
 import Model.User;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.sql.Date;
 import java.util.List;
 
@@ -52,6 +55,9 @@ public class ContractDAO extends DBContext {
         }
         return customers;
     }
+    
+    
+    
 
     public boolean addContract(Contract contract){
         try {
@@ -83,10 +89,8 @@ public class ContractDAO extends DBContext {
     }
     
     public static void main(String[] args) {
-
         ContractDAO cd = new ContractDAO();
-        List<User> users = cd.getCustomer("anna");
-        System.out.println(users);
-
+        List<User> users = cd.getCustomer("jdoe");
+      
     }
 }

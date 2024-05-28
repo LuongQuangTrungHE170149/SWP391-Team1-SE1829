@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; width: 473px">
-                                    <button type="submit" class="btn btn-save">Sửa</button>                      
+                                    <button type="submit" class="btn-wrapper btn-save">Sửa</button>                      
                                 </div>
                             </form>
                         </div>

@@ -25,7 +25,6 @@
     </head>
     <body>
         <div id="addAgency-page">
-
             <div>
                 <jsp:include page="./header.jsp" />      
             </div>
@@ -72,8 +71,8 @@
                                             </div>
                                         </div>
                                         <div style="display: flex; justify-content: space-between; width: 473px">
-                                            <button type="submit" class="btn btn-save">Lưu</button>        
-                                            <button type="reset" class="btn btn-cancel">Hủy</button>
+                                            <button type="submit" class="btn-wrapper btn-save">Lưu</button>        
+                                            <button type="reset" class="btn-wrapper btn-cancel">Hủy</button>
                                         </div>
                                     </form>
                                 </div>
@@ -83,9 +82,9 @@
                     </div>
 
                 </div>     
-                <!--Hiện thị thông báo add thành công-->
+                <!-- Hiện thị thông báo add thành công -->
                 <c:if test="${sessionScope.addSuccess != null}">
-                    <div class="toast-container top-0 end-0 p-3">
+                    <div id="toast-success" class="toast-container top-0 end-0 p-3">
                         <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex">
                                 <div class="toast-body">
@@ -97,9 +96,11 @@
                     </div>
                     <c:remove var="addSuccess" scope="session" />
                 </c:if>
+
+                <!-- Hiện thị thông báo add thất bại -->
                 <c:if test="${sessionScope.addFail != null}">
-                    <div class="toast-container top-0 end-0 p-3">
-                        <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div id="toast-fail" class="toast-container top-0 end-0 p-3">
+                        <div class="toast align-items-center text-bg-danger border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex">
                                 <div class="toast-body">
                                     ${sessionScope.addFail}
@@ -171,6 +172,20 @@
                 }
             });
 
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const successToast = document.getElementById('toast-success');
+                    const failToast = document.getElementById('toast-fail');
+                    if (successToast) {
+                        successToast.style.opacity = '0';
+                        setTimeout(() => successToast.style.display = 'none', 1000);
+                    }
+                    if (failToast) {
+                        failToast.style.opacity = '0';
+                        setTimeout(() => failToast.style.display = 'none', 1000);
+                    }
+                }, 3000);
+            });
         </script>
 
     </body>

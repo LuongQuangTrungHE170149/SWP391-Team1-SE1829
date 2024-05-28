@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/dal/DBContext.java</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/addAgency.jsp</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Model/Contract.java</file>
@@ -14,6 +15,17 @@
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddContractServlet.java</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddAgencyServlet.java</file>
+
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/agencyList.jsp</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/InactiveAgencyServlet.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/addAgency.jsp</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/ListAgencyServlet.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/FilterAgencyServlet.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/UserDAO.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/CSS/agency.css</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/EditAgencyServlet.java</file>
+
         </group>
     </open-files>
 </project-private>

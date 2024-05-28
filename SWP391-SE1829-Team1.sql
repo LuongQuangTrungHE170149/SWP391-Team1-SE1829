@@ -10,7 +10,7 @@ Create table Users(
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
-		  gender int,
+		    gender int,
 			email nvarchar(255) not null unique,
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
@@ -19,6 +19,7 @@ Create table Users(
 
 )
 GO
+
 
 
 Create table Agencies(
@@ -38,6 +39,7 @@ Create table Vehicles(
 			OwnerId int REFERENCES Users(id),
 )
 GO
+
 
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
@@ -81,9 +83,6 @@ Create table Compensations(
 			IsPay bit,
 )
 GO
-
-
-
 
 Create table Consultations(
 		    id  int Identity(1,1) primary key,
@@ -173,4 +172,3 @@ INSERT INTO News ( Title,Image, Content, Author, [Date], Type)
 VALUES 
 ( 'New Service Launch','null', 'We are excited to announce the launch of our new service...', 2, '2024-05-15', 'Announcement'),
 ( 'Holiday Discounts','null', 'Enjoy our special discounts this holiday season...', 2, '2024-05-10', 'Promotion');
-

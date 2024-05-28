@@ -84,12 +84,50 @@ public class UserDAO extends DBContext{
 
         return list;
     }
+    
+    public int getCountAllCustomer() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS EmployeeCount FROM Users WHERE [role] = 'Customer';";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("EmployeeCount");
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return count;
+    }
+    
+      public int getCountAllStaffs() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS StaffCount FROM Users WHERE [role] = 'Staff';";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("StaffCount");
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return count;
+    }
+
 
     public User insert(User modal) {
         String sql = """
                      INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender, dateCreated)
                      VALUES 
                      ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -156,6 +194,6 @@ public class UserDAO extends DBContext{
     }
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.getStaffsByAgencyId(2));
+        System.out.println(udb.getCountAllStaffs());
     }
 }

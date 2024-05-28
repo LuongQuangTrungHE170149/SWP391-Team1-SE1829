@@ -136,6 +136,33 @@ public class AgencyDAO extends DBContext {
 
         return null;
     }
+    
+    public List<Agency> getAllAgenciesByStatus(String key) {
+        List<Agency> list = new ArrayList<>();
+        String sql = "select * from Agencies where status = '" + key +"'";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Agency agency = new Agency();
+                agency.setAgencyId(rs.getInt("AgencyId"));
+                agency.setAgencyName(rs.getString("AgencyName"));
+                agency.setAgencyAddress(rs.getString("AgencyAddress"));
+                agency.setHotline(rs.getString("HotLine"));
+                agency.setWorktime(rs.getString("Worktime"));
+                agency.setStatus(rs.getString("status"));
+                list.add(agency);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    
 
     public BigInteger getTotalPaymentByAgencyId(int agencyId) {
         BigInteger total = BigInteger.ZERO;
@@ -167,6 +194,43 @@ public class AgencyDAO extends DBContext {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, agencyId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                hash.put(rs.getString("Month"), BigInteger.valueOf(rs.getInt("TotalRevenue")));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return hash;
+
+    }
+    
+    public BigInteger totalPayment() {
+        BigInteger total = BigInteger.ZERO;
+        String sql = "SELECT SUM(Payment) AS TotalPayment FROM Contracts;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                total = BigInteger.valueOf(rs.getInt("TotalPayment"));
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        return total;
+    }
+    
+     public HashMap<String, BigInteger> getMonthlyMoney() {
+        HashMap<String, BigInteger> hash = new HashMap<>();
+        String sql = "SELECT MONTH(StartDate) AS Month, SUM(Payment) AS TotalRevenue FROM Contracts GROUP BY  MONTH(StartDate) ORDER BY Month";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 hash.put(rs.getString("Month"), BigInteger.valueOf(rs.getInt("TotalRevenue")));
@@ -222,7 +286,7 @@ public class AgencyDAO extends DBContext {
     public List<Agency> searchAgency(String key) {
         List<Agency> list = new ArrayList<>();
         String sql = "select * from Agencies Where AgencyName like '%" + key + "%'"
-                + " OR AgencyAddress like '%" + key + "%' OR HotLine like '% " + key
+                + " OR AgencyAddress like '%" + key + "%' OR HotLine like '%" + key
                 + "%' OR Worktime like '%" + key + "%'";
 
         try {
@@ -274,6 +338,6 @@ public class AgencyDAO extends DBContext {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getAgencieById(2));
+        System.out.println(AgencyDAO.INSTANCE.getAllAgenciesByStatus("active"));
     }
 }

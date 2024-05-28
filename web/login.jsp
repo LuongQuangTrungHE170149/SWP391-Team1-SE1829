@@ -31,8 +31,13 @@
                     </div>
                 
                 <div class="register-button">
-                    <button type="submit">Register</button>
+                    <button type="submit">Login</button>
                 </div>
+                <p>Please register an acount </p>
+                <div class="register-button">
+                    <a href="register.jsp" class="login-button">Register</a>
+                </div>
+                
             </form>
         </div>
     </div>

@@ -12,8 +12,9 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailHelper {
 
-    private static final String EMAIL_USERNAME = "xxx@gmail.com";
-    private static final String EMAIL_PASSWORD = "xxx";
+    public static final String EMAIL_USERNAME = "xxx@gmail.com";
+    public static final String EMAIL_PASSWORD = "xxx";
+    public static final String TITLE_PROJECT = "SWP391 - TEAM1 - SE1829 - Agency Project";
 
     public static void sendEmail(String recipientEmail, String subject, String body) {
         // Set up mail server properties
