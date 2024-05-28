@@ -3,8 +3,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!--summernote-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
             /* Tùy chỉnh vị trí của button */
             .btn-fixed {
@@ -17,10 +20,10 @@
                 background-color: #419FA3;
                 border-color:#419FA3;
             }
-/*            .btn-custom:hover{
-                background-color: #198754;
-                border-color: #198754;
-            }*/
+            /*            .btn-custom:hover{
+                            background-color: #198754;
+                            border-color: #198754;
+                        }*/
         </style>
     </head>
     <body> 
@@ -39,7 +42,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Form đăng ký -->
-                        <form id="consultationForm" method="post" action="addConsultation">
+                        <form id="consForm">
                             <div class="form-group">
                                 <label for="name">Họ và tên</label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ và tên của bạn" required>
@@ -52,7 +55,7 @@
                                 <label for="content">Nội dung</label>
                                 <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung tư vấn của bạn" required></textarea>
                             </div>
-                            <button id="submit" type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
+                            <button type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -61,42 +64,55 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+        <!-- Summernote JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+
             $(document).ready(function () {
-                $('#consultationForm').submit(function (event) {
-                 
-                    event.preventDefault();
-                    var formData = {
-                        'name': $('#name').val(),
-                        'email': $('#email').val(),
-                        'content': $('#content').val()
+                $('#consultationModal').on('hidden.bs.modal', function () {
+                    // Đặt lại giá trị của các trường dữ liệu trong modal
+                    $('#name').val('');
+                    $('#email').val('');
+                    $('#content').val('');
+                    $('#consultationModal').modal('hide');
+                });
+
+                $('#consForm').on('submit', function (e) {
+                    e.preventDefault();
+                    let formData = {
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        content: $('#content').val()
                     };
 
-                    // Gửi AJAX request
+                    // AJAX request to send the reply to the servlet
                     $.ajax({
-                        type: 'POST', // Hoặc 'POST' tùy thuộc vào cách bạn cấu hình servlet
-                        url: 'addConsultation', // Đường dẫn của servlet
+                        url: 'addConsultation',
+                        type: 'POST',
                         data: formData,
-                        dataType: 'json', // Kiểu dữ liệu mong đợi từ phản hồi của servlet
-                        encode: true,
                         success: function (response) {
-                            // Xử lý phản hồi từ servlet (nếu cần)
-                            console.log(response);
-                            // Đóng modal (nếu cần)
                             $('#consultationModal').modal('hide');
+                            alert('sent successfully.');
+
                         },
-                        error: function (xhr, status, error) {
-                            // Xử lý lỗi (nếu có)
-                            console.error(error);
+                        error: function (err) {
+                            console.log(err);
+                            alert('Failed to send.');
                         }
                     });
                 });
             });
         </script>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </body>
 </html>

@@ -98,6 +98,10 @@ public class ConsultationDAO extends DBContext {
                 c.setContent(rs.getString("content"));
                 c.setCreateDate(rs.getDate("createDate"));
                 c.setReplyMessage(rs.getString("reply_message"));
+                
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                c.setStaff(u);
                 c.setStatus(rs.getBoolean("status"));
 
                 return c;
@@ -130,6 +134,7 @@ public class ConsultationDAO extends DBContext {
                 c.setEmail(rs.getString("email"));
                 c.setContent(rs.getString("content"));
                 c.setCreateDate(rs.getDate("createDate"));
+                c.setReplyMessage(rs.getString("reply_message"));
 
                 UserDAO udb = new UserDAO();
                 User u = udb.getUserById(rs.getInt("staff"));
@@ -189,22 +194,22 @@ public class ConsultationDAO extends DBContext {
                 + "      ,[staff] = ?\n"
                 + "      ,[status] = ?\n"
                 + " WHERE id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, reply);
             st.setInt(2, staff_id);
             st.setBoolean(3, status);
             st.setInt(4, id);
             st.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println();
-        cdb.deleteConsultationById(56);
+        System.out.println(cdb.getConsultationById(1).getStaff().getUsername());
+        
 
     }
 }
