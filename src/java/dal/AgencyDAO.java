@@ -137,9 +137,9 @@ public class AgencyDAO extends DBContext {
         return null;
     }
     
-    public List<Agency> getAllAgenciesByAddress(String key) {
+    public List<Agency> getAllAgenciesByStatus(String key) {
         List<Agency> list = new ArrayList<>();
-        String sql = "select * from Agencies where AgencyAddress like N'%" + key +"%'";
+        String sql = "select * from Agencies where status = '" + key +"'";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -338,6 +338,6 @@ public class AgencyDAO extends DBContext {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getAllAgenciesByAddress("Hà Nội"));
+        System.out.println(AgencyDAO.INSTANCE.getAllAgenciesByStatus("active"));
     }
 }

@@ -66,27 +66,21 @@ public class FilterAgencyServlet extends HttpServlet {
                 case "all":
                     key = "";
                     break;
-                case "hn":
-                    key = "Hà Nội";
-                    selectedCity = "Hà Nội";
+                case "active":
+                    key = "active";
+                    selectedCity = "active";
                     break;
-                case "hcm":
-                    key = "Hồ Chí Minh";
-                    selectedCity = "Hồ Chí Minh";
-                    break;
-                case "dn":
-                    key = "Đã Nẵng";
-                    selectedCity = "Đã Nẵng";
+                case "inactive":
+                    key = "inactive";
+                    selectedCity = "inactive";
                     break;
 
             }
 
-            HttpSession session = request.getSession();
-            List<Agency> filterAgencyList = AgencyDAO.INSTANCE.getAllAgenciesByAddress(key);
+            List<Agency> filterAgencyList = AgencyDAO.INSTANCE.getAllAgenciesByStatus(key);
             request.setAttribute("filterAgencyList", filterAgencyList);
             request.setAttribute("selectedCity", selectedCity);
             request.getRequestDispatcher("listAgency").forward(request, response);
-            
 
         } else {
             response.sendRedirect("listAgency");
@@ -104,7 +98,7 @@ public class FilterAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+
     }
 
     /**

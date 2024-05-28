@@ -68,11 +68,11 @@
 
                     <div>
                         <select name="filter" class="select-filter" onchange="redirectToServlet(this)">
-                            <option disabled selected>Tỉnh, thành phố</option>
+                            <option disabled selected>Trạng thái</option>
                             <option value="all">Tất cả</option>
-                            <option value="hn" ${requestScope.selectedCity eq "Hà Nội" ? "selected" : ""} >Hà Nội</option>
-                            <option value="hcm" ${requestScope.selectedCity eq "Hồ Chí Minh" ? "selected" : ""}>Tp.Hồ Chí Minh</option>
-                            <option value="dn" ${requestScope.selectedCity eq "Đã Nẵng" ? "selected" : ""}>Đã Nẵng</option>
+                            <option value="active" ${requestScope.selectedCity eq "active" ? "selected" : ""} >Hoạt động</option>
+                            <option value="inactive" ${requestScope.selectedCity eq "inactive" ? "selected" : ""}>Dừng hoạt động</option>
+                           
 
                         </select>
 
