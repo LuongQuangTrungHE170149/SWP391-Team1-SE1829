@@ -115,7 +115,6 @@
     }
 
 </style>
-<link rel="stylesheet" href="CSS/footer.css"/>
 <div class="top-footer">
     <div class="footer-item">
         <a href="introduce">Giới thiệu chung</a>
