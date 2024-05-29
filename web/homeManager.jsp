@@ -37,7 +37,7 @@
                                         </a>
                                     </li>
                                     <li class="list">
-                                        <a href="#" class="nav-link">
+                                        <a href="customerList" class="nav-link">
                                             <span class="link">Danh sách khách hàng</span>
                                         </a>
                                     </li>

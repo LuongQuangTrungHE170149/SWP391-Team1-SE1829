@@ -52,6 +52,39 @@ public class UserDAO extends DBContext{
 
         return list;
     }
+    
+       public List<User> getAllUserByRole(String role) {
+        List<User> list = new ArrayList<>();
+        String sql = "select * from Users where role = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, role);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                list.add(user);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+    
+    
 
     public List<User> getStaffsByAgencyId(int agencyId) {
         List<User> list = new ArrayList<>();
