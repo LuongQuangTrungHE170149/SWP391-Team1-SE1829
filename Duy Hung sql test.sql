@@ -91,6 +91,15 @@ Create table Consultations(
 )
 GO
 
+create table Promotion(
+            id int identity(1,1) primary key,
+			title nvarchar(255) not null,
+			timeStart date not null,
+			timeEnd date not null,
+			content nvarchar(max),
+			staff int foreign key references Users(id)
+)
+
 Create Table News(
 			NewsId nvarchar(255) primary key,
 			Title nvarchar(255),

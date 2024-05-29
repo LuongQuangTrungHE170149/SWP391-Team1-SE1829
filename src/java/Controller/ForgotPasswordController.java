@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import utils.EmailHelper;
 
 /**
  *
@@ -26,6 +27,11 @@ public class ForgotPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
+        String OTPCode = EmailHelper.generateOTP();
+        String bodyEmailOTP = "Your veriftication code is: " + OTPCode ;
+        req.getSession().setAttribute("OTP", OTPCode);
+        req.getSession().setAttribute("user", "userRegister");
+        EmailHelper.sendEmail(email, EmailHelper.TITLE_PROJECT, bodyEmailOTP);
     }
 
 }

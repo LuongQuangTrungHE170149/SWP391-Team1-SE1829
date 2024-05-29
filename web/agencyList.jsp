@@ -277,7 +277,7 @@
 
                 confirmModalBody.textContent = action === 'inactive' ? 'Bạn có chắc chắn muốn ngưng hoạt động đại lý này không?' : 'Bạn có chắc chắn muốn kích hoạt đại lý này không?';
 
-                console.log(1);
+            
                 confirmBtn.onclick = function () {
                     window.location.href = "inactiveAgency?id=" + id + "&action=" + action;
                 };
