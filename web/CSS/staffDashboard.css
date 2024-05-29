@@ -1,0 +1,70 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 29, 2024, 6:21:12 AM
+    Author     : thuhu
+*/
+body{
+    font-family: Arial,sans-serif;
+    background-color: #F0F2F5;
+}
+.sidebar{
+    height:calc(100%-32px);
+    width: 210px;
+    position: fixed;
+    border-radius: 12px;
+
+    left: 16px;
+    top:16px;
+    bottom:16px;
+    z-index:1000;
+
+
+}
+.content{
+    margin-left:250px;
+    padding:32px;
+}
+.fill-height{
+    min-height: 100vh;
+}
+
+.sidenav-header{
+    padding: 24px 32px 24px 32px;
+    height: 80px;
+    width: 100%;
+}
+.navbar-brand{
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.nav-item{
+    margin: 1.5px 16px;
+    width: 180px;
+    height: 40px;
+    align-content: center;
+
+
+
+}
+
+.nav-item .active{
+    border-radius: 5px;
+    background-color:#FCC667;
+}
+
+.navbar-nav li a{
+    height: 100%;
+    padding: 10px 16px 10px 16px;
+    align-content: center;
+}
+
+.navbar-nav li a:hover{
+    background-color: #55555A;
+    border-radius: 5px;
+    text-decoration: none;
+}

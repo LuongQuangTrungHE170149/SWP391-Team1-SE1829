@@ -29,47 +29,47 @@
             </div>
 
             <div class="wrraper">
-                <div class="container">
+                <div class="container" >
                     <div class="row">
                         <div class="col-md-5">
-                            <div class="add-form">
+                            <div class="add-form" style=" width: 1200px; height: 810px; border-radius: 11px ;border: 1px solid #000;" >
                                 <div class="add-form__header" style="justify-content: center">
                                     <h4 class="add-form__title">Thông tin news</h4>
                                 </div>
 
-                                <div class="form-wrapper">
+                                <div class="form-wrapper" style="margin-left: 100px;">
                                     <form class="add-form-agency" action="addNews" method="post">
                                         <div style="margin-bottom: 10px">
                                             <label class="input-label" for="news-title">Tiêu đề</label></br>
-                                            <input type="text" required="" id="news-title" class="input-full" name="newsTitle"/>
+                                            <input type="text" required="" id="news-title" class="input-full" name="newsTitle" style="width:1000px;background: #C3D9B1"/>
                                             <span class="error-messeage"></span>
 
                                         </div>
                                         <div style="margin-bottom: 10px">
                                             <label class="input-label" for="news-author">Tác giả</label></br>
-                                            <input type="text" required="" id="news-author" class="input-full" name="newsAuthor"/>
+                                            <input type="text" required="" id="news-author" class="input-full" name="newsAuthor" style="width:1000px;background: #C3D9B1"/>
                                             <span class="error-messeage"></span>
 
                                         </div>
                                         <div style="margin-bottom: 10px">
                                             <label class="input-label" for="news-type">Thể loại</label></br>
-                                            <input type="text" required="" id="news-type" class="input-full" name="newsType"/>
+                                            <input type="text" required="" id="news-type" class="input-full" name="newsType" style="width:1000px;background: #C3D9B1"/>
                                             <span class="error-messeage"></span>
 
                                         </div>
                                         <div style="margin-bottom: 10px">
                                             <label class="input-label" for="news-date">Ngày đăng</label></br>
-                                            <input type="datetime-local" required="" id="news-date" class="input-full" name="newsDate"/>
-                                            <span class="error-messeage"></span>
- 
-                                        </div>
-                                        <div style="margin-bottom: 10px">
-                                            <label class="input-label" for="news-content">Nội dung</label></br>
-                                            <textarea id="news-content" name="newsContent" rows="5" cols="62"></textarea>
+                                            <input type="date" required="" id="news-date" class="input-full" name="newsDate" style="width:1000px;background: #C3D9B1"/>
                                             <span class="error-messeage"></span>
 
                                         </div>
-                                        <div style="display: flex; justify-content: end; width: 473px">
+                                        <div style="margin-bottom: 10px">
+                                            <label class="input-label" for="news-content">Nội dung</label></br>
+                                            <textarea id="news-content" name="newsContent" rows="10" cols="133" style="background: #C3D9B1; border-radius: 11px ;border: 1px solid #000"></textarea>
+                                            <span class="error-messeage"></span>
+
+                                        </div>
+                                        <div style="display: flex; justify-content: end; width: 1000px">
                                             <button type="submit" class="btn btn-save">Đăng bài</button>        
                                         </div>
                                     </form>

@@ -1,98 +1,118 @@
-<%-- 
-    Document   : consultation
-    Created on : May 20, 2024, 3:05:43 AM
-    Author     : Kha21
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<style>
-    #openFormBtn {
-    position: fixed;
-    top: 70%;
-    right: 0;
-    transform: translateY(-50%);
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px 0 0 5px;
-    z-index: 1000;
-}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-.form-container {
-    position: fixed;
-    top: 70%;
-    right: -350px;
-    transform: translateY(-50%);
-    width: 300px;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    transition: right 0.3s;
-    z-index: 1001;
-}
-
-.form-container form {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-container h2 {
-    margin-bottom: 10px;
-}
-
-.form-container label {
-    margin-bottom: 5px;
-}
-
-.form-container input,
-.form-container textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.form-container button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.form-container.show {
-    right: 0;
-}
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
-</style>
-
- <button id="openFormBtn">Đăng ký tư vấn</button>
-        <div id="consultationForm" class="form-container">
-            <button id="closeFormBtn" class="close-btn">&times;</button>
-            <form id="form" onsubmit="handleSubmit(event)">
-                <h2>Đăng ký tư vấn</h2>
-                <label for="name">Họ và Tên</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="message">Thông tin hỗ trợ</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-
-                <button type="submit">Gửi</button>
-            </form>
+        <!--summernote-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+        <title>JSP Page</title>
+        <style>
+            /* Tùy chỉnh vị trí của button */
+            .btn-fixed {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                z-index: 1000; /* Đảm bảo button hiển thị trên cùng */
+            }
+            .btn-custom{
+                background-color: #419FA3;
+                border-color:#419FA3;
+            }
+            /*            .btn-custom:hover{
+                            background-color: #198754;
+                            border-color: #198754;
+                        }*/
+        </style>
+    </head>
+    <body> 
+        <button type="button" class="btn btn-primary btn-custom btn-fixed" data-toggle="modal" data-target="#consultationModal">
+            Đăng ký tư vấn
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title " id="consultationModalLabel">Đăng ký tư vấn</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form đăng ký -->
+                        <form id="consForm">
+                            <div class="form-group">
+                                <label for="name">Họ và tên</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ và tên của bạn" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Nhập địa chỉ email của bạn" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Nội dung</label>
+                                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung tư vấn của bạn" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+        <!-- Summernote JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+                $('#consultationModal').on('hidden.bs.modal', function () {
+                    // Đặt lại giá trị của các trường dữ liệu trong modal
+                    $('#name').val('');
+                    $('#email').val('');
+                    $('#content').val('');
+                    $('#consultationModal').modal('hide');
+                });
+
+                $('#consForm').on('submit', function (e) {
+                    e.preventDefault();
+                    let formData = {
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        content: $('#content').val()
+                    };
+
+                    // AJAX request to send the reply to the servlet
+                    $.ajax({
+                        url: 'addConsultation',
+                        type: 'POST',
+                        data: formData,
+                        success: function (response) {
+                            $('#consultationModal').modal('hide');
+                            alert('sent successfully.');
+
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            alert('Failed to send.');
+                        }
+                    });
+                });
+            });
+        </script>
+
+
+    </body>
+</html>

@@ -90,7 +90,7 @@ public class AddAgencyServlet extends HttpServlet {
 //            request.getRequestDispatcher("view/agency/addAgency.jsp").forward(request, response);
             response.sendRedirect("addAgency");
         } else {
-            request.setAttribute("addFail", "Thêm đại lý thất bại");
+            session.setAttribute("addFail", "Thêm đại lý thất bại");
             response.sendRedirect("addAgency");
 
         }
