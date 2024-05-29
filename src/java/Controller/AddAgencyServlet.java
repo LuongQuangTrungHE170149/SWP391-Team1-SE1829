@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author tranm
  */
-public class AddAgencyServlet extends HttpServlet {
+public class AddAgencyServlet extends Hz {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

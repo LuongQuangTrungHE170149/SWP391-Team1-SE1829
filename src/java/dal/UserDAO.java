@@ -15,13 +15,11 @@ import java.util.List;
 
 import java.sql.ResultSet;
 
-
 /**
  *
  * @author trand
  */
-public class UserDAO extends DBContext{
-
+public class UserDAO extends DBContext {
 
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
@@ -84,7 +82,7 @@ public class UserDAO extends DBContext{
 
         return list;
     }
-    
+
     public int getCountAllCustomer() {
         int count = 0;
         String sql = "SELECT COUNT(*) AS EmployeeCount FROM Users WHERE [role] = 'Customer';";
@@ -102,8 +100,8 @@ public class UserDAO extends DBContext{
 
         return count;
     }
-    
-      public int getCountAllStaffs() {
+
+    public int getCountAllStaffs() {
         int count = 0;
         String sql = "SELECT COUNT(*) AS StaffCount FROM Users WHERE [role] = 'Staff';";
         try {
@@ -121,13 +119,11 @@ public class UserDAO extends DBContext{
         return count;
     }
 
-
     public User insert(User modal) {
         String sql = """
-                     INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender, dateCreated)
+                     INSERT INTO Users ( username, firstName, lastName, password, [role], email, phoneNumber, dob, [address], gender)
                      VALUES 
                      ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
-
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -142,9 +138,6 @@ public class UserDAO extends DBContext{
             ps.setDate(posParam++, modal.getDate());
             ps.setString(posParam++, modal.getAddress());
             ps.setInt(posParam++, modal.getGender());
-            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-            ps.setDate(posParam++, currentDate);
-
             ps.executeUpdate();
             return modal;
         } catch (SQLException e) {
@@ -171,7 +164,7 @@ public class UserDAO extends DBContext{
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 User u = new User();
                 u.setId(id);
                 u.setUserName(rs.getString("username"));
@@ -184,7 +177,7 @@ public class UserDAO extends DBContext{
                 u.setPhone(rs.getString("phoneNumber"));
                 u.setEmail(rs.getString("email"));
                 u.setAddress(rs.getString("address"));
-                
+
                 return u;
             }
         } catch (SQLException e) {
@@ -192,6 +185,37 @@ public class UserDAO extends DBContext{
         }
         return null;
     }
+
+    public User findByUsernameOrEmailAndPassword(String usernameAndEmail, String password) {
+        String sql = "SELECT * FROM [Users] where (username = ?  or email = ?) and password = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, usernameAndEmail);
+            ps.setString(2, usernameAndEmail);
+            ps.setString(3, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt(rs.getInt("gender")));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
         System.out.println(udb.getCountAllStaffs());
