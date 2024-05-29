@@ -85,8 +85,8 @@
                 </ul>
             </div>
             <div class="d-flex justify-content-center">
-                <a class="btn btn-outline-primary me-2" href="#">Đăng Nhập</a>
-                <a class="btn btn-primary  " href="#">Đăng Ký</a>
+                <a class="btn btn-outline-primary me-2" href="login.jsp">Đăng Nhập</a>
+                <a class="btn btn-primary  " href="register.jsp">Đăng Ký</a>
                 
             </div>
         </div>
