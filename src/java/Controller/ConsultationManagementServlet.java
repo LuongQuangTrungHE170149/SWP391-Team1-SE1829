@@ -92,7 +92,7 @@ public class ConsultationManagementServlet extends HttpServlet {
             List<Consultation> listForPage = listAll.subList(start, end);
             int numberOfPages = (int)Math.ceil(listAll.size()*1.0/recordPerPage);
             
-            
+            request.setAttribute("status", status);
             request.setAttribute("countAll", countAll);
             request.setAttribute("countNotReply", countNotReply);
             request.setAttribute("countReply", countReply);

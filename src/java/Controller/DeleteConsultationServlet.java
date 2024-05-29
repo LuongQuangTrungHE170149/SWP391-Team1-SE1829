@@ -55,11 +55,13 @@ public class DeleteConsultationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        int page = Integer.parseInt(request.getParameter("page"));
+        String pageParam = request.getParameter("page");
+        int page = Integer.parseInt(pageParam);
+        String status = request.getParameter("status");
         ConsultationDAO cdb = new ConsultationDAO();
         cdb.deleteConsultationById(id);
         System.out.println(page);
-        response.sendRedirect("ConsultationManagement?page="+page);
+        response.sendRedirect("ConsultationManagement?status="+status+"&page="+page);
     } 
 
     /** 
