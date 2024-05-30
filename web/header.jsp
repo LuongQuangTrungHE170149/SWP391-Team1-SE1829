@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!doctype html>
+
 <style>
     body{
 
@@ -49,7 +50,6 @@
         color: #275F61;
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top ">
@@ -70,12 +70,27 @@
                         <a class="nav-link"style="color:white;" href="introduce">Giới Thiệu</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="dlink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white;" href="#">Dịch Vụ</a>
-                        <ul class="dropdown-menu" aria-labelledby="dlink">
+                        <a class="nav-link dropdown-toggle" id="dropdown1" data-bs-toggle="dropdown"  data-mdb-dropdown-init  aria-expanded="false" style="color:white;" href="#">Dịch Vụ</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown1">
                             <li><a class="dropdown-item" href="#">Bảo Hiểm Xe Máy</a></li>
                         </ul>
-
                     </li>
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenu2"
+                            data-mdb-dropdown-init
+                            data-mdb-ripple-init aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><button class="dropdown-item" type="button">Action</button></li>
+                            <li><button class="dropdown-item" type="button">Another action</button></li>
+                            <li><button class="dropdown-item" type="button">Something else here</button></li>
+                        </ul>
+                    </div>
+                    <li></li>
                     <li class="nav-item">
                         <a class="nav-link"style="color:white;" href="#">Tin Tức</a>
                     </li>
@@ -85,12 +100,11 @@
                 </ul>
             </div>
             <div class="d-flex justify-content-center">
-                <a class="btn btn-outline-primary me-2" href="login.jsp">Đăng Nhập</a>
-                <a class="btn btn-primary  " href="register.jsp">Đăng Ký</a>
-                
+                <a class="btn btn-outline-primary me-2" href="login">Đăng Nhập</a>
+                <a class="btn btn-primary  " href="register">Đăng Ký</a>
+
             </div>
         </div>
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
 </body>
