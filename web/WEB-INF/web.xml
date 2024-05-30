@@ -56,14 +56,16 @@
         <servlet-name>FilterAgencyServlet</servlet-name>
         <servlet-class>Controller.FilterAgencyServlet</servlet-class>
     </servlet>
+    
     <servlet>
-
-        <servlet-name>CustomerListServlet</servlet-name>
-        <servlet-class>Controller.CustomerListServlet</servlet-class>
         <servlet-name>ConsultationManagementServlet</servlet-name>
         <servlet-class>Controller.ConsultationManagementServlet</servlet-class>
-
     </servlet>
+    <servlet>
+        <servlet-name>CustomerListServlet</servlet-name>
+        <servlet-class>Controller.CustomerListServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
