@@ -1,11 +1,11 @@
 /*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
+
+ 
     Created on : May 25, 2024, 4:39:02 PM
     Author     : tranm
-*/
+
 
 #homeManager-page {
     background-image: url(../images/side-view-man-with-motorbike.jpg);
@@ -67,7 +67,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 
-/*Content*/
+Content
 
 .home-manager--content {
     width: 100%;
@@ -100,5 +100,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .count {
     font-size: 20px;
     margin-top: 10px;
+}*/
+
+.dashboard{
+    display: flex;
+    height: 100vh;
+    position: fixed;
+    z-index: 1000;
 }
 
+
+.home-manager--wrapper {
+    margin-left: 280px;
+    flex-grow:  1;
+    min-height: 800px;
+    background-color: #f0f2fa;
+}
+
+
+.stat-cards{
+    margin-top: 20px;
+}
+.stat-cards-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 16px 16px;
+    background-color: #fff;
+    box-shadow: 0 15px 50px rgba(160, 163, 189, .1);
+    border-radius: 10px;
+}
+
+.stat-cards-info__num {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #171717;
+}
+.stat-cards-info__title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.22;
+    color: #b9b9b9;
+}

@@ -45,7 +45,7 @@ public class VehicleDAO extends DBContext {
     
     public static void main(String[] args) throws SQLException {
       
-        Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 1);
+        Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
         
 //        boolean result = vd.addVehicle(vehicle);
         System.out.println(VehicleDAO.INSTANCE.addVehicle(vehicle));
