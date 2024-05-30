@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ContractDAO extends DBContext {
 
-    public ContractDAO INSTANCE = new ContractDAO();
+    public static ContractDAO INSTANCE = new ContractDAO();
     private Connection con;
 
     public ContractDAO() {
@@ -91,6 +91,5 @@ public class ContractDAO extends DBContext {
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
         List<User> users = cd.getCustomer("jdoe");
-      
     }
 }

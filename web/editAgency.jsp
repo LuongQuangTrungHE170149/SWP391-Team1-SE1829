@@ -162,6 +162,17 @@
                 }
             });
 
+
+            form.addEventListener('submit', function (event) {
+                if (isValid === false) {
+                    event.preventDefault(); // Ngăn chặn việc submit form
+                } else {
+                    if (!confirm("Bạn có chắc chắn muốn sửa thông tin này không?")) {
+                        event.preventDefault(); // Ngăn chặn việc submit form nếu người dùng ấn "Cancel"
+                    }
+                }
+            });
+
         </script>
 
     </body>

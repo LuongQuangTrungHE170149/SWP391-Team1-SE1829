@@ -20,8 +20,6 @@ Create table Users(
 )
 GO
 
-
-
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,
 			AgencyName nvarchar(255),
@@ -31,6 +29,7 @@ Create table Agencies(
 			[status] nvarchar(30) default 'active'
 )
 GO
+
 
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
