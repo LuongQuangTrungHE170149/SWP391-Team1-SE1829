@@ -12,11 +12,15 @@ import java.sql.*;
  * @author QUANG TRUNG
  */
 public class VehicleDAO extends DBContext {
-    public VehicleDAO INSTANCE = new VehicleDAO();
+     public static VehicleDAO INSTANCE = new VehicleDAO();
     private Connection con;
 
     public VehicleDAO() {
-        con = new DBContext().connection;
+        if (INSTANCE == null) {
+            con = new DBContext().connection;
+        } else {
+            INSTANCE = this;
+        }
     }
     
     public boolean addVehicle(Vehicle vehicle) throws SQLException {
@@ -35,12 +39,15 @@ public class VehicleDAO extends DBContext {
             
         }
         
+      
+        
     }
     
     public static void main(String[] args) throws SQLException {
-        VehicleDAO vd = new VehicleDAO();
-        Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 0);
-        boolean result = vd.addVehicle(vehicle);
-        System.out.println(result);
+      
+        Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 1);
+        
+//        boolean result = vd.addVehicle(vehicle);
+        System.out.println(VehicleDAO.INSTANCE.addVehicle(vehicle));
     }
 }

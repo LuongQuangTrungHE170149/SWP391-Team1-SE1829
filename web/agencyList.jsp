@@ -72,7 +72,7 @@
                             <option value="all">Tất cả</option>
                             <option value="active" ${requestScope.selectedCity eq "active" ? "selected" : ""} >Hoạt động</option>
                             <option value="inactive" ${requestScope.selectedCity eq "inactive" ? "selected" : ""}>Dừng hoạt động</option>
-                           
+
 
                         </select>
 
@@ -89,6 +89,7 @@
 
 
                 <div>
+
 
                     <table class="styled-table">
                         <thead>
@@ -209,9 +210,11 @@
 
 
                         </tbody>
-
-
                     </table>
+
+
+
+
 
                 </div>
             </div>
@@ -274,7 +277,7 @@
 
                 confirmModalBody.textContent = action === 'inactive' ? 'Bạn có chắc chắn muốn ngưng hoạt động đại lý này không?' : 'Bạn có chắc chắn muốn kích hoạt đại lý này không?';
 
-                console.log(1);
+            
                 confirmBtn.onclick = function () {
                     window.location.href = "inactiveAgency?id=" + id + "&action=" + action;
                 };

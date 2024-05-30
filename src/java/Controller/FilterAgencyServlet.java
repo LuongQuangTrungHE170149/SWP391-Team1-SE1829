@@ -62,10 +62,13 @@ public class FilterAgencyServlet extends HttpServlet {
         String key = request.getParameter("filter");
         String selectedCity = "";
         if (!key.isEmpty() || key != null) {
-            switch (key) {
-                case "all":
-                    key = "";
-                    break;
+//            
+            if (key.equals("all")) {
+                response.sendRedirect("listAgency");
+
+            } else {
+                
+                switch (key) {      
                 case "active":
                     key = "active";
                     selectedCity = "active";
@@ -74,13 +77,13 @@ public class FilterAgencyServlet extends HttpServlet {
                     key = "inactive";
                     selectedCity = "inactive";
                     break;
+                }
 
+                List<Agency> filterAgencyList = AgencyDAO.INSTANCE.getAllAgenciesByStatus(key);
+                request.setAttribute("filterAgencyList", filterAgencyList);
+                request.setAttribute("selectedCity", selectedCity);
+                request.getRequestDispatcher("listAgency").forward(request, response);
             }
-
-            List<Agency> filterAgencyList = AgencyDAO.INSTANCE.getAllAgenciesByStatus(key);
-            request.setAttribute("filterAgencyList", filterAgencyList);
-            request.setAttribute("selectedCity", selectedCity);
-            request.getRequestDispatcher("listAgency").forward(request, response);
 
         } else {
             response.sendRedirect("listAgency");
