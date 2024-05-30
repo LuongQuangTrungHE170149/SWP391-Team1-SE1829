@@ -86,10 +86,28 @@ public class ContractDAO extends DBContext {
             e.printStackTrace();
             return false;
         }
+        
+    }
+    
+    public int countContracts () {
+        String sql = "select count(*) as totalContracts from Contracts";
+        int total = 0;
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                total = rs.getInt("totalContracts");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
     }
     
     public static void main(String[] args) {
-        ContractDAO cd = new ContractDAO();
-        List<User> users = cd.getCustomer("jdoe");
+//        ContractDAO cd = new ContractDAO();
+//        List<User> users = cd.getCustomer("jdoe");
+      
     }
 }

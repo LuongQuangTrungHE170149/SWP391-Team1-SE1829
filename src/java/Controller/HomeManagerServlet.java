@@ -6,6 +6,7 @@ package Controller;
 
 import Model.User;
 import dal.AgencyDAO;
+import dal.CompensationDAO;
 import dal.ContractDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -64,16 +65,22 @@ public class HomeManagerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         UserDAO udb = new UserDAO();
-     
+
         int countCustomer = udb.getCountAllCustomer();
         int countStaff = udb.getCountAllStaffs();
         BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
         HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
+        int totalAgency = AgencyDAO.INSTANCE.countAgency();
+        int totalContracts = ContractDAO.INSTANCE.countContracts();
+        int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
 
         request.setAttribute("countCustomer", countCustomer);
         request.setAttribute("countStaff", countStaff);
         request.setAttribute("totalPayment", totalPayment);
         request.setAttribute("monthlyPayment", monthlyPayment);
+        request.setAttribute("totalAgency", totalAgency);
+        request.setAttribute("totalContracts", totalContracts);
+        request.setAttribute("totalCompensations", totalCompensations);
 
         request.getRequestDispatcher("homeManager.jsp").forward(request, response);
     }

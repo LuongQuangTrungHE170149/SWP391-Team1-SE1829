@@ -18,7 +18,7 @@ import java.util.HashMap;
  *
  * @author tranm
  */
-public class AgencyDAO extends DBContext {
+public class AgencyDAO {
 
     public static AgencyDAO INSTANCE = new AgencyDAO();
     private Connection con;
@@ -207,6 +207,22 @@ public class AgencyDAO extends DBContext {
 
     }
     
+    public int countAgency() {
+        String sql = "select count(*) as TotalAgency  from Agencies";
+        int total = 0;
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                total = rs.getInt("TotalAgency");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+    
     public BigInteger totalPayment() {
         BigInteger total = BigInteger.ZERO;
         String sql = "SELECT SUM(Payment) AS TotalPayment FROM Contracts;";
@@ -338,6 +354,6 @@ public class AgencyDAO extends DBContext {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getAllAgenciesByStatus("active"));
+        System.out.println(AgencyDAO.INSTANCE.countAgency());
     }
 }
