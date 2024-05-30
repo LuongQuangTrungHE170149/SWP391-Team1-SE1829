@@ -41,19 +41,19 @@
                                     <form class="add-form-agency" action="addNews" method="post">
                                         <div style="margin-bottom: 10px">
                                             <label class="input-label" for="news-type">Loại bồi thường</label></br>
-                                            <input type="text" required="" id="news-type" class="input-full" name="newsType" style="width:1000px;background: #C3D9B1"/>
+                                            <input type="text" required="" id="news-type" class="input-full" name="comType" style="width:1000px;background: #C3D9B1"/>
                                             <span class="error-messeage"></span>
 
                                         </div>
                                         <div style="margin-bottom: 10px">
                                             <label class="input-label" for="news-content">Nội dung</label></br>
-                                            <textarea id="news-content" name="newsContent" rows="10" cols="133" style="background: #C3D9B1; border-radius: 11px ;border: 1px solid #000"></textarea>
+                                            <textarea id="news-content" name="comContent" rows="10" cols="133" style="background: #C3D9B1; border-radius: 11px ;border: 1px solid #000"></textarea>
                                             <span class="error-messeage"></span>
 
                                         </div>
                                         <div style="margin-bottom: 10px">
                                             <label class="input-label" for="news-title">Mức bồi thường</label></br>
-                                            <input type="text" required="" id="news-title" class="input-full" name="newsTitle" style="width:1000px;background: #C3D9B1"/>
+                                            <input type="text" required="" id="news-title" class="input-full" name="comPayment" style="width:1000px;background: #C3D9B1"/>
                                             <span class="error-messeage"></span>
 
                                         </div>
