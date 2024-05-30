@@ -3,10 +3,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!--chart-->
 
-        <!--summernote-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+
         <title>JSP Page</title>
         <style>
             /* Tùy chỉnh vị trí của button */
@@ -27,67 +27,58 @@
         </style>
     </head>
     <body> 
-        <button type="button" class="btn btn-primary btn-custom btn-fixed" data-toggle="modal" data-target="#consultationModal">
+        <button type="button" class="btn btn-primary btn-custom btn-fixed" data-bs-toggle="modal" data-bs-target="#consultationModal">
             Đăng ký tư vấn
         </button>
         <!-- Modal -->
-        <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel"data-bs-backdrop="true" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title " id="consultationModalLabel">Đăng ký tư vấn</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Form đăng ký -->
                         <form id="consForm">
-                            <div class="form-group">
-                                <label for="name">Họ và tên</label>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="name">Họ và tên</label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ và tên của bạn" required>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="email">Email</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Nhập địa chỉ email của bạn" required>
                             </div>
-                            <div class="form-group">
-                                <label for="content">Nội dung</label>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="content">Nội dung</label>
                                 <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung tư vấn của bạn" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--chart-->
 
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-        <!-- Summernote JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
-        <!-- jQuery -->
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
-        
-        
+        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script>
 
             $(document).ready(function () {
-                $('#consultationModal').on('hidden.bs.modal', function () {
-                    // Đặt lại giá trị của các trường dữ liệu trong modal
-                    $('#name').val('');
-                    $('#email').val('');
-                    $('#content').val('');
-                    $('#consultationModal').modal('hide');
-                });
+//                $('#consultationModal').on('hidden.bs.modal', function () {
+//                    // Đặt lại giá trị của các trường dữ liệu trong modal
+//                    $('#name').val('');
+//                    $('#email').val('');
+//                    $('#content').val('');
+//                    // Xóa lớp mờ
+//                    
+//                });
 
                 $('#consForm').on('submit', function (e) {
                     e.preventDefault();
@@ -103,8 +94,8 @@
                         type: 'POST',
                         data: formData,
                         success: function (response) {
-                            $('#consultationModal').modal('hide');
                             alert('sent successfully.');
+                            location.reload();
 
                         },
                         error: function (err) {
@@ -115,7 +106,5 @@
                 });
             });
         </script>
-
-
     </body>
 </html>

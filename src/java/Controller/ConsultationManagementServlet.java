@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -63,6 +64,7 @@ public class ConsultationManagementServlet extends HttpServlet {
             ConsultationDAO cdb = new ConsultationDAO();
             List<Consultation> listAll ;
             
+            HashMap<String, Integer> totalStaffAnswer = cdb.getTotalStaffAnswer();
             String status = request.getParameter("status");
             if(status != null){
                 switch(status){
@@ -92,6 +94,8 @@ public class ConsultationManagementServlet extends HttpServlet {
             List<Consultation> listForPage = listAll.subList(start, end);
             int numberOfPages = (int)Math.ceil(listAll.size()*1.0/recordPerPage);
             
+            
+            request.setAttribute("totalStaffAnswer", totalStaffAnswer);
             request.setAttribute("status", status);
             request.setAttribute("countAll", countAll);
             request.setAttribute("countNotReply", countNotReply);
