@@ -285,8 +285,8 @@ public class AgencyDAO extends DBContext {
 
     public List<Agency> searchAgency(String key) {
         List<Agency> list = new ArrayList<>();
-        String sql = "select * from Agencies Where AgencyName like '%" + key + "%'"
-                + " OR AgencyAddress like '%" + key + "%' OR HotLine like '%" + key
+        String sql = "select * from Agencies Where AgencyName like N'%" + key + "%'"
+                + " OR AgencyAddress like N'%" + key + "%' OR HotLine like '%" + key
                 + "%' OR Worktime like '%" + key + "%'";
 
         try {
