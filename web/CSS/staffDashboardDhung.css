@@ -16,13 +16,13 @@ body{
     width: 100%;
 }
 
-.bg-primary{
+/*.bg-primary{
     background-color: #419FA3 !important;
 }
 .btn-primary{
     background-color: #419FA3 !important;
     border-color: #419FA3;
-}
+}*/
 .active{
     background-color: #419FA3 !important;
 }

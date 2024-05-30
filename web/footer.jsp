@@ -8,6 +8,10 @@
 
 <!DOCTYPE html>
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+</style>
+<style>
+
     footer{
         width: 100%;
         background-color: #F7F7F7;
@@ -18,7 +22,8 @@
         justify-content: space-around;
         align-items: center;
 
-        background: linear-gradient(to bottom,#11DDE5,#275F61);
+        background: rgb(0,167,209);
+        background: linear-gradient(204deg, rgba(0,167,209,1) 0%, rgba(65,159,163,1) 100%);
     }
     .footer-item{
         flex: 1;

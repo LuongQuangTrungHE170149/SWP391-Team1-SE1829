@@ -25,7 +25,8 @@
         <!--chart-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
+        <!-- MDB -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"rel="stylesheet"/>
 
         <!--ROBOTO fonts-->
         <style>
@@ -66,9 +67,7 @@
         </style>
 
         <!--dashboard-->
-        <style>
 
-        </style>
 
     </head>
     <body>
@@ -76,14 +75,14 @@
             <!--dashboard-->
             <jsp:include page="staffDashboard.jsp"></jsp:include>
 
-            <!--content-->
-            <div class="content">
-                <div class="container  mt-3 mb-3 bg-body shadow-lg">
+                <!--content-->
+                <div class="content">
+                    <div class="container  mt-3 mb-3 bg-body shadow-lg">
 
-                    <div class="d-flex align-items-center">
-                        <div class=" d-flex justify-content-start mb-3 " style="margin-left: 110px; margin-top:50px;">
-                            <button onclick="location.href = 'ConsultationManagement?status=notReply'" class="btn btn-danger btn-sm me-2 btn-custom">
-                                Chưa trả lời <span class="badge bg-secondary">${countNotReply}</span>
+                        <div class="d-flex align-items-center">
+                            <div class=" d-flex justify-content-start mb-3 " style="margin-left: 110px; margin-top:50px;">
+                                <button onclick="location.href = 'ConsultationManagement?status=notReply'" class="btn btn-danger btn-sm me-2 btn-custom">
+                                    Chưa trả lời <span class="badge bg-secondary">${countNotReply}</span>
                             </button>
                             <button onclick="location.href = 'ConsultationManagement?status=reply'" class="btn btn-primary btn-sm me-2 btn-custom">
                                 Đã trả lời <span class="badge bg-secondary">${countReply}</span>
@@ -352,6 +351,10 @@
 
         <!--chart-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+        <!--mdb bootstrap-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+
         <script>
                                     var ctx = document.getElementById('consultationChart').getContext('2d');
                                     var myChart = new Chart(ctx, {

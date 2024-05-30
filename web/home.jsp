@@ -8,21 +8,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care Insurance | Home</title>
-        <link rel="stylesheet" href="CSS/home.css"/>
-
-        <style>
-
-
-        </style>
+        <link rel="stylesheet" href="CSS/homee.css"/>
     </head>
+    <style>
+        body{
+            font-family: Roboto !important;
+        }
+    </style>
     <body>
+        <jsp:include page="consultation.jsp"></jsp:include>
+
         <jsp:include page="header.jsp"></jsp:include>
 
             <!-- dang ky tu van -->
-        <jsp:include page="consultation.jsp"></jsp:include>
-            <div class="middle" style="margin-top: 75px;">
+            <div class="middle">
                 <div class="bg-img"></div>
                 <div class="middle-content">
                     <div class="f-title">BẢO HIỂM F-Care</div>
@@ -92,19 +93,7 @@
                 </div>
             </div>
         <jsp:include page="footer.jsp"></jsp:include>
-
-
-
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-        <!-- Summernote JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
     </body>
 </html>
 
