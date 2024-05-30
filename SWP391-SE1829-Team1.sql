@@ -30,6 +30,7 @@ Create table Agencies(
 )
 GO
 
+
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
 			Model nvarchar(255),
