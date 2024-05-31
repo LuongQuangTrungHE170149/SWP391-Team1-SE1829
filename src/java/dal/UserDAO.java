@@ -234,7 +234,7 @@ public class UserDAO extends DBContext {
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setRole(rs.getString("role"));
-                user.setGender(rs.getInt(rs.getInt("gender")));
+                user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
                 user.setDate(rs.getDate("dob"));
@@ -252,5 +252,6 @@ public class UserDAO extends DBContext {
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
         System.out.println(udb.getCountAllStaffs());
+        System.out.println(udb.findByUsernameOrEmailAndPassword("huong", "123"));
     }
 }

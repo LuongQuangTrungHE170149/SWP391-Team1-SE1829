@@ -17,8 +17,8 @@
                 z-index: 1000; /* Đảm bảo button hiển thị trên cùng */
             }
             .btn-custom{
-                background-color: #419FA3;
-                border-color:#419FA3;
+                background-color: #419FA3 !important;
+                border-color:#419FA3 !important;
             }
             /*            .btn-custom:hover{
                             background-color: #198754;

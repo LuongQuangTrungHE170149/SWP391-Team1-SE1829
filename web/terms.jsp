@@ -10,7 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Điều Khoản Sử Dụng</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <style>
 
             body{
@@ -18,10 +17,6 @@
                 margin: 0;
                 padding: 0;
             }
-            a{
-                font-size: 20px;
-            }
-
             .middle{
                 position: relative;
                 width: 100%;
@@ -100,10 +95,10 @@
                 background-color: #f0f0f0;
             }
             .active{
-                
+
             }
-            
-            
+
+
 
         </style>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -111,7 +106,7 @@
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
-            <div class="middle" style="margin-top: 75px;">
+            <div class="middle">
                 <div class="bg-img"></div>
                 <div class="middle-content">
                     <div class="f-title">Các Điều Kiện Sử Dụng</div>
@@ -135,14 +130,20 @@
                     </div>
                     <div class="col-md-8">
                         <h3 style="color: #419FA3;">ĐIỀU KHOẢN SỬ DỤNG</h3>
+
                         <div class="accordion" id="accordionPanelsStayOpenExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                        <h6>CÁC ĐIỀU KIỆN SỬ DỤNG</h6>
+                                    <button class="accordion-button" 
+                                            type="button" 
+                                            data-mdb-collapse-init
+                                            data-mdb-target="#panelsStayOpen-collapseOne" 
+                                            aria-expanded="true" 
+                                            aria-controls="panelsStayOpen-collapseOne">
+                                        CÁC ĐIỀU KIỆN SỬ DỤNG
                                     </button>
                                 </h2>
-                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" data-mdb-parent="#accordionPanelsStayOpenExample">
                                     <div class="accordion-body">
                                         <p><strong>1. Trang web này  (<a href="#">www.fcare.com.vn</a>)</strong> do Tổng Công Ty Bảo Hiểm F-Care sở hữu và điều hành. Việc sử dụng trang web 
                                             này phụ thuộc vào các Điều khoản và Điều Kiện của trang web này. Các <i><strong>Điều Khoản và Điều Kiện</strong></i> bao gồm:</p>
@@ -155,8 +156,8 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                        <h6>CÁC HẠN CHẾ VÀ SỬ DỤNG CÁC THÔNG TIN TÀI LIỆU</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                        CÁC HẠN CHẾ VÀ SỬ DỤNG CÁC THÔNG TIN TÀI LIỆU
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
@@ -168,8 +169,8 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                        <h6>THỜI GIAN HOẠT ĐỘNG</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                        THỜI GIAN HOẠT ĐỘNG
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
@@ -181,8 +182,8 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                                        <h6>TÀI KHOẢN NGƯỜI SỬ DỤNG</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                        TÀI KHOẢN NGƯỜI SỬ DỤNG
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
@@ -194,8 +195,8 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingFive">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
-                                        <h6>BẢN QUYỀN VÀ NHÃN HIỆU</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                                        BẢN QUYỀN VÀ NHÃN HIỆU
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
@@ -206,8 +207,8 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingSix">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
-                                        <h6>QUY ĐỊNH VỀ QUYỀN RIÊNG TƯ</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                                        QUY ĐỊNH VỀ QUYỀN RIÊNG TƯ
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
@@ -218,8 +219,8 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingBay">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseBay" aria-expanded="false" aria-controls="panelsStayOpen-collapseBay">
-                                        <h6>LIÊN KẾT CÁC TRANG WEB KHÁC</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseBay" aria-expanded="false" aria-controls="panelsStayOpen-collapseBay">
+                                        LIÊN KẾT CÁC TRANG WEB KHÁC
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseBay" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingBay">
@@ -230,8 +231,8 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTam">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTam" aria-expanded="false" aria-controls="panelsStayOpen-collapseTam">
-                                        <h6>AN NINH CỦA TRANG WEB</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseTam" aria-expanded="false" aria-controls="panelsStayOpen-collapseTam">
+                                        AN NINH CỦA TRANG WEB
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseTam" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTam">
@@ -250,8 +251,8 @@
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingChin">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseChin" aria-expanded="false" aria-controls="panelsStayOpen-collapseChin">
-                                        <h6>KHÔNG CHỊU TRÁCH NHIỆM</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseChin" aria-expanded="false" aria-controls="panelsStayOpen-collapseChin">
+                                        KHÔNG CHỊU TRÁCH NHIỆM
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseChin" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingChin">
@@ -268,8 +269,8 @@
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingMuoi">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseMuoi" aria-expanded="false" aria-controls="panelsStayOpen-collapseMuoi">
-                                        <h6>MIỄN TRỪ TRÁCH NHIỆM</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseMuoi" aria-expanded="false" aria-controls="panelsStayOpen-collapseMuoi">
+                                        MIỄN TRỪ TRÁCH NHIỆM
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseMuoi" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingMuoi">
@@ -284,8 +285,8 @@
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingElevent">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseElevent" aria-expanded="false" aria-controls="panelsStayOpen-collapseElevent">
-                                        <h6>BỒI THƯỜNG</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseElevent" aria-expanded="false" aria-controls="panelsStayOpen-collapseElevent">
+                                        BỒI THƯỜNG
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseElevent" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingElevent">
@@ -297,8 +298,8 @@
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTWE">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTWE" aria-expanded="false" aria-controls="panelsStayOpen-collapseTWE">
-                                        <h6>CHẤM DỨT</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseTWE" aria-expanded="false" aria-controls="panelsStayOpen-collapseTWE">
+                                        CHẤM DỨT
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseTWE" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTWE">
@@ -307,11 +308,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingThird">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThird" aria-expanded="false" aria-controls="panelsStayOpen-collapseThird">
-                                        <h6>SỬA ĐỔI</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseThird" aria-expanded="false" aria-controls="panelsStayOpen-collapseThird">
+                                        SỬA ĐỔI
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseThird" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThird">
@@ -320,11 +321,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingFourth">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFourth" aria-expanded="false" aria-controls="panelsStayOpen-collapseFourth">
-                                        <h6>LUẬT ĐIỀU CHỈNH VÀ CƠ QUAN XỬ LÝ TRANH CHẤP</h6>
+                                    <button class="accordion-button collapsed" type="button" data-mdb-collapse-init data-mdb-target="#panelsStayOpen-collapseFourth" aria-expanded="false" aria-controls="panelsStayOpen-collapseFourth">
+                                        LUẬT ĐIỀU CHỈNH VÀ CƠ QUAN XỬ LÝ TRANH CHẤP
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseFourth" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFourth">
@@ -342,9 +343,8 @@
 
 
         <jsp:include page="footer.jsp"></jsp:include>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- MDB -->
+        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
     </body>
 </html>
