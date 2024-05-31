@@ -10,21 +10,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Information</title>
-        <!-- Font Awesome -->
+<!--         Font Awesome 
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
             rel="stylesheet"
             />
-        <!-- Google Fonts -->
+         Google Fonts 
         <link
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
             rel="stylesheet"
             />
-        <!-- MDB -->
+         MDB 
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"
             rel="stylesheet"
-            />
+            />-->
         <style>
 
             body{
@@ -136,7 +136,7 @@
                 </div>
             </section>
             <!-- MDB -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+            <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
         <jsp:include page="footer.jsp"></jsp:include>
 
     </body>

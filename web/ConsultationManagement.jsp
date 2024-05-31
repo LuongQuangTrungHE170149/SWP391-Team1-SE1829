@@ -19,19 +19,8 @@
         <!--summernote-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
-        <!--can thiet-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
         <!--chart-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- MDB -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"rel="stylesheet"/>
-
-        <!--ROBOTO fonts-->
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-        </style>
 
         <style>
             /* CSS for modal fields */
@@ -58,16 +47,15 @@
             .modal-body label {
                 font-weight: bold;
             }
-            td{
+            table td{
+                padding:12px 16px !important;
+                align-content: center;
+
+            }
+            th{
                 align-content: center;
             }
-
-
-
         </style>
-
-        <!--dashboard-->
-
 
     </head>
     <body>
@@ -77,17 +65,16 @@
 
                 <!--content-->
                 <div class="content">
-                    <div class="container  mt-3 mb-3 bg-body shadow-lg">
-
+                    <div class="container mt-3 mb-3 bg-body shadow-lg">
                         <div class="d-flex align-items-center">
                             <div class=" d-flex justify-content-start mb-3 " style="margin-left: 110px; margin-top:50px;">
-                                <button onclick="location.href = 'ConsultationManagement?status=notReply'" class="btn btn-danger btn-sm me-2 btn-custom">
+                                <button onclick="location.href = 'ConsultationManagement?status=notReply'" class="btn btn-danger btn-sm me-2 ">
                                     Chưa trả lời <span class="badge bg-secondary">${countNotReply}</span>
                             </button>
-                            <button onclick="location.href = 'ConsultationManagement?status=reply'" class="btn btn-primary btn-sm me-2 btn-custom">
+                            <button onclick="location.href = 'ConsultationManagement?status=reply'" class="btn btn-primary btn-sm me-2 ">
                                 Đã trả lời <span class="badge bg-secondary">${countReply}</span>
                             </button>
-                            <button onclick="location.href = 'ConsultationManagement?status=all'" class="btn btn-primary btn-sm me-2 btn-custom">
+                            <button onclick="location.href = 'ConsultationManagement?status=all'" class="btn btn-primary btn-sm me-2 ">
                                 All <span class="badge bg-secondary">${countAll}</span>
                             </button>
                         </div>
@@ -96,8 +83,10 @@
 
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-10">
-                            <table class="table table-hover table-bordered">
-                                <thead class="" style="background-color: #419FA3; color:#fff;">
+                            <table class="table table-hover table-bordered ">
+                                <thead class=""
+                                       style="background: rgb(65,159,163);
+                                       background: linear-gradient(0deg, rgba(65,159,163,1) 24%, rgba(100,206,230,1) 100%); ">
                                     <tr class="">
                                         <th scope="col">#</th>
                                         <th scope="col">ID</th>
@@ -120,18 +109,18 @@
                                             <td>${listAll.email}</td>
                                             <td><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
                                             <c:if test="${listAll.status == true}" >
-                                                <td><span class="badge bg-primary rounded-pill" style="font-size:10px; margin-left:30px;">Responsed</span></td>
+                                                <td class=""><span class="btn btn-primary btn-rounded btn-sm ms-3" style="font-size:10px; cursor: auto;">Responsed</span></td>
                                             </c:if>
                                             <c:if test="${listAll.status == false}" >
                                                 <td>
-                                                    <div class="d-flex justify-content-center ">
-                                                        <div class=" text-nowrap badge bg-danger rounded-pill me-2 " style="font-size:10px; width: 100px">Not Responsed</div>
-                                                        <div class=" d-flex justify-content-center align-items-center"><a href="ReplyConsultation?id=${listAll.id}" class="badge badge-reply rounded-pill bg-primary text-decoration-none" data-id="${listAll.id}" data-bs-toggle="modal" data-bs-target="#replyModal" style="font-size:10px;">Reply</a></div>
+                                                    <div class="d-flex align-items-center ms-3">
+                                                        <div ><span class="btn btn-danger btn-sm btn-rounded me-2 " style="font-size:10px; cursor: auto;">Not Responsed</span></div>
+                                                        <div><button class="btn btn-primary btn-rounded btn-sm badge-reply" data-id="${listAll.id}" data-mdb-modal-init data-mdb-target="#replyModal" style="font-size:10px;">Reply</button></div>
                                                     </div>
                                                 </td>
                                             </c:if>    
 
-                                            <td class="text-center"><a  href="ReplyConsultation?id=${listAll.id}" class="badge badge-detail rounded-pill bg-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#detailModal"data-id="${listAll.id}" style="font-size:10px;">Detail</a></td>
+                                            <td class="text-center"><button class="btn btn-primary btn-rounded btn-sm badge-detail " data-mdb-modal-init data-mdb-target="#detailModal"data-id="${listAll.id}" style="font-size:10px;">Detail</button></td>
                                         </tr>
                                     </c:forEach>
                                 </c:if>
@@ -152,14 +141,12 @@
                             <ul class="pagination justify-content-center">
                                 <!-- Nút Previous -->
                                 <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                    <a class="page-link" href="ConsultationManagement?status=${status}&page=${currentPage - 1}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
+                                    <a class="page-link" href="ConsultationManagement?status=${status}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
                                 </li>
                                 <c:forEach begin="1" end="${numberOfPages}" var="page">
                                     <c:choose>
                                         <c:when test="${page == currentPage}">
-                                            <li class="page-item active">
+                                            <li class="page-item active" aria-current="page">
                                                 <span class="page-link">${page}</span>
                                             </li>
                                         </c:when>
@@ -174,9 +161,7 @@
 
                                 <!-- Nút Next -->
                                 <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                    <a class="page-link" href="ConsultationManagement?status=${status}&page=${currentPage + 1}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
+                                    <a class="page-link" href="ConsultationManagement?status=${status}&page=${currentPage + 1}" aria-label="Next">Next</a>
                                 </li>
                             </ul>
                         </nav>
@@ -212,7 +197,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title fw-bold fs-4" id="replyModalLabel" style="color:#419FA3;">Respond consultation</h5>
-                        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="ReplyConsultation" id="replyForm" method="post">
@@ -252,11 +237,14 @@
 
 
                             </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary">Gửi</button>
-                                <button type="button" class="btn btn-danger" onclick="confirmDeletion()">Xóa</button>
-                            </div>
 
+                            <div class="modal-footer d-flex justify-content-between ps-0 pe-0 pb-0">
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Gửi</button>
+                                    <button type="button" class="btn btn-danger" onclick="confirmDeletion()">Xóa</button>
+                                </div>
+                                <button class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -271,7 +259,7 @@
                     <div class="modal-header">
                         <div class="modal-title fs-4 fw-bold text-nowrap" id="detailModalLabel" style="color:#419FA3;">Consultation Details</div>
                         <div class="text-nowrap fw-bold fs-6  " id="status" style="margin-left: 100px">Status</div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
@@ -317,8 +305,8 @@
                     </div>
                     <div class="modal-footer">
 
-                        <button id="replyButton"  class="badge badge-reply rounded-pill bg-primary text-decoration-none border-0" data-bs-toggle="modal" data-bs-target="#replyModal">reply</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="replyButton"  class="btn btn-primary badge-reply" data-mdb-modal-init data-mdb-target="#replyModal">reply</button>
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -328,26 +316,25 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script>
-                                    $('#replyMessage').summernote({
-                                        placeholder: 'Write your answer here!',
-                                        tabsize: 2,
-                                        height: 120,
-                                        toolbar: [
-                                            ['style', ['style']],
-                                            ['font', ['bold', 'underline', 'clear']],
-                                            ['color', ['color']],
-                                            ['para', ['ul', 'ol', 'paragraph']],
-                                            ['table', ['table']],
-                                            ['insert', ['link', 'video']],
-                                            ['view', ['fullscreen', 'codeview', 'help']]
-                                        ]
-                                    });
+                                        $('#replyMessage').summernote({
+                                            placeholder: 'Write your answer here!',
+                                            tabsize: 2,
+                                            height: 120,
+                                            toolbar: [
+                                                ['style', ['style']],
+                                                ['font', ['bold', 'underline', 'clear']],
+                                                ['color', ['color']],
+                                                ['para', ['ul', 'ol', 'paragraph']],
+                                                ['table', ['table']],
+                                                ['insert', ['link', 'video']],
+                                                ['view', ['fullscreen', 'codeview', 'help']]
+                                            ]
+                                        });
         </script>
 
         <!-- jQuery can thiet cho bootstrap!! -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
         <!--chart-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
@@ -356,27 +343,27 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
         <script>
-                                    var ctx = document.getElementById('consultationChart').getContext('2d');
-                                    var myChart = new Chart(ctx, {
-                                        type: 'bar',
-                                        data: {
-                                            labels: <%= labels %>,
-                                            datasets: [{
-                                                    label: 'Total Consultations Answer',
-                                                    data: <%= data %>,
-                                                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                                    borderColor: 'rgba(255, 99, 132, 1)',
-                                                    borderWidth: 1
-                                                }]
-                                        },
-                                        options: {
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
+                                        var ctx = document.getElementById('consultationChart').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: <%= labels %>,
+                                                datasets: [{
+                                                        label: 'Total Consultations Answer',
+                                                        data: <%= data %>,
+                                                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                                        borderWidth: 1
+                                                    }]
+                                            },
+                                            options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
                                                 }
                                             }
-                                        }
-                                    });
+                                        });
         </script>
 
         <!--script modal form-->
@@ -505,4 +492,5 @@
             });
         </script>
     </body>
+
 </html>
