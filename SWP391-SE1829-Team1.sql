@@ -3,6 +3,7 @@ go
 Use SWP391_SE1829_Team1;
 
 
+
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -39,6 +40,7 @@ Create table Vehicles(
 			OwnerId int REFERENCES Users(id),
 )
 GO
+
 
 
 Create table Contracts(

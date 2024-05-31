@@ -58,7 +58,7 @@
                     </div>
 
                 </div>
-                <div class="row stat-cards" >
+                <div class="row stat-cards"  style="margin-top: 20px;">
                     <div class="col-md-3">
                         <div class="stat-cards-item">
                             <p class="stat-cards-info__num"><strong>${requestScope.totalContracts}</strong></p>
@@ -83,6 +83,30 @@
                         <p style="display: none" class="earning">${entry.value}</p>
                     </c:forEach>
                 </div>
+
+                <main>
+                    <div class="chart-container">
+                        <h2>Thông kê khách hàng</h2>
+                        <div class="chart">
+                            <canvas id="user-gender-distribution"></canvas>
+                                <c:forEach var="entry" items="${requestScope.listCustomerByGender.entrySet()}">
+                                <p style="display: none" class="gender">${entry.key}</p>
+                                <p style="display: none" class="count-gender">${entry.value}</p>
+                            </c:forEach>
+                        </div>
+                    </div>     
+
+                    <div class="chart-container">
+                        <h2>Thông kê hợp đồng</h2>
+                        <div class="chart">
+                            <canvas id="payment-status"></canvas>
+                                <c:forEach var="entry" items="${requestScope.countIsPayment.entrySet()}">
+                                <p style="display: none" class="pay-status">${entry.key}</p>
+                                <p style="display: none" class="pay-count">${entry.value}</p>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </main>
             </div>
 
 
@@ -91,85 +115,6 @@
 
 
 
-        <!--        <div id="homeManager-page">
-                    <div class="container home-manager--wrapper">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="nav-manager">
-                                    <div class="sidebar">
-                                        <ul class="nav-lists">
-                                            <li class="list">
-                                                <a href="#" class="nav-link">
-                                                    <span class="link">Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li class="list">
-                                                <a href="customerList" class="nav-link">
-                                                    <span class="link">Danh sách khách hàng</span>
-                                                </a>
-                                            </li>
-                                            <li class="list">
-                                                <a href="listAgency" class="nav-link">
-                                                    <span class="link">Danh sách đại lý</span>
-                                                </a>
-                                            </li>
-                                            <li class="list">
-                                                <a href="#" class="nav-link">
-                                                    <span class="link">Danh sách nhân viên</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-10">
-                                <div class="home-manager--content">
-                                    <div style="padding: 20px;">
-                                        <span class="title"><strong>Tổng quan</strong></span>
-                                        <div class="row" style="display: flex; justify-content: center;">
-        
-                                            <div class="col-md-3 ">
-                                                <div style="background-color: #1e8e1ac2" class="wrapper">
-                                                    <span class="sub-title"><strong>Số khách hàng</strong></span>
-                                                    <span class="count">${requestScope.countCustomer}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <div style="background-color: #3f51b5bf" class="wrapper">
-                                                    <span class="sub-title"><strong>Số nhân viên</strong></span>
-                                                    <span class="count">${requestScope.countStaff}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <div style="background-color: #9e9e9eb5" class="wrapper">
-                                                    <span class="sub-title"><strong>Doanh thu</strong></span>
-                                                    <span class="count payment">
-        <fmt:formatNumber value="${requestScope.totalPayment}" type="currency" currencySymbol="₫" groupingUsed="true"/>
-    </span>
-
-
-</div>
-</div>
-</div>
-</div>
-
-<div style="padding: 20px;">
-<span class="title"><strong>Biểu đồ doanh thu</strong></span>
-
-<canvas id="earningsChart"></canvas>
-        <c:forEach var="entry" items="${requestScope.monthlyPayment.entrySet()}">
-        <p style="display: none" class="month">${entry.key}</p>
-        <p style="display: none" class="earning">${entry.value}</p>
-        </c:forEach>
-    </div>
-</div>
-</div>
-</div>
-
-</div>
-
-
-</div>-->
 
         <script>
 
@@ -178,12 +123,19 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var labels = [];
                 var data = [];
+                var countGender = [];
+                var isPayLabel = [];
+                var countIsPay = [];
 
-// Lấy các phần tử có lớp là 'month' và 'earning'
+
                 var monthElements = document.querySelectorAll('.month');
                 var earningElements = document.querySelectorAll('.earning');
 
-// Lấy dữ liệu từ các phần tử và lưu vào mảng
+                var countGenderElements = document.querySelectorAll('.count-gender');
+
+                var isPayElements = document.querySelectorAll('.pay-status');
+                var countIsPayElements = document.querySelectorAll('.pay-count');
+
                 monthElements.forEach(function (monthElement, index) {
                     var month = monthElement.innerText;
                     var earning = parseFloat(earningElements[index].innerText.replace(/[^0-9.-]+/g, "")); // Loại bỏ ký tự không phải số
@@ -191,8 +143,20 @@
                     data.push(earning);
                 });
 
+                countGenderElements.forEach(function (element) {
+                    countGender.push(element.innerText);
+                })
+
+                isPayElements.forEach(function (element, index) {
+                    var isPay = element.innerText === "Paid" ? "Đã thanh toán" : "Chưa thanh toán";
+                    var count = countIsPayElements[index].innerText;
+                    isPayLabel.push(isPay);
+                    countIsPay.push(count);
+                })
+
+
                 var ctx = document.getElementById('earningsChart').getContext('2d');
-                var earningsChart = new Chart(ctx, {
+                new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: labels,
@@ -218,6 +182,57 @@
                         }
                     }
                 });
+
+                const ctx1 = document.getElementById('user-gender-distribution').getContext('2d');
+                new Chart(ctx1, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Nữ', 'Nam', 'Khác'],
+                        datasets: [{
+                                data: countGender,
+                                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                            }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Phân bổ giới tính người dùng'
+                            }
+                        }
+                    }
+                });
+
+
+
+                const ctx3 = document.getElementById('payment-status').getContext('2d');
+                new Chart(ctx3, {
+                    type: 'pie',
+                    data: {
+                        labels: isPayLabel,
+                        datasets: [{
+                                data: countIsPay,
+                                backgroundColor: ['#2196F3', '#F44336'],
+                            }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Tình trạng thanh toán'
+                            }
+                        }
+                    }
+                });
+
 
             });
         </script>
