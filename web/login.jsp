@@ -35,8 +35,8 @@
         </style>
     </head>
     <body>
-        <jsp:include page="consultation.jsp"></jsp:include>
         <jsp:include page="header.jsp"></jsp:include>
+        
 
             <!--login form--> 
             <section class="h-100 gradient-form" style="background-color: #eee;">
@@ -91,11 +91,11 @@
                 </div>
             </div>
         </section>
+        <jsp:include page="consultation.jsp"></jsp:include>
         <jsp:include page="footer.jsp"></jsp:include>
 
         <!-- jQuery can thiet cho bootstrap!! -->
         <!-- MDB -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
 
 
