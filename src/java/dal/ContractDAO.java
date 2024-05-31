@@ -55,48 +55,45 @@ public class ContractDAO extends DBContext {
         }
         return customers;
     }
-    
-    
-    
 
-    public boolean addContract(Contract contract){
+    public boolean addContract(Contract contract) {
         try {
-            
+
             // Calculate End Date
             String sql = "INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = con.prepareStatement(sql);
-            
+
             stmt.setInt(1, contract.getCustomerId());
             stmt.setInt(2, contract.getStaffId());
             stmt.setInt(3, contract.getAgencyId());
             stmt.setInt(4, contract.getVehicleId());
-            stmt.setDate(5,  contract.getStartDate());
-            stmt.setDate(6, new Date(contract.getStartDate().getTime() + (long)contract.getContractType() * 365 * 24 * 60 * 60 * 1000));
+            stmt.setDate(5, contract.getStartDate());
+            stmt.setDate(6, new Date(contract.getStartDate().getTime() + (long) contract.getContractType() * 365 * 24 * 60 * 60 * 1000));
             stmt.setString(7, contract.getContractType() + " Year");
             stmt.setString(8, contract.getDescripttion());
             stmt.setDouble(9, contract.getPayment());
             stmt.setString(10, contract.getStatus());
-            
+
             stmt.executeUpdate();
             stmt.close();
             con.close();
             return true;
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-        
+
     }
-    
-    public int countContracts () {
+
+    public int countContracts() {
         String sql = "select count(*) as totalContracts from Contracts";
         int total = 0;
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 total = rs.getInt("totalContracts");
             }
         } catch (SQLException e) {
@@ -104,10 +101,31 @@ public class ContractDAO extends DBContext {
         }
         return total;
     }
-    
+
+    public HashMap<String, Integer> countIsPay() {
+        HashMap<String, Integer> hash = new HashMap<>();
+        String sql = "SELECT CASE  WHEN IsPay = 1 THEN 'Paid'  ELSE 'Unpaid' END AS PaymentStatus,\n"
+                + "COUNT(*) AS Count FROM Contracts GROUP BY IsPay;";
+                
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                hash.put(rs.getString("PaymentStatus"), rs.getInt("Count"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return hash;
+    }
+
     public static void main(String[] args) {
 //        ContractDAO cd = new ContractDAO();
 //        List<User> users = cd.getCustomer("jdoe");
-      
+
+
     }
 }

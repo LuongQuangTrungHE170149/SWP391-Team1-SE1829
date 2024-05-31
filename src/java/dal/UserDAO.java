@@ -6,6 +6,7 @@
 package dal;
 
 import Model.*;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 /**
  *
@@ -50,8 +52,8 @@ public class UserDAO extends DBContext {
 
         return list;
     }
-    
-       public List<User> getAllUserByRole(String role) {
+
+    public List<User> getAllUserByRole(String role) {
         List<User> list = new ArrayList<>();
         String sql = "select * from Users where role = ?";
 
@@ -81,8 +83,6 @@ public class UserDAO extends DBContext {
 
         return list;
     }
-    
-    
 
     public List<User> getStaffsByAgencyId(int agencyId) {
         List<User> list = new ArrayList<>();
@@ -249,9 +249,30 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    public HashMap<String, Integer> countCutomerByGender() {
+        HashMap<String, Integer> hash = new HashMap<>();
+
+        String sql = "SELECT  CASE  WHEN gender = 1 THEN 'Male' WHEN gender = 2 THEN 'Female' ELSE 'Other' END AS Gender, COUNT(*) AS Count\n"
+                + "FROM Users GROUP BY  CASE  WHEN gender = 1 THEN 'Male' WHEN gender = 2 THEN 'Female'ELSE 'Other' END;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                hash.put(rs.getString("Gender"), rs.getInt("Count"));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return hash;
+    }
+
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.getCountAllStaffs());
-        System.out.println(udb.findByUsernameOrEmailAndPassword("huong", "123"));
+//        System.out.println(udb.getCountAllStaffs());
+        System.out.println(udb.countCutomerByGender());
     }
 }
