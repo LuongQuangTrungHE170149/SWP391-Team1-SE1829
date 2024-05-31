@@ -3,37 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/ContractDAO.java</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/VehicleDAO.java</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/ListAgencyServlet.java</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/AddVehicleServlet.java</file>
-=======
-
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/dal/VehicleDAO.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/addVehicle.jsp</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Model/Vehicle.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/dal/ContractDAO.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/CSS/vehicle.css</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/addContract.jsp</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Model/Role.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/success.jsp</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/addAgency.jsp</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddVehicleServlet.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Model/Contract.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/header.jsp</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/footer.jsp</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/home.jsp</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/CSS/contract.css</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddContractServlet.java</file>
-            <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddAgencyServlet.java</file>
-
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/ConsultationManagement.jsp</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/ConsultationManagementServlet.java</file>
-
->>>>>>> 87dbeef62434adb8c2c9a769aa465e9b5290f6e5
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/CompensationDAO.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Model/Compensation.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/CSS/manager.css</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/homeManager.jsp</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/HomeManagerServlet.java</file>
         </group>
     </open-files>
 </project-private>
