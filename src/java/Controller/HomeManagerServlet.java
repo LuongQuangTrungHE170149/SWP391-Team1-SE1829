@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.Agency;
 import Model.User;
 import dal.AgencyDAO;
 import dal.CompensationDAO;
@@ -75,6 +76,9 @@ public class HomeManagerServlet extends HttpServlet {
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
         HashMap<String, Integer> countIsPayment = ContractDAO.INSTANCE.countIsPay();
+        HashMap<Integer, String> staffByAgency = AgencyDAO.INSTANCE.getStaffByAgency();
+        List<User> listStaffs = udb.getAllStaffs();
+        List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
 
         request.setAttribute("countCustomer", countCustomer);
         request.setAttribute("countStaff", countStaff);
@@ -85,6 +89,9 @@ public class HomeManagerServlet extends HttpServlet {
         request.setAttribute("totalCompensations", totalCompensations);
         request.setAttribute("listCustomerByGender", listCustomerByGender);
         request.setAttribute("countIsPayment", countIsPayment);
+        request.setAttribute("listStaffs", listStaffs);
+        request.setAttribute("staffByAgency", staffByAgency);
+        request.setAttribute("listAgency", listAgency);
 
         request.getRequestDispatcher("homeManager.jsp").forward(request, response);
     }

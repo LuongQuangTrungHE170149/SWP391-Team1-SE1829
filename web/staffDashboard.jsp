@@ -51,7 +51,7 @@
             
         }
     </style>
-    <div class="dashboard d-flex flex-column sticky-top p-3 vh-100 bg-custom" style="width: 250px;">
+    <div class="dashboard d-flex flex-column  p-3 vh-100 bg-custom" style="width: 250px;">
         <a href="#" class="d-flex align-items-center ms-1 mb-3 sticky-top  me-md-auto  text-decoration-none text-white">
             <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
             <span class="fs-5 mt-1">Staff Manager</span>
