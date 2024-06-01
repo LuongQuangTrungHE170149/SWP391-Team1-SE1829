@@ -44,15 +44,15 @@
             align-items: center;
             font-size: 12px;
         }
-        
+
         .activeDash{
             border-left: 5px solid #ccc;
             background-color: #e9e9e9;
-            
         }
+        
     </style>
-    <div class="dashboard d-flex flex-column  p-3 vh-100 bg-custom" style="width: 250px;">
-        <a href="#" class="d-flex align-items-center ms-1 mb-3 sticky-top  me-md-auto  text-decoration-none text-white">
+    <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
+        <a href="#" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
             <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
             <span class="fs-5 mt-1">Staff Manager</span>
         </a>
