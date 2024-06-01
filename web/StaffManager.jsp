@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Promotion Management</title>
+        <title>F-Care | Staff Manager</title>
     </head>
     <style>
         .navbar-custom {
@@ -23,9 +23,9 @@
             <jsp:include page="staffDashboard.jsp"></jsp:include>
 
             <!--content-->
-            <div class="content d-flex flex-column justify-content-center align-items-center">
+            <div class="content d-flex justify-content-center align-items-center">
                 <div class="nav navbar navbar-custom d-flex justify-content-center align-items-center sticky-top" style="width: 100%;">
-                    <div class="fs-3 fw-bold text-white">Promotion Management</div>
+                    <div class="fs-3 fw-bold text-white">Staff Manager</div>
                 </div>
             </div>
         </div>

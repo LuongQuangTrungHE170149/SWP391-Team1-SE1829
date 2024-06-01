@@ -1,7 +1,7 @@
 <%-- 
     Document   : staffDashboard
     Created on : May 30, 2024, 9:06:27 PM
-    Author     : thuhu
+    Author     : kha21
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,25 +16,9 @@
 <!-- MDB -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"rel="stylesheet"/><body>
     <style>
-        /*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-        */
-        /* 
-            Created on : May 30, 2024, 9:08:40 PM
-            Author     : thuhu
-        */
-
-
-        body{
-            font-family: Roboto;
-        }
         .bg-custom{
             background: rgb(5,96,116);
             background: linear-gradient(0deg, rgba(5,96,116,1) 0%, rgba(65,159,163,1) 100%);
-        }
-        .container{
-            width: 100%;
         }
 
         .bg-primary{
@@ -44,76 +28,85 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
             background-color: #419FA3 !important;
             border-color: #419FA3;
         }
-        .active{
 
-        }
-
-        .dashboard{
-            display: flex;
-            height: 100vh;
-            position: fixed;
-            z-index: 1000;
-        }
         .content{
-            margin-left:400px;
-            width: 70%;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            /*justify-content: center;*/
-            /*align-content: center;*/
-            /*align-items: center;*/
         }
         .btn-custom{
             width: 100%;
-            height: 60px;
+            height: 45px;
             margin-bottom: 8px;
+            padding:  10px;
             display: flex;
             justify-content: start;
             align-items: center;
-            font-size: 14px;
+            font-size: 12px;
+        }
+        
+        .activeDash{
+            border-left: 5px solid #ccc;
+            background-color: #e9e9e9;
+            
         }
     </style>
-    <div class="dashboard flex-column flex-shrink-1 sticky-left p-3  bg-custom" style="width: 280px;">
-        <a href="#" class="d-flex align-items-center ms-1 mb-3  me-md-auto  text-decoration-none text-white">
-            <img src="images/icon motor.png" class="me-2 mb-1" width="40" height="40" alt="alt"/>
-            <span class="fs-4 mt-1">Staff Manager</span>
+    <div class="dashboard d-flex flex-column sticky-top p-3 vh-100 bg-custom" style="width: 250px;">
+        <a href="#" class="d-flex align-items-center ms-1 mb-3 sticky-top  me-md-auto  text-decoration-none text-white">
+            <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
+            <span class="fs-5 mt-1">Staff Manager</span>
         </a>
-        <hr class="mt-0 bg-light" style="height: 2px; border: none;">
+        <hr class="mt-0 bg-light" style="height: 2px;
+            border: none;">
         <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-                <a href="staffManager" class="btn btn-light btn-custom   ">
+                <a href="StaffManager" class="btn btn-light btn-sm btn-custom " id="btnHome">
                     <i class="fa-solid fa-house me-2"></i>Home 
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="ConsultationManagement" class="btn btn-light btn-custom active">
-                    <i class="fa-solid fa-message me-2"></i> Consultation
+            <li class="nav-item btn-group">
+                <a href="ConsultationManagement" class="btn btn-light  btn-custom " id="btnConsultation">
+                    <i class="fa-solid fa-message me-2"></i> 
+                    Consultation
+                    <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
                 </a>
+                <button type="button "
+                        class="btn btn-light btn-custom dropdown-toggle dropdown-toggle-split"
+                        data-mdb-ripple-init
+                        data-mdb-dropdown-init
+                        aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a href="ConsultationManagement#listConsultation" class="dropdown-item">1. List consultation</a></li>
+                    <li><a href="ConsultationManagement#chart" class="dropdown-item">2. Total staff answer</a></li>
+                </ul>
             </li>
             <li class="nav-item">
-                <a href="PromotionManagement" class="btn btn-light btn-custom    ">
+                <a href="PromotionManagement" class="btn btn-light btn-sm btn-custom" id="btnPromotion">
                     <i class="fa-solid fa-gift me-2"></i> Promotion 
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="btn btn-light btn-custom    ">
+                <a href="#" class="btn btn-light btn-custom" id="btnContract">
                     <i class="fa-solid fa-file-contract me-2"></i>Contract
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="btn btn-light btn-custom   ">
+                <a href="#" class="btn btn-light btn-custom" id="btnCustomer">
                     <i class="fa-solid fa-user me-2"></i>Customer
                 </a>
             </li>
         </ul>
-        <hr class="mt-0 bg-light" style="height: 2px; border: none;">
+        <hr class="mt-0 bg-light" style="height: 2px;
+            border: none;">
         <div class="dropup">
             <a style="cursor: pointer" 
                class="d-flex align-items-center  text-decoration-none dropdown-toggle text-white"
                data-mdb-dropdown-init
                aria-expanded="false">
                 <img src="images/profile-circle 1.png" class="me-2" width="32" height="32" alt="alt"/>
-                <strong>Staff</strong>
+                <strong>${sessionScope.user.username}</strong>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                 <li>
@@ -129,3 +122,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
     <!--mdb bootstrap-->
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
+    <script>
+        var currentLocation = window.location.href;
+
+        if (currentLocation.includes("StaffManager")) {
+            document.getElementById("btnHome").classList.add("activeDash");
+        } else if (currentLocation.includes("ConsultationManagement")) {
+            document.getElementById("btnConsultation").classList.add("activeDash");
+        } else if (currentLocation.includes("PromotionManagement")) {
+            document.getElementById("btnPromotion").classList.add("activeDash");
+        } else if (currentLocation.includes("ContractManagement")) {
+            document.getElementById("btnContract").classList.add("activeDash");
+        }
+    </script>

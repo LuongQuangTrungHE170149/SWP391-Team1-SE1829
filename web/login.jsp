@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : May 23, 2024, 1:55:29 PM
-    Author     : trand
+    Author     : kha21
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -36,8 +36,6 @@
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
-        
-
             <!--login form--> 
             <section class="h-100 gradient-form" style="background-color: #eee;">
                 <div class="container py-5 h-100">
@@ -93,12 +91,6 @@
         </section>
         <jsp:include page="consultation.jsp"></jsp:include>
         <jsp:include page="footer.jsp"></jsp:include>
-
-        <!-- jQuery can thiet cho bootstrap!! -->
-        <!-- MDB -->
-
-
-
     </body>
 </html>
 

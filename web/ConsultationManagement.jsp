@@ -48,12 +48,32 @@
                 font-weight: bold;
             }
             table td{
-                padding:12px 16px !important;
+                padding:8px 12px !important;
                 align-content: center;
-
             }
             th{
                 align-content: center;
+                padding: 14px 16px;
+            }
+            .btn-table{
+                padding: 3px 10px;
+                font-size: 10px!important;
+            }
+            .navbar-custom {
+                background: rgb(0,167,209);
+                background: linear-gradient(204deg, rgba(0,167,209,1) 0%, rgba(65,159,163,1) 100%);
+            }
+            #loading-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); /* Màu nền đen với độ mờ 50% */
+                z-index: 9999; /* Số thứ tự để hiển thị lớp phủ trên cùng */
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         </style>
 
@@ -64,29 +84,30 @@
             <jsp:include page="staffDashboard.jsp"></jsp:include>
 
                 <!--content-->
-                <div class="content">
-                    <div class="container mt-3 mb-3 bg-body shadow-lg">
+                <div class="content d-flex flex-column justify-content-center align-items-center" >
+                    <div class="nav navbar navbar-custom d-flex justify-content-center align-items-center sticky-top" style="width: 100%;">
+                        <div class="fs-3 fw-bold text-white">Consultation Management</div>
+                    </div>
+                    <!--list-->
+                    <div class="container mt-3 mb-3 bg-body shadow-lg" id="listConsultation">
                         <div class="d-flex align-items-center">
                             <div class=" d-flex justify-content-start mb-3 " style="margin-left: 110px; margin-top:50px;">
                                 <button onclick="location.href = 'ConsultationManagement?status=notReply'" class="btn btn-danger btn-sm me-2 ">
-                                    Chưa trả lời <span class="badge bg-secondary">${countNotReply}</span>
+                                    Chưa trả lời <span class="badge badge-danger">${countNotReply}</span>
                             </button>
                             <button onclick="location.href = 'ConsultationManagement?status=reply'" class="btn btn-primary btn-sm me-2 ">
-                                Đã trả lời <span class="badge bg-secondary">${countReply}</span>
+                                Đã trả lời <span class="badge badge-danger">${countReply}</span>
                             </button>
                             <button onclick="location.href = 'ConsultationManagement?status=all'" class="btn btn-primary btn-sm me-2 ">
-                                All <span class="badge bg-secondary">${countAll}</span>
+                                All <span class="badge badge-danger">${countAll}</span>
                             </button>
                         </div>
-                        <h1 class="text-center fw-bold" style="color:#419FA3; margin-left: 50px; margin-top: 20px;">Consultation Management</h1>
                     </div>
 
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-10">
                             <table class="table table-hover table-bordered ">
-                                <thead class=""
-                                       style="background: rgb(65,159,163);
-                                       background: linear-gradient(0deg, rgba(65,159,163,1) 24%, rgba(100,206,230,1) 100%); ">
+                                <thead class="">
                                     <tr class="">
                                         <th scope="col">#</th>
                                         <th scope="col">ID</th>
@@ -109,18 +130,18 @@
                                             <td>${listAll.email}</td>
                                             <td><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
                                             <c:if test="${listAll.status == true}" >
-                                                <td class=""><span class="btn btn-primary btn-rounded btn-sm ms-3" style="font-size:10px; cursor: auto;">Responsed</span></td>
+                                                <td class=""><span class="btn btn-primary btn-rounded btn-sm btn-table ms-3" style="cursor: auto;" >Responsed</span></td>
                                             </c:if>
                                             <c:if test="${listAll.status == false}" >
                                                 <td>
                                                     <div class="d-flex align-items-center ms-3">
-                                                        <div ><span class="btn btn-danger btn-sm btn-rounded me-2 " style="font-size:10px; cursor: auto;">Not Responsed</span></div>
-                                                        <div><button class="btn btn-primary btn-rounded btn-sm badge-reply" data-id="${listAll.id}" data-mdb-modal-init data-mdb-target="#replyModal" style="font-size:10px;">Reply</button></div>
+                                                        <div ><span class="btn btn-danger btn-sm btn-rounded btn-table me-2  text-nowrap" style="cursor: auto;" >Not Responsed</span></div>
+                                                        <div><button class="btn btn-primary btn-rounded btn-sm btn-table badge-reply" data-id="${listAll.id}" data-mdb-modal-init data-mdb-target="#replyModal">Reply</button></div>
                                                     </div>
                                                 </td>
                                             </c:if>    
 
-                                            <td class="text-center"><button class="btn btn-primary btn-rounded btn-sm badge-detail " data-mdb-modal-init data-mdb-target="#detailModal"data-id="${listAll.id}" style="font-size:10px;">Detail</button></td>
+                                            <td class="text-center"><button class="btn btn-primary btn-rounded btn-sm btn-table badge-detail " data-mdb-modal-init data-mdb-target="#detailModal"data-id="${listAll.id}">Detail</button></td>
                                         </tr>
                                     </c:forEach>
                                 </c:if>
@@ -170,6 +191,7 @@
 
                 <!--chart-->
                 <div class="container mt-3 mb-3 bg-body shadow-lg" id="chart">
+                    <div class="m-5 text-center fs-4 fw-bold" style="color:#419FA3;">Total staff answer chart</div>
                     <div class="row">
                         <div class="col-12">
                             <canvas id="consultationChart"></canvas>
@@ -191,6 +213,9 @@
 
         </div>
 
+
+
+
         <!--modal-->
         <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true" >
             <div class="modal-dialog modal-lg  modal-dialog-centered">
@@ -200,6 +225,11 @@
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="close"></button>
                     </div>
                     <div class="modal-body">
+                        <div id="spinner" style="display: none;">
+                            <div class="spinner-border text-info" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <form action="ReplyConsultation" id="replyForm" method="post">
                             <div class="row">
                                 <div class="col-2 mb-3">
@@ -239,9 +269,16 @@
                             </div>
 
                             <div class="modal-footer d-flex justify-content-between ps-0 pe-0 pb-0">
-                                <div>
+                                <div class="d-flex">
                                     <button type="submit" class="btn btn-primary">Gửi</button>
                                     <button type="button" class="btn btn-danger" onclick="confirmDeletion()">Xóa</button>
+                                    <!--spinner-->
+                                    <div id="loading-overlay" style="display: none;">
+                                            <div class="spinner-border text-info" role="status" >
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                    </div>
+
                                 </div>
                                 <button class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
                             </div>
@@ -312,6 +349,9 @@
             </div>
         </div>
 
+
+
+
         <!--summernote-->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -368,6 +408,30 @@
 
         <!--script modal form-->
         <script>
+            function showLoading() {
+                document.getElementById('loading-overlay').style.display = 'flex';
+            }
+
+            // Ẩn lớp phủ và spinner
+
+            window.addEventListener('load',()=>{
+                setTimeout(()=>{
+                    hideLoading();
+                },2000);
+            });
+            window.onload = function () {
+                showSpinner();
+            };
+            function showSpinner() {
+                var spinner = document.getElementById('loading-overlay');
+                spinner.style.display = 'flex';
+                setTimeout(function () {
+                    hideLoading();
+                }, 2000);
+            }
+            function hideLoading() {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }
             function confirmDeletion() {
                 var id = document.getElementById('id').value;
                 var status = document.getElementById('pre-status').value;
@@ -464,8 +528,9 @@
                 });
 
                 $('#replyForm').on('submit', function (e) {
-                    e.preventDefault();
 
+                    showLoading();
+                    e.preventDefault();
                     let formData = {
                         id: $('#id').val(),
                         title: $('#title').val(),
@@ -481,6 +546,7 @@
                         data: formData,
                         success: function (response) {
                             alert('Reply sent successfully.');
+                            hideLoading();
                             location.reload(); // Reload the page
                         },
                         error: function (err) {

@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.User;
+import dal.ConsultationDAO;
 import dal.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,11 +29,11 @@ public class LoginController extends HttpServlet {
         User u = (User) session.getAttribute("user");
         if (u != null) {
             if (u.getRole().equalsIgnoreCase("staff")) {
-                resp.sendRedirect("ConsultationManagement");
+                resp.sendRedirect("StaffManager");
             } else if (u.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
             } else if (u.getRole().equalsIgnoreCase("manager")) {
-                resp.sendRedirect("managerManagement");
+                resp.sendRedirect("manager");
             }
         } else {
             req.getRequestDispatcher("login.jsp").forward(req, resp);
@@ -45,24 +46,28 @@ public class LoginController extends HttpServlet {
 
         String usernameEmail = req.getParameter("usernameEmail");
         String password = req.getParameter("password");
+        HttpSession session = req.getSession();
+        
+        ConsultationDAO cdb = new ConsultationDAO();
+        int totalConsultation = cdb.CountConsultationByStatus("all");
+        session.setAttribute("totalConsultation", totalConsultation);
 
         UserDAO dbUser = new UserDAO();
         User user = dbUser.findByUsernameOrEmailAndPassword(usernameEmail, password);
         if (user == null) {
-            req.setAttribute("message", "You login failed");
+            req.setAttribute("message", "Sai thông tin tài khoản hoặc mật khẩu!");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
-            
-            HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            if(user.getRole().equalsIgnoreCase("user")){
+            if (user.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
-            }else if(user.getRole().equalsIgnoreCase("staff")){
-                resp.sendRedirect("ConsultationManagement");
-            }else if(user.getRole().equalsIgnoreCase("manager")){
-                resp.sendRedirect("managerManagement");
+            } else if (user.getRole().equalsIgnoreCase("staff")) {
+
+                resp.sendRedirect("StaffManager");
+            } else if (user.getRole().equalsIgnoreCase("manager")) {
+                resp.sendRedirect("manager");
             }
-            
+
         }
     }
 
