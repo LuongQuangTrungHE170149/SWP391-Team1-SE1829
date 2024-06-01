@@ -108,11 +108,11 @@
                 <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a data-mdb-tab-init class="nav-link active" id="ex-with-icons-tab-1" href="#listConsultation" role="tab"
-                           aria-controls="listConsultation" aria-selected="true"><i class="fas fa-chart-pie fa-fw me-2"></i>List Consultation</a>
+                           aria-controls="listConsultation" aria-selected="true"><i class="fa-solid fa-clipboard-list me-2"></i>List Consultation</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a data-mdb-tab-init class="nav-link" id="ex-with-icons-tab-2" href="#chart" role="tab"
-                           aria-controls="chart" aria-selected="false"><i class="fas fa-chart-line fa-fw me-2"></i>Total Staff Answer Chart</a>
+                           aria-controls="chart" aria-selected="false"><i class="fa-solid fa-chart-column me-2"></i>Total Staff Answer Chart</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a data-mdb-tab-init class="nav-link" id="ex-with-icons-tab-3" href="#ex-with-icons-tabs-3" role="tab"
@@ -138,10 +138,10 @@
                                 All <span class="badge badge-danger">${countAll}</span>
                             </button>
                         </div>
+                            
                         <!--table-->
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
-                                
                                 <!--pagination-->
                                 <input type="hidden"id="page" value="${currentPage}">
                                 <c:if test="${numberOfPages > 1}">
@@ -225,6 +225,7 @@
                             </div>
                         </div>
                         <!--table-->
+                        
                         <!--pagination-->
                         <input type="hidden"id="page" value="${currentPage}">
                         <c:if test="${numberOfPages > 1}">
