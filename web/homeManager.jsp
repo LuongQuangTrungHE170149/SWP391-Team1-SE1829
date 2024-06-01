@@ -107,6 +107,52 @@
                         </div>
                     </div>
                 </main>
+
+
+                <div class="users-table table-wrapper">
+                    <h2>Danh sách nhân viên</h2>
+                    <table class="posts-table">
+                        <thead>
+                            <tr class="users-table-info">
+                                <th>Id</th>
+                                <th>Họ tên</th>
+                                <th>Giới tính</th>
+                                <th>Số điện thoại</th>
+                                <th>Email</th>
+                                <th>Nơi làm việc</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="staff" items="${requestScope.listStaffs}">
+                                <tr>
+                                    <td>${staff.id}</td>
+                                    <td>${staff.getFullName()}</td>
+                                    <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
+                                    <td>${staff.phone}</td>
+                                    <td>${staff.email}</td>
+                                    <td>
+                                        <c:forEach var="staffWorkPlace" items="${requestScope.staffByAgency.entrySet()}">
+                                            <c:if test="${staffWorkPlace.key == staff.id}">
+                                                ${staffWorkPlace.value}
+                                            </c:if> 
+                                        </c:forEach>
+
+                                    </td>
+                                    <td>
+
+                                        <select>
+                                            <c:forEach var="agency" items="${requestScope.listAgency}">
+                                                <option value="${agency.agencyId}">${agency.agencyName}</option>
+                                            </c:forEach>
+                                        </select>
+
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
 

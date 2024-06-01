@@ -116,6 +116,36 @@ public class UserDAO extends DBContext {
         return list;
     }
 
+    public List<User> getAllStaffs() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE [role] = 'Staff'";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                list.add(user);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
     public int getCountAllCustomer() {
         int count = 0;
         String sql = "SELECT COUNT(*) AS EmployeeCount FROM Users WHERE [role] = 'Customer';";
@@ -252,27 +282,36 @@ public class UserDAO extends DBContext {
     public HashMap<String, Integer> countCutomerByGender() {
         HashMap<String, Integer> hash = new HashMap<>();
 
-        String sql = "SELECT  CASE  WHEN gender = 1 THEN 'Male' WHEN gender = 2 THEN 'Female' ELSE 'Other' END AS Gender, COUNT(*) AS Count\n"
-                + "FROM Users GROUP BY  CASE  WHEN gender = 1 THEN 'Male' WHEN gender = 2 THEN 'Female'ELSE 'Other' END;";
+        String sql = "WITH AllGenders AS (\n"
+                + "    SELECT 'Male' AS Gender\n"
+                + "    UNION ALL\n"
+                + "    SELECT 'Female' AS Gender\n"
+                + "    UNION ALL\n"
+                + "    SELECT 'Other' AS Gender\n"
+                + ")\n"
+                + "SELECT  ag.Gender, ISNULL(u.Count, 0) AS Count FROM AllGenders ag LEFT JOIN \n"
+                + "    (SELECT CASE  WHEN gender = 0 THEN 'Male' WHEN gender = 1 THEN 'Female' ELSE 'Other' END AS Gender, COUNT(*) AS Count\n"
+                + "     FROM  Users WHERE  role = 'customer' GROUP BY CASE WHEN gender = 0 THEN 'Male' WHEN gender = 1 THEN 'Female' ELSE 'Other' \n"
+                + "     END) u ON ag.Gender = u.Gender ORDER BY  ag.Gender;";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 hash.put(rs.getString("Gender"), rs.getInt("Count"));
             }
-            
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return hash;
     }
 
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-//        System.out.println(udb.getCountAllStaffs());
-        System.out.println(udb.countCutomerByGender());
+//        System.out.println(udb.countCutomerByGender());
+
     }
 }

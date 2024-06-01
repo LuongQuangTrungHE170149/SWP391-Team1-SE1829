@@ -207,6 +207,27 @@ public class AgencyDAO {
 
     }
     
+    
+    public HashMap<Integer, String> getStaffByAgency() {
+        HashMap<Integer, String> hash = new HashMap<>();
+        String sql = "select sw.StaffId, a.AgencyName from Staff_Workplace sw join Agencies a on sw.AgencyId = a.AgencyId";
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                hash.put(rs.getInt("StaffId"), rs.getString("AgencyName"));
+                
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return hash;
+    }
+    
     public int countAgency() {
         String sql = "select count(*) as TotalAgency  from Agencies";
         int total = 0;
@@ -354,6 +375,6 @@ public class AgencyDAO {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.countAgency());
+        System.out.println(AgencyDAO.INSTANCE.getStaffByAgency());
     }
 }

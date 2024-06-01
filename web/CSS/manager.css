@@ -18,7 +18,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 
 .home-manager--wrapper {
-    margin-left: 280px;
+    /*position: absolute;*/
+    top: 0;
+    right: 0;
+    left: 0;
+    margin-left: 250px;
     flex-grow:  1;
     min-height: 800px;
     background-color: #f0f2fa;
@@ -81,3 +85,71 @@ main {
     object-fit: contain;
     border-radius: 8px;
 }
+
+
+.users-table table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+    color: #767676;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.users-table-info {
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+    color: #767676;
+    height: 48px;
+    border-bottom: 1.2px solid #dadbe4;
+    font-size: 14px;
+}
+
+.users-table-info th {
+    font-weight: 500;
+}
+
+
+.users-table td {
+    background-color: #fff;
+    border-top: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.users-table td:first-child {
+    padding-left: 20px;
+}
+
+.users-table th:first-child {
+    padding-left: 20px;
+}
+
+.users-table tbody {
+    font-size: 14px;
+}
+
+
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 20px;
+}
+
+.table-wrapper table {
+    min-width: 850px;
+}
+
+.table-wrapper table.posts-table {
+    min-width: 944px;
+}
+
+.table-wrapper table.library-table {
+    min-width: 483px;
+}
+
+
