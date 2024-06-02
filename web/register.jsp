@@ -23,8 +23,9 @@
                         <label class="label">Password <span class="required">*</span></label>
                         <input type="text" name="password" required>
                     </div>
-                    <label class="label">Confirm Password <span class="required">*</span></label>
-                    <input type="text" name="Confirm Password" required>
+                    <div class="form-content">
+                        <label class="label">Confirm Password <span class="required">*</span></label>
+                        <input type="text" name="Confirm Password" required>
                     </div>
                     <div class="form-item">
                         <label class="label">First Name <span class="required">*</span></label>
@@ -55,24 +56,24 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    </div><div class="form-item">
+                    <div class="form-item">
                         <label class="label">Email Address <span class="required">*</span></label>
-                             <input type="email" name="email" required>
+                        <input type="email" name="email" required>
                     </div>
-                    <form action="sendCode" method="post">
+<!--                    <form action="sendCode" method="post">
                         <input type="submit" value="Send Code">
-                    </form>
-            <div class="form-item">
-                <label class="label">Confirm Code<span class="required">*</span></label>
-                <input type="confirmCode" name="confirmCode" required>
+                    </form>-->
+                    <div class="form-item">
+                        <label class="label">Confirm Code<span class="required">*</span></label>
+                        <input type="confirmCode" name="confirmCode" required>
 
+                    </div>
+                    <div class="register-button">
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
             </div>
-            <div class="register-button">
-                <button type="submit">Register</button>
-            </div>
-        </form>
-    </div>
-</div>
-<jsp:include page="footer.jsp"></jsp:include>
+        </div>
+    <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

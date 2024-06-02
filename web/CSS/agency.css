@@ -127,20 +127,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-color: red;
 }
 
-.btn {
+.btn-wrapper {
     min-width: 127px;
     height: 50px;
     border-radius: 24px;
     color: #fff;
+    text-decoration: none;
+    outline: none;
+    border: none;
 }
 
-.btn.btn-cancel{
+.btn-wrapper.btn-cancel{
     background-color: #D9D9D9;
 }
-.btn.btn-save{
+.btn-wrapper.btn-save{
     background-color: #54CDD1;
 }
-.btn.btn-continue{
+
+.btn-save:hover {
+    background-color: #418c8e;
+}
+
+.btn-cancel:hover {
+    background-color: #665f5f;
+
+}
+
+.btn-wrapper.btn-continue{
     background-color: #7D36EE;
 }
 
@@ -288,6 +301,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-size: 20px;
     margin: 10px;
     color: #000;
+    text-decoration: none;
 }
 
 .link-back i {
@@ -385,4 +399,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-radius: 14px;
     background-color: #fff;
 
+}
+
+/*Filter btn*/
+
+.select-filter {
+    width: 200px;
+    height: 30px;
+    border-color: #d9d9d9;
+}
+
+
+
+ /*Pagination*/
+ 
+ .pagination {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    color: #333;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    color: #aaa;
+    border-color: #aaa;
 }

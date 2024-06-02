@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class ConsultationDAO extends DBContext {
                 c.setName(rs.getString("name"));
                 c.setEmail(rs.getString("email"));
                 c.setContent(rs.getString("content"));
-                c.setCreateDate(rs.getDate("createDate"));
+                c.setCreateDate(rs.getDate("createDate"));                
 
                 UserDAO udb = new UserDAO();
                 User u = udb.getUserById(rs.getInt("staff"));
@@ -98,6 +99,10 @@ public class ConsultationDAO extends DBContext {
                 c.setContent(rs.getString("content"));
                 c.setCreateDate(rs.getDate("createDate"));
                 c.setReplyMessage(rs.getString("reply_message"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                c.setStaff(u);
                 c.setStatus(rs.getBoolean("status"));
 
                 return c;
@@ -130,6 +135,7 @@ public class ConsultationDAO extends DBContext {
                 c.setEmail(rs.getString("email"));
                 c.setContent(rs.getString("content"));
                 c.setCreateDate(rs.getDate("createDate"));
+                c.setReplyMessage(rs.getString("reply_message"));
 
                 UserDAO udb = new UserDAO();
                 User u = udb.getUserById(rs.getInt("staff"));
@@ -189,22 +195,46 @@ public class ConsultationDAO extends DBContext {
                 + "      ,[staff] = ?\n"
                 + "      ,[status] = ?\n"
                 + " WHERE id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, reply);
             st.setInt(2, staff_id);
             st.setBoolean(3, status);
             st.setInt(4, id);
             st.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
+    public HashMap<String, Integer> getTotalStaffAnswer() {
+        HashMap<String, Integer> total = new HashMap<>();
+        String sql = "SELECT\n"
+                + "    U.username,\n"
+                + "    COUNT(C.staff) AS TotalConsultations\n"
+                + "FROM\n"
+                + "    Users U\n"
+                + "LEFT JOIN\n"
+                + "    Consultations C ON U.id = C.staff\n"
+                + "WHERE\n"
+                + "    U.role = 'staff'\n"
+                + "GROUP BY\n"
+                + "    U.username;";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                total.put(rs.getString("username"),rs.getInt("TotalConsultations"));
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return total;
+    }
+
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println();
-        cdb.deleteConsultationById(56);
-
+        System.out.println(cdb.getConsultationById(1).getStaff().getUsername());
+        System.out.println(cdb.getTotalStaffAnswer());
     }
 }

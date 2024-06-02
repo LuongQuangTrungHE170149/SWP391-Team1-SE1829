@@ -4,37 +4,66 @@
  */
 package Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author QUANG TRUNG
  */
 public class Contract {
-    private String contractId;
-    private Agency agency;
+    private int contractId;
+    private int customerId;
+    private int staffId;
+    private int agencyId;
+    private int vehicleId;
     private Date startDate;
     private Date endDate;
-    private String contractType;
+    private int contractType;
     private String descripttion;
     private Double payment;
     private String status;
 
-    public String getContractId() {
+    public int getContractId() {
         return contractId;
     }
 
-    public void setContractId(String contractId) {
+    public void setContractId(int contractId) {
         this.contractId = contractId;
     }
 
-    public Agency getAgency() {
-        return agency;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setAgency(Agency agency) {
-        this.agency = agency;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
+
+    public int getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
+    }
+
+    public int getAgencyId() {
+        return agencyId;
+    }
+
+    public void setAgencyId(int agencyId) {
+        this.agencyId = agencyId;
+    }
+
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
+    
 
     public Date getStartDate() {
         return startDate;
@@ -52,11 +81,11 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public String getContractType() {
+    public int getContractType() {
         return contractType;
     }
 
-    public void setContractType(String contractType) {
+    public void setContractType(int contractType) {
         this.contractType = contractType;
     }
 
@@ -83,5 +112,31 @@ public class Contract {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Contract(int contractId, int agencyId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+        this.contractId = contractId;
+        this.agencyId = agencyId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.contractType = contractType;
+        this.descripttion = descripttion;
+        this.payment = payment;
+        this.status = status;
+    }
+
+    public Contract() {
+    }
+
+    public Contract(int agencyId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+        this.agencyId = agencyId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.contractType = contractType;
+        this.descripttion = descripttion;
+        this.payment = payment;
+        this.status = status;
+    }
+
+   
     
 }

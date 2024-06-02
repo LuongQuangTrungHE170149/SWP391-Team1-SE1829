@@ -6,6 +6,7 @@
 package dal;
 
 import Model.*;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,14 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.ResultSet;
-
+import java.util.HashMap;
 
 /**
  *
  * @author trand
  */
-public class UserDAO extends DBContext{
-
+public class UserDAO extends DBContext {
 
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
@@ -29,6 +29,37 @@ public class UserDAO extends DBContext{
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                list.add(user);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public List<User> getAllUserByRole(String role) {
+        List<User> list = new ArrayList<>();
+        String sql = "select * from Users where role = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, role);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -85,9 +116,76 @@ public class UserDAO extends DBContext{
         return list;
     }
 
+    public List<User> getAllStaffs() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE [role] = 'Staff'";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                list.add(user);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public int getCountAllCustomer() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS EmployeeCount FROM Users WHERE [role] = 'Customer';";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("EmployeeCount");
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return count;
+    }
+
+    public int getCountAllStaffs() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS StaffCount FROM Users WHERE [role] = 'Staff';";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("StaffCount");
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return count;
+    }
+
     public User insert(User modal) {
-        String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender, dateCreated)"
-                     +"VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)"
+                     +"VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;
@@ -101,9 +199,6 @@ public class UserDAO extends DBContext{
             ps.setDate(posParam++, modal.getDate());
             ps.setString(posParam++, modal.getAddress());
             ps.setInt(posParam++, modal.getGender());
-            java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-            ps.setDate(posParam++, currentDate);
-
             ps.executeUpdate();
             return modal;
         } catch (SQLException e) {
@@ -130,7 +225,7 @@ public class UserDAO extends DBContext{
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 User u = new User();
                 u.setId(id);
                 u.setUserName(rs.getString("username"));
@@ -143,7 +238,7 @@ public class UserDAO extends DBContext{
                 u.setPhone(rs.getString("phoneNumber"));
                 u.setEmail(rs.getString("email"));
                 u.setAddress(rs.getString("address"));
-                
+
                 return u;
             }
         } catch (SQLException e) {
@@ -151,8 +246,70 @@ public class UserDAO extends DBContext{
         }
         return null;
     }
+
+    public User findByUsernameOrEmailAndPassword(String usernameAndEmail, String password) {
+        String sql = "SELECT * FROM [Users] where (username = ?  or email = ?) and password = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, usernameAndEmail);
+            ps.setString(2, usernameAndEmail);
+            ps.setString(3, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
+    public HashMap<String, Integer> countCutomerByGender() {
+        HashMap<String, Integer> hash = new HashMap<>();
+
+        String sql = "WITH AllGenders AS (\n"
+                + "    SELECT 'Male' AS Gender\n"
+                + "    UNION ALL\n"
+                + "    SELECT 'Female' AS Gender\n"
+                + "    UNION ALL\n"
+                + "    SELECT 'Other' AS Gender\n"
+                + ")\n"
+                + "SELECT  ag.Gender, ISNULL(u.Count, 0) AS Count FROM AllGenders ag LEFT JOIN \n"
+                + "    (SELECT CASE  WHEN gender = 0 THEN 'Male' WHEN gender = 1 THEN 'Female' ELSE 'Other' END AS Gender, COUNT(*) AS Count\n"
+                + "     FROM  Users WHERE  role = 'customer' GROUP BY CASE WHEN gender = 0 THEN 'Male' WHEN gender = 1 THEN 'Female' ELSE 'Other' \n"
+                + "     END) u ON ag.Gender = u.Gender ORDER BY  ag.Gender;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                hash.put(rs.getString("Gender"), rs.getInt("Count"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return hash;
+    }
+
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.getStaffsByAgencyId(2));
+//        System.out.println(udb.countCutomerByGender());
+
     }
 }

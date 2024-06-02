@@ -25,10 +25,6 @@
         <servlet-class>Controller.addConsultationServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ConsultationManagementServlet</servlet-name>
-        <servlet-class>Controller.ConsultationManagementServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>EditAgencyServlet</servlet-name>
         <servlet-class>Controller.EditAgencyServlet</servlet-class>
     </servlet>
@@ -51,6 +47,42 @@
     <servlet>
         <servlet-name>DetailConsultationServlet</servlet-name>
         <servlet-class>Controller.DetailConsultationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeManager</servlet-name>
+        <servlet-class>Controller.HomeManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterAgencyServlet</servlet-name>
+        <servlet-class>Controller.FilterAgencyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultationManagementServlet</servlet-name>
+        <servlet-class>Controller.ConsultationManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerListServlet</servlet-name>
+        <servlet-class>Controller.CustomerListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>Controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ErrorServlet</servlet-name>
+        <servlet-class>Controller.ErrorServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionManagementServlet</servlet-name>
+        <servlet-class>Controller.PromotionManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffManagerServlet</servlet-name>
+        <servlet-class>Controller.StaffManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPromotionServlet</servlet-name>
+        <servlet-class>Controller.AddPromotion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
@@ -77,10 +109,6 @@
         <url-pattern>/addConsultation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ConsultationManagementServlet</servlet-name>
-        <url-pattern>/ConsultationManagement</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditAgencyServlet</servlet-name>
         <url-pattern>/editAgency</url-pattern>
     </servlet-mapping>
@@ -103,6 +131,42 @@
     <servlet-mapping>
         <servlet-name>DetailConsultationServlet</servlet-name>
         <url-pattern>/DetailConsultation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeManager</servlet-name>
+        <url-pattern>/homeManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterAgencyServlet</servlet-name>
+        <url-pattern>/filterAgency</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListServlet</servlet-name>
+        <url-pattern>/customerList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultationManagementServlet</servlet-name>
+        <url-pattern>/ConsultationManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ErrorServlet</servlet-name>
+        <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionManagementServlet</servlet-name>
+        <url-pattern>/PromotionManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffManagerServlet</servlet-name>
+        <url-pattern>/StaffManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPromotionServlet</servlet-name>
+        <url-pattern>/addPromotion</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

@@ -10,8 +10,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Information</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+<!--         Font Awesome 
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+            />
+         Google Fonts 
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+            />
+         MDB 
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"
+            rel="stylesheet"
+            />-->
         <style>
 
             body{
@@ -19,9 +32,7 @@
                 margin: 0;
                 padding: 0;
             }
-            a{
-                font-size: 20px;
-            }
+
 
             .middle{
                 position: relative;
@@ -86,9 +97,10 @@
             }
         </style>
     </head>
+    <jsp:include page="consultation.jsp"></jsp:include>
     <jsp:include page="header.jsp"></jsp:include>
         <body>
-            <div class="middle" style="margin-top: 75px;">
+            <div class="middle">
                 <div class="bg-img"></div>
                 <div class="middle-content">
                     <div class="f-title">GIỚI THIỆU</div>
@@ -123,6 +135,9 @@
                     </div>
                 </div>
             </section>
-        </body>
-    <jsp:include page="footer.jsp"></jsp:include>
+            <!-- MDB -->
+            <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
+        <jsp:include page="footer.jsp"></jsp:include>
+
+    </body>
 </html>

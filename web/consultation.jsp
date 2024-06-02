@@ -3,8 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <title>Consultation</title>
         <style>
             /* Tùy chỉnh vị trí của button */
             .btn-fixed {
@@ -14,89 +13,91 @@
                 z-index: 1000; /* Đảm bảo button hiển thị trên cùng */
             }
             .btn-custom{
-                background-color: #419FA3;
-                border-color:#419FA3;
+                background-color: #419FA3 !important;
+                border-color:#419FA3 !important;
             }
-/*            .btn-custom:hover{
-                background-color: #198754;
-                border-color: #198754;
-            }*/
+            /*            .btn-custom:hover{
+                            background-color: #198754;
+                            border-color: #198754;
+                        }*/
         </style>
     </head>
     <body> 
-        <button type="button" class="btn btn-primary btn-custom btn-fixed" data-toggle="modal" data-target="#consultationModal">
+        <button type="button" class="btn btn-primary btn-custom btn-fixed" data-bs-toggle="modal" data-bs-target="#consultationModal">
             Đăng ký tư vấn
         </button>
         <!-- Modal -->
-        <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel"data-bs-backdrop="true" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title " id="consultationModalLabel">Đăng ký tư vấn</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Form đăng ký -->
-                        <form id="consultationForm" method="post" action="addConsultation">
-                            <div class="form-group">
-                                <label for="name">Họ và tên</label>
+                        <form id="consForm">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="name">Họ và tên</label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ và tên của bạn" required>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="email">Email</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Nhập địa chỉ email của bạn" required>
                             </div>
-                            <div class="form-group">
-                                <label for="content">Nội dung</label>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="content">Nội dung</label>
                                 <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung tư vấn của bạn" required></textarea>
                             </div>
-                            <button id="submit" type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
+                            <button type="submit" class="btn btn-primary btn-custom">Gửi yêu cầu</button>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script>
+
             $(document).ready(function () {
-                $('#consultationForm').submit(function (event) {
-                 
-                    event.preventDefault();
-                    var formData = {
-                        'name': $('#name').val(),
-                        'email': $('#email').val(),
-                        'content': $('#content').val()
+//                $('#consultationModal').on('hidden.bs.modal', function () {
+//                    // Đặt lại giá trị của các trường dữ liệu trong modal
+//                    $('#name').val('');
+//                    $('#email').val('');
+//                    $('#content').val('');
+//                    // Xóa lớp mờ
+//                    
+//                });
+
+                $('#consForm').on('submit', function (e) {
+                    e.preventDefault();
+                    let formData = {
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        content: $('#content').val()
                     };
 
-                    // Gửi AJAX request
+                    // AJAX request to send the reply to the servlet
                     $.ajax({
-                        type: 'POST', // Hoặc 'POST' tùy thuộc vào cách bạn cấu hình servlet
-                        url: 'addConsultation', // Đường dẫn của servlet
+                        url: 'addConsultation',
+                        type: 'POST',
                         data: formData,
-                        dataType: 'json', // Kiểu dữ liệu mong đợi từ phản hồi của servlet
-                        encode: true,
                         success: function (response) {
-                            // Xử lý phản hồi từ servlet (nếu cần)
-                            console.log(response);
-                            // Đóng modal (nếu cần)
-                            $('#consultationModal').modal('hide');
+                            alert('sent successfully.');
+                            location.reload();
+
                         },
-                        error: function (xhr, status, error) {
-                            // Xử lý lỗi (nếu có)
-                            console.error(error);
+                        error: function (err) {
+                            console.log(err);
+                            alert('Failed to send.');
                         }
                     });
                 });
             });
         </script>
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     </body>
 </html>

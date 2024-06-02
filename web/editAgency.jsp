@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; width: 473px">
-                                    <button type="submit" class="btn btn-save">Sửa</button>                      
+                                    <button type="submit" class="btn-wrapper btn-save">Sửa</button>                      
                                 </div>
                             </form>
                         </div>
@@ -159,6 +159,17 @@
                 if (isValid === false) {
 
                     event.preventDefault(); // Ngăn chặn việc submit form
+                }
+            });
+
+
+            form.addEventListener('submit', function (event) {
+                if (isValid === false) {
+                    event.preventDefault(); // Ngăn chặn việc submit form
+                } else {
+                    if (!confirm("Bạn có chắc chắn muốn sửa thông tin này không?")) {
+                        event.preventDefault(); // Ngăn chặn việc submit form nếu người dùng ấn "Cancel"
+                    }
                 }
             });
 
