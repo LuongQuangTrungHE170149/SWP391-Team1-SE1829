@@ -91,25 +91,26 @@ public class AddPromotion extends HttpServlet {
             String content = request.getParameter("content");
             String timeStartParam = request.getParameter("timeStart");
             String timeEndParam = request.getParameter("timeEnd");
-            Boolean isHeader = Boolean.parseBoolean(request.getParameter("isHeaer"));
+            String isHeaderParam = request.getParameter("isHeaer");
+            System.out.println(isHeaderParam);
             PromotionDAO pdb = new PromotionDAO();
-            if (isHeader == true) {
+
+            boolean isHeader = false;
+            if (isHeaderParam == "true") {
                 pdb.setIsHeaderToFalse();
+                isHeader = true;
+                
             }
 
             Part filePart = request.getPart("image");
             String image = convertInputStreamToString(filePart.getInputStream());
-            java.util.Date utilDate = new java.util.Date();
 
             Date timeStartUtil = dateFormat.parse(timeStartParam);
             Date timeEndUtil = dateFormat.parse(timeEndParam);
             java.sql.Date timeStart = new java.sql.Date(timeStartUtil.getTime());
             java.sql.Date timeEnd = new java.sql.Date(timeEndUtil.getTime());
 
-//            public void addPromotion(String title, String description, String content, Date timeStart, Date timeEnd, boolean isHeader, String image, int staff
-            pdb.addPromotion(title, description, timeStart, timeEnd, content, isHeader, image, u.getId());
-//                public void addPromotion(String title, String description, Date timeStart, Date timeEnd, String content, boolean isHeader, String image, int staff) {
-
+            System.out.println(pdb.addPromotion(title, description, timeStart, timeEnd, content, isHeader, image, u.getId()));
             System.out.println(title + " description: " + description + "| content: " + content + " start: " + timeStart + " end: " + timeEnd + " header: " + isHeader + " image: " + image + " User: " + u.getUsername());
             PrintWriter out = response.getWriter();
             out.print(u.getId());

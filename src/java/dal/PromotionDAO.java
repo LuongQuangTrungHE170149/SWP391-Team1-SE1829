@@ -14,12 +14,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PromotionDAO extends DBContext {
 
-    public void addPromotion(String title, String description, Date timeStart, Date timeEnd, String content, boolean isHeader, String image, int staff) {
+    public boolean addPromotion(String title, String description, Date timeStart, Date timeEnd, String content, boolean isHeader, String image, int staff) {
         String sql = "INSERT INTO [dbo].[Promotion]\n"
                 + "           ([title]\n"
                 + "           ,[description]\n"
@@ -31,7 +35,6 @@ public class PromotionDAO extends DBContext {
                 + "           ,[staff])\n"
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?,?,?)";
-
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, title);
@@ -39,13 +42,16 @@ public class PromotionDAO extends DBContext {
             st.setDate(3, timeStart);
             st.setDate(4, timeEnd);
             st.setString(5, content);
-            st.setBoolean(6, isHeader);
-            st.setString(7, image);
+            st.setString(6, image);
+            st.setBoolean(7, isHeader);
             st.setInt(8, staff);
             st.executeUpdate();
+
+            return true;
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return false;
     }
 
     public List<Promotion> getAll() {
@@ -191,4 +197,22 @@ public class PromotionDAO extends DBContext {
         return null;
     }
 
+    public static void main(String[] args) {
+        try {
+            PromotionDAO pdb = new PromotionDAO();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            
+            java.util.Date timeStartUtil = dateFormat.parse("2024-06-05");
+            java.util.Date timeEndUtil = dateFormat.parse("2024-06-05");
+            
+            java.sql.Date timeStart = new java.sql.Date(timeStartUtil.getTime());
+            java.sql.Date timeEnd = new java.sql.Date(timeEndUtil.getTime());
+            
+            pdb.setIsHeaderToFalse();
+            System.out.println(pdb.addPromotion("heello", "hllo",timeStart , timeEnd, "Khuyen mai", true, "afsfsafsasfs", 1));
+        } catch (ParseException ex) {
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }

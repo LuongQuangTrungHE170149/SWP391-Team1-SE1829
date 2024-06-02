@@ -55,7 +55,7 @@
     </style>
 
     <!--    Thanh nav của staff-->
-    <c:if test="${sessionScope.user.getRole() == 'Staff'}">
+    <c:if test="${sessionScope.user.getRole() == 'Staff' || sessionScope.user.getRole() == 'staff'}">
         <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
             <a href="#" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
                 <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
