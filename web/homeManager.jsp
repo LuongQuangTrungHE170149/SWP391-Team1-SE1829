@@ -41,15 +41,16 @@
 
 
         <div class="nav-wrapper">
-            <jsp:include page="staffDashboard.jsp"></jsp:include>
-            </div>
-            <div class="home-manager--wrapper" >
-                <div class="container" style="padding: 30px;">
-                    <h2 class="main-title">Dashboard</h2>
-                    <div class="row stat-cards" >
-                        <div class="col-md-3">
-                            <div class="stat-cards-item">
-                                <p class="stat-cards-info__num"><strong>${requestScope.countCustomer}</strong></p>
+            <jsp:include page="staffDashboard.jsp"/>
+
+        </div>
+        <div class="home-manager--wrapper" >
+            <div class="container" style="padding: 30px;">
+                <h2 class="main-title">Dashboard</h2>
+                <div class="row stat-cards" >
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>${requestScope.countCustomer}</strong></p>
                             <p class="stat-cards-info__title">Khách hàng</p>
                         </div>
                     </div>
@@ -180,13 +181,13 @@
 
 
         </div>
-
-
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
 
             const payment = document.querySelector('.payment');
-            const form = document.querySelector('.form-change--agency')
+            const form = document.querySelector('.form-change--agency');
             var childNav = document.querySelector('.nav-wrapper .sticky-top');
+
             if (childNav) {
                 childNav.classList.remove('sticky-top');
             }
