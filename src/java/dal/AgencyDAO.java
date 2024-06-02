@@ -368,6 +368,23 @@ public class AgencyDAO {
 
         return false;
     }
+    
+    
+    public boolean changeWorkPlaceByStaffId(int staffId, int agencyId) {
+        String sql = "Update Staff_Workplace SET AgencyId = ? where StaffId = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, agencyId);
+            ps.setInt(2, staffId);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return false;
+    }
 
     public static void main(String[] args) {
 //        Agency a = new Agency();
@@ -375,6 +392,6 @@ public class AgencyDAO {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getStaffByAgency());
+        System.out.println(AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(2, 1));
     }
 }
