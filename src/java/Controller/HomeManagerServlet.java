@@ -16,6 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -107,7 +108,27 @@ public class HomeManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String staffId_raw = request.getParameter("staffId");
+        String agencyId_raw = request.getParameter("changeAngency");
+        String mess = "";
+        try {
+            int staffId = Integer.parseInt(staffId_raw);
+            int agencyId = Integer.parseInt(agencyId_raw);
+            if (AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(staffId, agencyId)) {
+                mess = "Chuyển nơi làm việc thành công";
+            } else {
+                mess = "Chuyển nơi làm việc thất bại";
+
+            }
+        } catch (NumberFormatException e) {
+            mess = e +"";
+
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("mess", mess);
+        response.sendRedirect("homeManager");
+
     }
 
     /**

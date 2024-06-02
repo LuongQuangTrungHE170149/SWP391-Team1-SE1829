@@ -18,14 +18,31 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <title>Manager home</title>
+
+
+
     </head>
     <body>
 
 
-        <jsp:include page="staffDashboard.jsp"></jsp:include>
+        <c:if test="${sessionScope.mess != null}">
+            <div id="toast-success" class="toast-container top-0 end-0 p-3">
+                <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${sessionScope.mess}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <c:remove var="mess" scope="session" />
+        </c:if>
 
 
-
+        <div class="nav-wrapper">
+            <jsp:include page="staffDashboard.jsp"></jsp:include>
+            </div>
             <div class="home-manager--wrapper" >
                 <div class="container" style="padding: 30px;">
                     <h2 class="main-title">Dashboard</h2>
@@ -120,7 +137,7 @@
                                 <th>Số điện thoại</th>
                                 <th>Email</th>
                                 <th>Nơi làm việc</th>
-                                <th></th>
+                                <th>Chuyển nơi làm việc</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,18 +151,24 @@
                                     <td>
                                         <c:forEach var="staffWorkPlace" items="${requestScope.staffByAgency.entrySet()}">
                                             <c:if test="${staffWorkPlace.key == staff.id}">
+                                                <c:set var="agencyName" value="${staffWorkPlace.value}" />
+                                                <c:set var="staffId" value="${staffWorkPlace.key}" />
                                                 ${staffWorkPlace.value}
                                             </c:if> 
                                         </c:forEach>
 
                                     </td>
                                     <td>
-
-                                        <select>
-                                            <c:forEach var="agency" items="${requestScope.listAgency}">
-                                                <option value="${agency.agencyId}">${agency.agencyName}</option>
-                                            </c:forEach>
-                                        </select>
+                                        <form class="form-change--agency" method="POST" action="homeManager?staffId=${staffId}">
+                                            <select class="select-agency" name="changeAngency" onchange="submitForm()">
+                                                <option disabled selected>Chọn đại lý</option>
+                                                <c:forEach var="agency" items="${requestScope.listAgency}">
+                                                    <c:if test="${agency.agencyName != agencyName}">
+                                                        <option value="${agency.agencyId}">${agency.agencyName}</option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                        </form>
 
                                     </td>
                                 </tr>
@@ -159,12 +182,36 @@
         </div>
 
 
-
-
-
         <script>
 
             const payment = document.querySelector('.payment');
+            const form = document.querySelector('.form-change--agency')
+            var childNav = document.querySelector('.nav-wrapper .sticky-top');
+            if (childNav) {
+                childNav.classList.remove('sticky-top');
+            }
+
+            function submitForm() {
+                if (confirm("Bạn có muốn đổi nơi làm việc của nhân viên này không?")) {
+                    form.submit();
+                }
+
+            }
+
+
+            setTimeout(() => {
+                const successToast = document.getElementById('toast-success');
+                if (successToast) {
+                    successToast.style.opacity = '0';
+                    setTimeout(() => successToast.style.display = 'none', 1000);
+                }
+
+            }, 3000);
+
+
+
+
+
 
             document.addEventListener("DOMContentLoaded", function () {
                 var labels = [];
