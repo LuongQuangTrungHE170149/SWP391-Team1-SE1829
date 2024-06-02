@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
         String usernameEmail = req.getParameter("usernameEmail");
         String password = req.getParameter("password");
         HttpSession session = req.getSession();
-        
+
         ConsultationDAO cdb = new ConsultationDAO();
         int totalConsultation = cdb.CountConsultationByStatus("all");
         session.setAttribute("totalConsultation", totalConsultation);
@@ -62,9 +62,10 @@ public class LoginController extends HttpServlet {
             if (user.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
             } else if (user.getRole().equalsIgnoreCase("staff")) {
-
+                session.setAttribute("user", user);
                 resp.sendRedirect("StaffManager");
             } else if (user.getRole().equalsIgnoreCase("manager")) {
+                session.setAttribute("user", user);
                 resp.sendRedirect("manager");
             }
 

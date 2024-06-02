@@ -80,6 +80,10 @@
         <servlet-name>StaffManagerServlet</servlet-name>
         <servlet-class>Controller.StaffManagerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddPromotionServlet</servlet-name>
+        <servlet-class>Controller.AddPromotion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>StaffManagerServlet</servlet-name>
         <url-pattern>/StaffManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPromotionServlet</servlet-name>
+        <url-pattern>/addPromotion</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

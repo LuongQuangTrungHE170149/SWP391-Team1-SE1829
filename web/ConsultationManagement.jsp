@@ -138,7 +138,7 @@
                                 All <span class="badge badge-danger">${countAll}</span>
                             </button>
                         </div>
-                            
+
                         <!--table-->
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
@@ -225,7 +225,7 @@
                             </div>
                         </div>
                         <!--table-->
-                        
+
                         <!--pagination-->
                         <input type="hidden"id="page" value="${currentPage}">
                         <c:if test="${numberOfPages > 1}">
@@ -504,7 +504,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 hideLoading();
-            }, 2000);
+            }, 1000);
         });
         window.onload = function () {
             showSpinner();
