@@ -55,7 +55,7 @@
     </style>
 
     <!--    Thanh nav của staff-->
-    <c:if test="${sessionScope.user.getRole() == 'Staff'}">
+    <c:if test="${sessionScope.user.getRole() == 'Staff' || sessionScope.user.getRole() == 'staff'}">
         <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
             <a href="#" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
                 <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
@@ -176,11 +176,11 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(0px, -33.6px, 0px);" data-popper-placement="top-start" data-mdb-popper="null">
                     <li>
-                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Hồ sơ </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a href="logout" class="dropdown-item">Sign out <img src="images/sign-out 1.png" width="16" height="16" "="" alt="alt"></a>
+                        <a href="logout" class="dropdown-item">Đăng xuất<img src="images/sign-out 1.png" width="16" height="16" "="" alt="alt"></a>
                     </li>
                 </ul>
             </div>

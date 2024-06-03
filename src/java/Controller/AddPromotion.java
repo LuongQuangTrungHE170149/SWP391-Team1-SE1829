@@ -19,6 +19,7 @@ import jakarta.servlet.http.Part;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -84,50 +85,51 @@ public class AddPromotion extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String content = request.getParameter("content");
             String timeStartParam = request.getParameter("timeStart");
             String timeEndParam = request.getParameter("timeEnd");
-            Boolean isHeader = Boolean.parseBoolean(request.getParameter("isHeaer"));
+            String isHeaderParam = request.getParameter("isHeader");
+            System.out.println("is header: "+isHeaderParam);
             PromotionDAO pdb = new PromotionDAO();
+            
+            boolean isHeader = Boolean.parseBoolean(isHeaderParam);
             if (isHeader == true) {
                 pdb.setIsHeaderToFalse();
             }
 
             Part filePart = request.getPart("image");
-            String image = convertInputStreamToString(filePart.getInputStream());
-            java.util.Date utilDate = new java.util.Date();
+            String url = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String image;
+            if (url == null) {
+                image = "images/promotion_img/null_image.png";
+            } else {
+                image = "images/promotion_img/" + url;
+            }
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date timeStartUtil = dateFormat.parse(timeStartParam);
             Date timeEndUtil = dateFormat.parse(timeEndParam);
             java.sql.Date timeStart = new java.sql.Date(timeStartUtil.getTime());
             java.sql.Date timeEnd = new java.sql.Date(timeEndUtil.getTime());
 
-//            public void addPromotion(String title, String description, String content, Date timeStart, Date timeEnd, boolean isHeader, String image, int staff
-            pdb.addPromotion(title, description, timeStart, timeEnd, content, isHeader, image, u.getId());
-//                public void addPromotion(String title, String description, Date timeStart, Date timeEnd, String content, boolean isHeader, String image, int staff) {
-
-            System.out.println(title + " description: " + description + "| content: " + content + " start: " + timeStart + " end: " + timeEnd + " header: " + isHeader + " image: " + image + " User: " + u.getUsername());
+            System.out.println("Added: " + pdb.addPromotion(title, description, timeStart, timeEnd, content, isHeader, image, u.getId()));
+            System.out.println("Title: " + title
+                    + "\n description: " + description
+                    + "\n content: " + content
+                    + "\n start: " + timeStart
+                    + "\n end: " + timeEnd
+                    + "\n header: " + isHeader
+                    + "\n image: " + image
+                    + "\n User: " + u.getUsername());
             PrintWriter out = response.getWriter();
             out.print(u.getId());
 
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    private String convertInputStreamToString(InputStream inputStream) throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        }
-        return stringBuilder.toString();
     }
 
     /**

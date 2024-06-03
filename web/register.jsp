@@ -67,10 +67,7 @@
                         <label class="label">Confirm Code<span class="required">*</span></label>
                         <input type="confirmCode" name="confirmCode" required>
 
-                    </div>
-                    <div class="register-button">
-                        <button type="submit">Register</button>
-                    </div>
+                    </div>                 
                 </form>
             </div>
         </div>

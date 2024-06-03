@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Promotion Management</title>
 
-        <!--summernote-->
+        <!--summer note-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     </head>
     <style>
@@ -90,14 +90,20 @@
                                         <textarea class="form-control" id="content" rows="3" required=""></textarea>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-10 offset-sm-2">
+                                <div class="row mb-3 align-items-center">
+                                    <label for="isHeader" class="col-sm-2 col-form-label">Is Header:</label>
+                                    <div class="col-sm-10 d-flex" id="isHeader">
+                                        <div class="form-check me-2">
+                                            <input class="form-check-input" type="radio"  name="isHeader" value="true">
+                                            <label class="form-check-label" for="">true</label>
+                                        </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="isHeader" name="isHeader">
-                                            <label class="form-check-label" for="isHeader">Is Header</label>
+                                            <input class="form-check-input" type="radio"  name="isHeader" value="false" checked>
+                                            <label class="form-check-label" for="">false</label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-12">
                                     <hr>
                                     <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init><i class="fa-solid fa-plus me-2"></i>Add</button>
@@ -112,9 +118,6 @@
                 </div>
             </div>
         </div>
-        <!--end add promotion modal-->
-
-
 
     </body>
     <!--summernote-->
@@ -136,38 +139,50 @@
             ]
         });
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--mdb bootstrap-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+
     <script>
+
         $(document).ready(function () {
+
             $('#addPromotionForm').on('submit', function (e) {
-                
                 e.preventDefault();
-                let formData = {
-                    title: $('#title').val(),
-                    description: $('#description').val(),
-                    content: $('#content').val(),
-                    timeStart: $('#timeStart').val(),
-                    timeEnd: $('#timeEnd').val(),
-                    image: $('#image').val(),
-                    isHeader: $('#isHeader').val()
-                };
+                const formData = new FormData();
+                formData.append("title", $("#title").val());
+                formData.append("description", $("#description").val());
+                formData.append("content", $("#content").val());
+                formData.append("timeStart", $("#timeStart").val());
+                formData.append("timeEnd", $("#timeEnd").val());
+
+                const isHeader = $("input[name=isHeader]:checked").val();
+                console.log(isHeader);
+                formData.append("isHeader", isHeader);
+
+                let imgFile = $("#image")[0].files[0];
+                formData.append("image", imgFile);
+
                 // AJAX request to send the reply to the servlet
                 $.ajax({
                     url: 'addPromotion',
                     type: 'POST',
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function (response) {
-                        alert('Add Successfully.');
-                        location.reload(); // Reload the page
+                        alert('Add thành công!');
+                        location.reload();
                     },
                     error: function (err) {
                         console.log(err);
-                        alert('Failed to add. Please try again.');
+                        // Show error toast
+                        alert('Add failed, try again!');
                     }
                 });
             });
+
         });
     </script>
 </html>
