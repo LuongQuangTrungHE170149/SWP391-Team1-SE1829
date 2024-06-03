@@ -96,7 +96,6 @@
                     <table class="styled-table">
                         <thead>
                             <tr>
-
                                 <th>Mã</th>
                                 <th>Tên đại lí</th>
                                 <th>Địa chỉ</th>
