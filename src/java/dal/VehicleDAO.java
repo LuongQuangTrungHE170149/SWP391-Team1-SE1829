@@ -39,8 +39,7 @@ public class VehicleDAO extends DBContext {
             
         }
         
-      
-        
+           
     }
     
     public static void main(String[] args) throws SQLException {
