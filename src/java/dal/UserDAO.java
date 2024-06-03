@@ -16,6 +16,8 @@ import java.util.List;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -185,7 +187,7 @@ public class UserDAO extends DBContext {
     public User insert(User modal) {
 
         String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)"
-                     +"VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;
@@ -305,6 +307,50 @@ public class UserDAO extends DBContext {
         }
 
         return hash;
+    }
+
+    public boolean changePassword(int userId, String password) {
+        try {
+            String sql = "update users set password = ? where id = ?";
+            PreparedStatement ps;
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, password);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+     public User findByUsernameOrEmail(String usernameAndEmail) {
+        String sql = "SELECT * FROM [Users] where (username = ?  or email = ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, usernameAndEmail);
+            ps.setString(2, usernameAndEmail);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
     }
 
     public static void main(String[] args) {
