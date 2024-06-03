@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Agency;
+import Model.StaffWorkplace;
 import Model.User;
 import dal.AgencyDAO;
 import dal.CompensationDAO;
@@ -78,7 +79,7 @@ public class HomeManagerServlet extends HttpServlet {
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
         HashMap<String, Integer> countIsPayment = ContractDAO.INSTANCE.countIsPay();
-        HashMap<Integer, String> staffByAgency = AgencyDAO.INSTANCE.getStaffByAgency();
+        List<StaffWorkplace> staffByAgency = StaffWorkplaceDAO.INSTANCE.getAllStaffWorkplace();
         List<User> listStaffs = udb.getAllStaffs();
         List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
 
@@ -112,9 +113,8 @@ public class HomeManagerServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String staffId_raw = request.getParameter("staffId");
-        String agencyId_raw = request.getParameter("changeAngency");
+        String agencyId_raw = request.getParameter("changeAgency");
         String mess = "";
-        mess = action;
         try {
             int staffId = Integer.parseInt(staffId_raw);
             int agencyId = Integer.parseInt(agencyId_raw);
@@ -129,7 +129,7 @@ public class HomeManagerServlet extends HttpServlet {
                 
             }
         } catch (NumberFormatException e) {
-//            mess = e + "";
+            mess = e + "";
 
         }
 

@@ -52,12 +52,12 @@ public class StaffWorkplaceDAO {
     }
     
     public boolean insertStaffToAgency(int staffId, int agencyId) {
-        String sql = "insert into Staff_Workplace(AgencyId, StaffId) value (?, ?)";
+        String sql = "insert into Staff_Workplace(AgencyId, StaffId) values (?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, agencyId);
             ps.setInt(2, staffId);
-            ps.executeQuery();
+            ps.executeUpdate();
             return true;
             
         } catch (SQLException e) {
