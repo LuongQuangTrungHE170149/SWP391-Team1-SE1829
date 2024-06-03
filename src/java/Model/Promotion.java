@@ -21,11 +21,12 @@ public class Promotion {
     private String image;
     private Boolean isHeader;
     private User staff;
+    private Date createDate;
 
     public Promotion() {
     }
 
-    public Promotion(int id, String title, String description, Date timeStart, Date timeEnd, String content, String image, Boolean isHeader, User staff) {
+    public Promotion(int id, String title, String description, Date timeStart, Date timeEnd, String content, String image, Boolean isHeader, User staff, Date createDate) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -35,6 +36,7 @@ public class Promotion {
         this.image = image;
         this.isHeader = isHeader;
         this.staff = staff;
+        this.createDate = createDate;
     }
 
     public int getId() {
@@ -43,6 +45,14 @@ public class Promotion {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public String getTitle() {

@@ -179,7 +179,6 @@
                                     <thead class="">
                                         <tr class="">
                                             <th scope="col">#</th>
-                                            <th scope="col">ID</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Create Date</th>
@@ -195,7 +194,6 @@
                                         <c:forEach var="listAll" items="${listAll}" varStatus="status">
                                             <tr>
                                                 <td>${status.index+1+(currentPage - 1)*20}</td>
-                                                <td>${listAll.id}</td>
                                                 <td>${listAll.name}</td>
                                                 <td>${listAll.email}</td>
                                                 <td><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
