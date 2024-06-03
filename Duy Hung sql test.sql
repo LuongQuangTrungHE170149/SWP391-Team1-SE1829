@@ -32,13 +32,13 @@ GO
 
 create table Promotion(
             id int identity(1,1) primary key,
-			title nvarchar(255) not null,
-			[description] nvarchar(255),
+			title nvarchar(max) not null,
+			[description] nvarchar(max),
 			timeStart date not null,
 			timeEnd date not null,
 			content nvarchar(max) not null,
 			image varchar(max),
-			isHeader bit default 0,
+			isHeader bit,
 			staff int foreign key references Users(id) not null
 )
 
