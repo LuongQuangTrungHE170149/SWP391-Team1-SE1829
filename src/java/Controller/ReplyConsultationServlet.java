@@ -150,8 +150,7 @@ public class ReplyConsultationServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         UserDAO udb = new UserDAO();
-        User u = udb.getUserById(1);
-        session.setAttribute("u", u);
+        User u =(User)session.getAttribute("user");
         
         ConsultationDAO cdb = new ConsultationDAO();
         cdb.updateConsultationById(id, content, u.getId(), true);

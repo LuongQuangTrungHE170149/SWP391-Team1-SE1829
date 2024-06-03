@@ -60,7 +60,7 @@ public class ConsultationDAO extends DBContext {
                 c.setName(rs.getString("name"));
                 c.setEmail(rs.getString("email"));
                 c.setContent(rs.getString("content"));
-                c.setCreateDate(rs.getDate("createDate"));
+                c.setCreateDate(rs.getDate("createDate"));                
 
                 UserDAO udb = new UserDAO();
                 User u = udb.getUserById(rs.getInt("staff"));

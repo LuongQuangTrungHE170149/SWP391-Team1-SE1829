@@ -4,8 +4,10 @@
  */
 package Controller;
 
+import Model.Agency;
 import Model.User;
 import dal.AgencyDAO;
+import dal.CompensationDAO;
 import dal.ContractDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -64,16 +67,32 @@ public class HomeManagerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         UserDAO udb = new UserDAO();
-     
+
         int countCustomer = udb.getCountAllCustomer();
         int countStaff = udb.getCountAllStaffs();
         BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
         HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
+        int totalAgency = AgencyDAO.INSTANCE.countAgency();
+        int totalContracts = ContractDAO.INSTANCE.countContracts();
+        int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
+        HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
+        HashMap<String, Integer> countIsPayment = ContractDAO.INSTANCE.countIsPay();
+        HashMap<Integer, String> staffByAgency = AgencyDAO.INSTANCE.getStaffByAgency();
+        List<User> listStaffs = udb.getAllStaffs();
+        List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
 
         request.setAttribute("countCustomer", countCustomer);
         request.setAttribute("countStaff", countStaff);
         request.setAttribute("totalPayment", totalPayment);
         request.setAttribute("monthlyPayment", monthlyPayment);
+        request.setAttribute("totalAgency", totalAgency);
+        request.setAttribute("totalContracts", totalContracts);
+        request.setAttribute("totalCompensations", totalCompensations);
+        request.setAttribute("listCustomerByGender", listCustomerByGender);
+        request.setAttribute("countIsPayment", countIsPayment);
+        request.setAttribute("listStaffs", listStaffs);
+        request.setAttribute("staffByAgency", staffByAgency);
+        request.setAttribute("listAgency", listAgency);
 
         request.getRequestDispatcher("homeManager.jsp").forward(request, response);
     }
@@ -89,7 +108,27 @@ public class HomeManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String staffId_raw = request.getParameter("staffId");
+        String agencyId_raw = request.getParameter("changeAngency");
+        String mess = "";
+        try {
+            int staffId = Integer.parseInt(staffId_raw);
+            int agencyId = Integer.parseInt(agencyId_raw);
+            if (AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(staffId, agencyId)) {
+                mess = "Chuyển nơi làm việc thành công";
+            } else {
+                mess = "Chuyển nơi làm việc thất bại";
+
+            }
+        } catch (NumberFormatException e) {
+            mess = e +"";
+
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("mess", mess);
+        response.sendRedirect("homeManager");
+
     }
 
     /**

@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/dal/VehicleDAO.java</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/addVehicle.jsp</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/dal/DBContext.java</file>
@@ -22,6 +23,13 @@
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/web/CSS/contract.css</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddContractServlet.java</file>
             <file>file:/C:/Users/QUANG%20TRUNG/Documents/NetBeansProjects/SWP391-Team1-SE1829/src/java/Controller/AddAgencyServlet.java</file>
+
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/CSS/manager.css</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/homeManager.jsp</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/HomeManagerServlet.java</file>
+            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/staffDashboard.jsp</file>
+
         </group>
     </open-files>
 </project-private>

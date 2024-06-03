@@ -18,7 +18,7 @@ import java.util.HashMap;
  *
  * @author tranm
  */
-public class AgencyDAO extends DBContext {
+public class AgencyDAO {
 
     public static AgencyDAO INSTANCE = new AgencyDAO();
     private Connection con;
@@ -207,6 +207,43 @@ public class AgencyDAO extends DBContext {
 
     }
     
+    
+    public HashMap<Integer, String> getStaffByAgency() {
+        HashMap<Integer, String> hash = new HashMap<>();
+        String sql = "select sw.StaffId, a.AgencyName from Staff_Workplace sw join Agencies a on sw.AgencyId = a.AgencyId";
+        
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                hash.put(rs.getInt("StaffId"), rs.getString("AgencyName"));
+                
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return hash;
+    }
+    
+    public int countAgency() {
+        String sql = "select count(*) as TotalAgency  from Agencies";
+        int total = 0;
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                total = rs.getInt("TotalAgency");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+    
     public BigInteger totalPayment() {
         BigInteger total = BigInteger.ZERO;
         String sql = "SELECT SUM(Payment) AS TotalPayment FROM Contracts;";
@@ -331,6 +368,23 @@ public class AgencyDAO extends DBContext {
 
         return false;
     }
+    
+    
+    public boolean changeWorkPlaceByStaffId(int staffId, int agencyId) {
+        String sql = "Update Staff_Workplace SET AgencyId = ? where StaffId = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, agencyId);
+            ps.setInt(2, staffId);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return false;
+    }
 
     public static void main(String[] args) {
 //        Agency a = new Agency();
@@ -338,6 +392,6 @@ public class AgencyDAO extends DBContext {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getAllAgenciesByStatus("active"));
+        System.out.println(AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(2, 1));
     }
 }

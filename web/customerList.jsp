@@ -22,11 +22,13 @@
     </head>
     <body>
 
-        <jsp:include page="./header.jsp" />  
+
+        <div class="nav-wrapper" style="height: 0">
+            <jsp:include page="staffDashboard.jsp" />
+        </div>
 
         <div id="listCustomer-page">
             <div class="container">
-
                 <div>
                     <form action="" method="post">
                         <div class="list-agency--search">
@@ -83,5 +85,12 @@
 
         </div>
 
+        <script>
+            var childNav = document.querySelector('.nav-wrapper .sticky-top');
+
+            if (childNav) {
+                childNav.classList.remove('sticky-top');
+            }
+        </script>
     </body>
 </html>

@@ -18,106 +18,218 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <title>Manager home</title>
+
+
+
     </head>
     <body>
 
-        <jsp:include page="./header.jsp" />      
+
+        <c:if test="${sessionScope.mess != null}">
+            <div id="toast-success" class="toast-container top-0 end-0 p-3">
+                <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${sessionScope.mess}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <c:remove var="mess" scope="session" />
+        </c:if>
 
 
-        <div id="homeManager-page">
-            <div class="container home-manager--wrapper">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="nav-manager">
-                            <div class="sidebar">
-                                <ul class="nav-lists">
-                                    <li class="list">
-                                        <a href="#" class="nav-link">
-                                            <span class="link">Dashboard</span>
-                                        </a>
-                                    </li>
-                                    <li class="list">
-                                        <a href="customerList" class="nav-link">
-                                            <span class="link">Danh sách khách hàng</span>
-                                        </a>
-                                    </li>
-                                    <li class="list">
-                                        <a href="listAgency" class="nav-link">
-                                            <span class="link">Danh sách đại lý</span>
-                                        </a>
-                                    </li>
-                                    <li class="list">
-                                        <a href="#" class="nav-link">
-                                            <span class="link">Danh sách nhân viên</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+        <div class="nav-wrapper">
+            <jsp:include page="staffDashboard.jsp"/>
+
+        </div>
+        <div class="home-manager--wrapper" >
+            <div class="container" style="padding: 30px;">
+                <h2 class="main-title">Dashboard</h2>
+                <div class="row stat-cards" >
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>${requestScope.countCustomer}</strong></p>
+                            <p class="stat-cards-info__title">Khách hàng</p>
                         </div>
                     </div>
-                    <div class="col-md-10">
-                        <div class="home-manager--content">
-                            <div style="padding: 20px;">
-                                <span class="title"><strong>Tổng quan</strong></span>
-                                <div class="row" style="display: flex; justify-content: center;">
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>${requestScope.countStaff}</strong></p>
+                            <p class="stat-cards-info__title">Nhân viên</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>
+                                    <fmt:formatNumber value="${requestScope.totalPayment}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                </strong></p>
+                            <p class="stat-cards-info__title">Doanh thu</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>${requestScope.totalAgency}</strong></p>
+                            <p class="stat-cards-info__title">Đại lý </p>
+                        </div>
+                    </div>
 
-                                    <div class="col-md-3 ">
-                                        <div style="background-color: #1e8e1ac2" class="wrapper">
-                                            <span class="sub-title"><strong>Số khách hàng</strong></span>
-                                            <span class="count">${requestScope.countCustomer}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 ">
-                                        <div style="background-color: #3f51b5bf" class="wrapper">
-                                            <span class="sub-title"><strong>Số nhân viên</strong></span>
-                                            <span class="count">${requestScope.countStaff}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 ">
-                                        <div style="background-color: #9e9e9eb5" class="wrapper">
-                                            <span class="sub-title"><strong>Doanh thu</strong></span>
-                                            <span class="count payment">
-                                                <fmt:formatNumber value="${requestScope.totalPayment}" type="currency" currencySymbol="₫" groupingUsed="true"/>
-                                            </span>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div style="padding: 20px;">
-                                <span class="title"><strong>Biểu đồ doanh thu</strong></span>
-
-                                <canvas id="earningsChart"></canvas>
-                                    <c:forEach var="entry" items="${requestScope.monthlyPayment.entrySet()}">
-                                    <p style="display: none" class="month">${entry.key}</p>
-                                    <p style="display: none" class="earning">${entry.value}</p>
-                                </c:forEach>
-                            </div>
+                </div>
+                <div class="row stat-cards"  style="margin-top: 20px;">
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>${requestScope.totalContracts}</strong></p>
+                            <p class="stat-cards-info__title">Hợp đồng</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>${requestScope.totalCompensations}</strong></p>
+                            <p class="stat-cards-info__title">Bồi thường</p>
                         </div>
                     </div>
                 </div>
 
+
+                <div style="padding: 20px; background-color: #fff; margin-top: 20px; border-radius: 10px">
+                    <span class="title"><strong>Biểu đồ doanh thu</strong></span>
+
+                    <canvas id="earningsChart"></canvas>
+                        <c:forEach var="entry" items="${requestScope.monthlyPayment.entrySet()}">
+                        <p style="display: none" class="month">${entry.key}</p>
+                        <p style="display: none" class="earning">${entry.value}</p>
+                    </c:forEach>
+                </div>
+
+                <main>
+                    <div class="chart-container">
+                        <h2>Thông kê khách hàng</h2>
+                        <div class="chart">
+                            <canvas id="user-gender-distribution"></canvas>
+                                <c:forEach var="entry" items="${requestScope.listCustomerByGender.entrySet()}">
+                                <p style="display: none" class="gender">${entry.key}</p>
+                                <p style="display: none" class="count-gender">${entry.value}</p>
+                            </c:forEach>
+                        </div>
+                    </div>     
+
+                    <div class="chart-container">
+                        <h2>Thông kê hợp đồng</h2>
+                        <div class="chart">
+                            <canvas id="payment-status"></canvas>
+                                <c:forEach var="entry" items="${requestScope.countIsPayment.entrySet()}">
+                                <p style="display: none" class="pay-status">${entry.key}</p>
+                                <p style="display: none" class="pay-count">${entry.value}</p>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </main>
+
+
+                <div class="users-table table-wrapper">
+                    <h2>Danh sách nhân viên</h2>
+                    <table class="posts-table">
+                        <thead>
+                            <tr class="users-table-info">
+                                <th>Id</th>
+                                <th>Họ tên</th>
+                                <th>Giới tính</th>
+                                <th>Số điện thoại</th>
+                                <th>Email</th>
+                                <th>Nơi làm việc</th>
+                                <th>Chuyển nơi làm việc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="staff" items="${requestScope.listStaffs}">
+                                <tr>
+                                    <td>${staff.id}</td>
+                                    <td>${staff.getFullName()}</td>
+                                    <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
+                                    <td>${staff.phone}</td>
+                                    <td>${staff.email}</td>
+                                    <td>
+                                        <c:forEach var="staffWorkPlace" items="${requestScope.staffByAgency.entrySet()}">
+                                            <c:if test="${staffWorkPlace.key == staff.id}">
+                                                <c:set var="agencyName" value="${staffWorkPlace.value}" />
+                                                <c:set var="staffId" value="${staffWorkPlace.key}" />
+                                                ${staffWorkPlace.value}
+                                            </c:if> 
+                                        </c:forEach>
+
+                                    </td>
+                                    <td>
+                                        <form class="form-change--agency" method="POST" action="homeManager?staffId=${staffId}">
+                                            <select class="select-agency" name="changeAngency" onchange="submitForm()">
+                                                <option disabled selected>Chọn đại lý</option>
+                                                <c:forEach var="agency" items="${requestScope.listAgency}">
+                                                    <c:if test="${agency.agencyName != agencyName}">
+                                                        <option value="${agency.agencyId}">${agency.agencyName}</option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
 
         </div>
-
-
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
 
             const payment = document.querySelector('.payment');
+            const form = document.querySelector('.form-change--agency');
+            var childNav = document.querySelector('.nav-wrapper .sticky-top');
+
+            if (childNav) {
+                childNav.classList.remove('sticky-top');
+            }
+
+            function submitForm() {
+                if (confirm("Bạn có muốn đổi nơi làm việc của nhân viên này không?")) {
+                    form.submit();
+                }
+
+            }
+
+
+            setTimeout(() => {
+                const successToast = document.getElementById('toast-success');
+                if (successToast) {
+                    successToast.style.opacity = '0';
+                    setTimeout(() => successToast.style.display = 'none', 1000);
+                }
+
+            }, 3000);
+
+
+
+
+
 
             document.addEventListener("DOMContentLoaded", function () {
                 var labels = [];
                 var data = [];
+                var countGender = [];
+                var isPayLabel = [];
+                var countIsPay = [];
 
-// Lấy các phần tử có lớp là 'month' và 'earning'
+
                 var monthElements = document.querySelectorAll('.month');
                 var earningElements = document.querySelectorAll('.earning');
 
-// Lấy dữ liệu từ các phần tử và lưu vào mảng
+                var countGenderElements = document.querySelectorAll('.count-gender');
+
+                var isPayElements = document.querySelectorAll('.pay-status');
+                var countIsPayElements = document.querySelectorAll('.pay-count');
+
                 monthElements.forEach(function (monthElement, index) {
                     var month = monthElement.innerText;
                     var earning = parseFloat(earningElements[index].innerText.replace(/[^0-9.-]+/g, "")); // Loại bỏ ký tự không phải số
@@ -125,8 +237,20 @@
                     data.push(earning);
                 });
 
+                countGenderElements.forEach(function (element) {
+                    countGender.push(element.innerText);
+                })
+
+                isPayElements.forEach(function (element, index) {
+                    var isPay = element.innerText === "Paid" ? "Đã thanh toán" : "Chưa thanh toán";
+                    var count = countIsPayElements[index].innerText;
+                    isPayLabel.push(isPay);
+                    countIsPay.push(count);
+                })
+
+
                 var ctx = document.getElementById('earningsChart').getContext('2d');
-                var earningsChart = new Chart(ctx, {
+                new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: labels,
@@ -153,7 +277,60 @@
                     }
                 });
 
+                const ctx1 = document.getElementById('user-gender-distribution').getContext('2d');
+                new Chart(ctx1, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Nữ', 'Nam', 'Khác'],
+                        datasets: [{
+                                data: countGender,
+                                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                            }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Phân bổ giới tính người dùng'
+                            }
+                        }
+                    }
+                });
+
+
+
+                const ctx3 = document.getElementById('payment-status').getContext('2d');
+                new Chart(ctx3, {
+                    type: 'pie',
+                    data: {
+                        labels: isPayLabel,
+                        datasets: [{
+                                data: countIsPay,
+                                backgroundColor: ['#2196F3', '#F44336'],
+                            }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Tình trạng thanh toán'
+                            }
+                        }
+                    }
+                });
+
+
             });
         </script>
+
+
     </body>
 </html>

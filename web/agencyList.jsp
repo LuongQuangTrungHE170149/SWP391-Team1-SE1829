@@ -20,8 +20,10 @@
         <title>Agency list</title>
     </head>
     <body>
+        <div class="nav-wrapper" style="height: 0">
+            <jsp:include page="staffDashboard.jsp" />
+        </div>
 
-        <jsp:include page="./header.jsp" />      
 
         <div id="listAgency-page">
 
@@ -247,9 +249,13 @@
         </div>     
 
 
-        <jsp:include page="./footer.jsp" />      
+
 
         <script>
+            var childNav = document.querySelector('.nav-wrapper .sticky-top');
+            if (childNav) {
+                childNav.classList.remove('sticky-top');
+            }
 
             window.addEventListener('load', () => {
                 setTimeout(() => {
@@ -277,7 +283,7 @@
 
                 confirmModalBody.textContent = action === 'inactive' ? 'Bạn có chắc chắn muốn ngưng hoạt động đại lý này không?' : 'Bạn có chắc chắn muốn kích hoạt đại lý này không?';
 
-            
+
                 confirmBtn.onclick = function () {
                     window.location.href = "inactiveAgency?id=" + id + "&action=" + action;
                 };

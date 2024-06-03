@@ -4,29 +4,36 @@
  */
 package Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author thuhu
  */
 public class Promotion {
+
     private int id;
     private String title;
-    private String content;
+    private String description;
     private Date timeStart;
     private Date timeEnd;
+    private String content;
+    private String image;
+    private Boolean isHeader;
     private User staff;
 
     public Promotion() {
     }
 
-    public Promotion(int id, String title, String content, Date timeStart, Date timeEnd, User staff) {
+    public Promotion(int id, String title, String description, Date timeStart, Date timeEnd, String content, String image, Boolean isHeader, User staff) {
         this.id = id;
         this.title = title;
-        this.content = content;
+        this.description = description;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
+        this.content = content;
+        this.image = image;
+        this.isHeader = isHeader;
         this.staff = staff;
     }
 
@@ -46,12 +53,12 @@ public class Promotion {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getTimeStart() {
@@ -70,6 +77,30 @@ public class Promotion {
         this.timeEnd = timeEnd;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Boolean getIsHeader() {
+        return isHeader;
+    }
+
+    public void setIsHeader(Boolean isHeader) {
+        this.isHeader = isHeader;
+    }
+
     public User getStaff() {
         return staff;
     }
@@ -77,6 +108,7 @@ public class Promotion {
     public void setStaff(User staff) {
         this.staff = staff;
     }
+
     
-    
+
 }
