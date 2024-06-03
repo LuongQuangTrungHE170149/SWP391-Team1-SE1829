@@ -162,7 +162,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="customerList" class="btn btn-light btn-sm btn-custom" id="btnPromotion">
-                        <i class="fa-solid fa-list me-2"></i>
+                      <i class="fa-regular fa-user me-2"></i>
                         Danh sách khách hàng 
                     </a>
                 </li>
