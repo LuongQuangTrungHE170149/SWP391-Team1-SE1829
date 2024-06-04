@@ -29,6 +29,8 @@
 
         <div id="listCustomer-page">
             <div class="container">
+                <h3 style="text-align: center"><span>Danh sách khách hàng</span></h3>
+
                 <div>
                     <form action="" method="post">
                         <div class="list-agency--search">
@@ -43,7 +45,7 @@
                     <table class="styled-table">
                         <thead>
                             <tr>
-                            
+
                                 <th>Họ tên</th>
                                 <th>Năm sinh</th>
                                 <th>Giới tính</th>
@@ -57,7 +59,7 @@
 
                             <c:forEach var="cusomter" items="${requestScope.listCustomer}"  >
                                 <tr>
-                                   
+
                                     <td>${cusomter.getFullName()}</td>
                                     <td>${cusomter.getDate()}</td>
                                     <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
@@ -78,6 +80,7 @@
 
 
         </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
         <script>
             var childNav = document.querySelector('.nav-wrapper .sticky-top');
