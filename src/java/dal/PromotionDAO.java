@@ -65,6 +65,7 @@ public class PromotionDAO extends DBContext {
                 + "      ,[isHeader]\n"
                 + "      ,[image]\n"
                 + "      ,[staff]\n"
+                + "      ,[createDate]\n"
                 + "  FROM [dbo].[Promotion]";
 
         try {
@@ -85,12 +86,62 @@ public class PromotionDAO extends DBContext {
                 User u = udb.getUserById(rs.getInt("staff"));
                 p.setStaff(u);
 
+                p.setCreateDate(rs.getDate("createDate"));
+
                 list.add(p);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
+    }
+
+    public List<Promotion> SearchByTitleOrDescriptionOrContent(String seachValue) {
+        List<Promotion> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[image]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[staff]\n"
+                + "      ,[CreateDate]\n"
+                + "FROM [SWP391_SE1829_Team1].[dbo].[Promotion] \n"
+                + "WHERE [title] LIKE ? \n"
+                + "   OR [description] LIKE ?\n"
+                + "   OR [content] LIKE ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "'%" + seachValue + "%'");
+            st.setString(2, "'%" + seachValue + "%'");
+            st.setString(3, "'%" + seachValue + "%'");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     public void setIsHeaderToFalse() {
@@ -129,6 +180,7 @@ public class PromotionDAO extends DBContext {
                 + "      ,[image]\n"
                 + "      ,[isHeader]\n"
                 + "      ,[staff]\n"
+                + "      ,[createDate]\n"
                 + "  FROM [dbo].[Promotion] where id = ?";
 
         try {
@@ -150,6 +202,7 @@ public class PromotionDAO extends DBContext {
                 User u = udb.getUserById(rs.getInt("staff"));
                 p.setStaff(u);
 
+                p.setCreateDate(rs.getDate("createDate"));
                 return p;
             }
 
@@ -169,6 +222,7 @@ public class PromotionDAO extends DBContext {
                 + "      ,[image]\n"
                 + "      ,[isHeader]\n"
                 + "      ,[staff]\n"
+                + "      ,[createDate]\n"
                 + "  FROM [dbo].[Promotion] where isHeader = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -189,6 +243,8 @@ public class PromotionDAO extends DBContext {
                 User u = udb.getUserById(rs.getInt("staff"));
                 p.setStaff(u);
 
+                p.setCreateDate(rs.getDate("createDate"));
+
                 return p;
             }
         } catch (SQLException e) {
@@ -201,15 +257,15 @@ public class PromotionDAO extends DBContext {
         try {
             PromotionDAO pdb = new PromotionDAO();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            
+
             java.util.Date timeStartUtil = dateFormat.parse("2024-06-05");
             java.util.Date timeEndUtil = dateFormat.parse("2024-06-05");
-            
+
             java.sql.Date timeStart = new java.sql.Date(timeStartUtil.getTime());
             java.sql.Date timeEnd = new java.sql.Date(timeEndUtil.getTime());
-            
+
             pdb.setIsHeaderToFalse();
-            System.out.println(pdb.addPromotion("heello", "hllo",timeStart , timeEnd, "Khuyen mai", true, "afsfsafsasfs", 1));
+            System.out.println(pdb.addPromotion("heello", "hllo", timeStart, timeEnd, "Khuyen mai", true, "afsfsafsasfs", 1));
         } catch (ParseException ex) {
             Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

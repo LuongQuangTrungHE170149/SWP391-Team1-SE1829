@@ -46,7 +46,7 @@
         </div>
         <div class="home-manager--wrapper" >
             <div class="container" style="padding: 30px;">
-                <h2 class="main-title">Dashboard</h2>
+                <h2 class="main-title">Tổng quan</h2>
                 <div class="row stat-cards" >
                     <div class="col-md-3">
                         <div class="stat-cards-item">
@@ -138,6 +138,7 @@
                                 <th>Số điện thoại</th>
                                 <th>Email</th>
                                 <th>Nơi làm việc</th>
+                                <th>Trạng thái</th>
                                 <th>Chuyển nơi làm việc</th>
                             </tr>
                         </thead>
@@ -173,7 +174,15 @@
                                             </c:otherwise>
                                         </c:choose>
 
+                                    </td>
 
+                                    <td>
+                                        <c:forEach var="staffWorkPlace" items="${requestScope.staffByAgency}">
+                                            <c:if test="${staffWorkPlace.staffId == staff.id}">
+                                                <span class="${staffWorkPlace.status eq 'active' ? 'active-staff' : 'inactive-staff'}">${staffWorkPlace.status eq 'active' ? 'Hoạt động' : 'Nghỉ việc'}</span>
+                                                
+                                            </c:if>
+                                        </c:forEach>
                                     </td>
                                     <td>
                                         <c:set var="staffHasAgency" value="false" />          

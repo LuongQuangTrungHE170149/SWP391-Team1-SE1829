@@ -43,33 +43,27 @@
                     <table class="styled-table">
                         <thead>
                             <tr>
-                                <th>Mã</th>
+                            
                                 <th>Họ tên</th>
                                 <th>Năm sinh</th>
                                 <th>Giới tính</th>
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
-                                <th>Địa chỉ</th>
-                                <th>Vai trò</th>
-                                <th>Nhân viên phụ trách</th>
+                                <th>Địa chỉ</th>           
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody >
 
                             <c:forEach var="cusomter" items="${requestScope.listCustomer}"  >
                                 <tr>
-                                    <td>${cusomter.id}</td>
+                                   
                                     <td>${cusomter.getFullName()}</td>
                                     <td>${cusomter.getDate()}</td>
                                     <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
                                     <td>${cusomter.email}</td>
                                     <td>${cusomter.phone}</td>
-                                    <td>${cusomter.address}</td>
-                                    <td>${cusomter.role}</td>
-
-
-
-
+                                    <td>${cusomter.address}</td> 
                                 </tr>
                             </c:forEach>
 

@@ -1,11 +1,6 @@
 create database SWP391_SE1829_Team1;
 go
-Use SWP391_SE1829_Team1;
-
-
-INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
-VALUES 
-('minhbeo', '123', 'Minh', 'Nhat', 'Staff', 1, 'minhbeo@example.com', '01234569890', '1985-06-15', N'Hà Nội')
+ 
 
 Create table Users(
 			id int identity(1,1) not null primary key,
@@ -43,8 +38,6 @@ Create table Vehicles(
 			OwnerId int REFERENCES Users(id),
 )
 GO
-
-
 
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
