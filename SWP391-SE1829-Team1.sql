@@ -1,6 +1,6 @@
 create database SWP391_SE1829_Team1;
 go
-Use SWP391_SE1829_Team1;
+ 
 
 Create table Users(
 			id int identity(1,1) not null primary key,
@@ -39,8 +39,6 @@ Create table Vehicles(
 )
 GO
 
-
-
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
@@ -56,12 +54,11 @@ Create table Contracts(
 )
 GO
 
-
-Create table Staff_Workplace(
+create table Staff_Workplace(
 			swId int identity(1,1) primary key,
 			AgencyId int References Agencies(AgencyId),
 			StaffId int References Users(id),
-			[status] nvarchar(255)
+			[status] nvarchar(255) default 'active'
 )
 GO
 
@@ -98,7 +95,6 @@ GO
 insert into Consultations(name, email, content)
 Values ('Nguyễn Duy Hùng', 'Kharrr2001@gmail.com', 'Tôi cần anh em hỗ trợ tôi')
 
-
 Create Table News(
 			NewsId int identity(1,1) primary key,
 			Title nvarchar(255),
@@ -112,63 +108,59 @@ Create Table News(
 GO
 
 
-INSERT INTO Users ( username, password, firstName, lastName, [role], email, phoneNumber, dob, [address], gender)
+INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
 VALUES 
-( 'jdoe', '123', 'John', 'Doe', 'Customer', 'jdoe@example.com', '123456789', '1990-01-15', '123 Main St, Hanoi', 1),
-( 'asmith','123', 'Anna', 'Smith', 'Staff', 'asmith@example.com', '987654321', '1985-05-23', '456 Elm St, HCMC', 0),
-( 'btan', '123', 'Bao', 'Tan', 'Customer', 'btan@example.com', '123123123', '1992-09-10', '789 Oak St, Danang', 2);
+('john_doe', 'password123', 'John', 'Doe', 'customer', 1, 'john.doe@example.com', '1234567890', '1985-06-15', '123 Main St'),
+('jane_smith', 'password123', 'Jane', 'Smith', 'staff', 0, 'jane.smith@example.com', '0987654321', '1990-07-20', '456 Elm St');
 
-
-
--- Thêm dữ liệu mẫu vào bảng Agencies
-INSERT INTO Agencies (AgencyName, AgencyAddress, Worktime, HotLine)
+INSERT INTO Agencies (AgencyName, AgencyAddress, HotLine, Worktime, [status])
 VALUES 
-('Agency One', '123 Agency St, Hanoi', '8h-17h', '011111111'),
-('Agency Two', '456 Agency Ave, HCMC', '8h-17h','0222222222'),
-('Agency Three', '789 Agency Blvd, Danang', '8h-17h','033333333');
+('Central Agency', '789 Oak St', '1800123456', '9 AM - 6 PM', 'active'),
+('West Agency', '101 Pine St', '1800654321', '10 AM - 7 PM', 'active');
 
--- Thêm dữ liệu mẫu vào bảng Vehicles
 INSERT INTO Vehicles (Model, LicensePlates, OwnerId)
 VALUES 
-('Honda SH', '29A-123.45', 1),
-('Yamaha Exciter', '30B-678.90', 2),
-('Suzuki Raider', '31C-543.21', 3);
+('Honda Civic', 'AB1234', 1),
+('Toyota Corolla', 'CD5678', 1),
+('Ford Focus', 'EF9012', 2);
 
--- Thêm dữ liệu mẫu vào bảng Contracts
 INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
 VALUES 
 (1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
 (3, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
 
-
+select * from Users
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace ( AgencyId, StaffId, [status])
-VALUES ( 1, 2, 'Active'),
-( 2, 3, 'Active');
+VALUES ( 1, 2, 'active')
+
 
 -- Thêm dữ liệu mẫu vào bảng Punishments
 INSERT INTO Punishments ( ContractId, [Description], [Type], [Action])
-VALUES 
-( 1, 'Late payment', 'Fine', 'Pay additional fee'),
-( 2, 'Vehicle damage', 'Compensation', 'Pay repair cost');
+(1, 2, 1, 1, '2024-01-01', '2024-12-31', 'lease', 'Annual lease contract', 12000, 0),
+(1, 2, 2, 2, '2024-01-01', '2024-06-30', 'lease', 'Half-year lease contract', 6000, 0);
 
--- Thêm dữ liệu mẫu vào bảng Compensations
-INSERT INTO Compensations ( ContractId, [Description], [Type], Payment, IsPay)
+INSERT INTO Staff_Workplace (AgencyId, StaffId, [status])
 VALUES 
-( 2, 'Damage to the vehicle', 'Repair Cost', 200000, 0);
+(1, 2, 'active'),
+(2, 2, 'active');
 
-insert into Conversation(email, message)
-values('kharrr2001@gmail.com','chao anh em'),
-('kharrr2001@gmail.com','helo 123');
-
--- Thêm dữ liệu mẫu vào bảng Consultations
-INSERT INTO Consultations ( name, Phone, email, dob, [Address],conversationId, status)
+INSERT INTO Punishments (ContractId, [Description], [Type], [Action])
 VALUES 
-( 'Nguyen Van A', 123456789, 'nguyenvana@example.com', '1993-02-17', '234 Consultation St, Hanoi',1, 'Pending'),
-( 'Tran Thi B', 987654321, 'tranthib@example.com', '1988-11-30', '567 Consultation Ave, HCMC',2, 'Completed');
+(1, 'Late payment', 'financial', 'fine'),
+(2, 'Vehicle damage', 'operational', 'repair');
 
--- Thêm dữ liệu mẫu vào bảng News
-INSERT INTO News ( Title,Image, Content, Author, [Date], Type)
+INSERT INTO Compensations (ContractId, [Description], [Type], Payment, IsPay)
 VALUES 
-( 'New Service Launch','null', 'We are excited to announce the launch of our new service...', 2, '2024-05-15', 'Announcement'),
-( 'Holiday Discounts','null', 'Enjoy our special discounts this holiday season...', 2, '2024-05-10', 'Promotion');
+(1, 'Accident compensation', 'damage', 2000, 0),
+(2, 'Late return compensation', 'delay', 500, 1);
+
+INSERT INTO Consultations (name, email, content)
+VALUES 
+('Nguyễn Duy Hùng', 'Kharrr2001@gmail.com', 'Tôi cần anh em hỗ trợ tôi'),
+('John Doe', 'john.doe@example.com', 'I need help with my vehicle contract');
+
+INSERT INTO News (Title, Image, Content, Author, [Type])
+VALUES 
+('New Vehicle Models', 'image1.jpg', 'Details about new vehicle models available.', 2, 'announcement'),
+('Agency Opening', 'image2.jpg', 'New agency opening details.', 2, 'news');

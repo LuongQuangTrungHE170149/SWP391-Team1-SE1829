@@ -96,14 +96,13 @@
                     <table class="styled-table">
                         <thead>
                             <tr>
-
                                 <th>Mã</th>
                                 <th>Tên đại lí</th>
                                 <th>Địa chỉ</th>
                                 <th>Hotline</th>
                                 <th>Giờ làm việc</th>
                                 <th>Trạng thái</th>
-                                <th>Hàng động</th>
+                                <th>Hành động</th>
 
                             </tr>
                         </thead>
