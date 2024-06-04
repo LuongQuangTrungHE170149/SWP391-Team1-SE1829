@@ -96,7 +96,7 @@
             <!--dashboard-->
 
             <!--content-->
-            <div class="content d-flex flex-column align-items-center" style="height:100%;" >
+            <div class="content d-flex flex-column align-items-center" style="background-color: #f0f2fa;" >
 
                 <!--navbar-->
                 <div class=" navbar-custom d-flex justify-content-center align-items-center sticky-top" style="width: 100%;">
@@ -122,26 +122,29 @@
                 <!-- Tabs navs -->
 
                 <!-- Tabs content -->
-                <div class="tab-content" id="ex-with-icons-content">
+                <div class="tab-content p-4" id="ex-with-icons-content">
 
                     <!--tab list Consultation-->
-                    <div class="tab-pane fade show active" id="listConsultation" role="tabpanel" aria-labelledby="ex-with-icons-tab-1">
+                    <div class="tab-pane fade show active shadow-lg pt-4 pb-4" 
+                         id="listConsultation" role="tabpanel" 
+                         aria-labelledby="ex-with-icons-tab-1"
+                         style="background-color: #fff; border-radius: 12px;">
                         <!--search-->
-                        <div class=" d-flex justify-content-start mb-3" style="margin-left: 110px;">
-                            <button onclick="location.href = 'ConsultationManagement?status=notReply'" class="btn btn-danger btn-sm me-2 ">
+                        <div class=" d-flex justify-content-center mb-3">
+                            <button onclick="location.href = 'ConsultationManagement?status=notReply'" type="button" class="btn btn-danger btn-sm me-2" data-mdb-ripple-init>
                                 Chưa trả lời <span class="badge badge-danger">${countNotReply}</span>
                             </button>
-                            <button onclick="location.href = 'ConsultationManagement?status=reply'" class="btn btn-primary btn-sm me-2 ">
+                            <button onclick="location.href = 'ConsultationManagement?status=reply'" type="button" class="btn btn-primary btn-sm me-2" data-mdb-ripple-init>
                                 Đã trả lời <span class="badge badge-danger">${countReply}</span>
                             </button>
-                            <button onclick="location.href = 'ConsultationManagement?status=all'" class="btn btn-primary btn-sm me-2 ">
+                            <button onclick="location.href = 'ConsultationManagement?status=all'" type="button" class="btn btn-primary btn-sm me-2" data-mdb-ripple-init>
                                 All <span class="badge badge-danger">${countAll}</span>
                             </button>
                         </div>
 
                         <!--table-->
                         <div class="row d-flex justify-content-center">
-                            <div class="col-md-10">
+                            <div class="col-11">
                                 <!--pagination-->
                                 <input type="hidden"id="page" value="${currentPage}">
                                 <c:if test="${numberOfPages > 1}">
@@ -178,7 +181,7 @@
                                 <table class="table table-hover table-bordered ">
                                     <thead class="">
                                         <tr class="">
-                                            <th scope="col">#</th>
+                                            <th scope="col" style="width: 20px;">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Create Date</th>
@@ -228,7 +231,7 @@
                         <input type="hidden"id="page" value="${currentPage}">
                         <c:if test="${numberOfPages > 1}">
                             <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
+                                <ul class="pagination justify-content-center mb-0">
                                     <!-- Nút Previous -->
                                     <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
                                         <a class="page-link" href="ConsultationManagement?status=${status}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
@@ -261,10 +264,13 @@
                     <!--end tab list Consultation-->
 
                     <!--tab chart-->
-                    <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
+                    <div class="tab-pane fade pt-4 pb-4 shadow-lg" id="chart" 
+                         role="tabpanel" 
+                         aria-labelledby="ex-with-icons-tab-2"
+                         style="background-color: #fff; border-radius:12px;">
                         <div class="m-2 text-center fs-4 fw-bold" style="color:#419FA3;">Total staff answer chart</div>
                         <div class="row d-flex justify-content-center">
-                            <div class="shadow col-8">
+                            <div class=" col-11">
                                 <canvas class="" id="consultationChart"></canvas>
                             </div>
                         </div>
@@ -303,7 +309,7 @@
 
     <!--reply modal-->
     <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true" >
-        <div class="modal-dialog modal-lg  modal-dialog-centered">
+        <div class="modal-dialog modal-xl  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold fs-4" id="replyModalLabel" style="color:#419FA3;">Respond consultation</h5>
@@ -376,7 +382,7 @@
 
     <!--modal detail-->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title fs-4 fw-bold text-nowrap" id="detailModalLabel" style="color:#419FA3;">Consultation Details</div>

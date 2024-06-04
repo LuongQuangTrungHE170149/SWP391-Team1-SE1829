@@ -80,9 +80,23 @@ public class PromotionManagementServlet extends HttpServlet {
                 PromotionDAO pdb = new PromotionDAO();
                 List<Promotion> listAll;
 
+                String unset = request.getParameter("unset");
+                if(unset!=null){
+                    pdb.setIsHeaderToFalse();
+                }
+                
+                String setHeaderAtIdParam = request.getParameter("setHeaderAtId");
+                if(setHeaderAtIdParam != null){
+                    int setHeaderAtId = Integer.parseInt(setHeaderAtIdParam);
+                    pdb.setIsHeaderToFalse();
+                    pdb.setIsHeaderToTrueById(Boolean.TRUE, setHeaderAtId);
+                    
+                }
                 String searchValue = request.getParameter("searchValue");
-                if (searchValue != null) {
-                       listAll = pdb.SearchByTitleOrDescriptionOrContent(searchValue);
+                if (searchValue != null && !searchValue.isEmpty()) {
+                    listAll = pdb.SearchByTitleOrDescriptionOrContent(searchValue);
+                    int totalSearchResult = listAll.size();
+                    request.setAttribute("totalSearchResult", totalSearchResult);
                 } else {
                     listAll = pdb.getAll();
                 }
@@ -101,6 +115,8 @@ public class PromotionManagementServlet extends HttpServlet {
                 request.setAttribute("listAll", listForPage);
                 request.setAttribute("numberOfPages", numberOfPages);
                 request.setAttribute("currentPage", page);
+                
+                request.setAttribute("searchValue", searchValue);
                 request.getRequestDispatcher("PromotionManagement.jsp").forward(request, response);
             }
         }

@@ -56,21 +56,22 @@
 
     <!--    Thanh nav của staff-->
     <c:if test="${sessionScope.user.getRole() == 'Staff' || sessionScope.user.getRole() == 'staff'}">
-        <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
+        <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px !important; height: 100vh;">
             <a href="#" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
                 <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
                 <span class="fs-5 mt-1">Staff Manager</span>
             </a>
             <hr class="mt-0 bg-light" style="height: 2px;
                 border: none;">
+            
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="StaffManager" class="btn btn-light btn-sm btn-custom " id="btnHome">
+                    <a href="StaffManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
                         <i class="fa-solid fa-house me-2"></i>Home 
                     </a>
                 </li>
                 <li class="nav-item btn-group">
-                    <a href="ConsultationManagement" class="btn btn-light  btn-custom " id="btnConsultation">
+                    <a href="ConsultationManagement" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
                         <i class="fa-solid fa-message me-2"></i> 
                         Consultation
                         <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
@@ -88,17 +89,17 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="PromotionManagement" class="btn btn-light btn-sm btn-custom" id="btnPromotion">
+                    <a href="PromotionManagement" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
                         <i class="fa-solid fa-gift me-2"></i> Promotion 
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="btn btn-light btn-custom" id="btnContract">
+                    <a href="#" class="btn btn-light btn-custom" data-mdb-ripple-init id="btnContract">
                         <i class="fa-solid fa-file-contract me-2"></i>Contract
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="btn btn-light btn-custom" id="btnCustomer">
+                    <a href="#" class="btn btn-light btn-custom"data-mdb-ripple-init id="btnCustomer">
                         <i class="fa-solid fa-user me-2"></i>Customer
                     </a>
                 </li>
