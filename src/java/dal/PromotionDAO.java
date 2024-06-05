@@ -66,7 +66,7 @@ public class PromotionDAO extends DBContext {
                 + "      ,[image]\n"
                 + "      ,[staff]\n"
                 + "      ,[createDate]\n"
-                + "  FROM [dbo].[Promotion]";
+                + "  FROM [dbo].[Promotion] order by createDate DESC";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -108,18 +108,18 @@ public class PromotionDAO extends DBContext {
                 + "      ,[isHeader]\n"
                 + "      ,[staff]\n"
                 + "      ,[CreateDate]\n"
-                + "FROM [SWP391_SE1829_Team1].[dbo].[Promotion] \n"
-                + "WHERE [title] LIKE ? \n"
-                + "   OR [description] LIKE ?\n"
-                + "   OR [content] LIKE ?;";
+                + "  FROM [dbo].[Promotion] where title like ? \n"
+                + "  or content like ?\n"
+                + "  or description like ? \n"
+                + "  order by CreateDate DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "'%" + seachValue + "%'");
-            st.setString(2, "'%" + seachValue + "%'");
-            st.setString(3, "'%" + seachValue + "%'");
+            st.setString(1, "%" + seachValue + "%");
+            st.setString(2, "%" + seachValue + "%");
+            st.setString(3, "%" + seachValue + "%");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                
+
                 Promotion p = new Promotion();
                 p.setId(rs.getInt("id"));
                 p.setDescription(rs.getString("description"));
@@ -141,7 +141,7 @@ public class PromotionDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
+        return list;
     }
 
     public void setIsHeaderToFalse() {
@@ -177,11 +177,11 @@ public class PromotionDAO extends DBContext {
                 + "      ,[timeStart]\n"
                 + "      ,[timeEnd]\n"
                 + "      ,[content]\n"
-                + "      ,[image]\n"
                 + "      ,[isHeader]\n"
+                + "      ,[image]\n"
                 + "      ,[staff]\n"
                 + "      ,[createDate]\n"
-                + "  FROM [dbo].[Promotion] where id = ?";
+                + "  FROM [dbo].[Promotion] where id= ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -189,14 +189,14 @@ public class PromotionDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Promotion p = new Promotion();
-                p.setId(id);
-                p.setTitle(rs.getString("title"));
+                p.setId(rs.getInt("id"));
                 p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
                 p.setContent(rs.getString("content"));
-                p.setImage(rs.getString("image"));
                 p.setTimeStart(rs.getDate("timeStart"));
                 p.setTimeEnd(rs.getDate("timeEnd"));
                 p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
 
                 UserDAO udb = new UserDAO();
                 User u = udb.getUserById(rs.getInt("staff"));
@@ -253,22 +253,127 @@ public class PromotionDAO extends DBContext {
         return null;
     }
 
-    public static void main(String[] args) {
+    public boolean deletePromotionById(int id) {
+        String sql = "DELETE FROM [dbo].[Promotion]\n"
+                + "      WHERE id = ?";
         try {
-            PromotionDAO pdb = new PromotionDAO();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-            java.util.Date timeStartUtil = dateFormat.parse("2024-06-05");
-            java.util.Date timeEndUtil = dateFormat.parse("2024-06-05");
-
-            java.sql.Date timeStart = new java.sql.Date(timeStartUtil.getTime());
-            java.sql.Date timeEnd = new java.sql.Date(timeEndUtil.getTime());
-
-            pdb.setIsHeaderToFalse();
-            System.out.println(pdb.addPromotion("heello", "hllo", timeStart, timeEnd, "Khuyen mai", true, "afsfsafsasfs", 1));
-        } catch (ParseException ex) {
-            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-
+        return false;
     }
+
+    public boolean updatePromotionById(int id, String title, String description, Date timeStart, Date timeEnd, String content, String image, Boolean isHeader, int staff) {
+        String sql = "UPDATE [dbo].[Promotion]\n"
+                + "   SET [title] = ?\n"
+                + "      ,[description] = ?\n"
+                + "      ,[timeStart] = ?\n"
+                + "      ,[timeEnd] = ?\n"
+                + "      ,[content] = ?\n"
+                + "      ,[image] = ?\n"
+                + "      ,[isHeader] = ?\n"
+                + "      ,[staff] = ?\n"
+                + "      \n"
+                + " WHERE id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, title);
+            st.setString(2, description);
+            st.setDate(3, timeStart);
+            st.setDate(4, timeEnd);
+            st.setString(5, content);
+            st.setString(6, image);
+            st.setBoolean(7, isHeader);
+            st.setInt(8, staff);
+            st.setInt(9, id);
+            st.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public List<Promotion> listPromotionAddByStaff(int id) {
+        List<Promotion> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[image]\n"
+                + "      ,[staff]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[Promotion] where staff = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Object[]> listStaffAddPromotion() {
+        List<Object[]> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    p.staff AS id,\n"
+                + "    u.username AS username,\n"
+                + "    COUNT(p.id) AS promotionCount\n"
+                + "FROM \n"
+                + "    Promotion p\n"
+                + "INNER JOIN \n"
+                + "    [Users] u ON p.staff = u.id\n"
+                + "GROUP BY \n"
+                + "    p.staff, u.username;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                int promotionCount = rs.getInt("promotionCount");
+
+                Object[] obj = new Object[]{id, username, promotionCount};
+                list.add(obj);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        PromotionDAO pdb = new PromotionDAO();
+        System.out.println(pdb.listStaffAddPromotion().get(0)[1]);
+        System.out.println(pdb.listPromotionAddByStaff(1).size());
+    }
+
 }

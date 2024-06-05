@@ -21,26 +21,30 @@
         <title>Customer list</title>
     </head>
     <body>
-
-
-        <div class="nav-wrapper" style="height: 0">
-            <jsp:include page="staffDashboard.jsp" />
-        </div>
+        <jsp:include page="header.jsp" />
 
         <div id="listCustomer-page">
+
             <div class="container">
+
+                <h1>${requestScope.haha}</h1>
                 <h3 style="text-align: center"><span>Danh sách khách hàng</span></h3>
+                <div class="container-action">
+                    <div>
+                        <form action="" method="post">
+                            <div class="list-agency--search">
+                                <input  value="${name}" placeholder="Tìm kiếm tên khách hàng..." name="key"/>
+                                <button type="submit" class="search-agency--btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+                    </div>
 
-                <div>
-                    <form action="" method="post">
-                        <div class="list-agency--search">
-                            <input  value="" placeholder="Tìm kiếm đại lý..." name="key"/>
-                            <button type="submit" class="search-agency--btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
+                    <div style="display: flex;">
+                        <a href="customerList?action=sort" class="btn-wrapper btn-filter">Sắp xếp</a>
+                        <a href="" class="btn-wrapper btn-add">Thêm</a>
+
+                    </div>   
                 </div>
-
-
                 <div>
                     <table class="styled-table">
                         <thead>
@@ -57,17 +61,41 @@
                         </thead>
                         <tbody >
 
+
                             <c:forEach var="cusomter" items="${requestScope.listCustomer}"  >
                                 <tr>
-
                                     <td>${cusomter.getFullName()}</td>
                                     <td>${cusomter.getDate()}</td>
                                     <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
                                     <td>${cusomter.email}</td>
                                     <td>${cusomter.phone}</td>
                                     <td>${cusomter.address}</td> 
+                                    <td> <div class="button-customer-group">
+                                            <button class="button-customer view">View</button>
+                                            <button class="button-customer edit">Edit</button>
+                                        </div>
+                                    </td>
                                 </tr>
                             </c:forEach>
+
+                            <c:if test="${listSearchCustomer != null}">
+                                <c:forEach var="cusomter" items="${requestScope.listSearchCustomer}"  >
+                                    <tr>
+                                        <td>${cusomter.getFullName()}</td>
+                                        <td>${cusomter.getDate()}</td>
+                                        <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
+                                        <td>${cusomter.email}</td>
+                                        <td>${cusomter.phone}</td>
+                                        <td>${cusomter.address}</td> 
+                                         <td> <div class="button-group">
+                                            <button class="button view">View</button>
+                                            <button class="button edit">Edit</button>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+
 
                         </tbody>
                     </table>
@@ -80,14 +108,10 @@
 
 
         </div>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+
 
         <script>
-            var childNav = document.querySelector('.nav-wrapper .sticky-top');
 
-            if (childNav) {
-                childNav.classList.remove('sticky-top');
-            }
         </script>
     </body>
 </html>

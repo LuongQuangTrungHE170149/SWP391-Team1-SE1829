@@ -74,8 +74,6 @@
                             <option value="all">Tất cả</option>
                             <option value="active" ${requestScope.selectedCity eq "active" ? "selected" : ""} >Hoạt động</option>
                             <option value="inactive" ${requestScope.selectedCity eq "inactive" ? "selected" : ""}>Dừng hoạt động</option>
-
-
                         </select>
 
                     </div>      
@@ -107,30 +105,8 @@
                             </tr>
                         </thead>
                         <tbody >
-                            <c:if test="${requestScope.listSortAgency != null || requestScope.listAgency == null || requestScope.listSearchAgency == null}">
-                                <c:forEach var="agency" items="${requestScope.listSortAgency}">
-                                    <tr class="agency-container">
-                                        <td>${agency.agencyId}</td>
-                                        <td>${agency.agencyName}</td>
-                                        <td>${agency.agencyAddress}</td>
-                                        <td>${agency.hotline}</td>
-                                        <td>${agency.worktime}</td>
-                                        <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
-                                        <td>
-                                            <a class="agency-link" href="editAgency?id=${agency.agencyId}">Sửa</a>
-                                            <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
-                                            <c:if test="${agency.status eq 'active'}" >
-                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=inactive">Ngưng hoạt động</a>
-                                            </c:if>
-                                            <c:if test="${agency.status ne 'active'}" >
-                                                <a  class="agency-link" href="inactiveAgency?id=${agency.agencyId}&action=active">Hoạt động</a>
-                                            </c:if>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
 
-                            <c:if test="${requestScope.listSearchAgency == null && requestScope.listSortAgency == null && requestScope.filterAgencyList == null}">
+                            <c:if test="${requestScope.listSearchAgency == null  && requestScope.filterAgencyList == null}">
                                 <c:forEach var="agency" items="${requestScope.listAgency}">
                                     <tr class="agency-container">
 
@@ -184,7 +160,7 @@
                                 </c:forEach>
                             </c:if>
 
-                            <c:if test="${requestScope.filterAgencyList != null && requestScope.listSearchAgency == null && requestScope.listSortAgency == null}">
+                            <c:if test="${requestScope.filterAgencyList != null && requestScope.listSearchAgency == null}">
                                 <c:forEach var="agency" items="${requestScope.filterAgencyList}">
                                     <tr class="agency-container">
                                         <td>${agency.agencyId}</td>

@@ -10,6 +10,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     width: 100%;
     padding-top:100px;
 }
- 
+
+.button-customer-group {
+    display: flex;
+    gap: 10px;
+}
+.button-customer {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button-customer.view {
+    background-color: #3498db;
+}
+.button-customer.view:hover {
+    background-color: #2980b9;
+}
+.button-customer.edit {
+    background-color: #e67e22;
+}
+.button-customer.edit:hover {
+    background-color: #d35400;
+}
 
 
