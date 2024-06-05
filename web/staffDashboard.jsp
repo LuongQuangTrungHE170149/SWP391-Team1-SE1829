@@ -163,7 +163,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="customerList" class="btn btn-light btn-sm btn-custom" id="btnPromotion">
-                        <i class="fa-solid fa-list me-2"></i>
+                      <i class="fa-regular fa-user me-2"></i>
                         Danh sách khách hàng 
                     </a>
                 </li>
@@ -177,11 +177,11 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(0px, -33.6px, 0px);" data-popper-placement="top-start" data-mdb-popper="null">
                     <li>
-                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Hồ sơ </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a href="logout" class="dropdown-item">Sign out <img src="images/sign-out 1.png" width="16" height="16" "="" alt="alt"></a>
+                        <a href="logout" class="dropdown-item">Đăng xuất<img src="images/sign-out 1.png" width="16" height="16" "="" alt="alt"></a>
                     </li>
                 </ul>
             </div>
