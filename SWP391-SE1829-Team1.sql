@@ -1,6 +1,9 @@
 create database SWP391_SE1829_Team1;
+use SWP391_SE1829_Team1
 go
-Use SWP391_SE1829_Team1;
+ 
+
+
 
 Create table Users(
 			id int identity(1,1) not null primary key,
@@ -39,8 +42,6 @@ Create table Vehicles(
 )
 GO
 
-
-
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
@@ -56,12 +57,11 @@ Create table Contracts(
 )
 GO
 
-
-Create table Staff_Workplace(
+create table Staff_Workplace(
 			swId int identity(1,1) primary key,
 			AgencyId int References Agencies(AgencyId),
 			StaffId int References Users(id),
-			[status] nvarchar(255)
+			[status] nvarchar(255) default 'active'
 )
 GO
 
@@ -98,7 +98,6 @@ GO
 insert into Consultations(name, email, content)
 Values ('Nguyễn Duy Hùng', 'Kharrr2001@gmail.com', 'Tôi cần anh em hỗ trợ tôi')
 
-
 Create Table News(
 			NewsId int identity(1,1) primary key,
 			Title nvarchar(255),
@@ -130,6 +129,17 @@ VALUES
 
 INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
 VALUES 
+(1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
+(3, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
+
+select * from Users
+-- Thêm dữ liệu mẫu vào bảng Staff_Workplace
+INSERT INTO Staff_Workplace ( AgencyId, StaffId, [status])
+VALUES ( 1, 2, 'active')
+
+
+-- Thêm dữ liệu mẫu vào bảng Punishments
+INSERT INTO Punishments ( ContractId, [Description], [Type], [Action])
 (1, 2, 1, 1, '2024-01-01', '2024-12-31', 'lease', 'Annual lease contract', 12000, 0),
 (1, 2, 2, 2, '2024-01-01', '2024-06-30', 'lease', 'Half-year lease contract', 6000, 0);
 

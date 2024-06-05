@@ -5,7 +5,7 @@
 
 package Controller;
 
-import dal.ConsultationDAO;
+import dal.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,9 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Kha21
+ * @author thuhu
  */
-public class DeleteConsultationServlet extends HttpServlet {
+public class DeletePromotionServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +34,10 @@ public class DeleteConsultationServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteConsultationServlet</title>");  
+            out.println("<title>Servlet DeletePromotionServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteConsultationServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeletePromotionServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,14 +55,17 @@ public class DeleteConsultationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        int selectedStaff = Integer.parseInt(request.getParameter("selectedStaff"));
+        int page = Integer.parseInt(request.getParameter("page"));
+        String searchValue = request.getParameter("searchValue");
         
-        String pageParam = request.getParameter("page");
-        int page = Integer.parseInt(pageParam);
-        String status = request.getParameter("status");
-        ConsultationDAO cdb = new ConsultationDAO();
-        cdb.deleteConsultationById(id);
-        System.out.println(page);
-        response.sendRedirect("ConsultationManagement?status="+status+"&page="+page);
+        PromotionDAO pdb = new PromotionDAO();
+        pdb.deletePromotionById(id);
+        if(searchValue.isEmpty()){
+            if(page == 1) response.sendRedirect("PromotionManagement?selectedStaff="+selectedStaff);
+            else response.sendRedirect("PromotionManagement?selectedStaff="+selectedStaff+"&page="+page);
+        }else response.sendRedirect("PromotionManagement?page="+page+"&searchValue="+searchValue);
+
     } 
 
     /** 
