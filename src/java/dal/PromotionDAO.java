@@ -98,21 +98,20 @@ public class PromotionDAO extends DBContext {
 
     public List<Promotion> SearchByTitleOrDescriptionOrContent(String seachValue) {
         List<Promotion> list = new ArrayList<>();
-        String sql = "SELECT \n"
-                + "    [id],\n"
-                + "    [title],\n"
-                + "    [description],\n"
-                + "    [timeStart],\n"
-                + "    [timeEnd],\n"
-                + "    [content],\n"
-                + "    [image],\n"
-                + "    [isHeader],\n"
-                + "    [staff],\n"
-                + "    [CreateDate]\n"
-                + "FROM \n"
-                + "    [dbo].[Promotion]\n"
-                + "WHERE \n"
-                + "description like ? or title like ? or content like ?";
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[image]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[staff]\n"
+                + "      ,[CreateDate]\n"
+                + "  FROM [dbo].[Promotion] where title like ? \n"
+                + "  or content like ?\n"
+                + "  or description like ? \n"
+                + "  order by CreateDate DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, "%" + seachValue + "%");
@@ -300,9 +299,81 @@ public class PromotionDAO extends DBContext {
         return false;
     }
 
+    public List<Promotion> listPromotionAddByStaff(int id) {
+        List<Promotion> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[image]\n"
+                + "      ,[staff]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[Promotion] where staff = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Object[]> listStaffAddPromotion() {
+        List<Object[]> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    p.staff AS id,\n"
+                + "    u.username AS username,\n"
+                + "    COUNT(p.id) AS promotionCount\n"
+                + "FROM \n"
+                + "    Promotion p\n"
+                + "INNER JOIN \n"
+                + "    [Users] u ON p.staff = u.id\n"
+                + "GROUP BY \n"
+                + "    p.staff, u.username;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                int promotionCount = rs.getInt("promotionCount");
+
+                Object[] obj = new Object[]{id, username, promotionCount};
+                list.add(obj);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         PromotionDAO pdb = new PromotionDAO();
-        System.out.println(pdb.SearchByTitleOrDescriptionOrContent("Ưu đãi"));
+        System.out.println(pdb.listStaffAddPromotion().get(0)[1]);
+        System.out.println(pdb.listPromotionAddByStaff(1).size());
     }
 
 }

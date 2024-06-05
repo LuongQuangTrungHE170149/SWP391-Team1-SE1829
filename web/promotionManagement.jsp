@@ -4,15 +4,18 @@
     Author     : thuhu
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Promotion Management</title>
-
         <!--summer note-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
@@ -71,8 +74,9 @@
                 <div class="box p-4 m-0 " style="width: 100%;">
                     <div class="shadow-lg pt-4 pb-4"
                          style="background-color: #fff; border-radius: 12px;">
-                        <div class="d-flex"> 
 
+                        <!--nav-->
+                        <div class="d-flex mb-3"> 
                             <!--add promotion-->
                             <div>
                                 <button type="button"
@@ -102,8 +106,33 @@
                                 </c:if>
                             </div>
                             <!--end search-->
+                            <c:set var="dataList" value="${requestScope.listStaffAddPromotion}" />
+                            <c:set var="selectedStaff" value="${requestScope.selectedStaff}" />
+
+                            <form action="PromotionManagement" method="GET" id="select-Form" class="d-flex ms-5" style="height: 35px; width: 350px;">
+                                <label class="form-label text-nowrap me-2" for="form-select" style="width: 150px; margin-bottom:0; align-content: center;">Create By Staff</label>
+                                <select class="form-select" name="selectedStaff" id="form-select" onchange="document.getElementById('select-Form').submit();">
+                                    <option value="0">All</option>
+                                    <c:forEach var="record" items="${dataList}">
+                                        <option value="${record[0]}" ${record[0] == selectedStaff ? 'selected' : ''}>${record[1]}</option>
+                                    </c:forEach>
+                                </select>
+                            </form>
+                            <div>
+                                <c:forEach items="${dataList}" var="record">
+                                    <c:if test="${record[0] == selectedStaff}">
+                                        <h3 class="text-danger ms-2 badge badge-danger">${record[2]} records</h3>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${selectedStaff==0}">
+                                    <h3 class="text-danger ms-2 badge badge-danger">${totalPromotion} records</h3>
+                                </c:if>
+                            </div>
+
+
 
                         </div>
+                        <!--end nav-->
 
 
 
@@ -111,6 +140,7 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col-11">
                                 <!--pagination-->
+                                <input type="hidden" id="selectedStaff" value="${selectedStaff}"/>
                                 <input type="hidden"id="page" value="${currentPage}">
                                 <input type="hidden" id="searchValue" value="${searchValue}"/>
                                 <c:if test="${numberOfPages > 1}">
@@ -118,7 +148,7 @@
                                         <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
                                             </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -130,7 +160,7 @@
                                                     <c:otherwise>
                                                         <input type="hidden"id="page" value="${currentPage}">
                                                         <li class="page-item">
-                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${page}">${page}</a>
+                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
                                                         </li>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -138,7 +168,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${currentPage + 1}" aria-label="Next">Next</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next">Next</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -176,14 +206,14 @@
                                                 <td style="width: 50px;"><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
                                                 <c:if test="${listAll.isHeader == true}" >
                                                     <td class="text-center" style="width: 50px;"><button type="button" 
-                                                                                                         onclick="location.href = 'PromotionManagement?unset=true&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'"
+                                                                                                         onclick="location.href = 'PromotionManagement?unset=true&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'"
                                                                                                              class="btn btn-warning btn-rounded btn-sm"
                                                                                                              data-mdb-ripple-init >OFF</button>
                                                         </td>
                                                 </c:if>
                                                 <c:if test="${listAll.isHeader == false}" >
                                                     <td class="text-center" style="width: 50px;"><button type="button" 
-                                                                                                         onclick="location.href = 'PromotionManagement?setHeaderAtId=${listAll.id}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'" 
+                                                                                                         onclick="location.href = 'PromotionManagement?setHeaderAtId=${listAll.id}&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'" 
                                                                                                              class="btn btn-danger btn-sm btn-rounded m-auto"
                                                                                                              data-mdb-ripple-init>ON</button></td>
                                                     </c:if> 
@@ -392,14 +422,14 @@
         <script type="text/javascript">
                                                                 function confirmDeletion(id) {
                                                                     var searchValue = document.getElementById('searchValue').value;
-
+                                                                    var selectedStaff = document.getElementById('selectedStaff').value;
                                                                     var page = 1;
                                                                     var pageParam = document.getElementById('page').value;
                                                                     if (pageParam && !isNaN(pageParam)) {
                                                                         page = parseInt(pageParam);
                                                                     }
                                                                     if (confirm('Bạn có chắc chắn muốn xóa promotion id = ' + id + '?')) {
-                                                                        window.location.href = 'DeletePromotion?id=' + id + '&searchValue=' + searchValue + '&page=' + page;
+                                                                        window.location.href = 'DeletePromotion?id=' +id+'&searchValue='+searchValue+'&selectedStaff='+selectedStaff+'&page='+page;
                                                                     }
                                                                 }
 

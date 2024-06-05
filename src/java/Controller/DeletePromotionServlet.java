@@ -55,14 +55,15 @@ public class DeletePromotionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        int selectedStaff = Integer.parseInt(request.getParameter("selectedStaff"));
         int page = Integer.parseInt(request.getParameter("page"));
         String searchValue = request.getParameter("searchValue");
         
         PromotionDAO pdb = new PromotionDAO();
         pdb.deletePromotionById(id);
         if(searchValue.isEmpty()){
-            if(page == 1) response.sendRedirect("PromotionManagement");
-            else response.sendRedirect("PromotionManagement?page="+page);
+            if(page == 1) response.sendRedirect("PromotionManagement?selectedStaff="+selectedStaff);
+            else response.sendRedirect("PromotionManagement?selectedStaff="+selectedStaff+"&page="+page);
         }else response.sendRedirect("PromotionManagement?page="+page+"&searchValue="+searchValue);
 
     } 

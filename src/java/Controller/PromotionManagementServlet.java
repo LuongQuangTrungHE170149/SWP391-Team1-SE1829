@@ -76,22 +76,25 @@ public class PromotionManagementServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } //staff, manager true =>>
             else {
-
                 PromotionDAO pdb = new PromotionDAO();
                 List<Promotion> listAll;
+                
 
+                List<Object[]> listStaffAddPromotion = pdb.listStaffAddPromotion();
+
+                //un/setHeader
                 String unset = request.getParameter("unset");
-                if(unset!=null){
+                if (unset != null) {
                     pdb.setIsHeaderToFalse();
                 }
-                
                 String setHeaderAtIdParam = request.getParameter("setHeaderAtId");
-                if(setHeaderAtIdParam != null){
+                if (setHeaderAtIdParam != null) {
                     int setHeaderAtId = Integer.parseInt(setHeaderAtIdParam);
                     pdb.setIsHeaderToFalse();
                     pdb.setIsHeaderToTrueById(Boolean.TRUE, setHeaderAtId);
-                    
                 }
+
+                //search
                 String searchValue = request.getParameter("searchValue");
                 if (searchValue != null && !searchValue.isEmpty()) {
                     listAll = pdb.SearchByTitleOrDescriptionOrContent(searchValue);
@@ -101,6 +104,24 @@ public class PromotionManagementServlet extends HttpServlet {
                     listAll = pdb.getAll();
                 }
 
+                String selectedStaffParam = request.getParameter("selectedStaff");
+                System.out.println(selectedStaffParam);
+                if (selectedStaffParam != null) {
+                    int selectedStaff = Integer.parseInt(selectedStaffParam);
+                    if (selectedStaff == 0) {
+                        request.setAttribute("selectedStaff", 0);
+                        listAll = pdb.getAll();
+                    } else {
+                        request.setAttribute("selectedStaff", selectedStaff);
+                        listAll = pdb.listPromotionAddByStaff(selectedStaff);
+                        
+                    }
+
+                } else {
+                    request.setAttribute("selectedStaff", 0);
+                }
+//                 
+                request.setAttribute("totalPromotion", listAll.size());
                 //for pagination
                 int page = 1;
                 int recordPerPage = 20;
@@ -115,8 +136,8 @@ public class PromotionManagementServlet extends HttpServlet {
                 request.setAttribute("listAll", listForPage);
                 request.setAttribute("numberOfPages", numberOfPages);
                 request.setAttribute("currentPage", page);
-                
                 request.setAttribute("searchValue", searchValue);
+                request.setAttribute("listStaffAddPromotion", listStaffAddPromotion);
                 request.getRequestDispatcher("PromotionManagement.jsp").forward(request, response);
             }
         }
