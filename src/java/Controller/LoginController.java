@@ -6,6 +6,7 @@ package Controller;
 
 import Model.User;
 import dal.ConsultationDAO;
+import dal.PromotionDAO;
 import dal.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -49,8 +50,10 @@ public class LoginController extends HttpServlet {
         HttpSession session = req.getSession();
 
         ConsultationDAO cdb = new ConsultationDAO();
+        PromotionDAO pdb = new PromotionDAO();
         int totalConsultation = cdb.CountConsultationByStatus("all");
         session.setAttribute("totalConsultation", totalConsultation);
+        session.setAttribute("totalPromotion", pdb.getAll().size());
 
         UserDAO dbUser = new UserDAO();
         User user = dbUser.findByUsernameOrEmailAndPassword(usernameEmail, password);

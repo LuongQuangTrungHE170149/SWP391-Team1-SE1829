@@ -96,11 +96,13 @@ public class ListAgencyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String key = request.getParameter("key");
-        if (key != null) {
+        if (!key.isBlank()) {
             List<Agency> listSearchAgency = AgencyDAO.INSTANCE.searchAgency(key);
             request.setAttribute("key", key);
             request.setAttribute("listSearchAgency", listSearchAgency);
             request.getRequestDispatcher("agencyList.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("listAgency");
         }
     }
 
