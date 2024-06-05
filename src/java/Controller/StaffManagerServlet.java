@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.User;
+import dal.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -73,7 +74,6 @@ public class StaffManagerServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } //manager true =>>
             else {
-
                 request.getRequestDispatcher("StaffManager.jsp").forward(request, response);
             }
         }

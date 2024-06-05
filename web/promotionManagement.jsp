@@ -64,7 +64,7 @@
             <div class="content d-flex flex-column align-items-center" style="background-color: #f0f2fa;">
 
                 <!--navbar-->
-                <div class=" navbar-custom d-flex justify-content-center align-items-center sticky-top" style="width: 100%;">
+                <div class=" navbar-custom d-flex justify-content-center align-items-center shadow-3 sticky-top" style="width: 100%;">
                     <div class="fs-3 fw-bold text-white me-3">Promotion Management</div>
                 </div>
                 <!--end navbar-->
@@ -96,7 +96,7 @@
                                            class="form-control rounded" 
                                            aria-label="Search" aria-describedby="search-addon"
                                            Value="${searchValue!=null?searchValue:''}" 
-                                           placeholder="Title or description"/>
+                                           placeholder="Title, description or content (all)"/>
                                     <button type="submit" class="input-group-text border-0" id="search-addon">
                                         <i class="fas fa-search"></i>
                                     </button>
@@ -109,7 +109,7 @@
                             <c:set var="dataList" value="${requestScope.listStaffAddPromotion}" />
                             <c:set var="selectedStaff" value="${requestScope.selectedStaff}" />
 
-                            <form action="PromotionManagement" method="GET" id="select-Form" class="d-flex ms-5" style="height: 35px; width: 350px;">
+                            <form action="PromotionManagement" method="GET" id="select-Form" class="d-flex ms-5" style="height: 35px; width: 250px;">
                                 <label class="form-label text-nowrap me-2" for="form-select" style="width: 150px; margin-bottom:0; align-content: center;">Create By Staff</label>
                                 <select class="form-select" name="selectedStaff" id="form-select" onchange="document.getElementById('select-Form').submit();">
                                     <option value="0">All</option>
@@ -218,7 +218,9 @@
                                                                                                              data-mdb-ripple-init>ON</button></td>
                                                     </c:if> 
                                                 <td style="padding: 0 !important; width: 80px; text-align: center; ">
-                                                    <button type="button" class="btn btn-info m-1 button_action-custom" 
+                                                    <button type="button" 
+                                                            class="btn btn-info m-1 button_action-custom " 
+                                                            onclick="location.href='UpdatePromotion?id=${listAll.id}'"
                                                             data-mdb-ripple-init>Update
                                                     </button>
                                                     <button type="button" class="btn btn-danger m-1 mt-0 button_action-custom" 
@@ -372,6 +374,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-12 col-md-4">
+                                    <div class="fw-bold">Create By: <span class="fw-normal" id="staff_detail"></span></div>
                                     <div class="fw-bold">Image</div>
                                     <div id="image_detail"></div>
                                 </div>
@@ -406,6 +409,53 @@
             </div>
         </div>
         <!--end add detail promotion modal-->
+
+        <!--add update promotion modal-->
+        <div class="modal fade" id="updatePromotionModal" tabindex="-1" aria-labelledby="updatePromotionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white" id="updatePromotionModalLabel">Promotion Detail</h5>
+                        <button type="button" class="btn-close text-white" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="fw-bold">Create By: <span class="fw-normal" id="staff_update"></span></div>
+                                    <div class="fw-bold">Image</div>
+                                    <div id="image_detail"></div>
+                                </div>
+                                <div class="col-12 col-md-8">
+                                    <div><span class="fw-bold">Title:</span>
+                                        <span id="title_update"></span></div>
+                                    <hr>
+                                    <div><span class="fw-bold">Create Date:</span>
+                                        <span id="createDate_update"></span></div>
+                                    <div><span class="fw-bold">Start: </span>
+                                        <span id="timeStart_update" class="me-4"></span>
+                                        <span class="fw-bold">End: </span>
+                                        <span id="timeEnd_update"></span></div>
+                                    <hr>
+                                    <div><span class="fw-bold">Description:</span>
+                                        <span id="description_update"></span></div>
+                                    <hr><!-- comment -->
+                                    <div class="fw-bold">Content:</div>
+                                    <div class="border border-1 p-3 shadow" style="border-radius: 12px;">
+                                        <div id="content_update"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end add update promotion modal-->
+        
         <!--summernote-->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -415,100 +465,139 @@
                                                                     tabsize: 2,
                                                                     height: 120
                                                                 });
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- MDB -->
-        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
-        <script type="text/javascript">
-                                                                function confirmDeletion(id) {
-                                                                    var searchValue = document.getElementById('searchValue').value;
-                                                                    var selectedStaff = document.getElementById('selectedStaff').value;
-                                                                    var page = 1;
-                                                                    var pageParam = document.getElementById('page').value;
-                                                                    if (pageParam && !isNaN(pageParam)) {
-                                                                        page = parseInt(pageParam);
-                                                                    }
-                                                                    if (confirm('Bạn có chắc chắn muốn xóa promotion id = ' + id + '?')) {
-                                                                        window.location.href = 'DeletePromotion?id=' +id+'&searchValue='+searchValue+'&selectedStaff='+selectedStaff+'&page='+page;
-                                                                    }
-                                                                }
 
-                                                                $(document).ready(function () {
-                                                                    //        xem them function
-                                                                    $('.read-more-btn').click(function () {
-                                                                        var $limitedText = $(this).siblings('.limited-text');
-                                                                        var $readMore = $(this).siblings('.read-more');
-                                                                        $limitedText.toggleClass('hide');
-                                                                        $readMore.toggleClass('show');
-                                                                        $(this).text(function (i, text) {
-                                                                            return text === "Xem thêm" ? "Thu gọn" : "Xem thêm";
-                                                                        });
-                                                                    });
-
-                                                                    //add promotion function
-                                                                    $('#addPromotionForm').on('submit', function (e) {
-                                                                        e.preventDefault();
-                                                                        const formData = new FormData();
-                                                                        formData.append("title", $("#title").val());
-                                                                        formData.append("description", $("#description").val());
-                                                                        formData.append("content", $("#content").val());
-                                                                        formData.append("timeStart", $("#timeStart").val());
-                                                                        formData.append("timeEnd", $("#timeEnd").val());
-
-                                                                        const isHeader = $("input[name=isHeader]:checked").val();
-                                                                        console.log(isHeader);
-                                                                        formData.append("isHeader", isHeader);
-
-                                                                        let imgFile = $("#image")[0].files[0];
-                                                                        formData.append("image", imgFile);
-
-                                                                        // AJAX request to send the reply to the servlet
-                                                                        $.ajax({
-                                                                            url: 'addPromotion',
-                                                                            type: 'POST',
-                                                                            data: formData,
-                                                                            processData: false,
-                                                                            contentType: false,
-                                                                            success: function (response) {
-                                                                                alert('Add thành công!');
-                                                                                location.reload();
-                                                                            },
-                                                                            error: function (err) {
-                                                                                console.log(err);
-                                                                                // Show error toast
-                                                                                alert('Add failed, try again!');
-                                                                            }
-                                                                        });
-                                                                    });
-                                                                    $('.btn-detailPromotion').on('click', function (e) {
-                                                                        e.preventDefault();
-                                                                        let promotionId = $(this).data('id');
-                                                                        $.ajax({
-                                                                            url: 'PromotionDetail',
-                                                                            type: 'GET',
-                                                                            data: {id: promotionId},
-                                                                            success: function (data) {
-
-                                                                                $('#title_detail').html(data.title);
-                                                                                //handle date
-                                                                                var createDate = new Date(data.createDate);
-                                                                                var day = String(createDate.getDate()).padStart(2, '0');
-                                                                                var month = String(createDate.getMonth() + 1).padStart(2, '0');
-                                                                                var year = createDate.getFullYear();
-                                                                                var formattedDate = day + '/' + month + '/' + year;
-                                                                                $('#createDate_detail').html(formattedDate);
-                                                                                $('#timeStart_detail').html(data.timeStart);
-                                                                                $('#timeEnd_detail').html(data.timeEnd);
-                                                                                $('#description_detail').html(data.description);
-                                                                                $('#content_detail').html(data.content);
-                                                                                $('#image_detail').html('<img src="' + data.image + '" style="width:100%;">');
-                                                                                $('#detailPromotionModal').modal('show');
-                                                                            }
-                                                                        });
-                                                                    });
+                                                                $('#content_update').summernote({
+                                                                    placeholder: 'Write your content here!',
+                                                                    tabsize: 2,
+                                                                    height: 120
                                                                 });
 
         </script>
 
+
+        <script type="text/javascript">
+
+            function confirmDeletion(id) {
+                var searchValue = document.getElementById('searchValue').value;
+                var selectedStaff = document.getElementById('selectedStaff').value;
+                var page = 1;
+                var pageParam = document.getElementById('page').value;
+                if (pageParam && !isNaN(pageParam)) {
+                    page = parseInt(pageParam);
+                }
+                if (confirm('Bạn có chắc chắn muốn xóa promotion id = ' + id + '?')) {
+                    window.location.href = 'DeletePromotion?id=' + id + '&searchValue=' + searchValue + '&selectedStaff=' + selectedStaff + '&page=' + page;
+                }
+            }
+
+            $(document).ready(function () {
+                
+
+                //add promotion function
+                $('#addPromotionForm').on('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData();
+                    formData.append("title", $("#title").val());
+                    formData.append("description", $("#description").val());
+                    formData.append("content", $("#content").val());
+                    formData.append("timeStart", $("#timeStart").val());
+                    formData.append("timeEnd", $("#timeEnd").val());
+
+                    const isHeader = $("input[name=isHeader]:checked").val();
+                    console.log(isHeader);
+                    formData.append("isHeader", isHeader);
+
+                    let imgFile = $("#image")[0].files[0];
+                    formData.append("image", imgFile);
+
+                    // AJAX request to send the reply to the servlet
+                    $.ajax({
+                        url: 'addPromotion',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            alert('Add thành công!');
+                            location.reload();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            // Show error toast
+                            alert('Add failed, try again!');
+                        }
+                    });
+                });
+                $('.btn-detailPromotion').on('click', function (e) {
+                    e.preventDefault();
+                    let promotionId = $(this).data('id');
+                    $.ajax({
+                        url: 'PromotionDetail',
+                        type: 'GET',
+                        data: {id: promotionId},
+                        success: function (data) {
+
+                            $('#staff_detail').html(data.staff.username);
+                            $('#title_detail').html(data.title);
+                            //handle date
+                            var createDate = new Date(data.createDate);
+                            var day = String(createDate.getDate()).padStart(2, '0');
+                            var month = String(createDate.getMonth() + 1).padStart(2, '0');
+                            var year = createDate.getFullYear();
+                            var formattedDate = day + '/' + month + '/' + year;
+                            $('#createDate_detail').html(formattedDate);
+                            $('#timeStart_detail').html(data.timeStart);
+                            $('#timeEnd_detail').html(data.timeEnd);
+                            $('#description_detail').html(data.description);
+                            $('#content_detail').html(data.content);
+                            $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
+                            $('#detailPromotionModal').modal('show');
+                        }
+                    });
+                });
+
+                //update promotion
+                $('.btn-updatePromotion').on('click', function (e) {
+                    e.preventDefault();
+                    let promotionId = $(this).data('id');
+
+                    $.ajax({
+                        url: 'PromotionDetail',
+                        type: 'GET',
+                        data: {id: promotionId},
+                        success: function (data) {
+                            console.log(data.content);
+                            $('#staff_update').html(data.staff.username);
+                            $('#title_update').html('<textarea class="form-control" id="title_updated" style="width:100%; height:100%;">' + data.title + '</textarea>');
+                            $('#description_update').html('<textarea class="form-control" id="description_updated" style="width:100%; height:100%;">' + data.description + '</textarea>');
+
+                            ('#content_update').summernote('code', data.content);
+
+                            $('#create_update').html(data.createDate);
+                            $('#timeStart_update').html('<input class="form-control" id="timeStart_updated" type="date" value="' + data.timeStart + '"/>');
+                            $('#timeEnd_update').html('<input class="form-control" id="timeEnd_updated" type="date" value="' + data.timeEnd + '"/>');
+
+                            $('#updatePromotionModal').modal('show');
+                        }
+                    });
+                });
+            });
+            ('#content_update').summernote('code', data.content);
+           
+
+
+
+
+
+        </script>
+        <script>
+
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- MDB -->
+        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+
+   
     </body>
 </html>

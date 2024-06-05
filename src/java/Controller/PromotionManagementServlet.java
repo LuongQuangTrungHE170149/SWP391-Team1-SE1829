@@ -78,7 +78,6 @@ public class PromotionManagementServlet extends HttpServlet {
             else {
                 PromotionDAO pdb = new PromotionDAO();
                 List<Promotion> listAll;
-                
 
                 List<Object[]> listStaffAddPromotion = pdb.listStaffAddPromotion();
 
@@ -114,14 +113,13 @@ public class PromotionManagementServlet extends HttpServlet {
                     } else {
                         request.setAttribute("selectedStaff", selectedStaff);
                         listAll = pdb.listPromotionAddByStaff(selectedStaff);
-                        
+
                     }
 
                 } else {
                     request.setAttribute("selectedStaff", 0);
                 }
 //                 
-                request.setAttribute("totalPromotion", listAll.size());
                 //for pagination
                 int page = 1;
                 int recordPerPage = 20;
@@ -133,6 +131,7 @@ public class PromotionManagementServlet extends HttpServlet {
 
                 List<Promotion> listForPage = listAll.subList(start, end);
                 int numberOfPages = (int) Math.ceil(listAll.size() * 1.0 / recordPerPage);
+                request.setAttribute("totalPromotion", listAll.size());
                 request.setAttribute("listAll", listForPage);
                 request.setAttribute("numberOfPages", numberOfPages);
                 request.setAttribute("currentPage", page);
