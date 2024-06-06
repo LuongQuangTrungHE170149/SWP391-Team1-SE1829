@@ -32,7 +32,9 @@
             <div class="wrraper">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+
                             <div class="add-form">
                                 <div class="add-form__header">
                                     <h4 class="add-form__title">Thêm đại lý</h4>
@@ -79,6 +81,10 @@
 
                             </div>
                         </div>
+
+
+                        <div class="col-md-2"></div>
+
                     </div>
 
                 </div>     

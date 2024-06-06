@@ -3,8 +3,6 @@ use SWP391_SE1829_Team1
 go
  
 
-
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
