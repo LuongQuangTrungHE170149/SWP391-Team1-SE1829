@@ -105,7 +105,7 @@ public class UpdatePromotionServlet extends HttpServlet {
             try {
                 Part filePart = request.getPart("image");
                 String file = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                image = "images/promotion_img"+file;
+                image = "images/promotion_img/"+file;
             } catch (Exception e) {
                 System.out.println(e);
             }

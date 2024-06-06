@@ -29,7 +29,8 @@
 
             <div class="content d-flex flex-column align-items-center" style="background-color: #f0f2fa;">
                 <!--navbar-->
-                <div class=" navbar-custom d-flex justify-content-center align-items-center shadow-3 sticky-top" style="width: 100%;">
+                <div class=" navbar-custom d-flex justify-content-between align-items-center shadow-3 sticky-top" style="width: 100%;">
+                    <button type="button" class="btn btn-secondary btn-sm" data-mdb-ripple-init onclick="goBack()">Back</button>
                     <div class="fs-3 fw-bold text-white me-3">Update Promotion</div>
                 </div>
                 <!--end navbar-->
@@ -100,13 +101,14 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary btn-update me-2" data-mdb-ripple-init data-id="${c.id}">Update</button>
-                                <button type="button" class="btn btn-secondary" data-mdb-ripple-init onclick="goBack()">Cancel</button>
-                            </div>
+
                         </form>
 
                     </div>
+                </div>
+                <div class="d-flex justify-content-end sticky-bottom" style="background-color: #fff; width:100%;">
+                    <button type="submit" class="btn btn-primary btn-update me-2" data-mdb-ripple-init data-id="${c.id}">Update</button>
+                    <button type="button" class="btn btn-secondary" data-mdb-ripple-init onclick="goBack()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -115,60 +117,60 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script>
-                                    function goBack() {
-                                        window.history.back();
+                        function goBack() {
+                            window.history.back();
+                        }
+                        $('#content').summernote({
+                            placeholder: 'Write your answer here!',
+                            tabsize: 2,
+                            height: 400
+                        });
+
+                        $(document).ready(function () {
+
+                            $('#updatePromotionForm').on('submit', function (e) {
+                                e.preventDefault();
+                                const formData = new FormData();
+                                formData.append("id", $("input[name='id']").val());
+                                formData.append("title", $("#title").val());
+                                formData.append("description", $("#description").val());
+                                formData.append("content", $("#content").val());
+                                console.log("content: " + $("#content").html());
+                                formData.append("timeStart", $("#timeStart").val());
+                                formData.append("timeEnd", $("#timeEnd").val());
+
+                                const isHeader = $("input[name=isHeader]:checked").val();
+                                formData.append("isHeader", isHeader);
+
+                                let imgFile = $("#newImage")[0].files[0];
+                                if (imgFile) {
+                                    formData.append("image", imgFile);
+                                } else {
+                                    formData.append("image", null);
+                                }
+
+                                console.log("FormData values:");
+                                for (var pair of formData.entries()) {
+                                    console.log(pair[0] + ': ' + pair[1]);
+                                }
+                                $.ajax({
+                                    url: 'UpdatePromotion',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (response) {
+                                        alert('Updated successfully!');
+                                        window.location.href = 'PromotionManagement';
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                        // Show error toast
+                                        alert('update failed, try again!');
                                     }
-                                    $('#content').summernote({
-                                        placeholder: 'Write your answer here!',
-                                        tabsize: 2,
-                                        height: 400
-                                    });
-
-                                    $(document).ready(function () {
-
-                                        $('#updatePromotionForm').on('submit', function (e) {
-                                            e.preventDefault();
-                                            const formData = new FormData();
-                                            formData.append("id", $("input[name='id']").val());
-                                            formData.append("title", $("#title").val());
-                                            formData.append("description", $("#description").val());
-                                            formData.append("content", $("#content").val());
-                                            console.log("content: " + $("#content").html());
-                                            formData.append("timeStart", $("#timeStart").val());
-                                            formData.append("timeEnd", $("#timeEnd").val());
-
-                                            const isHeader = $("input[name=isHeader]:checked").val();
-                                            formData.append("isHeader", isHeader);
-
-                                            let imgFile = $("#newImage")[0].files[0];
-                                            if (imgFile) {
-                                                formData.append("image", imgFile);
-                                            } else {
-                                                formData.append("image", null);
-                                            }
-
-                                            console.log("FormData values:");
-                                            for (var pair of formData.entries()) {
-                                                console.log(pair[0] + ': ' + pair[1]);
-                                            }
-                                            $.ajax({
-                                                url: 'UpdatePromotion',
-                                                type: 'POST',
-                                                data: formData,
-                                                processData: false,
-                                                contentType: false,
-                                                success: function (response) {
-                                                    alert('Updated successfully!');
-                                                    window.location.href='PromotionManagement';
-                                                },
-                                                error: function (err) {
-                                                    console.log(err);
-                                                    // Show error toast
-                                                    alert('update failed, try again!');
-                                                }
-                                            });
-                                        });
-                                    });
+                                });
+                            });
+                        });
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

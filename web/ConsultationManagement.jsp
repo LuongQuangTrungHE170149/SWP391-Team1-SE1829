@@ -99,7 +99,7 @@
             <div class="content d-flex flex-column align-items-center" style="background-color: #f0f2fa;" >
 
                 <!--navbar-->
-                <div class=" navbar-custom d-flex justify-content-center align-items-center sticky-top" style="width: 100%;">
+                <div class=" navbar-custom d-flex justify-content-center align-items-center shadow-3 sticky-top" style="width: 100%;">
                     <div class="fs-3 fw-bold text-white me-3">Consultation Management</div>
                 </div>
                 <!--end navbar-->

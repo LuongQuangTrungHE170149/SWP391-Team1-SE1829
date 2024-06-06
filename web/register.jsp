@@ -63,9 +63,7 @@
 <!--                    <form action="sendCode" method="post">
                         <input type="submit" value="Send Code">
                     </form>-->
-                    <div class="form-item">
-                        <label class="label">Confirm Code<span class="required">*</span></label>
-                        <input type="confirmCode" name="confirmCode" required>
+                   
 
                     </div>                 
                 </form>
