@@ -43,14 +43,14 @@
                                         <span style="margin-right: 8px;"><i class="fa-solid fa-address-book"></i></i></span>
                                         <span>Bảo hiểm: </span>
                                     </div>
-                                    <span>2</span>
+                                    <span>${requestScope.totalContract}</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                                     <div>
                                         <span style="margin-right: 8px;"><i class="fa-solid fa-car"></i></span>
                                         <span>Phương tiện: </span>
                                     </div>
-                                    <span>2</span>
+                                    <span>${requestScope.totalVehicle}</span>
                                 </div>
 
                                 <div style="display: flex; justify-content: space-between; margin-top: 10px;">
@@ -58,22 +58,30 @@
                                         <span style="margin-right: 8px;"><i class="fa-solid fa-check"></i></span>
                                         <span>Đã thanh toán: </span>
                                     </div>
-                                    <span>2</span>
+                                    <span>${requestScope.isPay}</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                                     <div>
                                         <span style="margin-right: 8px;"><i class="fa-solid fa-triangle-exclamation"></i></span>
                                         <span>Chưa thanh toán: </span>
                                     </div>
-                                    <span>2</span>
+                                    <span>${requestScope.notIsPay}</span>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-md-2"></div>     
+                    <div class="col-md-2"></div>   
+
+
                     <div class="col-md-7">
-                        <div class="customer-info--wrapper">
+
+
+                        <div class="customer-info--wrapper">   
+                            <a href="customerList" class="back-btn"> 
+                                <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
+                                Quay lại
+                            </a>
                             <div class="info-group">
                                 <span class="customer-label"><strong>Họ tên: </strong></span>
                                 <span class="customer-info">${customer.getFullName()}</span>
@@ -105,6 +113,9 @@
                                 <span class="customer-info">${customer.address}</span>
                             </div>
 
+                            <a href="">
+                                <button class="update-btn">Sửa</button>
+                            </a>
                         </div>
                     </div>
 
