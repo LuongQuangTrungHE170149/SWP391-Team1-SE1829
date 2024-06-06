@@ -87,7 +87,8 @@ public class UpdatePromotionServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            System.out.println("id: "+id);
+            System.out.println("id: " + id);
+
             PromotionDAO pdb = new PromotionDAO();
             Promotion p = pdb.getPromotionById(id);
 
@@ -98,23 +99,23 @@ public class UpdatePromotionServlet extends HttpServlet {
             boolean isHeader = Boolean.parseBoolean(request.getParameter("isHeader"));
             String timeStartParam = request.getParameter("timeStart");
             String timeEndParam = request.getParameter("timeEnd");
-            Part filePart = request.getPart("newImage");
 
-            System.out.println("title: "+title+" \ncontent: "+content+"\ndescription: "+description+"\ntimeStart: "+timeStartParam+"\ntimeEnd: "+timeEndParam+"\nisHeader: "+isHeader+"\nimg:"+filePart );
+            String image = p.getImage();
+
+            try {
+                Part filePart = request.getPart("image");
+                String file = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                image = "images/promotion_img"+file;
+            } catch (Exception e) {
+                System.out.println(e);
+            }
 
             if (isHeader == true) {
                 pdb.setIsHeaderToFalse();
+                pdb.setIsHeaderToTrueById(true, id);
             }
-            String image;
-            if (filePart == null) {
-                image = p.getImage();
-            } else {
-                String url = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                if (url == null) {
-                    image = p.getImage();
-                } else {
-                    image = "images/promotion_img/" + url;
-                }
+            if (isHeader == false) {
+                pdb.setIsHeaderToFalse();
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -122,9 +123,11 @@ public class UpdatePromotionServlet extends HttpServlet {
             Date timeEndUtil = dateFormat.parse(timeEndParam);
             java.sql.Date timeStart = new java.sql.Date(timeStartUtil.getTime());
             java.sql.Date timeEnd = new java.sql.Date(timeEndUtil.getTime());
-            System.out.println(pdb.updatePromotionById(id, title, description, timeStart, timeEnd, content, image, isHeader, p.getStaff().getId()));
+
+            System.out.println("title: " + title + " \ncontent: " + content + "\ndescription: " + description + "\ntimeStart: " + timeStart + "\ntimeEnd: " + timeEnd + "\nisHeader: " + isHeader + "\nimg:" + image);
+            System.out.println("okela " + "update: " + pdb.updatePromotionById(id, title, description, timeStart, timeEnd, content, image, isHeader, p.getStaff().getId()));
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("LOI GI VAY: " + e);
         }
     }
 

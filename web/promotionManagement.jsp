@@ -4,7 +4,7 @@
     Author     : thuhu
 --%>
 
-<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.List" %>
@@ -455,7 +455,6 @@
             </div>
         </div>
         <!--end add update promotion modal-->
-        
         <!--summernote-->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -473,20 +472,19 @@
                                                                 });
 
         </script>
-
-
         <script type="text/javascript">
 
             function confirmDeletion(id) {
                 var searchValue = document.getElementById('searchValue').value;
+//                var  = encodeURIComponent(searchValueEncode);
                 var selectedStaff = document.getElementById('selectedStaff').value;
                 var page = 1;
                 var pageParam = document.getElementById('page').value;
                 if (pageParam && !isNaN(pageParam)) {
                     page = parseInt(pageParam);
                 }
-                if (confirm('Bạn có chắc chắn muốn xóa promotion id = ' + id + '?')) {
-                    window.location.href = 'DeletePromotion?id=' + id + '&searchValue=' + searchValue + '&selectedStaff=' + selectedStaff + '&page=' + page;
+                if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
+                    window.location.href = 'DeletePromotion?searchValue=' + searchValue+'&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
                 }
             }
 
@@ -536,7 +534,6 @@
                         type: 'GET',
                         data: {id: promotionId},
                         success: function (data) {
-
                             $('#staff_detail').html(data.staff.username);
                             $('#title_detail').html(data.title);
                             //handle date
@@ -555,49 +552,10 @@
                         }
                     });
                 });
-
-                //update promotion
-                $('.btn-updatePromotion').on('click', function (e) {
-                    e.preventDefault();
-                    let promotionId = $(this).data('id');
-
-                    $.ajax({
-                        url: 'PromotionDetail',
-                        type: 'GET',
-                        data: {id: promotionId},
-                        success: function (data) {
-                            console.log(data.content);
-                            $('#staff_update').html(data.staff.username);
-                            $('#title_update').html('<textarea class="form-control" id="title_updated" style="width:100%; height:100%;">' + data.title + '</textarea>');
-                            $('#description_update').html('<textarea class="form-control" id="description_updated" style="width:100%; height:100%;">' + data.description + '</textarea>');
-
-                            ('#content_update').summernote('code', data.content);
-
-                            $('#create_update').html(data.createDate);
-                            $('#timeStart_update').html('<input class="form-control" id="timeStart_updated" type="date" value="' + data.timeStart + '"/>');
-                            $('#timeEnd_update').html('<input class="form-control" id="timeEnd_updated" type="date" value="' + data.timeEnd + '"/>');
-
-                            $('#updatePromotionModal').modal('show');
-                        }
-                    });
-                });
             });
-            ('#content_update').summernote('code', data.content);
-           
-
-
-
-
-
-        </script>
-        <script>
-
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
         <!-- MDB -->
         <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
-
-   
     </body>
 </html>

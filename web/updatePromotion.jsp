@@ -69,11 +69,11 @@
                                         </div>
                                         <div class="col-3">
                                             <span class="fw-bold">Time Start:</span>
-                                            <input class="form-control" type="date" id="timeStart" name="timeStart" value="${c.timeStart}"/>
+                                            <input class="form-control" type="date" id="timeStart" name="timeStart" value="${c.timeStart}" required=""/>
                                         </div>
                                         <div class="col-3">
                                             <span class="fw-bold">Time End:</span>
-                                            <input class="form-control" type="date" id="timeEnd" name="timeEnd" value="${c.timeEnd}"/>
+                                            <input class="form-control" type="date" id="timeEnd" name="timeEnd" value="${c.timeEnd}" required/>
                                         </div>
                                         <div class="col-3">
                                             <span class="fw-bold">Set Header:</span>
@@ -95,7 +95,7 @@
 
                                     <div>
                                         <span class="fw-bold">Edit content here</span>
-                                        <div id="content">${c.content}</div>
+                                        <textarea id="content" name="content" required>${c.content}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -121,26 +121,36 @@
                                     $('#content').summernote({
                                         placeholder: 'Write your answer here!',
                                         tabsize: 2,
-                                        height: 120
+                                        height: 400
                                     });
 
                                     $(document).ready(function () {
+
                                         $('#updatePromotionForm').on('submit', function (e) {
                                             e.preventDefault();
                                             const formData = new FormData();
+                                            formData.append("id", $("input[name='id']").val());
                                             formData.append("title", $("#title").val());
                                             formData.append("description", $("#description").val());
                                             formData.append("content", $("#content").val());
+                                            console.log("content: " + $("#content").html());
                                             formData.append("timeStart", $("#timeStart").val());
                                             formData.append("timeEnd", $("#timeEnd").val());
 
                                             const isHeader = $("input[name=isHeader]:checked").val();
-                                            console.log(isHeader);
                                             formData.append("isHeader", isHeader);
 
                                             let imgFile = $("#newImage")[0].files[0];
-                                            formData.append("newImage", imgFile);
+                                            if (imgFile) {
+                                                formData.append("image", imgFile);
+                                            } else {
+                                                formData.append("image", null);
+                                            }
 
+                                            console.log("FormData values:");
+                                            for (var pair of formData.entries()) {
+                                                console.log(pair[0] + ': ' + pair[1]);
+                                            }
                                             $.ajax({
                                                 url: 'UpdatePromotion',
                                                 type: 'POST',
@@ -149,7 +159,7 @@
                                                 contentType: false,
                                                 success: function (response) {
                                                     alert('Updated successfully!');
-                                                    window.history.back();
+                                                    window.location.href='PromotionManagement';
                                                 },
                                                 error: function (err) {
                                                     console.log(err);
