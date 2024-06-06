@@ -220,7 +220,6 @@ public class UserDAO extends DBContext {
 
         String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)"
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;
@@ -341,10 +340,42 @@ public class UserDAO extends DBContext {
 
         return hash;
     }
+    
+    
+        public List<User> sortCusomterById() {
+        List<User> list = new ArrayList<>();
+        String sql = " select * from Users where [role] = 'Customer' order by id desc";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDate(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                list.add(user);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
 
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.sortCusomterById());
+//        System.out.println(udb.sortCusomterById());
 
     }
 }

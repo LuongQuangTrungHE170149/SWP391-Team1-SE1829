@@ -71,8 +71,10 @@
                                     <td>${cusomter.phone}</td>
                                     <td>${cusomter.address}</td> 
                                     <td> <div class="button-customer-group">
-                                            <button class="button-customer view">View</button>
-                                            <button class="button-customer edit">Edit</button>
+                                            <a href="customerDetail?customerId=${cusomter.id}">
+                                                <button class="button-customer view">Chi tiết</button>
+                                            </a>
+                                            <button class="button-customer edit">Sửa</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -87,11 +89,13 @@
                                         <td>${cusomter.email}</td>
                                         <td>${cusomter.phone}</td>
                                         <td>${cusomter.address}</td> 
-                                         <td> <div class="button-group">
-                                            <button class="button view">View</button>
-                                            <button class="button edit">Edit</button>
-                                        </div>
-                                    </td>
+                                        <td> <div class="button-group">
+                                                <a href="customerDetail?customerId=${cusomter.id}">
+                                                    <button class="button-customer view">Chi tiết</button>
+                                                </a>
+                                                <button class="button-customer edit">Sửa</button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </c:if>

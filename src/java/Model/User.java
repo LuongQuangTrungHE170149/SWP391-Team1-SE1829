@@ -29,8 +29,7 @@ public class User {
     public User() {
     }
 
-
-    public User(int id, String username,String password, String firstName, String lastName, String role, int gender, String email, String phone, Date date, String address) {
+    public User(int id, String username, String password, String firstName, String lastName, String role, int gender, String email, String phone, Date date, String address) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -148,8 +147,6 @@ public class User {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
 
     public String getFullName() {
         return firstName + " " + lastName;
