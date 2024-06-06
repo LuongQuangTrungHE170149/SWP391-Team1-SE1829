@@ -40,7 +40,6 @@ Create table Vehicles(
 )
 GO
 
-select count(*) from Contracts where CustomerId = 2 and IsPay = 0
 
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
