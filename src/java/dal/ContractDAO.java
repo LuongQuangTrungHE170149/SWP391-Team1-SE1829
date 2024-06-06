@@ -106,7 +106,7 @@ public class ContractDAO extends DBContext {
         HashMap<String, Integer> hash = new HashMap<>();
         String sql = "SELECT CASE  WHEN IsPay = 1 THEN 'Paid'  ELSE 'Unpaid' END AS PaymentStatus,\n"
                 + "COUNT(*) AS Count FROM Contracts GROUP BY IsPay;";
-                
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -122,10 +122,59 @@ public class ContractDAO extends DBContext {
         return hash;
     }
 
+    public int countContractByCustomer(int customerId) {
+        int total = 0;
+        String sql = " select  Count(*) as TotalContract from Contracts where CustomerId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("TotalContract");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return total;
+    }
+
+    public int countIsPayByCustomer(int customerId) {
+        int total = 0;
+        String sql = "select count(*) as IsPay from Contracts where CustomerId = ? and IsPay = 0";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("IsPay");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return total;
+    }
+
+    public int countNotIsPayByCustomer(int customerId) {
+        int total = 0;
+        String sql = "select count(*) as IsPay from Contracts where CustomerId = ? and IsPay = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("IsPay");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return total;
+    }
+
     public static void main(String[] args) {
 //        ContractDAO cd = new ContractDAO();
 //        List<User> users = cd.getCustomer("jdoe");
-
-
     }
 }
