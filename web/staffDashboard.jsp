@@ -90,7 +90,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="PromotionManagement" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
-                        <i class="fa-solid fa-gift me-2"></i> Promotion 
+                        <i class="fa-solid fa-gift me-2"></i> Promotion <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
                     </a>
                 </li>
                 <li class="nav-item">

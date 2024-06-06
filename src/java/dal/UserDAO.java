@@ -16,6 +16,8 @@ import java.util.List;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -184,7 +186,8 @@ public class UserDAO extends DBContext {
 
     public List<User> searchCustomerByName(String key) {
         List<User> list = new ArrayList<>();
-        String sql = "select * from Users where [role] = 'Customer' and (firstName like N'%" + key + "%' or lastName like N'%" + key + "%')";
+        String sql = "select * from Users where [role] = 'Customer' and (firstName like N'%" + key
+                + "%' or lastName like N'%" + key + "%')";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -217,6 +220,7 @@ public class UserDAO extends DBContext {
 
         String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)"
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;
@@ -337,8 +341,9 @@ public class UserDAO extends DBContext {
 
         return hash;
     }
-
-    public List<User> sortCusomterById() {
+    
+    
+        public List<User> sortCusomterById() {
         List<User> list = new ArrayList<>();
         String sql = " select * from Users where [role] = 'Customer' order by id desc";
 
@@ -371,7 +376,7 @@ public class UserDAO extends DBContext {
 
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.sortCusomterById());
+//        System.out.println(udb.sortCusomterById());
 
     }
 }

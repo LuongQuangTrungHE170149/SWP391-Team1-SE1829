@@ -105,7 +105,7 @@
                 <!--end navbar-->
 
                 <!-- Tabs navs -->
-                <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
+                <ul class="nav nav-tabs" id="ex-with-icons" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a data-mdb-tab-init class="nav-link active" id="ex-with-icons-tab-1" href="#listConsultation" role="tab"
                            aria-controls="listConsultation" aria-selected="true"><i class="fa-solid fa-clipboard-list me-2"></i>List Consultation</a>
@@ -122,7 +122,7 @@
                 <!-- Tabs navs -->
 
                 <!-- Tabs content -->
-                <div class="tab-content p-4" id="ex-with-icons-content">
+                <div class="tab-content p-4 pt-0" id="ex-with-icons-content">
 
                     <!--tab list Consultation-->
                     <div class="tab-pane fade show active shadow-lg pt-4 pb-4" 

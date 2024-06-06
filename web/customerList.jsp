@@ -71,7 +71,7 @@
                                     <td>${cusomter.phone}</td>
                                     <td>${cusomter.address}</td> 
                                     <td> <div class="button-customer-group">
-                                            <a href="customerDetail">
+                                            <a href="customerDetail?customerId=${cusomter.id}">
                                                 <button class="button-customer view">Chi tiết</button>
                                             </a>
                                             <button class="button-customer edit">Sửa</button>
@@ -90,7 +90,7 @@
                                         <td>${cusomter.phone}</td>
                                         <td>${cusomter.address}</td> 
                                         <td> <div class="button-group">
-                                                <a href="customerDetail">
+                                                <a href="customerDetail?customerId=${cusomter.id}">
                                                     <button class="button-customer view">Chi tiết</button>
                                                 </a>
                                                 <button class="button-customer edit">Sửa</button>

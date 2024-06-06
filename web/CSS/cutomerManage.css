@@ -11,6 +11,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-top:100px;
 }
 
+#customerDetail-page {
+    background-image: url(../images/side-view-man-with-motorbike.jpg);
+    background-size: cover;
+
+
+}
+
 .button-customer-group {
     display: flex;
     gap: 10px;
@@ -38,4 +45,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: #d35400;
 }
 
+.customerDetail-wrapper {
+    width: 100%;
+    min-height: 700px;
+}
 
+.customerDetail-avatar {
+    width: 100%;
+    min-height: 300px;
+    background-color: #fff;
+    border-radius: 14px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.customer-info--wrapper {
+    width: 100%;
+    min-height: 300px;
+    background-color: #fff;
+    border-radius: 14px;
+}
+
+.info-group{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.customer-contract--wrapper {
+    width: 100%;
+    min-height: 200px;
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 14px;
+}
+
+.customer-contract--info {
+    padding: 20px;
+}

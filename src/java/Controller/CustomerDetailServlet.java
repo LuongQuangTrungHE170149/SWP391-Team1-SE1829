@@ -5,6 +5,8 @@
 
 package Controller;
 
+import Model.User;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -53,6 +55,16 @@ public class CustomerDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String idRaw = request.getParameter("customerId");
+         UserDAO udb = new UserDAO();
+        try {
+            int customerId = Integer.parseInt(idRaw);
+            User user = udb.getUserById(customerId);
+            request.setAttribute("user", user);
+        } catch (NumberFormatException e) {
+            request.setAttribute("errr", e);
+        }
+        
         request.getRequestDispatcher("customerDetail.jsp").forward(request, response);
     } 
 
