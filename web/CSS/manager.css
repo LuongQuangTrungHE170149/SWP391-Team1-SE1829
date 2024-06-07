@@ -168,3 +168,20 @@ main {
     color: red;
 }
 
+.btn-action {
+    padding: 6px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+.btn-action.btn-active {
+    background-color: #4caf50;
+    color: #ffffff;
+}
+
+.btn-action.btn-inactive {
+    background-color: #ff0000;
+    color: #ffffff;
+}
