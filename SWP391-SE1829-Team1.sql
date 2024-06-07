@@ -40,7 +40,6 @@ Create table Vehicles(
 )
 GO
 
-
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
@@ -96,6 +95,7 @@ Create table Consultations(
 GO
 insert into Consultations(name, email, content)
 Values ('Nguyễn Duy Hùng', 'Kharrr2001@gmail.com', 'Tôi cần anh em hỗ trợ tôi')
+
 
 Create Table News(
 			NewsId int identity(1,1) primary key,

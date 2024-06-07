@@ -10,6 +10,7 @@ import Model.User;
 import dal.AgencyDAO;
 import dal.CompensationDAO;
 import dal.ContractDAO;
+import dal.NewsDAO;
 import dal.StaffWorkplaceDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -72,11 +73,12 @@ public class HomeManagerServlet extends HttpServlet {
 
         int countCustomer = udb.getCountAllCustomer();
         int countStaff = udb.getCountAllStaffs();
-        BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
-        HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         int totalAgency = AgencyDAO.INSTANCE.countAgency();
         int totalContracts = ContractDAO.INSTANCE.countContracts();
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
+        int totalNews = NewsDAO.INSTANCE.countNews();
+        BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
+        HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
         HashMap<String, Integer> countIsPayment = ContractDAO.INSTANCE.countIsPay();
         List<StaffWorkplace> staffByAgency = StaffWorkplaceDAO.INSTANCE.getAllStaffWorkplace();
@@ -95,6 +97,7 @@ public class HomeManagerServlet extends HttpServlet {
         request.setAttribute("listStaffs", listStaffs);
         request.setAttribute("staffByAgency", staffByAgency);
         request.setAttribute("listAgency", listAgency);
+        request.setAttribute("totalNews", totalNews);
 
         request.getRequestDispatcher("homeManager.jsp").forward(request, response);
     }
@@ -122,11 +125,11 @@ public class HomeManagerServlet extends HttpServlet {
             if (action.equalsIgnoreCase("change")) {
                 mess = AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(staffId, agencyId)
                         ? "Chuyển nơi làm việc thành công" : "Chuyển nơi làm việc thất bại";
-            } else{
-               mess = StaffWorkplaceDAO.INSTANCE.insertStaffToAgency(staffId, agencyId) ?
-                       "Thêm nơi làm việc cho nhân viên này thành công" : 
-                       "Thêm nơi làm việc cho nhân viên này thất bại";
-                
+            } else {
+                mess = StaffWorkplaceDAO.INSTANCE.insertStaffToAgency(staffId, agencyId)
+                        ? "Thêm nơi làm việc cho nhân viên này thành công"
+                        : "Thêm nơi làm việc cho nhân viên này thất bại";
+
             }
         } catch (NumberFormatException e) {
             mess = e + "";
