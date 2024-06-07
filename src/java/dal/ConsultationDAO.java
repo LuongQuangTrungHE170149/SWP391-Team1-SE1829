@@ -60,7 +60,7 @@ public class ConsultationDAO extends DBContext {
                 c.setName(rs.getString("name"));
                 c.setEmail(rs.getString("email"));
                 c.setContent(rs.getString("content"));
-                c.setCreateDate(rs.getDate("createDate"));                
+                c.setCreateDate(rs.getDate("createDate"));
 
                 UserDAO udb = new UserDAO();
                 User u = udb.getUserById(rs.getInt("staff"));
@@ -70,6 +70,46 @@ public class ConsultationDAO extends DBContext {
 
                 list.add(c);
 
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Consultation> getConsultationByNameOrEmail(String searchValue) {
+        List<Consultation> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[name]\n"
+                + "      ,[email]\n"
+                + "      ,[content]\n"
+                + "      ,[createDate]\n"
+                + "      ,[reply_message]\n"
+                + "      ,[staff]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Consultations] where \n"
+                + "\n"
+                + "  [name] like ? or email like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + searchValue + "%");
+            st.setString(2, "%" + searchValue + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Consultation c = new Consultation();
+                c.setId(rs.getInt("id"));
+                c.setName(rs.getString("name"));
+                c.setEmail(rs.getString("email"));
+                c.setContent(rs.getString("content"));
+                c.setCreateDate(rs.getDate("createDate"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                c.setStaff(u);
+
+                c.setStatus(rs.getBoolean("status"));
+
+                list.add(c);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -220,13 +260,13 @@ public class ConsultationDAO extends DBContext {
                 + "    U.role = 'staff'\n"
                 + "GROUP BY\n"
                 + "    U.username;";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                total.put(rs.getString("username"),rs.getInt("TotalConsultations"));
+            while (rs.next()) {
+                total.put(rs.getString("username"), rs.getInt("TotalConsultations"));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return total;
@@ -235,6 +275,6 @@ public class ConsultationDAO extends DBContext {
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
         System.out.println(cdb.getConsultationById(1).getStaff().getUsername());
-        System.out.println(cdb.getTotalStaffAnswer());
+        System.out.println(cdb.getConsultationByNameOrEmail("yasuo"));
     }
 }

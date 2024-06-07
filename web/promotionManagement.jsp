@@ -134,8 +134,6 @@
                         </div>
                         <!--end nav-->
 
-
-
                         <!--table-->
                         <div class="row d-flex justify-content-center">
                             <div class="col-11">
@@ -148,7 +146,7 @@
                                         <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                             </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -168,7 +166,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next">Next</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -217,16 +215,20 @@
                                                                                                              class="btn btn-danger btn-sm btn-rounded m-auto"
                                                                                                              data-mdb-ripple-init>ON</button></td>
                                                     </c:if> 
-                                                <td style="padding: 0 !important; width: 80px; text-align: center; ">
-                                                    <button type="button" 
-                                                            class="btn btn-info m-1 button_action-custom " 
-                                                            onclick="location.href = 'UpdatePromotion?id=${listAll.id}'"
-                                                            data-mdb-ripple-init>Update
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger m-1 mt-0 button_action-custom" 
-                                                            data-mdb-ripple-init
-                                                            onclick="confirmDeletion(${listAll.id})">Delete
-                                                    </button>
+                                                <td>
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <button type="button" 
+                                                                class="btn btn-info me-1" style="padding: 6px 12px;" 
+                                                                onclick="location.href = 'UpdatePromotion?id=${listAll.id}'"
+                                                                data-mdb-ripple-init><i class="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                        <button type="button" 
+                                                                class="btn btn-danger" style="padding: 6px 12px;" 
+                                                                data-mdb-ripple-init
+                                                                onclick="confirmDeletion(${listAll.id})"><i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </div>
+
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -239,13 +241,12 @@
                                     </tbody>
                                 </table>
                                 <!--pagination-->
-                                <input type="hidden"id="page" value="${currentPage}">
                                 <c:if test="${numberOfPages > 1}">
                                     <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center mb-0">
+                                        <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                             </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -257,7 +258,7 @@
                                                     <c:otherwise>
                                                         <input type="hidden"id="page" value="${currentPage}">
                                                         <li class="page-item">
-                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${page}">${page}</a>
+                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
                                                         </li>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -265,7 +266,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${currentPage + 1}" aria-label="Next">Next</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -425,11 +426,11 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script>
-                            $('#content').summernote({
-                                placeholder: 'Write your content here!',
-                                tabsize: 2,
-                                height: 200
-                            });
+                                                                    $('#content').summernote({
+                                                                        placeholder: 'Write your content here!',
+                                                                        tabsize: 2,
+                                                                        height: 200
+                                                                    });
         </script>
         <script type="text/javascript">
 
@@ -514,9 +515,9 @@
                     });
                 });
 
-                $('.btn-update').on('click',function(){
+                $('.btn-update').on('click', function () {
                     var id = $('#id_detail').html();
-                    window.location.href='UpdatePromotion?id='+id;
+                    window.location.href = 'UpdatePromotion?id=' + id;
                 });
             });
         </script>
