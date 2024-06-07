@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item btn-group">
-                    <a href="ConsultationManagement" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
+                    <a href="ConsultationManager" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
                         <i class="fa-solid fa-message me-2"></i> 
                         Consultation
                         <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
@@ -84,12 +84,12 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a href="ConsultationManagement#listConsultation" class="dropdown-item">1. List consultation</a></li>
-                        <li><a href="ConsultationManagement#chart" class="dropdown-item">2. Total staff answer</a></li>
+                        <li><a href="ConsultationManager#listConsultation" class="dropdown-item">1. List consultation</a></li>
+                        <li><a href="ConsultationManager#chart" class="dropdown-item">2. Total staff answer</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="PromotionManagement" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
+                    <a href="PromotionManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
                         <i class="fa-solid fa-gift me-2"></i> Promotion <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
                     </a>
                 </li>
@@ -201,11 +201,11 @@
         var currentLocation = window.location.href;
         if (currentLocation.includes("StaffManager")) {
             document.getElementById("btnHome").classList.add("activeDash");
-        } else if (currentLocation.includes("ConsultationManagement")) {
+        } else if (currentLocation.includes("ConsultationManager")) {
             document.getElementById("btnConsultation").classList.add("activeDash");
-        } else if (currentLocation.includes("PromotionManagement")) {
+        } else if (currentLocation.includes("PromotionManager")) {
             document.getElementById("btnPromotion").classList.add("activeDash");
-        } else if (currentLocation.includes("ContractManagement")) {
+        } else if (currentLocation.includes("ContractManager")) {
             document.getElementById("btnContract").classList.add("activeDash");
         }
 

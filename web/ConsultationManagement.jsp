@@ -1,5 +1,5 @@
 <%-- 
-    Document   : ConsultationManagement
+    Document   : ConsultationManager
     Created on : May 23, 2024, 4:59:16 PM
     Author     : Kha21
 --%>
@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>F-Care | Consultation Management</title>
+        <title>F-Care | Consultation Manager</title>
 
         <!--summernote-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -100,7 +100,7 @@
 
                 <!--navbar-->
                 <div class=" navbar-custom d-flex justify-content-end align-items-center shadow-3 sticky-top" style="width: 100%;">
-                    <div class="fs-3 fw-bold text-white me-3">Consultation Management</div>
+                    <div class="fs-3 fw-bold text-white me-3">Consultation Manager</div>
                 </div>
                 <!--end navbar-->
 
@@ -132,13 +132,13 @@
                         <!--search-->
                         <div class=" d-flex justify-content-center mb-3">
                             <div>
-                                <button onclick="location.href = 'ConsultationManagement?status=notReply'" type="button" class="btn btn-danger btn-sm mb-2" data-mdb-ripple-init>
+                                <button onclick="location.href = 'ConsultationManager?status=notReply'" type="button" class="btn btn-danger btn-sm mb-2" data-mdb-ripple-init>
                                     Chưa trả lời <span class="badge badge-danger">${countNotReply}</span>
                                 </button>
-                                <button onclick="location.href = 'ConsultationManagement?status=reply'" type="button" class="btn btn-primary btn-sm mb-2" data-mdb-ripple-init>
+                                <button onclick="location.href = 'ConsultationManager?status=reply'" type="button" class="btn btn-primary btn-sm mb-2" data-mdb-ripple-init>
                                     Đã trả lời <span class="badge badge-danger">${countReply}</span>
                                 </button>
-                                <button onclick="location.href = 'ConsultationManagement'" type="button" class="btn btn-primary btn-sm me-2 mb-2" data-mdb-ripple-init>
+                                <button onclick="location.href = 'ConsultationManager'" type="button" class="btn btn-primary btn-sm me-2 mb-2" data-mdb-ripple-init>
                                     All <span class="badge badge-danger">${countAll}</span>
                                 </button>
                             </div>
@@ -147,7 +147,7 @@
                             <!--search-->
                             <div>
                                 <input type="hidden" id="searchValue" value="${searchValue}"/>
-                                <form action="ConsultationManagement" method="GET" class="input-group" style="width: 400px;">
+                                <form action="ConsultationManager" method="GET" class="input-group" style="width: 400px;">
                                     <input type="search" id="formSearch" 
                                            name="searchValue" 
                                            class="form-control rounded" 
@@ -175,7 +175,7 @@
                                         <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="ConsultationManagement?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
+                                                <a class="page-link" href="ConsultationManager?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                                 </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -187,7 +187,7 @@
                                                     <c:otherwise>
                                                         <input type="hidden"id="page" value="${currentPage}">
                                                         <li class="page-item">
-                                                            <a class="page-link" href="ConsultationManagement?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${page}">${page}</a>
+                                                            <a class="page-link" href="ConsultationManager?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${page}">${page}</a>
                                                             </li>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -195,7 +195,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="ConsultationManagement?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
+                                                <a class="page-link" href="ConsultationManager?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -257,7 +257,7 @@
                                 <ul class="pagination justify-content-center mb-0">
                                     <!-- Nút Previous -->
                                     <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                        <a class="page-link" href="ConsultationManagement?status=${status}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
+                                        <a class="page-link" href="ConsultationManager?status=${status}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
                                     </li>
                                     <c:forEach begin="1" end="${numberOfPages}" var="page">
                                         <c:choose>
@@ -269,7 +269,7 @@
                                             <c:otherwise>
                                                 <input type="hidden"id="page" value="${currentPage}">
                                                 <li class="page-item">
-                                                    <a class="page-link" href="ConsultationManagement?status=${status}&page=${page}">${page}</a>
+                                                    <a class="page-link" href="ConsultationManager?status=${status}&page=${page}">${page}</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
@@ -277,7 +277,7 @@
 
                                     <!-- Nút Next -->
                                     <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                        <a class="page-link" href="ConsultationManagement?status=${status}&page=${currentPage + 1}" aria-label="Next">Next</a>
+                                        <a class="page-link" href="ConsultationManager?status=${status}&page=${currentPage + 1}" aria-label="Next">Next</a>
                                     </li>
                                 </ul>
                             </nav>

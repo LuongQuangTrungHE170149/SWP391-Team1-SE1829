@@ -153,7 +153,7 @@ public class ReplyConsultationServlet extends HttpServlet {
         
         ConsultationDAO cdb = new ConsultationDAO();
         cdb.updateConsultationById(id, content, u.getId(), true);
-//        request.getRequestDispatcher("ConsultaionManagement").forward(request, response);
+//        request.getRequestDispatcher("ConsultaionManager").forward(request, response);
     }
 
     /**

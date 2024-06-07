@@ -96,6 +96,48 @@ public class PromotionDAO extends DBContext {
         return list;
     }
 
+    public List<Promotion> getTop3LatestPromotions() {
+        List<Promotion> list = new ArrayList<>();
+        String sql = "SELECT top(3) [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[image]\n"
+                + "      ,[staff]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[Promotion] order by createDate DESC";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<Promotion> SearchByTitleOrDescriptionOrContent(String seachValue) {
         List<Promotion> list = new ArrayList<>();
         String sql = "SELECT [id]\n"
@@ -373,7 +415,7 @@ public class PromotionDAO extends DBContext {
     public static void main(String[] args) {
         PromotionDAO pdb = new PromotionDAO();
         System.out.println(pdb.listStaffAddPromotion().get(0)[1]);
-        System.out.println(pdb.listPromotionAddByStaff(1).size());
+        System.out.println(pdb.getTop3LatestPromotions());
     }
 
 }

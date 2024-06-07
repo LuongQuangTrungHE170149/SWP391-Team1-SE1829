@@ -15,8 +15,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Promotion Management</title>
-        <!--summer note-->
+        <title>F-Care | Promotion Manager</title>
+        <!--summer note--> 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
     </head>
@@ -65,7 +65,7 @@
 
                 <!--navbar-->
                 <div class=" navbar-custom d-flex justify-content-end align-items-center shadow-3 sticky-top" style="width: 100%;">
-                    <div class="fs-3 fw-bold text-white me-3">Promotion Management</div>
+                    <div class="fs-3 fw-bold text-white me-3">Promotion Manager</div>
                 </div>
                 <!--end navbar-->
 
@@ -90,7 +90,7 @@
                             <!--end add promotion-->
                             <!--search-->
                             <div>
-                                <form action="PromotionManagement" method="GET" class="input-group" style="width: 400px;">
+                                <form action="PromotionManager" method="GET" class="input-group" style="width: 400px;">
                                     <input type="search" id="formSearch" 
                                            name="searchValue" 
                                            class="form-control rounded" 
@@ -109,7 +109,7 @@
                             <c:set var="dataList" value="${requestScope.listStaffAddPromotion}" />
                             <c:set var="selectedStaff" value="${requestScope.selectedStaff}" />
 
-                            <form action="PromotionManagement" method="GET" id="select-Form" class="d-flex ms-5" style="height: 35px; width: 250px;">
+                            <form action="PromotionManager" method="GET" id="select-Form" class="d-flex ms-5" style="height: 35px; width: 250px;">
                                 <label class="form-label text-nowrap me-2" for="form-select" style="width: 150px; margin-bottom:0; align-content: center;">Create By Staff</label>
                                 <select class="form-select" name="selectedStaff" id="form-select" onchange="document.getElementById('select-Form').submit();">
                                     <option value="0">All</option>
@@ -146,7 +146,7 @@
                                         <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
+                                                <a class="page-link" href="PromotionManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                             </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -158,7 +158,7 @@
                                                     <c:otherwise>
                                                         <input type="hidden"id="page" value="${currentPage}">
                                                         <li class="page-item">
-                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
+                                                            <a class="page-link" href="PromotionManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
                                                         </li>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -166,7 +166,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
+                                                <a class="page-link" href="PromotionManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -204,14 +204,14 @@
                                                 <td style="width: 50px;"><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
                                                 <c:if test="${listAll.isHeader == true}" >
                                                     <td class="text-center" style="width: 50px;"><button type="button" 
-                                                                                                         onclick="location.href = 'PromotionManagement?unset=true&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'"
+                                                                                                         onclick="location.href = 'PromotionManager?unset=true&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'"
                                                                                                              class="btn btn-warning btn-rounded btn-sm"
                                                                                                              data-mdb-ripple-init >OFF</button>
                                                         </td>
                                                 </c:if>
                                                 <c:if test="${listAll.isHeader == false}" >
                                                     <td class="text-center" style="width: 50px;"><button type="button" 
-                                                                                                         onclick="location.href = 'PromotionManagement?setHeaderAtId=${listAll.id}&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'" 
+                                                                                                         onclick="location.href = 'PromotionManager?setHeaderAtId=${listAll.id}&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'" 
                                                                                                              class="btn btn-danger btn-sm btn-rounded m-auto"
                                                                                                              data-mdb-ripple-init>ON</button></td>
                                                     </c:if> 
@@ -246,7 +246,7 @@
                                         <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
+                                                <a class="page-link" href="PromotionManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                             </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -258,7 +258,7 @@
                                                     <c:otherwise>
                                                         <input type="hidden"id="page" value="${currentPage}">
                                                         <li class="page-item">
-                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
+                                                            <a class="page-link" href="PromotionManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
                                                         </li>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -266,7 +266,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
+                                                <a class="page-link" href="PromotionManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -491,7 +491,7 @@
                     e.preventDefault();
                     let promotionId = $(this).data('id');
                     $.ajax({
-                        url: 'PromotionDetail',
+                        url: 'PromotionManagerDetail',
                         type: 'GET',
                         data: {id: promotionId},
                         success: function (data) {

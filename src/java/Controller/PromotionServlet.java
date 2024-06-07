@@ -6,7 +6,6 @@
 package Controller;
 
 import Model.Promotion;
-import com.google.gson.Gson;
 import dal.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,13 +13,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author thuhu
  */
-public class PromotionDetailServlet extends HttpServlet {
+public class PromotionServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +36,10 @@ public class PromotionDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PromotionDetailServlet</title>");  
+            out.println("<title>Servlet PromotionServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PromotionDetailServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet PromotionServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,16 +56,13 @@ public class PromotionDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        PromotionDAO cdb = new PromotionDAO();
-        Promotion p = cdb.getPromotionById(id);
+        PromotionDAO pdb = new PromotionDAO();
+        List<Promotion> listAll = pdb.getAll();
+        Promotion promotionHeader = pdb.getPromotionByIsHeader(true);
         
-        
-
-        String json = new Gson().toJson(p);
-
-        response.setContentType("application/json");
-        response.getWriter().write(json);
+        request.setAttribute("listAll", listAll);
+        request.setAttribute("promotionHeader", promotionHeader);
+        request.getRequestDispatcher("promotion.jsp").forward(request, response);
     } 
 
     /** 

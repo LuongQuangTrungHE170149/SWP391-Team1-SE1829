@@ -23,7 +23,7 @@
             background: linear-gradient(204deg, rgba(0,167,209,1) 0%, rgba(65,159,163,1) 100%);
         }
     </style>
-    
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom sticky-top bg-body-tertiary ">
         <div class="container-fluid">
@@ -62,6 +62,9 @@
                             <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
                         </ul>
 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"style="color:white;" href="promotion">Khuyến mại</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"style="color:white;" href="#">Tin tức</a>
