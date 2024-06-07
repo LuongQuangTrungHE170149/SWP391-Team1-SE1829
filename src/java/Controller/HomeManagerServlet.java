@@ -10,6 +10,7 @@ import Model.User;
 import dal.AgencyDAO;
 import dal.CompensationDAO;
 import dal.ContractDAO;
+import dal.NewsDAO;
 import dal.StaffWorkplaceDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -72,11 +73,12 @@ public class HomeManagerServlet extends HttpServlet {
 
         int countCustomer = udb.getCountAllCustomer();
         int countStaff = udb.getCountAllStaffs();
-        BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
-        HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         int totalAgency = AgencyDAO.INSTANCE.countAgency();
         int totalContracts = ContractDAO.INSTANCE.countContracts();
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
+        int totalNews = NewsDAO.INSTANCE.countNews();
+        BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
+        HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
         HashMap<String, Integer> countIsPayment = ContractDAO.INSTANCE.countIsPay();
         List<StaffWorkplace> staffByAgency = StaffWorkplaceDAO.INSTANCE.getAllStaffWorkplace();
@@ -95,6 +97,7 @@ public class HomeManagerServlet extends HttpServlet {
         request.setAttribute("listStaffs", listStaffs);
         request.setAttribute("staffByAgency", staffByAgency);
         request.setAttribute("listAgency", listAgency);
+        request.setAttribute("totalNews", totalNews);
 
         request.getRequestDispatcher("homeManager.jsp").forward(request, response);
     }
@@ -114,20 +117,44 @@ public class HomeManagerServlet extends HttpServlet {
         String action = request.getParameter("action");
         String staffId_raw = request.getParameter("staffId");
         String agencyId_raw = request.getParameter("changeAgency");
+        int agencyId;
         String mess = "";
         try {
             int staffId = Integer.parseInt(staffId_raw);
-            int agencyId = Integer.parseInt(agencyId_raw);
+            switch (action) {
+                case "change":
+                    agencyId = Integer.parseInt(agencyId_raw);
 
-            if (action.equalsIgnoreCase("change")) {
-                mess = AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(staffId, agencyId)
-                        ? "Chuyển nơi làm việc thành công" : "Chuyển nơi làm việc thất bại";
-            } else{
-               mess = StaffWorkplaceDAO.INSTANCE.insertStaffToAgency(staffId, agencyId) ?
-                       "Thêm nơi làm việc cho nhân viên này thành công" : 
-                       "Thêm nơi làm việc cho nhân viên này thất bại";
-                
+                    mess = AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(staffId, agencyId)
+                            ? "Chuyển nơi làm việc thành công" : "Chuyển nơi làm việc thất bại";
+                    break;
+                case "add":
+                    agencyId = Integer.parseInt(agencyId_raw);
+
+                    mess = StaffWorkplaceDAO.INSTANCE.insertStaffToAgency(staffId, agencyId)
+                            ? "Thêm nơi làm việc cho nhân viên này thành công"
+                            : "Thêm nơi làm việc cho nhân viên này thất bại";
+                    break;
+
+                case "active":
+                    mess = StaffWorkplaceDAO.INSTANCE.changeStatusStaff(staffId, action)
+                            ? "Thay đổi trạng thái thành công" : "Thay đổi trạng thái thất bại";
+                    break;
+                case "inactive":
+                    mess = StaffWorkplaceDAO.INSTANCE.changeStatusStaff(staffId, action)
+                            ? "Thay đổi trạng thái thành công" : "Thay đổi trạng thái thất bại";
+                    break;
+
+                default:
+                    throw new AssertionError();
             }
+
+//            if (action.equalsIgnoreCase("change")) {
+//
+//            } else {
+//                
+//
+//            }
         } catch (NumberFormatException e) {
             mess = e + "";
 

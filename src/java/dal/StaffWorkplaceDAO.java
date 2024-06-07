@@ -17,7 +17,7 @@ import java.util.List;
  * @author tranm
  */
 public class StaffWorkplaceDAO {
-    
+
     public static StaffWorkplaceDAO INSTANCE = new StaffWorkplaceDAO();
     private Connection con;
 
@@ -28,15 +28,15 @@ public class StaffWorkplaceDAO {
             INSTANCE = this;
         }
     }
-    
+
     public List<StaffWorkplace> getAllStaffWorkplace() {
         List<StaffWorkplace> list = new ArrayList<>();
         String sql = "select * from Staff_Workplace";
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 StaffWorkplace sw = new StaffWorkplace();
                 sw.setId(rs.getInt("swId"));
                 sw.setAgencyId(rs.getInt("AgencyId"));
@@ -47,10 +47,10 @@ public class StaffWorkplaceDAO {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return list;
     }
-    
+
     public boolean insertStaffToAgency(int staffId, int agencyId) {
         String sql = "insert into Staff_Workplace(AgencyId, StaffId) values (?, ?)";
         try {
@@ -59,16 +59,31 @@ public class StaffWorkplaceDAO {
             ps.setInt(2, staffId);
             ps.executeUpdate();
             return true;
-            
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
+
+    public boolean changeStatusStaff(int staffId, String status) {
+        String sql = "Update Staff_Workplace set [status] = ? where StaffId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, staffId);
+            ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println(e);
         }
         
         return false;
     }
-    
+
     public static void main(String[] args) {
         System.out.println(StaffWorkplaceDAO.INSTANCE.getAllStaffWorkplace());
     }
-    
+
 }
