@@ -117,20 +117,44 @@ public class HomeManagerServlet extends HttpServlet {
         String action = request.getParameter("action");
         String staffId_raw = request.getParameter("staffId");
         String agencyId_raw = request.getParameter("changeAgency");
+        int agencyId;
         String mess = "";
         try {
             int staffId = Integer.parseInt(staffId_raw);
-            int agencyId = Integer.parseInt(agencyId_raw);
+            switch (action) {
+                case "change":
+                    agencyId = Integer.parseInt(agencyId_raw);
 
-            if (action.equalsIgnoreCase("change")) {
-                mess = AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(staffId, agencyId)
-                        ? "Chuyển nơi làm việc thành công" : "Chuyển nơi làm việc thất bại";
-            } else {
-                mess = StaffWorkplaceDAO.INSTANCE.insertStaffToAgency(staffId, agencyId)
-                        ? "Thêm nơi làm việc cho nhân viên này thành công"
-                        : "Thêm nơi làm việc cho nhân viên này thất bại";
+                    mess = AgencyDAO.INSTANCE.changeWorkPlaceByStaffId(staffId, agencyId)
+                            ? "Chuyển nơi làm việc thành công" : "Chuyển nơi làm việc thất bại";
+                    break;
+                case "add":
+                    agencyId = Integer.parseInt(agencyId_raw);
 
+                    mess = StaffWorkplaceDAO.INSTANCE.insertStaffToAgency(staffId, agencyId)
+                            ? "Thêm nơi làm việc cho nhân viên này thành công"
+                            : "Thêm nơi làm việc cho nhân viên này thất bại";
+                    break;
+
+                case "active":
+                    mess = StaffWorkplaceDAO.INSTANCE.changeStatusStaff(staffId, action)
+                            ? "Thay đổi trạng thái thành công" : "Thay đổi trạng thái thất bại";
+                    break;
+                case "inactive":
+                    mess = StaffWorkplaceDAO.INSTANCE.changeStatusStaff(staffId, action)
+                            ? "Thay đổi trạng thái thành công" : "Thay đổi trạng thái thất bại";
+                    break;
+
+                default:
+                    throw new AssertionError();
             }
+
+//            if (action.equalsIgnoreCase("change")) {
+//
+//            } else {
+//                
+//
+//            }
         } catch (NumberFormatException e) {
             mess = e + "";
 

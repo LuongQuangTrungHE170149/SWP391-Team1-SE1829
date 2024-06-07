@@ -146,12 +146,13 @@
                                 <th>Nơi làm việc</th>
                                 <th>Trạng thái</th>
                                 <th>Chuyển nơi làm việc</th>
+                                <th>Chuyển trạng thái</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="staff" items="${requestScope.listStaffs}">
                                 <tr>
-                               
+
                                     <td>${staff.getFullName()}</td>
                                     <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
                                     <td>
@@ -193,30 +194,47 @@
                                         <c:forEach var="staffWorkPlace" items="${requestScope.staffByAgency}">
                                             <c:if test="${staffWorkPlace.staffId == staff.id}">
                                                 <span class="${staffWorkPlace.status eq 'active' ? 'active-staff' : 'inactive-staff'}">${staffWorkPlace.status eq 'active' ? 'Hoạt động' : 'Nghỉ việc'}</span>
-
                                             </c:if>
                                         </c:forEach>
                                     </td>
                                     <td>
-                                        <c:set var="staffHasAgency" value="false" />          
+                                        <c:set var="staffHasAgency" value="false" />      
+                                        <c:set var="staffActive" value="false" />          
                                         <c:forEach var="staffWorkPlace" items="${requestScope.staffByAgency}">
                                             <c:if test="${staffWorkPlace.staffId == staff.id}">
                                                 <c:set var="staffHasAgency" value="true" />
                                                 <c:set var="currentAgencyId" value="${staffWorkPlace.agencyId}" />
+                                                <c:if test="${staffWorkPlace.status eq 'active'}">
+                                                    <c:set var="staffActive" value="true" />          
+
+                                                </c:if>
                                             </c:if>
                                         </c:forEach>
-
-                                        <form id="agencyForm-${staff.id}" method="POST" action="homeManager">
-                                            <input type="hidden" name="staffId" value="${staff.id}" />
-                                            <input type="hidden" name="action" value="${staffHasAgency ? 'change' : 'add'}" />
-                                            <select class="select-agency" name="changeAgency" onchange="submitAgencyForm('${staff.id}')">
-                                                <option disabled selected>Chọn đại lý</option>
-                                                <c:forEach var="agency" items="${requestScope.listAgency}">
-                                                    <c:if test="${!staffHasAgency || agency.agencyId != currentAgencyId}">
-                                                        <option value="${agency.agencyId}">${agency.agencyName}</option>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </select>
+                                        <c:if test="${staffActive || !staffHasAgency }">
+                                            <form id="agencyForm-${staff.id}" method="POST" action="homeManager">
+                                                <input type="hidden" name="staffId" value="${staff.id}" />
+                                                <input type="hidden" name="action" value="${staffHasAgency ? 'change' : 'add'}" />
+                                                <select class="select-agency" name="changeAgency" onchange="submitAgencyForm('${staff.id}')">
+                                                    <option disabled selected>Chọn đại lý</option>
+                                                    <c:forEach var="agency" items="${requestScope.listAgency}">
+                                                        <c:if test="${!staffHasAgency || agency.agencyId != currentAgencyId}">
+                                                            <option value="${agency.agencyId}">${agency.agencyName}</option>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </select>
+                                            </form>
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <form class="form-status" action="${staffActive ? 'homeManager?action=inactive' : 'homeManager?action=active'}" method="post" >
+                                            <c:if test="${staffActive}">
+                                                <input type="hidden" name="staffId" value="${staff.id}" />
+                                                <button class="btn-action btn-inactive" onclick="submitStatusForm()">Nghỉ việc</button>
+                                            </c:if>
+                                            <c:if test="${!staffActive}">
+                                                <input type="hidden" name="staffId" value="${staff.id}" />
+                                                <button class="btn-action btn-active" onclick="submitStatusForm()">Hoạt động</button>
+                                            </c:if>
                                         </form>
                                     </td>
                                 </tr>
@@ -231,151 +249,157 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
 
-                                                const payment = document.querySelector('.payment');
-                                                var childNav = document.querySelector('.nav-wrapper .sticky-top');
+                                                    const payment = document.querySelector('.payment');
+                                                    var childNav = document.querySelector('.nav-wrapper .sticky-top');
 
-                                                if (childNav) {
-                                                    childNav.classList.remove('sticky-top');
-                                                }
-
-
-                                                function submitAgencyForm(staffId) {
-                                                    if (confirm("Bạn có chắc chắn muốn thay đổi làm việc của nhân viên này?")) {
-                                                        document.getElementById("agencyForm-" + staffId).submit();
-                                                    }
-                                                }
-
-
-
-                                                setTimeout(() => {
-                                                    const successToast = document.getElementById('toast-success');
-                                                    if (successToast) {
-                                                        successToast.style.opacity = '0';
-                                                        setTimeout(() => successToast.style.display = 'none', 1000);
+                                                    if (childNav) {
+                                                        childNav.classList.remove('sticky-top');
                                                     }
 
-                                                }, 3000);
+
+                                                    function submitAgencyForm(staffId) {
+                                                        if (confirm("Bạn có chắc chắn muốn thay đổi làm việc của nhân viên này?")) {
+                                                            document.getElementById("agencyForm-" + staffId).submit();
+                                                        }
+                                                    }
+
+                                                    function submitStatusForm() {
+                                                        if (confirm("Bạn có chắc chắn muốn thay đổi trạng thái làm việc của nhân viên này?")) {
+                                                            document.getElementById("form-status").submit();
+                                                        }
+                                                    }
+
+
+
+                                                    setTimeout(() => {
+                                                        const successToast = document.getElementById('toast-success');
+                                                        if (successToast) {
+                                                            successToast.style.opacity = '0';
+                                                            setTimeout(() => successToast.style.display = 'none', 1000);
+                                                        }
+
+                                                    }, 3000);
 
 
 
 
 
 
-                                                document.addEventListener("DOMContentLoaded", function () {
-                                                    var labels = [];
-                                                    var data = [];
-                                                    var countGender = [];
-                                                    var isPayLabel = [];
-                                                    var countIsPay = [];
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        var labels = [];
+                                                        var data = [];
+                                                        var countGender = [];
+                                                        var isPayLabel = [];
+                                                        var countIsPay = [];
 
 
-                                                    var monthElements = document.querySelectorAll('.month');
-                                                    var earningElements = document.querySelectorAll('.earning');
+                                                        var monthElements = document.querySelectorAll('.month');
+                                                        var earningElements = document.querySelectorAll('.earning');
 
-                                                    var countGenderElements = document.querySelectorAll('.count-gender');
+                                                        var countGenderElements = document.querySelectorAll('.count-gender');
 
-                                                    var isPayElements = document.querySelectorAll('.pay-status');
-                                                    var countIsPayElements = document.querySelectorAll('.pay-count');
+                                                        var isPayElements = document.querySelectorAll('.pay-status');
+                                                        var countIsPayElements = document.querySelectorAll('.pay-count');
 
-                                                    monthElements.forEach(function (monthElement, index) {
-                                                        var month = monthElement.innerText;
-                                                        var earning = parseFloat(earningElements[index].innerText.replace(/[^0-9.-]+/g, "")); // Loại bỏ ký tự không phải số
-                                                        labels.push(month);
-                                                        data.push(earning);
-                                                    });
+                                                        monthElements.forEach(function (monthElement, index) {
+                                                            var month = monthElement.innerText;
+                                                            var earning = parseFloat(earningElements[index].innerText.replace(/[^0-9.-]+/g, "")); // Loại bỏ ký tự không phải số
+                                                            labels.push(month);
+                                                            data.push(earning);
+                                                        });
 
-                                                    countGenderElements.forEach(function (element) {
-                                                        countGender.push(element.innerText);
-                                                    })
+                                                        countGenderElements.forEach(function (element) {
+                                                            countGender.push(element.innerText);
+                                                        })
 
-                                                    isPayElements.forEach(function (element, index) {
-                                                        var isPay = element.innerText === "Paid" ? "Đã thanh toán" : "Chưa thanh toán";
-                                                        var count = countIsPayElements[index].innerText;
-                                                        isPayLabel.push(isPay);
-                                                        countIsPay.push(count);
-                                                    })
+                                                        isPayElements.forEach(function (element, index) {
+                                                            var isPay = element.innerText === "Paid" ? "Đã thanh toán" : "Chưa thanh toán";
+                                                            var count = countIsPayElements[index].innerText;
+                                                            isPayLabel.push(isPay);
+                                                            countIsPay.push(count);
+                                                        })
 
 
-                                                    var ctx = document.getElementById('earningsChart').getContext('2d');
-                                                    new Chart(ctx, {
-                                                        type: 'bar',
-                                                        data: {
-                                                            labels: labels,
-                                                            datasets: [{
-                                                                    label: 'Doanh thu mỗi tháng',
-                                                                    data: data,
-                                                                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                                                                    borderColor: 'rgba(54, 162, 235, 1)',
-                                                                    borderWidth: 1
-                                                                }]
-                                                        },
-                                                        options: {
-                                                            indexAxis: 'x',
-                                                            scales: {
-                                                                xAxes: [{
-                                                                        ticks: {
-                                                                            beginAtZero: true,
-                                                                            callback: function (value, index, values) {
-                                                                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VND';
-                                                                            }
-                                                                        }
+                                                        var ctx = document.getElementById('earningsChart').getContext('2d');
+                                                        new Chart(ctx, {
+                                                            type: 'bar',
+                                                            data: {
+                                                                labels: labels,
+                                                                datasets: [{
+                                                                        label: 'Doanh thu mỗi tháng',
+                                                                        data: data,
+                                                                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                                                        borderWidth: 1
                                                                     }]
-                                                            }
-                                                        }
-                                                    });
-
-                                                    const ctx1 = document.getElementById('user-gender-distribution').getContext('2d');
-                                                    new Chart(ctx1, {
-                                                        type: 'pie',
-                                                        data: {
-                                                            labels: ['Nữ', 'Nam', 'Khác'],
-                                                            datasets: [{
-                                                                    data: countGender,
-                                                                    backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
-                                                                }]
-                                                        },
-                                                        options: {
-                                                            responsive: true,
-                                                            plugins: {
-                                                                legend: {
-                                                                    position: 'top',
-                                                                },
-                                                                title: {
-                                                                    display: true,
-                                                                    text: 'Phân bổ giới tính người dùng'
+                                                            },
+                                                            options: {
+                                                                indexAxis: 'x',
+                                                                scales: {
+                                                                    xAxes: [{
+                                                                            ticks: {
+                                                                                beginAtZero: true,
+                                                                                callback: function (value, index, values) {
+                                                                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VND';
+                                                                                }
+                                                                            }
+                                                                        }]
                                                                 }
                                                             }
-                                                        }
-                                                    });
+                                                        });
 
-
-
-                                                    const ctx3 = document.getElementById('payment-status').getContext('2d');
-                                                    new Chart(ctx3, {
-                                                        type: 'pie',
-                                                        data: {
-                                                            labels: isPayLabel,
-                                                            datasets: [{
-                                                                    data: countIsPay,
-                                                                    backgroundColor: ['#2196F3', '#F44336'],
-                                                                }]
-                                                        },
-                                                        options: {
-                                                            responsive: true,
-                                                            plugins: {
-                                                                legend: {
-                                                                    position: 'top',
-                                                                },
-                                                                title: {
-                                                                    display: true,
-                                                                    text: 'Tình trạng thanh toán'
+                                                        const ctx1 = document.getElementById('user-gender-distribution').getContext('2d');
+                                                        new Chart(ctx1, {
+                                                            type: 'pie',
+                                                            data: {
+                                                                labels: ['Nữ', 'Nam', 'Khác'],
+                                                                datasets: [{
+                                                                        data: countGender,
+                                                                        backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                                                                    }]
+                                                            },
+                                                            options: {
+                                                                responsive: true,
+                                                                plugins: {
+                                                                    legend: {
+                                                                        position: 'top',
+                                                                    },
+                                                                    title: {
+                                                                        display: true,
+                                                                        text: 'Phân bổ giới tính người dùng'
+                                                                    }
                                                                 }
                                                             }
-                                                        }
+                                                        });
+
+
+
+                                                        const ctx3 = document.getElementById('payment-status').getContext('2d');
+                                                        new Chart(ctx3, {
+                                                            type: 'pie',
+                                                            data: {
+                                                                labels: isPayLabel,
+                                                                datasets: [{
+                                                                        data: countIsPay,
+                                                                        backgroundColor: ['#2196F3', '#F44336'],
+                                                                    }]
+                                                            },
+                                                            options: {
+                                                                responsive: true,
+                                                                plugins: {
+                                                                    legend: {
+                                                                        position: 'top',
+                                                                    },
+                                                                    title: {
+                                                                        display: true,
+                                                                        text: 'Tình trạng thanh toán'
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+
+
                                                     });
-
-
-                                                });
         </script>
 
 
