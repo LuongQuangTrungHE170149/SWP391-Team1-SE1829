@@ -220,7 +220,6 @@ public class UserDAO extends DBContext {
 
         String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)"
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             int posParam = 1;

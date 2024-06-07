@@ -13,7 +13,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.oracle.wls.shaded.org.apache.bcel.generic.AALOAD;
 import dal.UserDAO;

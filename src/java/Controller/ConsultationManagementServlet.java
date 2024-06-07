@@ -66,19 +66,16 @@ public class ConsultationManagementServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
 
-        
         //check
         if (u == null) {
             request.setAttribute("loginFirst", loginFirst);
             request.getRequestDispatcher("error").forward(request, response);
-        } 
-        //neu da dang nhap => check role
+        } //neu da dang nhap => check role
         else {
             if (u.getRole().equalsIgnoreCase("user")) {
                 request.setAttribute("error", error);
                 request.getRequestDispatcher("error").forward(request, response);
-            } 
-            //staff, manager true =>>
+            } //staff, manager true =>>
             else {
                 ConsultationDAO cdb = new ConsultationDAO();
                 List<Consultation> listAll;
@@ -101,6 +98,14 @@ public class ConsultationManagementServlet extends HttpServlet {
                     listAll = cdb.getAll();
                 }
 
+                String searchValue = request.getParameter("searchValue");
+                if (searchValue != null) {
+                    listAll = cdb.getConsultationByNameOrEmail(searchValue);
+                    int totalSearchResult = cdb.getConsultationByNameOrEmail(searchValue).size();
+                    request.setAttribute("totalSearchResult", totalSearchResult);
+                    request.setAttribute("searchValue", searchValue);
+                }
+
                 int countAll = cdb.CountConsultationByStatus("all");
                 int countNotReply = cdb.CountConsultationByStatus("0");
                 int countReply = cdb.CountConsultationByStatus("1");
@@ -116,8 +121,8 @@ public class ConsultationManagementServlet extends HttpServlet {
                 List<Consultation> listForPage = listAll.subList(start, end);
                 int numberOfPages = (int) Math.ceil(listAll.size() * 1.0 / recordPerPage);
 
-                request.setAttribute("totalStaffAnswer", totalStaffAnswer);
                 request.setAttribute("status", status);
+                request.setAttribute("totalStaffAnswer", totalStaffAnswer);
                 request.setAttribute("countAll", countAll);
                 request.setAttribute("countNotReply", countNotReply);
                 request.setAttribute("countReply", countReply);

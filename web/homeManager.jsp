@@ -89,6 +89,12 @@
                             <p class="stat-cards-info__title">Bồi thường</p>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="stat-cards-item">
+                            <p class="stat-cards-info__num"><strong>${requestScope.totalNews}</strong></p>
+                            <p class="stat-cards-info__title">Tin tức</p>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -132,9 +138,9 @@
                     <table class="posts-table">
                         <thead>
                             <tr class="users-table-info">
-                                <th>Id</th>
                                 <th>Họ tên</th>
                                 <th>Giới tính</th>
+                                <th>Ngày sinh</th>
                                 <th>Số điện thoại</th>
                                 <th>Email</th>
                                 <th>Nơi làm việc</th>
@@ -145,9 +151,16 @@
                         <tbody>
                             <c:forEach var="staff" items="${requestScope.listStaffs}">
                                 <tr>
-                                    <td>${staff.id}</td>
+                               
                                     <td>${staff.getFullName()}</td>
                                     <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
+                                    <td>
+
+                                        <fmt:parseDate value="${staff.getDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                        <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
+                                        ${formattedDate}
+
+                                    </td>
                                     <td>${staff.phone}</td>
                                     <td>${staff.email}</td>
                                     <td>                         
@@ -180,7 +193,7 @@
                                         <c:forEach var="staffWorkPlace" items="${requestScope.staffByAgency}">
                                             <c:if test="${staffWorkPlace.staffId == staff.id}">
                                                 <span class="${staffWorkPlace.status eq 'active' ? 'active-staff' : 'inactive-staff'}">${staffWorkPlace.status eq 'active' ? 'Hoạt động' : 'Nghỉ việc'}</span>
-                                                
+
                                             </c:if>
                                         </c:forEach>
                                     </td>

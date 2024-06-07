@@ -96,6 +96,7 @@ GO
 insert into Consultations(name, email, content)
 Values ('Nguyễn Duy Hùng', 'Kharrr2001@gmail.com', 'Tôi cần anh em hỗ trợ tôi')
 
+
 Create Table News(
 			NewsId int identity(1,1) primary key,
 			Title nvarchar(255),

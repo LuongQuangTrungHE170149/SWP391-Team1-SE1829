@@ -64,7 +64,7 @@
             <div class="content d-flex flex-column align-items-center" style="background-color: #f0f2fa;">
 
                 <!--navbar-->
-                <div class=" navbar-custom d-flex justify-content-center align-items-center shadow-3 sticky-top" style="width: 100%;">
+                <div class=" navbar-custom d-flex justify-content-end align-items-center shadow-3 sticky-top" style="width: 100%;">
                     <div class="fs-3 fw-bold text-white me-3">Promotion Management</div>
                 </div>
                 <!--end navbar-->
@@ -134,8 +134,6 @@
                         </div>
                         <!--end nav-->
 
-
-
                         <!--table-->
                         <div class="row d-flex justify-content-center">
                             <div class="col-11">
@@ -148,7 +146,7 @@
                                         <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                             </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -168,7 +166,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next">Next</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -217,16 +215,20 @@
                                                                                                              class="btn btn-danger btn-sm btn-rounded m-auto"
                                                                                                              data-mdb-ripple-init>ON</button></td>
                                                     </c:if> 
-                                                <td style="padding: 0 !important; width: 80px; text-align: center; ">
-                                                    <button type="button" 
-                                                            class="btn btn-info m-1 button_action-custom " 
-                                                            onclick="location.href='UpdatePromotion?id=${listAll.id}'"
-                                                            data-mdb-ripple-init>Update
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger m-1 mt-0 button_action-custom" 
-                                                            data-mdb-ripple-init
-                                                            onclick="confirmDeletion(${listAll.id})">Delete
-                                                    </button>
+                                                <td>
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <button type="button" 
+                                                                class="btn btn-info me-1" style="padding: 6px 12px;" 
+                                                                onclick="location.href = 'UpdatePromotion?id=${listAll.id}'"
+                                                                data-mdb-ripple-init><i class="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                        <button type="button" 
+                                                                class="btn btn-danger" style="padding: 6px 12px;" 
+                                                                data-mdb-ripple-init
+                                                                onclick="confirmDeletion(${listAll.id})"><i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </div>
+
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -239,13 +241,12 @@
                                     </tbody>
                                 </table>
                                 <!--pagination-->
-                                <input type="hidden"id="page" value="${currentPage}">
                                 <c:if test="${numberOfPages > 1}">
                                     <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center mb-0">
+                                        <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                             </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -257,7 +258,7 @@
                                                     <c:otherwise>
                                                         <input type="hidden"id="page" value="${currentPage}">
                                                         <li class="page-item">
-                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${page}">${page}</a>
+                                                            <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
                                                         </li>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -265,7 +266,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&page=${currentPage + 1}" aria-label="Next">Next</a>
+                                                <a class="page-link" href="PromotionManagement?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -373,11 +374,18 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div class="fw-bold">Create By: <span class="fw-normal" id="staff_detail"></span></div>
-                                    <div class="fw-bold">Image</div>
-                                    <div id="image_detail"></div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div>
+                                        <div class="badge badge-primary">ID: <span class="fw-normal" id="id_detail"></span></div>
+                                        <div class="badge badge-secondary">Create By: <span class="fw-normal" id="staff_detail"></span></div>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">Image</div>
+                                        <div id="image_detail"></div>
+                                    </div>
                                 </div>
+
+
                                 <div class="col-12 col-md-8">
                                     <div><span class="fw-bold">Title:</span>
                                         <span id="title_detail"></span></div>
@@ -403,6 +411,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-update me-2" data-mdb-ripple-init>Update</button>
                         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
                     </div>
                 </div>
@@ -411,66 +420,17 @@
         <!--end add detail promotion modal-->
 
         <!--add update promotion modal-->
-        <div class="modal fade" id="updatePromotionModal" tabindex="-1" aria-labelledby="updatePromotionModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-white" id="updatePromotionModalLabel">Promotion Detail</h5>
-                        <button type="button" class="btn-close text-white" data-mdb-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div class="fw-bold">Create By: <span class="fw-normal" id="staff_update"></span></div>
-                                    <div class="fw-bold">Image</div>
-                                    <div id="image_detail"></div>
-                                </div>
-                                <div class="col-12 col-md-8">
-                                    <div><span class="fw-bold">Title:</span>
-                                        <span id="title_update"></span></div>
-                                    <hr>
-                                    <div><span class="fw-bold">Create Date:</span>
-                                        <span id="createDate_update"></span></div>
-                                    <div><span class="fw-bold">Start: </span>
-                                        <span id="timeStart_update" class="me-4"></span>
-                                        <span class="fw-bold">End: </span>
-                                        <span id="timeEnd_update"></span></div>
-                                    <hr>
-                                    <div><span class="fw-bold">Description:</span>
-                                        <span id="description_update"></span></div>
-                                    <hr><!-- comment -->
-                                    <div class="fw-bold">Content:</div>
-                                    <div class="border border-1 p-3 shadow" style="border-radius: 12px;">
-                                        <div id="content_update"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!--end add update promotion modal-->
         <!--summernote-->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script>
-                                                                $('#content').summernote({
-                                                                    placeholder: 'Write your content here!',
-                                                                    tabsize: 2,
-                                                                    height: 120
-                                                                });
-
-                                                                $('#content_update').summernote({
-                                                                    placeholder: 'Write your content here!',
-                                                                    tabsize: 2,
-                                                                    height: 120
-                                                                });
-
+                                                                    $('#content').summernote({
+                                                                        placeholder: 'Write your content here!',
+                                                                        tabsize: 2,
+                                                                        height: 200
+                                                                    });
         </script>
         <script type="text/javascript">
 
@@ -484,12 +444,13 @@
                     page = parseInt(pageParam);
                 }
                 if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
-                    window.location.href = 'DeletePromotion?searchValue=' + searchValue+'&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
+                    window.location.href = 'DeletePromotion?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
                 }
             }
 
+
+
             $(document).ready(function () {
-                
 
                 //add promotion function
                 $('#addPromotionForm').on('submit', function (e) {
@@ -534,6 +495,7 @@
                         type: 'GET',
                         data: {id: promotionId},
                         success: function (data) {
+                            $('#id_detail').html(data.id);
                             $('#staff_detail').html(data.staff.username);
                             $('#title_detail').html(data.title);
                             //handle date
@@ -551,6 +513,11 @@
                             $('#detailPromotionModal').modal('show');
                         }
                     });
+                });
+
+                $('.btn-update').on('click', function () {
+                    var id = $('#id_detail').html();
+                    window.location.href = 'UpdatePromotion?id=' + id;
                 });
             });
         </script>
