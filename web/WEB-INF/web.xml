@@ -100,6 +100,14 @@
         <servlet-name>AddConsultationServlet</servlet-name>
         <servlet-class>Controller.AddConsultationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PromotionDetailServlet</servlet-name>
+        <servlet-class>Controller.PromotionDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffProfileServlet</servlet-name>
+        <servlet-class>Controller.StaffProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -199,6 +207,14 @@
     <servlet-mapping>
         <servlet-name>AddConsultationServlet</servlet-name>
         <url-pattern>/addConsultation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionDetailServlet</servlet-name>
+        <url-pattern>/promotionDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffProfileServlet</servlet-name>
+        <url-pattern>/staffProfile</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

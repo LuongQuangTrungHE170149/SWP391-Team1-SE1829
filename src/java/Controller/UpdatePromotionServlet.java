@@ -87,7 +87,6 @@ public class UpdatePromotionServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            System.out.println("id: " + id);
 
             PromotionDAO pdb = new PromotionDAO();
             Promotion p = pdb.getPromotionById(id);

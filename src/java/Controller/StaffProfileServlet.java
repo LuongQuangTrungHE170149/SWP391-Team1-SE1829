@@ -5,21 +5,18 @@
 
 package Controller;
 
-import Model.Promotion;
-import dal.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author Kha21
+ * @author thuhu
  */
-public class HomePageServlet extends HttpServlet {
+public class StaffProfileServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +33,10 @@ public class HomePageServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePageServlet</title>");  
+            out.println("<title>Servlet StaffProfileServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomePageServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet StaffProfileServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,11 +53,7 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        PromotionDAO pdb = new PromotionDAO();
-        List<Promotion> listTop3LatestPromotions = pdb.getTop3LatestPromotions();
-        
-        request.setAttribute("listTop3LatestPromotions", listTop3LatestPromotions);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -73,7 +66,7 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /** 
