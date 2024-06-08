@@ -11,7 +11,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Điều Khoản Sử Dụng</title>
         <style>
-
             body{
                 font-family: Arial,sans-serif;
                 margin: 0;
@@ -23,9 +22,6 @@
                 height: 500px;
                 display: block;
                 text-align: center;
-                /*    margin-top: 50px;*/
-
-
             }
             .f-title{
                 font-size:40px;
@@ -94,15 +90,7 @@
             .list-group-item:hover {
                 background-color: #f0f0f0;
             }
-            .active{
-
-            }
-
-
-
         </style>
-        <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
-
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
@@ -110,10 +98,6 @@
                 <div class="bg-img"></div>
                 <div class="middle-content">
                     <div class="f-title">Các Điều Kiện Sử Dụng</div>
-                    <!--                    <p class="f-quote">
-                                            “Đến với F-Care, chúng tôi cung cấp cho bạn dịch vụ bảo hiểm xe máy với chi phí và chính sách tốt nhất.<br />
-                                            Đồng hành cùng bạn mỗi bước đường. Bảo hiểm xe máy cho mọi hành trình!”
-                                        </p>-->
                 </div>
             </div>
             <div class="container">
@@ -342,7 +326,7 @@
 
 
 
-        <jsp:include page="footer.jsp"></jsp:include>
+        <jsp:include page="footer.jsp"/>
         <!-- MDB -->
         <!--<script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
 

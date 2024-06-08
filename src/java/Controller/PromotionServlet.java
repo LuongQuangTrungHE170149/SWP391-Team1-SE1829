@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controller;
 
-import Model.User;
+import Model.Promotion;
 import dal.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,44 +13,41 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author thuhu
  */
-public class StaffManagerServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class PromotionServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StaffManagerServlet</title>");
+            out.println("<title>Servlet PromotionServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet StaffManagerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PromotionServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,31 +55,18 @@ public class StaffManagerServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        final String loginFirst = "Bạn cần phải đăng nhập trước!";
-        final String error = "Bạn không có quyền truy cập trang web này!";
-        HttpSession session = request.getSession();
-        User u = (User) session.getAttribute("user");
+    throws ServletException, IOException {
+        PromotionDAO pdb = new PromotionDAO();
+        List<Promotion> listAll = pdb.getAll();
+        Promotion promotionHeader = pdb.getPromotionByIsHeader(true);
+        
+        request.setAttribute("listAll", listAll);
+        request.setAttribute("promotionHeader", promotionHeader);
+        request.getRequestDispatcher("promotion.jsp").forward(request, response);
+    } 
 
-        //check
-        if (u == null) {
-            request.setAttribute("loginFirst", loginFirst);
-            request.getRequestDispatcher("error").forward(request, response);
-        } //neu da dang nhap => check role
-        else {
-            if (u.getRole().equalsIgnoreCase("user") || u.getRole().equalsIgnoreCase("manager")) {
-                request.setAttribute("error", error);
-                request.getRequestDispatcher("error").forward(request, response);
-            } //manager true =>>
-            else {
-                request.getRequestDispatcher("staffManager.jsp").forward(request, response);
-            }
-        }
-    }
-
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -89,13 +74,12 @@ public class StaffManagerServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

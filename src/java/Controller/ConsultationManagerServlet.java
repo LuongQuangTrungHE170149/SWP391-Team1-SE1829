@@ -4,9 +4,9 @@
  */
 package Controller;
 
-import Model.Promotion;
+import Model.Consultation;
 import Model.User;
-import dal.PromotionDAO;
+import dal.ConsultationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,13 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  *
- * @author thuhu
+ * @author Kha21
  */
-public class PromotionManagementServlet extends HttpServlet {
+public class ConsultationManagerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +40,10 @@ public class PromotionManagementServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PromotionManagementServlet</title>");
+            out.println("<title>Servlet ConsultationManagerServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PromotionManagementServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConsultationManagerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,51 +77,39 @@ public class PromotionManagementServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } //staff, manager true =>>
             else {
-                PromotionDAO pdb = new PromotionDAO();
-                List<Promotion> listAll;
+                ConsultationDAO cdb = new ConsultationDAO();
+                List<Consultation> listAll;
 
-                List<Object[]> listStaffAddPromotion = pdb.listStaffAddPromotion();
-
-                //un/setHeader
-                String unset = request.getParameter("unset");
-                if (unset != null) {
-                    pdb.setIsHeaderToFalse();
-                }
-                String setHeaderAtIdParam = request.getParameter("setHeaderAtId");
-                if (setHeaderAtIdParam != null) {
-                    int setHeaderAtId = Integer.parseInt(setHeaderAtIdParam);
-                    pdb.setIsHeaderToFalse();
-                    pdb.setIsHeaderToTrueById(Boolean.TRUE, setHeaderAtId);
-                }
-
-                //search
-                String searchValue = request.getParameter("searchValue");
-                if (searchValue != null && !searchValue.isEmpty()) {
-                    listAll = pdb.SearchByTitleOrDescriptionOrContent(searchValue);
-                    int totalSearchResult = listAll.size();
-                    request.setAttribute("totalSearchResult", totalSearchResult);
-                } else {
-                    listAll = pdb.getAll();
-                }
-
-                String selectedStaffParam = request.getParameter("selectedStaff");
-                System.out.println(selectedStaffParam);
-                if (selectedStaffParam != null) {
-                    int selectedStaff = Integer.parseInt(selectedStaffParam);
-                    if (selectedStaff == 0) {
-                        request.setAttribute("selectedStaff", 0);
-                        listAll = pdb.getAll();
-                    } else {
-                        request.setAttribute("selectedStaff", selectedStaff);
-                        listAll = pdb.listPromotionAddByStaff(selectedStaff);
-
+                HashMap<String, Integer> totalStaffAnswer = cdb.getTotalStaffAnswer();
+                String status = request.getParameter("status");
+                if (status != null) {
+                    switch (status) {
+                        case "notReply":
+                            listAll = cdb.getConsultationByStatus(0);
+                            break;
+                        case "reply":
+                            listAll = cdb.getConsultationByStatus(1);
+                            break;
+                        default:
+                            listAll = cdb.getAll();
+                            break;
                     }
-
                 } else {
-                    request.setAttribute("selectedStaff", 0);
+                    listAll = cdb.getAll();
                 }
-//                 
-                //for pagination
+
+                String searchValue = request.getParameter("searchValue");
+                if (searchValue != null) {
+                    listAll = cdb.getConsultationByNameOrEmail(searchValue);
+                    int totalSearchResult = cdb.getConsultationByNameOrEmail(searchValue).size();
+                    request.setAttribute("totalSearchResult", totalSearchResult);
+                    request.setAttribute("searchValue", searchValue);
+                }
+
+                int countAll = cdb.CountConsultationByStatus("all");
+                int countNotReply = cdb.CountConsultationByStatus("0");
+                int countReply = cdb.CountConsultationByStatus("1");
+
                 int page = 1;
                 int recordPerPage = 20;
                 if (request.getParameter("page") != null) {
@@ -129,17 +118,21 @@ public class PromotionManagementServlet extends HttpServlet {
                 int start = (page - 1) * recordPerPage;
                 int end = Math.min(start + recordPerPage, listAll.size());
 
-                List<Promotion> listForPage = listAll.subList(start, end);
+                List<Consultation> listForPage = listAll.subList(start, end);
                 int numberOfPages = (int) Math.ceil(listAll.size() * 1.0 / recordPerPage);
-                request.setAttribute("totalPromotion", listAll.size());
+
+                request.setAttribute("status", status);
+                request.setAttribute("totalStaffAnswer", totalStaffAnswer);
+                request.setAttribute("countAll", countAll);
+                request.setAttribute("countNotReply", countNotReply);
+                request.setAttribute("countReply", countReply);
                 request.setAttribute("listAll", listForPage);
                 request.setAttribute("numberOfPages", numberOfPages);
                 request.setAttribute("currentPage", page);
-                request.setAttribute("searchValue", searchValue);
-                request.setAttribute("listStaffAddPromotion", listStaffAddPromotion);
-                request.getRequestDispatcher("PromotionManagement.jsp").forward(request, response);
+                request.getRequestDispatcher("consultationManager.jsp").forward(request, response);
             }
         }
+
     }
 
     /**

@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
         User u = (User) session.getAttribute("user");
         if (u != null) {
             if (u.getRole().equalsIgnoreCase("staff")) {
-                resp.sendRedirect("StaffManager");
+                resp.sendRedirect("staffManager");
             } else if (u.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
             } else if (u.getRole().equalsIgnoreCase("manager")) {
@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
                 resp.sendRedirect("home");
             } else if (user.getRole().equalsIgnoreCase("staff")) {
                 session.setAttribute("user", user);
-                resp.sendRedirect("StaffManager");
+                resp.sendRedirect("staffManager");
             } else if (user.getRole().equalsIgnoreCase("manager")) {
                 session.setAttribute("user", user);
                 resp.sendRedirect("homeManager");

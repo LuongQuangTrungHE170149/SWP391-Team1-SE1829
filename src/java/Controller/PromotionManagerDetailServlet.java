@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author thuhu
  */
-public class PromotionDetailServlet extends HttpServlet {
+public class PromotionManagerDetailServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +37,10 @@ public class PromotionDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PromotionDetailServlet</title>");  
+            out.println("<title>Servlet PromotionManagerDetailServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PromotionDetailServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet PromotionManagerDetailServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

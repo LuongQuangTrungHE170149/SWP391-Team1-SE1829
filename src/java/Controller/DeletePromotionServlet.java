@@ -63,9 +63,9 @@ public class DeletePromotionServlet extends HttpServlet {
         PromotionDAO pdb = new PromotionDAO();
         pdb.deletePromotionById(id);
         if(searchValue.isEmpty()){
-            if(page == 1) response.sendRedirect("PromotionManagement?selectedStaff="+selectedStaff);
-            else response.sendRedirect("PromotionManagement?selectedStaff="+selectedStaff+"&page="+page);
-        }else response.sendRedirect("PromotionManagement?page="+page+"&searchValue="+searchValue);
+            if(page == 1) response.sendRedirect("promotionManager?selectedStaff="+selectedStaff);
+            else response.sendRedirect("promotionManager?selectedStaff="+selectedStaff+"&page="+page);
+        }else response.sendRedirect("promotionManagee?page="+page+"&searchValue="+searchValue);
 
     } 
 

@@ -66,12 +66,12 @@
             
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="StaffManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
+                    <a href="staffManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
                         <i class="fa-solid fa-house me-2"></i>Home 
                     </a>
                 </li>
                 <li class="nav-item btn-group">
-                    <a href="ConsultationManagement" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
+                    <a href="consultationManager" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
                         <i class="fa-solid fa-message me-2"></i> 
                         Consultation
                         <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
@@ -84,12 +84,12 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a href="ConsultationManagement#listConsultation" class="dropdown-item">1. List consultation</a></li>
-                        <li><a href="ConsultationManagement#chart" class="dropdown-item">2. Total staff answer</a></li>
+                        <li><a href="consultationManager#listConsultation" class="dropdown-item">1. List consultation</a></li>
+                        <li><a href="consultationManager#chart" class="dropdown-item">2. Total staff answer</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="PromotionManagement" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
+                    <a href="promotionManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
                         <i class="fa-solid fa-gift me-2"></i> Promotion <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
                     </a>
                 </li>
@@ -199,13 +199,13 @@
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
     <script>
         var currentLocation = window.location.href;
-        if (currentLocation.includes("StaffManager")) {
+        if (currentLocation.includes("staffManager")) {
             document.getElementById("btnHome").classList.add("activeDash");
-        } else if (currentLocation.includes("ConsultationManagement")) {
+        } else if (currentLocation.includes("consultationManager")) {
             document.getElementById("btnConsultation").classList.add("activeDash");
-        } else if (currentLocation.includes("PromotionManagement")) {
+        } else if (currentLocation.includes("promotionManager")) {
             document.getElementById("btnPromotion").classList.add("activeDash");
-        } else if (currentLocation.includes("ContractManagement")) {
+        } else if (currentLocation.includes("contractManager")) {
             document.getElementById("btnContract").classList.add("activeDash");
         }
 

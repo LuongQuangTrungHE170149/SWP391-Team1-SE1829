@@ -65,45 +65,46 @@
 
 
                             <c:forEach var="cusomter" items="${requestScope.listCustomer}"  >
+
                                 <tr>
                                     <td>${cusomter.getFullName()}</td>
                                     <td>
-                            <fmt:parseDate value="${cusomter.getDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
-                            <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
-                            ${formattedDate}</td>
-                            <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
-                            <td>${cusomter.email}</td>
-                            <td>${cusomter.phone}</td>
-                            <td>${cusomter.address}</td> 
-                            <td> <div class="button-customer-group">
-                                    <a href="customerDetail?customerId=${cusomter.id}">
-                                        <button class="button-customer view">Chi tiết</button>
-                                    </a>
-                                    <button class="button-customer edit">Sửa</button>
-                                </div>
-                            </td>
-                            </tr>
-                        </c:forEach>
-
-                        <c:if test="${listSearchCustomer != null}">
-                            <c:forEach var="cusomter" items="${requestScope.listSearchCustomer}"  >
-                                <tr>
-                                    <td>${cusomter.getFullName()}</td>
-                                    <td>${cusomter.getDate()}</td>
+                                        <fmt:parseDate value="${cusomter.getDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                        <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
+                                        ${formattedDate}</td>
                                     <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
                                     <td>${cusomter.email}</td>
                                     <td>${cusomter.phone}</td>
                                     <td>${cusomter.address}</td> 
-                                    <td> <div class="button-group">
+                                    <td> <div class="button-customer-group">
                                             <a href="customerDetail?customerId=${cusomter.id}">
                                                 <button class="button-customer view">Chi tiết</button>
                                             </a>
-                                            <button class="button-customer edit">Sửa</button>
+                                            <a href="customerEdit"> <button class="button-customer edit">Sửa</button></a>
                                         </div>
                                     </td>
                                 </tr>
                             </c:forEach>
-                        </c:if>
+
+                            <c:if test="${listSearchCustomer != null}">
+                                <c:forEach var="cusomter" items="${requestScope.listSearchCustomer}"  >
+                                    <tr>
+                                        <td>${cusomter.getFullName()}</td>
+                                        <td>${cusomter.getDate()}</td>
+                                        <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
+                                        <td>${cusomter.email}</td>
+                                        <td>${cusomter.phone}</td>
+                                        <td>${cusomter.address}</td> 
+                                        <td> <div class="button-group">
+                                                <a href="customerDetail?customerId=${cusomter.id}">
+                                                    <button class="button-customer view">Chi tiết</button>
+                                                </a>
+                                                <a href="customerEdit"> <button class="button-customer edit">Sửa</button></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
 
 
                         </tbody>
@@ -117,8 +118,6 @@
 
 
         </div>
-
-
         <script>
 
         </script>
