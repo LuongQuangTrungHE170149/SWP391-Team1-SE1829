@@ -21,10 +21,6 @@
         <servlet-class>Controller.AgencyDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>addConsultationServlet</servlet-name>
-        <servlet-class>Controller.addConsultationServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>EditAgencyServlet</servlet-name>
         <servlet-class>Controller.EditAgencyServlet</servlet-class>
     </servlet>
@@ -37,28 +33,12 @@
         <servlet-class>Controller.ViewServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReplyConsultationServlet</servlet-name>
-        <servlet-class>Controller.ReplyConsultationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteConsultationServlet</servlet-name>
-        <servlet-class>Controller.DeleteConsultationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DetailConsultationServlet</servlet-name>
-        <servlet-class>Controller.DetailConsultationServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>HomeManager</servlet-name>
         <servlet-class>Controller.HomeManagerServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FilterAgencyServlet</servlet-name>
         <servlet-class>Controller.FilterAgencyServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ConsultationManagerServlet</servlet-name>
-        <servlet-class>Controller.ConsultationManagerServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerListServlet</servlet-name>
@@ -73,26 +53,6 @@
         <servlet-class>Controller.ErrorServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PromotionManagerServlet</servlet-name>
-        <servlet-class>Controller.PromotionManagerServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>StaffManagerServlet</servlet-name>
-        <servlet-class>Controller.StaffManagerServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddPromotionServlet</servlet-name>
-        <servlet-class>Controller.AddPromotion</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PromotionDetailServlet</servlet-name>
-        <servlet-class>Controller.PromotionManagerDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeletePromotionServlet</servlet-name>
-        <servlet-class>Controller.DeletePromotionServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CustomerDetailServlet</servlet-name>
         <servlet-class>Controller.CustomerDetailServlet</servlet-class>
     </servlet>
@@ -101,8 +61,44 @@
         <servlet-class>Controller.UpdatePromotionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>StaffManagerServlet</servlet-name>
+        <servlet-class>Controller.StaffManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReplyConsultationServlet</servlet-name>
+        <servlet-class>Controller.ReplyConsultationServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PromotionServlet</servlet-name>
         <servlet-class>Controller.PromotionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionManagerServlet</servlet-name>
+        <servlet-class>Controller.PromotionManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionManagerDetailServlet</servlet-name>
+        <servlet-class>Controller.PromotionManagerDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePromotionServlet</servlet-name>
+        <servlet-class>Controller.DeletePromotionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteConsultationServlet</servlet-name>
+        <servlet-class>Controller.DeleteConsultationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultationManagerServlet</servlet-name>
+        <servlet-class>Controller.ConsultationManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPromotionServlet</servlet-name>
+        <servlet-class>Controller.AddPromotionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddConsultationServlet</servlet-name>
+        <servlet-class>Controller.AddConsultationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
@@ -125,10 +121,6 @@
         <url-pattern>/agencyDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>addConsultationServlet</servlet-name>
-        <url-pattern>/addConsultation</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditAgencyServlet</servlet-name>
         <url-pattern>/editAgency</url-pattern>
     </servlet-mapping>
@@ -139,18 +131,6 @@
     <servlet-mapping>
         <servlet-name>ViewServlet</servlet-name>
         <url-pattern>/view</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReplyConsultationServlet</servlet-name>
-        <url-pattern>/ReplyConsultation</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteConsultationServlet</servlet-name>
-        <url-pattern>/deleteConsultation</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DetailConsultationServlet</servlet-name>
-        <url-pattern>/DetailConsultation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeManager</servlet-name>
@@ -165,10 +145,6 @@
         <url-pattern>/customerList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ConsultationManagerServlet</servlet-name>
-        <url-pattern>/ConsultationManager</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
@@ -177,36 +153,52 @@
         <url-pattern>/error</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PromotionManagerServlet</servlet-name>
-        <url-pattern>/PromotionManager</url-pattern>
+        <servlet-name>CustomerDetailServlet</servlet-name>
+        <url-pattern>/customerDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePromotionServlet</servlet-name>
+        <url-pattern>/updatePromotion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffManagerServlet</servlet-name>
-        <url-pattern>/StaffManager</url-pattern>
+        <url-pattern>/staffManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReplyConsultationServlet</servlet-name>
+        <url-pattern>/replyConsultation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionServlet</servlet-name>
+        <url-pattern>/promotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionManagerServlet</servlet-name>
+        <url-pattern>/promotionManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionManagerDetailServlet</servlet-name>
+        <url-pattern>/promotionManagerDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePromotionServlet</servlet-name>
+        <url-pattern>/deletePromotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteConsultationServlet</servlet-name>
+        <url-pattern>/deleteConsultation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultationManagerServlet</servlet-name>
+        <url-pattern>/consultationManager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddPromotionServlet</servlet-name>
         <url-pattern>/addPromotion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PromotionManagerDetailServlet</servlet-name>
-        <url-pattern>/PromotionManagerDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeletePromotionServlet</servlet-name>
-        <url-pattern>/DeletePromotion</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CustomerDetailServlet</servlet-name>
-        <url-pattern>/customerDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdatePromotionServlet</servlet-name>
-        <url-pattern>/UpdatePromotion</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PromotionServlet</servlet-name>
-        <url-pattern>/promotion</url-pattern>
+        <servlet-name>AddConsultationServlet</servlet-name>
+        <url-pattern>/addConsultation</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

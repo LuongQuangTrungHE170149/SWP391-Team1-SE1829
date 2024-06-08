@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Kha21
  */
-public class ConsultationManagementServlet extends HttpServlet {
+public class ConsultationManagerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class ConsultationManagementServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConsultationManagementServlet</title>");
+            out.println("<title>Servlet ConsultationManagerServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConsultationManagementServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConsultationManagerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -129,7 +129,7 @@ public class ConsultationManagementServlet extends HttpServlet {
                 request.setAttribute("listAll", listForPage);
                 request.setAttribute("numberOfPages", numberOfPages);
                 request.setAttribute("currentPage", page);
-                request.getRequestDispatcher("ConsultationManagement.jsp").forward(request, response);
+                request.getRequestDispatcher("consultationManager.jsp").forward(request, response);
             }
         }
 

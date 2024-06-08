@@ -74,7 +74,7 @@ public class StaffManagerServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } //manager true =>>
             else {
-                request.getRequestDispatcher("StaffManager.jsp").forward(request, response);
+                request.getRequestDispatcher("staffManager.jsp").forward(request, response);
             }
         }
     }

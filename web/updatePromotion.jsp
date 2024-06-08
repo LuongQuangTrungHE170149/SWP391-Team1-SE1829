@@ -38,7 +38,7 @@
                 <input type="hidden" name="id" value="${c.id}">
 
                 <div class="p-4 flex-grow-1" style="background-color: #fff;">
-                    <form action="UpdatePromotion" method="POST" id="updatePromotionForm" enctype="multipart/form-data"> 
+                    <form action="updatePromotion" method="POST" id="updatePromotionForm" enctype="multipart/form-data"> 
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
                                 <div class="fw-bold">
@@ -155,14 +155,14 @@
                             console.log(pair[0] + ': ' + pair[1]);
                         }
                         $.ajax({
-                            url: 'UpdatePromotion',
+                            url: 'updatePromotion',
                             type: 'POST',
                             data: formData,
                             processData: false,
                             contentType: false,
                             success: function (response) {
                                 alert('Updated successfully!');
-                                window.location.href = 'PromotionManagement';
+                                window.location.href = 'promotionManager';
                             },
                             error: function (err) {
                                 console.log(err);

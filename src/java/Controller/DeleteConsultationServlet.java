@@ -62,7 +62,7 @@ public class DeleteConsultationServlet extends HttpServlet {
         ConsultationDAO cdb = new ConsultationDAO();
         cdb.deleteConsultationById(id);
         System.out.println(page);
-        response.sendRedirect("ConsultationManagement?status="+status+"&page="+page);
+        response.sendRedirect("consultationManager?status="+status+"&page="+page);
     } 
 
     /** 
