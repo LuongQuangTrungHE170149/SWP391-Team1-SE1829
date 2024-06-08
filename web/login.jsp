@@ -45,7 +45,6 @@
                                 <div class="row g-0">
                                     <div class="col-lg-6">
                                         <div class="card-body p-md-5 mx-md-4">
-
                                             <div class="text-center">
                                                 <img src="images/icon motor color 419fa3.png" alt="f-care" style="width: 80px;"/>
                                                 <h4 class="mt-4 mb-3 pb-1" style="color:#419FA3;">Chúng tôi là Bảo Hiểm F-Care</h4>
