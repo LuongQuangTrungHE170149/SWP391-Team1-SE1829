@@ -42,8 +42,8 @@
 
                 </div>
                 <div class="container" style="width: 80%; height: 100%;">
-                    <div class="row mt-5" style="align-content: center;">
-
+                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Back</button>
+                    <div class="row mt-4" style="align-content: center;">
                         <div class="col-lg-3 mb-3">
                             <div class="card shadow-4">
                                 <div class="card-body text-center">
@@ -79,15 +79,15 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"></fmt:formatDate></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Full Name</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0"> ${user.getFullName()}</p>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Full Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0"> ${user.getFullName()}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -128,8 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm" data-mdb-ripple-init onclick="goBack()">Back</button>
-                                    <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-init onclick="location.href='updateStaffProfile?staffId=${user.id}'"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-init onclick="location.href = 'updateStaffProfile?staffId=${user.id}'"><i class="fa-solid fa-pen-to-square"></i></button>
                                 </div>
                             </div>
 

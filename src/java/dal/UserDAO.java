@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.ResultSet;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -211,6 +212,30 @@ public class UserDAO extends DBContext {
 
             return true;
         } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean updateStaffProfileById(int id, int gender, String email, String phone, Date dob, String address) {
+        String sql = "UPDATE [dbo].[Users]\n"
+                + "   SET [gender] = ?\n"
+                + "      ,[email] = ?\n"
+                + "      ,[phoneNumber] = ?\n"
+                + "      ,[dob] = ?\n"
+                + "      ,[address] = ?\n"
+                + " WHERE id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, gender);
+            st.setString(2, email);
+            st.setString(3, phone);
+            st.setDate(4, dob);
+            st.setString(5, address);
+            st.setInt(6, id);
+            st.executeUpdate();
+            return true;
+        }catch(SQLException e){
             System.out.println(e);
         }
         return false;
