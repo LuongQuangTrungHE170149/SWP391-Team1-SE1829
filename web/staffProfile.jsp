@@ -78,16 +78,25 @@
                                             <p class="mb-0">Date Created</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"></fmt:formatDate></p>
-                                            </div>
+                                            <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"/></p>
                                         </div>
-                                        <hr>
-                                        <div class="row mb-3">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Full Name</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0"> ${user.getFullName()}</p>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Full Name</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0"> ${user.getFullName()}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Gender</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0"> ${user.gender == 1?'Male':'Female'}</p>
                                         </div>
                                     </div>
                                     <hr>

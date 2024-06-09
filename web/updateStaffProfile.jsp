@@ -61,7 +61,7 @@
 
                                 </div>
                             </div>
-                            <form action="updateStaffProfile" method="post" id="changePassword">
+                            <form action="changePasswordStaff" method="post" id="changePassword">
                                 <input type="hidden" name="staffId" value="${user.id}"/>
                                 <div class="card shadow-4">
                                     <div class="card-header">
@@ -95,23 +95,25 @@
                         </div>
 
                         <div class="col-lg-9">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Username</p>
+                            <form action="updateStaffProfile" method="post">
+                                <input type="hidden" name="staffId" value="${user.id}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Username</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0"> ${user.username}</p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0"> ${user.username}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Date Created</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"></fmt:formatDate></p>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Date Created</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"/></p>
                                             </div>
                                         </div>
                                         <hr>
@@ -121,49 +123,71 @@
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0"> ${user.getFullName()}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Gender</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1" ${user.gender == 1 ?'checked':''}/>
+                                                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="0" ${user.gender == 0 ?'checked':''}/>
+                                                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Date of Birth</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="date" name="dob" value="${user.dob}" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Email</p>   
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="email" value="${user.email}" class="form-control" required>
+                                                <p class="text-danger m-0">${invalidEmail}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Phone</p>
+                                                
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="phone" value="${user.phone}" class="form-control" required>
+                                                <p class="text-danger m-0">${invalidPhone}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Address</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="address" value="${user.address}" class="form-control" required>
+                                            </div>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Date of Birth</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="date" id="dob" value="${user.dob}" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Email</p>   
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="phone" value="${user.email}" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Phone</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="phone" value="${user.phone}" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Address</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="address" value="${user.address}" class="form-control" required>
-                                        </div>
+                                    <div class="card-footer">
+                                        <p class="text-success m-0 float-start">${updateMessage}</p>
+                                        <button type="submit" class="btn btn-primary btn-sm float-end " data-mdb-ripple-init>Update</button>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <button type="button" class="btn btn-primary btn-sm float-end " data-mdb-ripple-init onclick="location.href = 'updateStaffProfile?staffId=${user.id}'">Update</button>
-                                </div>
-                            </div>
+                            </form>
 
                         </div>
                     </div>
@@ -176,9 +200,9 @@
         <!-- MDB -->
         <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
-                                        function goBack() {
-                                            window.history.back();
-                                        }
+                                            function goBack() {
+                                                window.history.back();
+                                            }
         </script>
     </body>
 </html>

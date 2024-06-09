@@ -200,6 +200,41 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    public boolean checkPhoneExistById(String phone) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where phoneNumber = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, phone);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean checkEmailExistById(String email) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public boolean changePasswordById(int id, String password) {
         String sql = "UPDATE [dbo].[Users]\n"
                 + "   SET [password] = ?\n"
@@ -225,7 +260,7 @@ public class UserDAO extends DBContext {
                 + "      ,[dob] = ?\n"
                 + "      ,[address] = ?\n"
                 + " WHERE id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, gender);
             st.setString(2, email);
@@ -235,7 +270,7 @@ public class UserDAO extends DBContext {
             st.setInt(6, id);
             st.executeUpdate();
             return true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return false;
@@ -434,7 +469,7 @@ public class UserDAO extends DBContext {
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());
-        System.out.println(udb.changePasswordById(1, "1234"));
+        System.out.println(udb.checkPhoneExistById("0327983593"));
 
     }
 }
