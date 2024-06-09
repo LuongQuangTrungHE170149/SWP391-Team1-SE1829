@@ -104,7 +104,6 @@ public class PromotionManagerServlet extends HttpServlet {
                 }
 
                 String selectedStaffParam = request.getParameter("selectedStaff");
-                System.out.println(selectedStaffParam);
                 if (selectedStaffParam != null) {
                     int selectedStaff = Integer.parseInt(selectedStaffParam);
                     if (selectedStaff == 0) {

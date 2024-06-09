@@ -35,14 +35,14 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setRole(rs.getString("role"));
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDate(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 list.add(user);
 
@@ -66,14 +66,14 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setRole(rs.getString("role"));
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDate(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 list.add(user);
 
@@ -97,7 +97,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setPassword(rs.getString("password"));
@@ -105,7 +105,7 @@ public class UserDAO extends DBContext {
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDate(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 list.add(user);
 
@@ -127,7 +127,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setPassword(rs.getString("password"));
@@ -135,7 +135,7 @@ public class UserDAO extends DBContext {
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDate(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 list.add(user);
 
@@ -156,9 +156,7 @@ public class UserDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 count = rs.getInt("EmployeeCount");
-
             }
-
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -174,7 +172,6 @@ public class UserDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 count = rs.getInt("StaffCount");
-
             }
 
         } catch (SQLException e) {
@@ -182,6 +179,41 @@ public class UserDAO extends DBContext {
         }
 
         return count;
+    }
+
+    public boolean checkPasswordById(int id, String password) {
+        String sql = "SELECT [password]\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where id = ? and password = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.setString(2, password);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean changePasswordById(int id, String password) {
+        String sql = "UPDATE [dbo].[Users]\n"
+                + "   SET [password] = ?\n"
+                + " WHERE id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.setInt(2, id);
+            st.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
     public List<User> searchCustomerByName(String key) {
@@ -195,7 +227,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setPassword(rs.getString("password"));
@@ -203,7 +235,7 @@ public class UserDAO extends DBContext {
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDate(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 list.add(user);
 
@@ -230,7 +262,7 @@ public class UserDAO extends DBContext {
             ps.setString(posParam++, modal.getRole());
             ps.setString(posParam++, modal.getEmail());
             ps.setString(posParam++, modal.getPhone());
-            ps.setDate(posParam++, modal.getDate());
+            ps.setDate(posParam++, modal.getDob());
             ps.setString(posParam++, modal.getAddress());
             ps.setInt(posParam++, modal.getGender());
             ps.executeUpdate();
@@ -254,6 +286,7 @@ public class UserDAO extends DBContext {
                 + "      ,[phoneNumber]\n"
                 + "      ,[dob]\n"
                 + "      ,[address]\n"
+                + "      ,[dateCreated]\n"
                 + "  FROM [dbo].[Users] where id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -262,16 +295,17 @@ public class UserDAO extends DBContext {
             if (rs.next()) {
                 User u = new User();
                 u.setId(id);
-                u.setUserName(rs.getString("username"));
+                u.setUsername(rs.getString("username"));
                 u.setPassword(rs.getString("password"));
                 u.setFirstName(rs.getString("firstName"));
                 u.setLastName(rs.getString("lastName"));
                 u.setRole(rs.getString("role"));
                 u.setGender(rs.getInt("gender"));
-                u.setDate(rs.getDate("dob"));
+                u.setDob(rs.getDate("dob"));
                 u.setPhone(rs.getString("phoneNumber"));
                 u.setEmail(rs.getString("email"));
                 u.setAddress(rs.getString("address"));
+                u.setDateCreated(rs.getDate("dateCreated"));
 
                 return u;
             }
@@ -292,14 +326,14 @@ public class UserDAO extends DBContext {
             if (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setRole(rs.getString("role"));
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDate(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 user.setPassword(rs.getString("password"));
                 return user;
@@ -340,9 +374,8 @@ public class UserDAO extends DBContext {
 
         return hash;
     }
-    
-    
-        public List<User> sortCusomterById() {
+
+    public List<User> sortCusomterById() {
         List<User> list = new ArrayList<>();
         String sql = " select * from Users where [role] = 'Customer' order by id desc";
 
@@ -352,7 +385,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setPassword(rs.getString("password"));
@@ -360,7 +393,7 @@ public class UserDAO extends DBContext {
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDate(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 list.add(user);
 
@@ -373,9 +406,34 @@ public class UserDAO extends DBContext {
         return list;
     }
 
+    public boolean updateUserById(User customer) {
+        String sql = "Update Users set firstName = ?, lastName = ?, address = ?, dob =? , status = ?, phoneNumber = ?, gender =? , email = ? where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, customer.getFirstName());
+            ps.setString(2, customer.getLastName());
+            ps.setString(3, customer.getAddress());
+            ps.setDate(4, customer.getDob());
+            ps.setString(5, customer.getStatus());
+            ps.setString(6, customer.getPhone());
+            ps.setInt(7, customer.getGender());
+            ps.setString(8, customer.getEmail());
+            ps.setInt(9, customer.getId());
+            
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return false;
+    }
+
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());
+        System.out.println(udb.changePasswordById(1, "1234"));
 
     }
 }

@@ -106,20 +106,20 @@
                         </div>
                         <div class="featured-news-item d-flex shadow-4-strong ps-0" style="height: 420px;">
                             <div class="featured-news-img ps-0" style="height: 100%; width: auto;">
-                                <img class="h-100" src="${p.image}" alt="alt"/>
+                                <a href="promotionDetail?id=${p.id}" ><img class="h-100" src="${p.image}" alt="alt"/></a>
                             </div>
                             <div class="flex-grow-1" style="height: 100%; padding: 45px 36px;">
                                 <div class="featured-news-title ">
-                                    <a class="fs-5 fw-bold text-4f4f4f" href="promotionDetail?id=${p.id}">${p.title}</a> 
+                                    <a class="fs-5 fw-bold text-4f4f4f" href="promotionDetail?id=${p.id}" >${p.title}</a> 
                                 </div>
                                 <div class="note note-warning mb-2">                     
-                                    <span class="me-3"><strong>Bắt đầu</strong>: <fmt:formatDate value="${p.timeStart}" pattern="dd/MM/yyyy"/></span> <span><strong>Kết thúc</strong>: <fmt:formatDate value="${p.timeEnd}" pattern="dd/MM/yyyy"/> </span>
+                                    <span class="me-2"><strong>Bắt đầu</strong>: <fmt:formatDate value="${p.timeStart}" pattern="dd/MM/yyyy"/></span><span class="me-1 fs-3 fw-light">|</span> <span><strong>Kết thúc</strong>: <fmt:formatDate value="${p.timeEnd}" pattern="dd/MM/yyyy"/> </span>
                                 </div>
                                 <div class="mb-4">
                                     ${p.description}
                                 </div>
                                 <div>
-                                    <a href="promotionDetail?id=${p.id}" class="text-4f4f4f badge badge-info rounded-pill">Xem chi tiết</a>
+                                    <a href="promotionDetail?id=${p.id}"  class="text-4f4f4f badge badge-info rounded-pill">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
 
                 <!--heading-->
                 <div class="heading">
-                    <h2>Khuyến Mãi</h2>
+                    <h2>Danh sách thông tin khuyến mại</h2>
                 </div>
                 <!--end heading-->
 
@@ -139,7 +139,7 @@
                             <c:forEach items="${listAll}" var="a">
                                 <div class="col promotion-item" style="display:none;">
                                     <div class="card h-100 hover-shadow" style="background-color: #eee;">
-                                        <a href="promotionDetail?id=${a.id}"><img class="object-fit-cover card-img-top" style="height: 300px; width: 100%;" src="${a.image}" alt="promotion image"/></a>
+                                        <a href="promotionDetail?id=${a.id}" ><img class="object-fit-cover card-img-top" style="height: 300px; width: 100%;" src="${a.image}" alt="promotion image"/></a>
                                         <div class="card-body" >
                                             <a href="promotionDetail?id=${a.id}" class="text-4f4f4f"><h5 class="card-title">${a.title}</h5></a>
                                             <p class="card-text">${a.description}</p>
@@ -188,7 +188,7 @@
                     document.getElementById('backToTopBtn').style.display = 'block';
                 }
             }
-            
+
             function scrollToTop() {
                 window.scrollTo({top: 0, behavior: 'smooth'});
             }

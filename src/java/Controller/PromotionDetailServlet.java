@@ -17,9 +17,9 @@ import java.util.List;
 
 /**
  *
- * @author Kha21
+ * @author thuhu
  */
-public class HomePageServlet extends HttpServlet {
+public class PromotionDetailServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +36,10 @@ public class HomePageServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePageServlet</title>");  
+            out.println("<title>Servlet PromotionDetailServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomePageServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet PromotionDetailServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,11 +56,19 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        PromotionDAO pdb = new PromotionDAO();
-        List<Promotion> listTop3LatestPromotions = pdb.getTop3LatestPromotions();
-        
-        request.setAttribute("listTop3LatestPromotions", listTop3LatestPromotions);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        try{
+            int id = Integer.parseInt(request.getParameter("id"));
+            PromotionDAO pdb = new PromotionDAO();
+            Promotion p = pdb.getPromotionById(id);
+            List<Promotion> listTop3LatestPromotions = pdb.getTop3LatestPromotions();
+            
+            request.setAttribute("listTop3LatestPromotions", listTop3LatestPromotions);
+            request.setAttribute("p", p);
+            request.getRequestDispatcher("promotionDetail.jsp").forward(request, response);
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
     } 
 
     /** 
@@ -73,7 +81,7 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /** 

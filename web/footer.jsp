@@ -131,6 +131,9 @@
                 <a href="view?id=2">Bảo mật & Quyền riêng tư</a>
             </div>
             <div class="footer-item">
+                <a href="promotion">Khuyến Mại</a>
+            </div>
+            <div class="footer-item">
                 <a href="#">Tin tức</a>
             </div> 
         </div>

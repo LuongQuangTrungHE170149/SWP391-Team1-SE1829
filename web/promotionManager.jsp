@@ -7,9 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Iterator" %>
 
 <!DOCTYPE html>
 <html>
@@ -47,12 +44,6 @@
             padding: 3px 10px;
             font-size: 10px!important;
         }
-        .button_action-custom{
-            border-radius: 12px !important;
-            width: 70px !important;
-            padding: 8px 8px !important;
-            font-size: 10px !important;
-        }
     </style>
     <body>
         <!--main-->
@@ -71,7 +62,7 @@
 
 
                 <!--tab content-->
-                <div class="box p-4 m-0 " style="width: 100%;">
+                <div class="p-4 m-0" style="width: 100%;">
                     <div class="shadow-lg pt-4 pb-4"
                          style="background-color: #fff; border-radius: 12px;">
 
