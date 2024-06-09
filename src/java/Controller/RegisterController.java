@@ -42,8 +42,8 @@ public class RegisterController extends HttpServlet {
             dob = Date.valueOf(raw_dob);
         } catch (Exception e) {
             log(e.getMessage());
-            req.setAttribute("message", "Invalid gender or dob");
-            req.getRequestDispatcher("register.jsp").forward(req, resp);
+//            req.setAttribute("message", "Invalid gender or dob");
+//            req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
         User user = new User();
         user.setUserName(username);
@@ -59,10 +59,10 @@ public class RegisterController extends HttpServlet {
         String OTPCode = EmailHelper.generateOTP();
         String bodyEmailOTP = "Your veriftication code is: " + OTPCode;
         req.getSession().setAttribute("OTP", OTPCode);
-        req.getSession().setAttribute("user", "userRegister");
+        req.getSession().setAttribute("userRegister", user);
         EmailHelper.sendEmail(email, EmailHelper.TITLE_PROJECT, bodyEmailOTP);
-        //dbUser.insert(user);
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+//        dbUser.insert(user);
+        req.getRequestDispatcher("confirmOTP.jsp").forward(req, resp);
     }
     
 }

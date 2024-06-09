@@ -65,7 +65,7 @@
 
                                             <div class="text-center pt-1 mb-5 pb-1">
                                                 <button type="submit"  class="btn btn-primary btn-block fa-lg gradient-custom-1 mb-3">Đăng nhập</button>
-                                                <a href="#" class="text-muted">Quên mật khẩu?</a>
+                                                <a href="forgetPassword" class="text-muted">Quên mật khẩu?</a>
                                             </div>
 
                                             <div class="d-flex align-items-center justify-content-center pb-4">
