@@ -157,7 +157,7 @@
                                     <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
                                     <td>
 
-                                        <fmt:parseDate value="${staff.getDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                        <fmt:parseDate value="${staff.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
                                         <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
                                         ${formattedDate}
 

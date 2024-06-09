@@ -22,7 +22,6 @@
     </head>
     <body>
         <div id="editAgency-page">
-
             <c:if test="${sessionScope.updateFail != null}">
                 <div class="toast-container top-0 end-0 p-3">
                     <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">

@@ -1,7 +1,8 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
- 
+
+
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -15,9 +16,10 @@ Create table Users(
 			dob date,
 			[address] nvarchar(255),
 			dateCreated datetime default getDate(),
-			status nvarchar(255),
-
+			status nvarchar(255) default 'active',
 )
+
+
 GO
 
 
@@ -92,9 +94,6 @@ Create table Consultations(
 			staff int foreign key references Users(id),
 			status bit default 0
 )
-GO
-insert into Consultations(name, email, content)
-Values ('Nguyễn Duy Hùng', 'Kharrr2001@gmail.com', 'Tôi cần anh em hỗ trợ tôi')
 
 
 Create Table News(
@@ -115,10 +114,10 @@ VALUES
 ('john_doe', 'password123', 'John', 'Doe', 'customer', 1, 'john.doe@example.com', '1234567890', '1985-06-15', '123 Main St'),
 ('jane_smith', 'password123', 'Jane', 'Smith', 'staff', 0, 'jane.smith@example.com', '0987654321', '1990-07-20', '456 Elm St');
 
-INSERT INTO Agencies (AgencyName, AgencyAddress, HotLine, Worktime, [status])
+INSERT INTO Agencies (AgencyName, AgencyAddress, HotLine, Worktime)
 VALUES 
-('Central Agency', '789 Oak St', '1800123456', '9 AM - 6 PM', 'active'),
-('West Agency', '101 Pine St', '1800654321', '10 AM - 7 PM', 'active');
+('Central Agency', '789 Oak St', '1800123456', '9 AM - 6 PM'),
+('West Agency', '101 Pine St', '1800654321', '10 AM - 7 PM');
 
 INSERT INTO Vehicles (Model, LicensePlates, OwnerId)
 VALUES 
@@ -129,9 +128,8 @@ VALUES
 INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
 VALUES 
 (1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
-(3, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
+(2, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
 
-select * from Users
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 INSERT INTO Staff_Workplace ( AgencyId, StaffId, [status])
 VALUES ( 1, 2, 'active')

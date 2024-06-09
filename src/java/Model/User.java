@@ -149,9 +149,6 @@ public class User {
         this.status = status;
     }
 
-   
-
-   
 
     public String getFullName() {
         return firstName + " " + lastName;

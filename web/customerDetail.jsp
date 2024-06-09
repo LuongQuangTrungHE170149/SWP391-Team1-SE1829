@@ -78,7 +78,7 @@
 
 
                         <div class="customer-info--wrapper">   
-                            <a href="customerList" class="back-btn"> 
+                            <a href="customerList" class="back-btn-customer"> 
                                 <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
                                 Quay lại
                             </a>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="info-group">
                                 <span class="customer-label"><strong>Ngày sinh: </strong></span>
-                                <fmt:parseDate value="${customer.getDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                <fmt:parseDate value="${customer.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
                                 <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
                                 <span class="customer-info">${formattedDate}</span>
                             </div>
