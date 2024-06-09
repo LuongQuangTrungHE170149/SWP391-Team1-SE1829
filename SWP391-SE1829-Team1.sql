@@ -14,7 +14,8 @@ Create table Users(
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
 			[address] nvarchar(255),
-		
+			dateCreated datetime default getDate(),
+			status nvarchar(255),
 
 )
 GO

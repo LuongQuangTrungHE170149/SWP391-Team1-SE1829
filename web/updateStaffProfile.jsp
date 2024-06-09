@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Staff Profile</title>
+        <title>F-Care | Update Profile</title>
         <style>
             .navbar-custom {
                 background: rgb(0,167,209);
@@ -42,10 +42,12 @@
 
                 </div>
                 <div class="container" style="width: 80%; height: 100%;">
-                    <div class="row mt-5" style="align-content: center;">
+                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Back</button>
+
+                    <div class="row mt-4" style="align-content: center;">
 
                         <div class="col-lg-3 mb-3">
-                            <div class="card shadow-4">
+                            <div class="card shadow-4 mb-4">
                                 <div class="card-body text-center">
                                     <c:if test="${user.gender == 1}">
                                         <img class="image rounded-circle img-fluid"  src="images/male-avatar.png" width="200" height="200" alt="male image"/>
@@ -59,6 +61,37 @@
 
                                 </div>
                             </div>
+                            <form action="updateStaffProfile" method="post" id="changePassword">
+                                <input type="hidden" name="staffId" value="${user.id}"/>
+                                <div class="card shadow-4">
+                                    <div class="card-header">
+                                        <h4 class="m-0">Change Password</h4> 
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="text-danger m-0">${invalidPassword}</p>
+                                        <div class="form-outline mb-3" data-mdb-input-init>
+                                            <input type="password" name="password" value="${password}" id="password" class="form-control" required/>
+                                            <label class="form-label" for="paddword">Password</label>
+                                        </div>
+
+                                        <p class="text-danger m-0">${invalidNewPassword}</p>
+                                        <div class="form-outline mb-3" data-mdb-input-init>
+                                            <input type="password" name="newPassword"  id="newPassword" class="form-control" required/>
+                                            <label class="form-label" for="newPassword">New Password</label>
+                                        </div>
+
+                                        <p class="text-danger m-0">${invalidConfirmPassword}</p>
+                                        <div class="form-outline mb-3" data-mdb-input-init>
+                                            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" required/>
+                                            <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                        </div>
+
+                                        <p class="text-success m-0">${success}</p>
+                                        <button type="submit" class="btn btn-primary btn-sm float-end">Change</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
 
                         <div class="col-lg-9">
@@ -79,15 +112,15 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"></fmt:formatDate></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Full Name</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0"> ${user.getFullName()}</p>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Full Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0"> ${user.getFullName()}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -96,7 +129,7 @@
                                             <p class="mb-0">Date of Birth</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0"><fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy"/></p>
+                                            <input type="date" id="dob" value="${user.dob}" class="form-control" required>
                                         </div>
                                     </div>
                                     <hr>
@@ -105,7 +138,7 @@
                                             <p class="mb-0">Email</p>   
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">${user.email}</p> 
+                                            <input type="text" id="phone" value="${user.email}" class="form-control" required>
                                         </div>
                                     </div>
                                     <hr>
@@ -114,7 +147,7 @@
                                             <p class="mb-0">Phone</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">${user.phone}</p>
+                                            <input type="text" id="phone" value="${user.phone}" class="form-control" required>
                                         </div>
                                     </div>
                                     <hr>
@@ -123,13 +156,12 @@
                                             <p class="mb-0">Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">${user.address}</p>
+                                            <input type="text" id="address" value="${user.address}" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm" data-mdb-ripple-init onclick="goBack()">Back</button>
-                                    <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-init onclick="location.href='updateStaffProfile?staffId=${user.id}'"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm float-end " data-mdb-ripple-init onclick="location.href = 'updateStaffProfile?staffId=${user.id}'">Update</button>
                                 </div>
                             </div>
 

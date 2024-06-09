@@ -5,6 +5,8 @@
 
 package Controller;
 
+import Model.User;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -53,7 +55,17 @@ public class StaffProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try{
+            int id = Integer.parseInt(request.getParameter("staffId"));
+            UserDAO udb = new UserDAO();
+            User u = udb.getUserById(id);
+            
+            request.setAttribute("user", u);
+            
+            request.getRequestDispatcher("staffProfile.jsp").forward(request, response);
+        }catch(Exception e){
+            System.out.println(e);
+        }
     } 
 
     /** 

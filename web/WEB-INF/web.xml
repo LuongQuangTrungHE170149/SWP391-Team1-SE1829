@@ -101,7 +101,6 @@
         <servlet-class>Controller.AddConsultationServlet</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>PromotionDetailServlet</servlet-name>
         <servlet-class>Controller.PromotionDetailServlet</servlet-class>
     </servlet>
@@ -112,6 +111,10 @@
     <servlet>
         <servlet-name>CustomerEditServlet</servlet-name>
         <servlet-class>Controller.CustomerEditServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStaffProfileServlet</servlet-name>
+        <servlet-class>Controller.UpdateStaffProfileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
@@ -224,6 +227,10 @@
     <servlet-mapping>
         <servlet-name>CustomerEditServlet</servlet-name>
         <url-pattern>/customerEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStaffProfileServlet</servlet-name>
+        <url-pattern>/updateStaffProfile</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
-import com.oracle.wls.shaded.org.apache.bcel.generic.AALOAD;
 import dal.UserDAO;
 import jakarta.servlet.http.HttpSession;
 import java.util.Properties;
@@ -24,7 +23,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import org.json.JSONObject;
 
 /**
  *

@@ -116,7 +116,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li>
-                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Profile</a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
