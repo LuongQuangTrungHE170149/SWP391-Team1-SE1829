@@ -42,22 +42,6 @@
             </c:if>
 
 
-            <c:if test="${sessionScope.updateFail != null}">
-                <div id="toast-fail" class="toast-container top-0 end-0 p-3">
-                    <div class="toast align-items-center text-bg-danger border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body">
-                                ${sessionScope.updateFail}
-                            </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                    </div>
-                </div>
-                <c:remove var="updateFail" scope="session" />
-            </c:if>
-
-
-
             <div class="container list-agency--wrapper">
                 <h3 class="list-agency--header">Quản lí đại lý</h3>
                 <div class="container-action">
@@ -228,6 +212,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
         <script>
+           
             var childNav = document.querySelector('.nav-wrapper .sticky-top');
             if (childNav) {
                 childNav.classList.remove('sticky-top');

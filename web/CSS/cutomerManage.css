@@ -11,7 +11,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-top:100px;
 }
 
-#customerDetail-page {
+#customerDetail-page,
+#editCustomer-page {
     background-image: url(../images/side-view-man-with-motorbike.jpg);
     background-size: cover;
 
@@ -100,7 +101,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 }
 
-.back-btn {
+.back-btn-customer {
     display: block;
     margin-left: 20px;
     padding-top: 20px;

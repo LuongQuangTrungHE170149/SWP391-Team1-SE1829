@@ -40,6 +40,5 @@ public class NewsDAO {
         
         return total;
     }
-    
-    
+
 }

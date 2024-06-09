@@ -69,7 +69,6 @@
                                 <div style="margin: 20px;">
                                     <p><strong>Tổng doanh thu: </strong>
                                         <fmt:formatNumber value="${requestScope.totalPayment}" type="currency" currencySymbol="₫" groupingUsed="true"/>
-
                                     </p>
 
                                     <canvas id="earningsChart"></canvas>
@@ -98,7 +97,6 @@
                                         <th>Giới tính</th>
                                         <th>Địa chỉ</th>
                                         <th>Năm sinh</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -111,7 +109,7 @@
                                             <td>${staff.phone}</td>
                                             <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
                                             <td>${staff.address}</td>
-                                            <td>${staff.date}</td>
+                                            <td>${staff.getDob()}</td>
 
 
                                         </tr>
@@ -125,7 +123,7 @@
             </div>
         </div>
 
-        <script>
+        <script>           
             document.addEventListener("DOMContentLoaded", function () {
                 var labels = [];
                 var data = [];
@@ -140,10 +138,11 @@
                     var earning = parseFloat(earningElements[index].innerText.replace(/[^0-9.-]+/g, "")); // Loại bỏ ký tự không phải số
                     labels.push(month);
                     data.push(earning);
-                });
-
+                }); 
+                
+                console.log("haha");
                 var ctx = document.getElementById('earningsChart').getContext('2d');
-                var earningsChart = new Chart(ctx, {
+                new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: labels,

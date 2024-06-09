@@ -6,6 +6,8 @@ package dal;
 
 import Model.Vehicle;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -58,12 +60,33 @@ public class VehicleDAO extends DBContext {
 
         return total;
     }
-
+    
+    public List<Vehicle> getListVehicle(int customerId){
+        List<Vehicle> vehicleList = new ArrayList<>();
+        try  {
+            String sql = "SELECT * FROM Vehicles WHERE OwnerId = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, customerId);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                int id = resultSet.getInt("MotocycleId");
+                String model = resultSet.getString("Model");
+                String licensePlates = resultSet.getString("LicensePlates");                
+                vehicleList.add(new Vehicle(id, model, licensePlates));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vehicleList;
+    }
+    
     public static void main(String[] args) throws SQLException {
 
         Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.addVehicle(vehicle));
+        System.out.println(VehicleDAO.INSTANCE.getListVehicle(1));
     }
 }

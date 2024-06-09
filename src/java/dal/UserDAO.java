@@ -466,6 +466,30 @@ public class UserDAO extends DBContext {
         return list;
     }
 
+    public boolean updateUserById(User customer) {
+        String sql = "Update Users set firstName = ?, lastName = ?, address = ?, dob =? , status = ?, phoneNumber = ?, gender =? , email = ? where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, customer.getFirstName());
+            ps.setString(2, customer.getLastName());
+            ps.setString(3, customer.getAddress());
+            ps.setDate(4, customer.getDob());
+            ps.setString(5, customer.getStatus());
+            ps.setString(6, customer.getPhone());
+            ps.setInt(7, customer.getGender());
+            ps.setString(8, customer.getEmail());
+            ps.setInt(9, customer.getId());
+            
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return false;
+    }
+
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());

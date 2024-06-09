@@ -14,6 +14,7 @@ public class Vehicle {
     private String LicensePlates;
     private int ownerId;
 
+    
     public int getId() {
         return id;
     }
@@ -60,6 +61,17 @@ public class Vehicle {
         this.model = model;
         this.LicensePlates = LicensePlates;
         this.ownerId = ownerId;
+    }
+
+    public Vehicle(int id, String model, String LicensePlates) {
+        this.id = id;
+        this.model = model;
+        this.LicensePlates = LicensePlates;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" + "id=" + id + ", model=" + model + ", LicensePlates=" + LicensePlates + ", ownerId=" + ownerId + '}';
     }
     
 }
