@@ -18,7 +18,9 @@
         <jsp:include page="./header.jsp" />  
         <div class="container" style="padding-top: 200px;">
             <h2>Add New Vehicle</h2>
+            
             <form action="AddVehicle" method="post">
+                <<input type="hidden" name="customerId" value="${param.customerId}">
                 <label for="model">Model:</label>
                 <input type="text" id="model" name="model" required>
 

@@ -61,13 +61,20 @@ public class VehicleDAO extends DBContext {
         return total;
     }
     
-    public List<Vehicle> getListVehicle(int customerId){
+    public List<Vehicle> getListVehicle(int customerId, String searchQuery){
         List<Vehicle> vehicleList = new ArrayList<>();
         try  {
             String sql = "SELECT * FROM Vehicles WHERE OwnerId = ?";
+            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+                sql += " AND (Model LIKE ? OR LicensePlates LIKE ?)";
+            }
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, customerId);
-            
+            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+                String queryParam = "%" + searchQuery + "%";
+                statement.setString(2, queryParam);
+                statement.setString(3, queryParam);
+            }
             ResultSet resultSet = statement.executeQuery();
             
             while (resultSet.next()) {
@@ -82,11 +89,36 @@ public class VehicleDAO extends DBContext {
         return vehicleList;
     }
     
+    public boolean hasContract(int vehicleId) throws SQLException {
+        boolean hasContract = false;
+        String sql = "SELECT COUNT(*) FROM Contracts WHERE VehicleId = ?";
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, vehicleId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int contractCount = resultSet.getInt(1);
+                    hasContract = contractCount > 0;
+                }
+            }
+        }
+
+        return hasContract;
+    }
+    
+    public void deleteVehicle(int vehicleId) throws SQLException {
+        String sql = "DELETE FROM Vehicles WHERE MotocycleId = ?";
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, vehicleId);
+            statement.executeUpdate();
+        }
+    }
     public static void main(String[] args) throws SQLException {
 
         Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.getListVehicle(1));
+        System.out.println(VehicleDAO.INSTANCE.getListVehicle(1,"yamaha"));
     }
 }

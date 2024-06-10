@@ -5,8 +5,6 @@
 
 package Controller;
 
-import Model.Vehicle;
-import dal.VehicleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,17 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name="AddVehicleServlet", urlPatterns={"/AddVehicle"})
-public class AddVehicleServlet extends HttpServlet {
+@WebServlet(name="AddVehicleSuccess", urlPatterns={"/AddVehicleSuccess"})
+public class AddVehicleSuccess extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +35,10 @@ public class AddVehicleServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddVehicleServlet</title>");  
+            out.println("<title>Servlet AddVehicleSuccess</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddVehicleServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AddVehicleSuccess at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +55,9 @@ public class AddVehicleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         int customerId = Integer.parseInt(request.getParameter("customerId"));
+        request.setAttribute("customerId", customerId);
+        request.getRequestDispatcher("AddVehicleSuccess.jsp").forward(request, response);
     } 
 
     /** 
@@ -74,24 +70,7 @@ public class AddVehicleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        int ownerId = (int) session.getAttribute("userId"); // Assuming userId is stored in session
-        int ownerId = Integer.parseInt(request.getParameter("customerId"));
-        String model = request.getParameter("model");
-        String licensePlates = request.getParameter("licensePlates");
-
-        Vehicle vehicle = new Vehicle();
-        vehicle.setModel(model);
-        vehicle.setLicensePlates(licensePlates);
-        vehicle.setOwnerId(ownerId);
-
-        
-        try {
-            VehicleDAO.INSTANCE.addVehicle(vehicle);
-            response.sendRedirect("AddVehicleSuccess?customerId="+ownerId+"&vehicleId=3"); // Redirect to a success page
-        } catch (SQLException e) {
-            throw new ServletException(e);
-        }
+        processRequest(request, response);
     }
 
     /** 
