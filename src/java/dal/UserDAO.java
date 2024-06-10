@@ -200,6 +200,41 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    public boolean checkPhoneExistById(String phone) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where phoneNumber = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, phone);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean checkEmailExistById(String email) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public boolean changePasswordById(int id, String password) {
         String sql = "UPDATE [dbo].[Users]\n"
                 + "   SET [password] = ?\n"
@@ -225,7 +260,7 @@ public class UserDAO extends DBContext {
                 + "      ,[dob] = ?\n"
                 + "      ,[address] = ?\n"
                 + " WHERE id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, gender);
             st.setString(2, email);
@@ -235,7 +270,7 @@ public class UserDAO extends DBContext {
             st.setInt(6, id);
             st.executeUpdate();
             return true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return false;
@@ -400,6 +435,74 @@ public class UserDAO extends DBContext {
         return hash;
     }
 
+    public boolean changePassword(int userId, String password) {
+        try {
+            String sql = "update users set password = ? where id = ?";
+            PreparedStatement ps;
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, password);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public User findByUsernameOrEmail(String usernameAndEmail) {
+        String sql = "SELECT * FROM [Users] where (username = ?  or email = ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, usernameAndEmail);
+            ps.setString(2, usernameAndEmail);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDob(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
+    public boolean updateUserById(User customer) {
+        String sql = "Update Users set firstName = ?, lastName = ?, address = ?, dob =? , status = ?, phoneNumber = ?, gender =? , email = ? where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, customer.getFirstName());
+            ps.setString(2, customer.getLastName());
+            ps.setString(3, customer.getAddress());
+            ps.setDate(4, customer.getDob());
+            ps.setString(5, customer.getStatus());
+            ps.setString(6, customer.getPhone());
+            ps.setInt(7, customer.getGender());
+            ps.setString(8, customer.getEmail());
+            ps.setInt(9, customer.getId());
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
+
     public List<User> sortCusomterById() {
         List<User> list = new ArrayList<>();
         String sql = " select * from Users where [role] = 'Customer' order by id desc";
@@ -418,7 +521,7 @@ public class UserDAO extends DBContext {
                 user.setGender(rs.getInt("gender"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phoneNumber"));
-                user.setDob(rs.getDate("dob"));
+                user.setDob(rs.getDate("dob"));         
                 user.setAddress(rs.getString("address"));
                 list.add(user);
 
@@ -431,34 +534,13 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public boolean updateUserById(User customer) {
-        String sql = "Update Users set firstName = ?, lastName = ?, address = ?, dob =? , status = ?, phoneNumber = ?, gender =? , email = ? where id = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, customer.getFirstName());
-            ps.setString(2, customer.getLastName());
-            ps.setString(3, customer.getAddress());
-            ps.setDate(4, customer.getDob());
-            ps.setString(5, customer.getStatus());
-            ps.setString(6, customer.getPhone());
-            ps.setInt(7, customer.getGender());
-            ps.setString(8, customer.getEmail());
-            ps.setInt(9, customer.getId());
-            
-            ps.executeUpdate();
-            return true;
 
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        
-        return false;
-    }
 
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());
-        System.out.println(udb.changePasswordById(1, "1234"));
+        System.out.println(udb.checkPhoneExistById("0327983593"));
 
     }
+
 }

@@ -1,9 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Controller;
-
 import Model.User;
 import dal.ConsultationDAO;
 import dal.PromotionDAO;
@@ -37,14 +31,13 @@ public class LoginController extends HttpServlet {
                 resp.sendRedirect("homeManager");
             }
         } else {
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
-        }
+        req.getRequestDispatcher("login.jsp").forward(req, resp);
+    }
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String usernameEmail = req.getParameter("usernameEmail");
         String password = req.getParameter("password");
         HttpSession session = req.getSession();
@@ -58,9 +51,10 @@ public class LoginController extends HttpServlet {
         UserDAO dbUser = new UserDAO();
         User user = dbUser.findByUsernameOrEmailAndPassword(usernameEmail, password);
         if (user == null) {
-            req.setAttribute("message", "Sai thông tin tài khoản hoặc mật khẩu!");
+            req.setAttribute("message", "You login failed");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
+<<<<<<< Updated upstream
             session.setAttribute("user", user);
             if (user.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
@@ -72,7 +66,12 @@ public class LoginController extends HttpServlet {
                 resp.sendRedirect("homeManager");
             }
 
+=======
+            req.getSession().setAttribute("user", user);
+            req.getRequestDispatcher("home.jsp").forward(req, resp);
+>>>>>>> Stashed changes
         }
     }
+    }
 
-}
+

@@ -19,10 +19,11 @@
             <div class="form-container">
                 <p class="form-heading">Forgot password</p>
                 <form action="forgetPassword" method="post">
+                    
                     <div class="form-content" style="padding-top: 100px ">
                         <div class="form-item">
-                            <label class="label">Username or email<span class="required">*</span></label>
-                            <input type="text" name="usernameEmail" required>
+                            <label class="usernameEmail">Username or email<span class="required">*</span></label>
+                            <input type="text" id="usernameEmail" name="usernameEmail" required>
                         </div>
                     </div>
                     <p style="red">${message}</p>
