@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Gender;
 import Model.Role;
 import Model.User;
 import dal.UserDAO;
@@ -23,13 +22,15 @@ public class RegisterController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         UserDAO udb = new UserDAO();
+
+        String username = req.getParameter("username");
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String dob = req.getParameter("dob");
         int gender = Integer.parseInt(req.getParameter("gender"));
         String email = req.getParameter("email");
-        String username = req.getParameter("username");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
         String phone = req.getParameter("phone");
@@ -69,6 +70,7 @@ public class RegisterController extends HttpServlet {
         }else{
             req.setAttribute("invalidEmail", "Email already exist!");
         }
+
         req.setAttribute("firstName", firstName);
         req.setAttribute("lastName", lastName);
         req.setAttribute("dob", dob);
@@ -79,7 +81,6 @@ public class RegisterController extends HttpServlet {
         req.setAttribute("address", address);
 
         req.getRequestDispatcher("register.jsp").forward(req, resp);
-
     }
 
 }

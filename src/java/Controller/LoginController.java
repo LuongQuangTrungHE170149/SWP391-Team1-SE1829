@@ -56,6 +56,10 @@ public class LoginController extends HttpServlet {
             req.setAttribute("message", "You login failed");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 282610bbabadf61d7d4ac0db91aa8d88cb0b800f
             session.setAttribute("user", user);
             if (user.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
@@ -64,6 +68,14 @@ public class LoginController extends HttpServlet {
             } else if (user.getRole().equalsIgnoreCase("manager")) {
                 resp.sendRedirect("homeManager");
             }
+<<<<<<< HEAD
+
+
+            req.getSession().setAttribute("user", user);
+            req.getRequestDispatcher("home.jsp").forward(req, resp);
+
+=======
+>>>>>>> 282610bbabadf61d7d4ac0db91aa8d88cb0b800f
         }
     }
     }

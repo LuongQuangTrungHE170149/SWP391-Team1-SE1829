@@ -36,16 +36,15 @@
         <section class="h-100 gradient-form" style="background-color: #eee;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-xl-10">
+                    <div class="col-xl-6">
                         <div class="card rounded-3 text-black">
                             <div class="row g-0">
-                                <div class="col-lg-6">
+                                <div class="col-12">
                                     <div class="card-body p-md-5 mx-md-4">
-                                        <div class="text-center">
-                                            <img src="images/icon motor color 419fa3.png" alt="f-care" style="width: 80px;"/>
-                                            <h4 class="mt-4 mb-3 pb-1" style="color:#419FA3;">Register</h4>
+                                        <div class="text-start d-flex align-items-center">
+                                            <img src="images/icon motor color 419fa3.png" alt="f-care" width="50"height=50""/>
+                                            <h2 class="mt-4 mb-3 ms-3 pb-1" style="color:#419FA3;">Register</h2>
                                         </div>
-
                                         <form action="register" method="post">
                                             <p class="text-muted" style="font-size: 16px;">Vui lòng điền thông tin tài khoản của bạn</p>
                                             <div class="row">
@@ -62,6 +61,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div data-mdb-input-init class="form-outline mb-4">
@@ -69,6 +69,7 @@
                                                         <label for="input2" class="form-label">Date of Birth</label>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-6">
                                                     <select data-mdb-select-init name="gender" class="form-select" aria-label="selectEx">
                                                         <option value="1"${gender == 1?'selected':''}>Male</option>
@@ -116,20 +117,15 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                                        <h4 class="mb-4">Chúng tôi không chỉ là một công ty Bảo Hiểm</h4>
-                                        <p class="small mb-0">“Đến với F-Care, chúng tôi cung cấp cho bạn dịch vụ bảo hiểm xe máy với chi phí và chính sách tốt nhất.
-                                            Đồng hành cùng bạn mỗi bước đường. Bảo hiểm xe máy cho mọi hành trình!”</p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
-
-        <jsp:include page="footer.jsp"/>
+        <jsp:include page="consultation.jsp"></jsp:include>
+        <jsp:include page="footer.jsp"></jsp:include>
     </body>
+
 </html>
