@@ -13,6 +13,7 @@ public class Vehicle {
     private String model;
     private String LicensePlates;
     private int ownerId;
+    private boolean hasContract;
 
     
     public int getId() {
@@ -48,6 +49,14 @@ public class Vehicle {
     }
 
     public Vehicle() {
+    }
+
+    public boolean isHasContract() {
+        return hasContract;
+    }
+
+    public void setHasContract(boolean hasContract) {
+        this.hasContract = hasContract;
     }
 
     public Vehicle(int id, String model, String LicensePlates, int ownerId) {
