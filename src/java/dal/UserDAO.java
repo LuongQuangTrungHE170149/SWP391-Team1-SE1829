@@ -234,8 +234,8 @@ public class UserDAO extends DBContext {
         }
         return false;
     }
-    
-     public boolean checkUsernameExist(String username) {
+
+    public boolean checkUsernameExist(String username) {
         String sql = "SELECT *\n"
                 + "  FROM [dbo].[Users] \n"
                 + "  where username = ?";
@@ -251,7 +251,6 @@ public class UserDAO extends DBContext {
         }
         return false;
     }
-    
 
     public boolean changePasswordById(int id, String password) {
         String sql = "UPDATE [dbo].[Users]\n"
@@ -292,6 +291,24 @@ public class UserDAO extends DBContext {
             System.out.println(e);
         }
         return false;
+    }
+
+    public String getCustomerName(int customerId) throws SQLException {
+        String customerName = null;
+        String sql = "SELECT firstName, lastName FROM Users WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, customerId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String firstName = resultSet.getString("firstName");
+                    String lastName = resultSet.getString("lastName");
+                    customerName = firstName + " " + lastName;
+                }
+            }
+        }
+
+        return customerName;
     }
 
     public List<User> searchCustomerByName(String key) {
@@ -453,7 +470,6 @@ public class UserDAO extends DBContext {
         return hash;
     }
 
-
     public List<User> sortCusomterById() {
         List<User> list = new ArrayList<>();
         String sql = " select * from Users where [role] = 'Customer' order by id desc";
@@ -509,7 +525,6 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-
     public boolean changePassword(int userId, String password) {
         try {
             String sql = "update users set password = ? where id = ?";
@@ -553,6 +568,5 @@ public class UserDAO extends DBContext {
 
         return null;
     }
-
 
 }

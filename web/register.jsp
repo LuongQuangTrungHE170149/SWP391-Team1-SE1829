@@ -124,8 +124,8 @@
 
             </div>
         </section>
-        <jsp:include page="consultation.jsp"></jsp:include>
-        <jsp:include page="footer.jsp"></jsp:include>
+        <jsp:include page="consultation.jsp"/>
+        <jsp:include page="footer.jsp"/>
     </body>
 
 </html>
