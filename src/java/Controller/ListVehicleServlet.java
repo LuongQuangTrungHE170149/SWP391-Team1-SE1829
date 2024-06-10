@@ -67,7 +67,7 @@ public class ListVehicleServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         String customerName = null;
         try {
-            customerName = userDAO.getCustomerName(1);
+            customerName = userDAO.getCustomerName(customerId);
         } catch (SQLException ex) {
             Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

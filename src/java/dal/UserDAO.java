@@ -461,6 +461,8 @@ public class UserDAO extends DBContext {
                 user.setPhone(rs.getString("phoneNumber"));
                 user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
+
                 list.add(user);
 
             }
@@ -495,7 +497,6 @@ public class UserDAO extends DBContext {
 
         return false;
     }
-
 
     public boolean changePassword(int userId, String password) {
         try {
@@ -540,9 +541,6 @@ public class UserDAO extends DBContext {
 
         return null;
     }
-
-  
-
 
     public String getCustomerName(int customerId) throws SQLException {
         String customerName = null;

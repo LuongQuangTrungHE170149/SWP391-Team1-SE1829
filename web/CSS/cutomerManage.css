@@ -113,3 +113,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-radius: 11px;
     border: 1px solid #000;
 }
+
+.active-customer{
+    color: green;
+}
+
+.inactive-customer{
+    color: red;
+}
