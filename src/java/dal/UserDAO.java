@@ -541,6 +541,23 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    public String getCustomerName(int customerId) throws SQLException {
+        String customerName = null;
+        String sql = "SELECT firstName, lastName FROM Users WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, customerId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String firstName = resultSet.getString("firstName");
+                    String lastName = resultSet.getString("lastName");
+                    customerName = firstName + " " + lastName;
+                }
+            }
+        }
+
+        return customerName;
+    }
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());

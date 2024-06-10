@@ -20,7 +20,7 @@
         }
         h2 {
             color: #333;
-            text-align: center;
+            text-align: left;
             margin-bottom: 20px;
         }
         form {
@@ -98,14 +98,14 @@
 <body>
     <jsp:include page="./header.jsp" />
     <div class="container">
-        <h2>Vehicle List</h2>
-        <form action="ListVehicleServlet" method="get">
+        <h2>Danh sách phương tiện của ${customerName}</h2>
+        <form action="ListVehicleServlet" method="get" class="formSearch">
             <input type="hidden" name="customerId" value="${param.customerId}">
             <input type="text" name="searchQuery" placeholder="Tìm kiếm bằng nhãn hiệu hoặc biển số" value="${param.searchQuery}">
-            <button type="submit">Search</button>
+            <button type="submit">Tìm kiếm</button>
         </form>
         <form action="addVehicle.jsp">
-            <button type="submit">Add New Vehicle</button>
+            <button type="submit">Thêm Phương tiện mới</button>
         </form>
         <table>
             <thead>
@@ -125,14 +125,14 @@
                         <td class="actions">
                             <c:choose>
                                 <c:when test="${vehicle.hasContract}">
-                                    <a href="viewContract.jsp?vehicleId=${vehicle.id}">View Contract</a>
+                                    <a href="viewContract.jsp?vehicleId=${vehicle.id}">Xem Bảo hiểm</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="addContract.jsp?vehicleId=${vehicle.id}">Create Contract</a>
+                                    <a href="addContract.jsp?vehicleId=${vehicle.id}">Tạo Bảo hiểm</a>
                                 </c:otherwise>
                             </c:choose>
-                            <a href="editVehicle.jsp?vehicleId=${vehicle.id}">Edit</a>
-                            <a href="DeleteVehicleServlet?vehicleId=${vehicle.id}" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Delete</a>
+                            <a href="editVehicle.jsp?vehicleId=${vehicle.id}">Sửa Thông tin Phương tiện</a>
+                            <a href="DeleteVehicleServlet?vehicleId=${vehicle.id}" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Xóa</a>
                         </td>
                     </tr>
                 </c:forEach>

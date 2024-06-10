@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Vehicle;
+import dal.UserDAO;
 import dal.VehicleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -63,6 +64,14 @@ public class ListVehicleServlet extends HttpServlet {
                 Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        UserDAO userDAO = new UserDAO();
+        String customerName = null;
+        try {
+            customerName = userDAO.getCustomerName(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            request.setAttribute("customerName", customerName);
         request.setAttribute("vehicleList", vehicleList);
         request.getRequestDispatcher("vehicleManager.jsp").forward(request, response);
     }

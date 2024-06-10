@@ -88,7 +88,7 @@ public class AddVehicleServlet extends HttpServlet {
         
         try {
             VehicleDAO.INSTANCE.addVehicle(vehicle);
-            response.sendRedirect("ListVehicleServlet"); // Redirect to a success page
+            response.sendRedirect("AddVehicleSuccess.jsp"); // Redirect to a success page
         } catch (SQLException e) {
             throw new ServletException(e);
         }
