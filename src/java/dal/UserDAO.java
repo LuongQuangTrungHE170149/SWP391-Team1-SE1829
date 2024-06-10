@@ -453,7 +453,7 @@ public class UserDAO extends DBContext {
         return hash;
     }
 
-<<<<<<< HEAD
+
     public List<User> sortCusomterById() {
         List<User> list = new ArrayList<>();
         String sql = " select * from Users where [role] = 'Customer' order by id desc";
@@ -509,8 +509,7 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-=======
->>>>>>> 282610bbabadf61d7d4ac0db91aa8d88cb0b800f
+
     public boolean changePassword(int userId, String password) {
         try {
             String sql = "update users set password = ? where id = ?";
@@ -555,92 +554,5 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-<<<<<<< HEAD
-=======
-    public List<User> sortCusomterById() {
 
-        List<User> list = new ArrayList<>();
-        String sql = " select * from Users where [role] = 'Customer' order by id desc";
-
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-
-                user.setUsername(rs.getString("username"));
-
-                user.setUsername(rs.getString("username"));
-
-                user.setFirstName(rs.getString("firstName"));
-                user.setLastName(rs.getString("lastName"));
-                user.setPassword(rs.getString("password"));
-                user.setRole(rs.getString("role"));
-                user.setGender(rs.getInt("gender"));
-                user.setEmail(rs.getString("email"));
-                user.setPhone(rs.getString("phoneNumber"));
-
-                user.setDob(rs.getDate("dob"));
-//                user.setDob(rs.getDate("dob"));
-                user.setAddress(rs.getString("address"));
-                list.add(user);
-
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return list;
-    }
-
-    public boolean updateUserById(User customer) {
-        String sql = "Update Users set firstName = ?, lastName = ?, address = ?, dob =? , status = ?, phoneNumber = ?, gender =? , email = ? where id = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, customer.getFirstName());
-            ps.setString(2, customer.getLastName());
-            ps.setString(3, customer.getAddress());
-            ps.setDate(4, customer.getDob());
-            ps.setString(5, customer.getStatus());
-            ps.setString(6, customer.getPhone());
-            ps.setInt(7, customer.getGender());
-            ps.setString(8, customer.getEmail());
-            ps.setInt(9, customer.getId());
-
-            ps.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return false;
-    }
-
-    public String getCustomerName(int customerId) throws SQLException {
-        String customerName = null;
-        String sql = "SELECT firstName, lastName FROM Users WHERE id = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, customerId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    String firstName = resultSet.getString("firstName");
-                    String lastName = resultSet.getString("lastName");
-                    customerName = firstName + " " + lastName;
-                }
-            }
-        }
-
-        return customerName;
-    }
->>>>>>> 282610bbabadf61d7d4ac0db91aa8d88cb0b800f
-    public static void main(String[] args) {
-        UserDAO udb = new UserDAO();
-//        System.out.println(udb.sortCusomterById());
-        System.out.println(udb.checkUsernameExist("kha211"));
-
-    }
 }
