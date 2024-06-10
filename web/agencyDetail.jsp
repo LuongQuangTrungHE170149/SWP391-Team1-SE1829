@@ -97,6 +97,9 @@
                                         <th>Giới tính</th>
                                         <th>Địa chỉ</th>
                                         <th>Năm sinh</th>
+                                        <th>Trạng thái</th>
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -110,6 +113,8 @@
                                             <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
                                             <td>${staff.address}</td>
                                             <td>${staff.getDob()}</td>
+                                            <td>${staff.status eq 'active' ? 'Làm việc' : 'Nghỉ làm' }</td>
+
 
 
                                         </tr>
@@ -123,7 +128,7 @@
             </div>
         </div>
 
-        <script>           
+        <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var labels = [];
                 var data = [];
@@ -138,8 +143,8 @@
                     var earning = parseFloat(earningElements[index].innerText.replace(/[^0-9.-]+/g, "")); // Loại bỏ ký tự không phải số
                     labels.push(month);
                     data.push(earning);
-                }); 
-                
+                });
+
                 console.log("haha");
                 var ctx = document.getElementById('earningsChart').getContext('2d');
                 new Chart(ctx, {

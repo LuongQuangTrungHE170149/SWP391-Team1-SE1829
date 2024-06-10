@@ -35,7 +35,14 @@
             <div class="content d-flex flex-column align-items-center" style="background-color: #f0f2fa;">
                 <!--navbar-->
                 <div class=" navbar-custom d-flex justify-content-end align-items-center shadow-3 sticky-top" style="width: 100%;">
-                    <div class="fs-3 fw-bold text-white me-3">Staff Profile</div>
+                    <c:if test="${user.role ne 'manager' && user.role ne 'Manager' }">
+                        <div class="fs-3 fw-bold text-white me-3">Staff Profile</div>
+                    </c:if>
+                    <c:if test="${user.role eq 'manager' || user.role eq 'Manager' }">
+                        <div class="fs-3 fw-bold text-white me-3">Manager Profile</div>
+                    </c:if>
+
+
                 </div>
                 <!--end navbar-->
                 <div>

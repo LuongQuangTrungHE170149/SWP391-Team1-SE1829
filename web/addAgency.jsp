@@ -173,7 +173,6 @@
 
             form.addEventListener('submit', function (event) {
                 if (isValid === false) {
-
                     event.preventDefault(); // Ngăn chặn việc submit form
                 }
             });

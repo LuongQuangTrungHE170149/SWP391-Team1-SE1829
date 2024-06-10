@@ -6,10 +6,9 @@
 package dal;
 
 import Model.*;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +75,8 @@ public class UserDAO extends DBContext {
                 user.setPhone(rs.getString("phoneNumber"));
                 user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
+
                 list.add(user);
 
             }
@@ -108,6 +109,8 @@ public class UserDAO extends DBContext {
                 user.setPhone(rs.getString("phoneNumber"));
                 user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
+
                 list.add(user);
 
             }
@@ -138,6 +141,7 @@ public class UserDAO extends DBContext {
                 user.setPhone(rs.getString("phoneNumber"));
                 user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
                 list.add(user);
 
             }
@@ -332,6 +336,8 @@ public class UserDAO extends DBContext {
                 user.setPhone(rs.getString("phoneNumber"));
                 user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
+
                 list.add(user);
 
             }
@@ -569,4 +575,63 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+
+
+
+    public String getCustomerName(int customerId) throws SQLException {
+        String customerName = null;
+        String sql = "SELECT firstName, lastName FROM Users WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, customerId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String firstName = resultSet.getString("firstName");
+                    String lastName = resultSet.getString("lastName");
+                    customerName = firstName + " " + lastName;
+                }
+            }
+        }
+
+        return customerName;
+    }
+
+    public List<User> getAllCustomerByStatus(String status) {
+        List<User> list = new ArrayList<>();
+        String sql = "select * from Users where role = 'customer' and status = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, status);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDob(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
+                list.add(user);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public static void main(String[] args) {
+        UserDAO udb = new UserDAO();
+//        System.out.println(udb.sortCusomterById());
+        System.out.println(udb.checkPhoneExistById("0327983593"));
+
+    }
 }

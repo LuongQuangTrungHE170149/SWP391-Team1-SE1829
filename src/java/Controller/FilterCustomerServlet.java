@@ -4,22 +4,21 @@
  */
 package Controller;
 
-import Model.Agency;
-import dal.AgencyDAO;
+import Model.User;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  *
  * @author tranm
  */
-public class FilterAgencyServlet extends HttpServlet {
+public class FilterCustomerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class FilterAgencyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FilterAgencyServlet</title>");
+            out.println("<title>Servlet FilterCustomerServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FilterAgencyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FilterCustomerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,32 +59,31 @@ public class FilterAgencyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String key = request.getParameter("filter");
-        String selectedCity = "";
-        if (!key.isEmpty() || key != null) {
-//            
+        String selectedStatus = "";
+        if (!key.isEmpty()) {
             if (key.equals("all")) {
-                response.sendRedirect("listAgency");
-
-            } else {            
-                switch (key) {      
-                case "active":
-                    key = "active";
-                    selectedCity = "active";
-                    break;
-                case "inactive":
-                    key = "inactive";
-                    selectedCity = "inactive";
-                    break;
+                response.sendRedirect("customerList");
+            } else {
+                switch (key) {
+                    case "active":
+                        key = "active";
+                        selectedStatus = "active";
+                        break;
+                    case "inactive":
+                        key = "inactive";
+                        selectedStatus = "inactive";
+                        break;
                 }
+                UserDAO udb = new UserDAO();
 
-                List<Agency> filterAgencyList = AgencyDAO.INSTANCE.getAllAgenciesByStatus(key);
-                request.setAttribute("filterAgencyList", filterAgencyList);
-                request.setAttribute("selectedCity", selectedCity);
-                request.getRequestDispatcher("listAgency").forward(request, response);
+                List<User> filterCustomerList = udb.getAllCustomerByStatus(key);
+                request.setAttribute("filterCustomerList", filterCustomerList);
+                request.setAttribute("selectedCity", selectedStatus);
+                request.getRequestDispatcher("customerList").forward(request, response);
             }
 
         } else {
-            response.sendRedirect("listAgency");
+            response.sendRedirect("customerList");
         }
     }
 
@@ -100,7 +98,7 @@ public class FilterAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**

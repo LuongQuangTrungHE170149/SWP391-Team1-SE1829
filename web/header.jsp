@@ -42,69 +42,122 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:white;" href="home">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"style="color:white;" href="introduce">Giới thiệu</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" 
-                           id="dlink" role="button" 
-                           aria-expanded="false" 
-                           data-mdb-dropdown-init
-                           style="color:white;" 
-                           href="#">Dịch vụ</a>
-                        <ul class="dropdown-menu" aria-labelledby="dlink">
-                            <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
-                            <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
-                            <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
-                        </ul>
+                <c:choose>
+                    <c:when test="${sessionScope.user==null || sessionScope.user.getRole() ne 'Manager' && sessionScope.user.getRole() ne 'manager'}">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:white;" href="home">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"style="color:white;" href="introduce">Giới thiệu</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" 
+                                   id="dlink" role="button" 
+                                   aria-expanded="false" 
+                                   data-mdb-dropdown-init
+                                   style="color:white;" 
+                                   href="#">Dịch vụ</a>
+                                <ul class="dropdown-menu" aria-labelledby="dlink">
+                                    <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
+                                    <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
+                                    <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
+                                </ul>
 
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"style="color:white;" href="promotion">Khuyến mại</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"style="color:white;" href="#">Tin tức</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:white;" href="#">liên Hệ</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="d-flex justify-content-center">
-                <c:if test="${sessionScope.user!=null}">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <span class="fs-5 text-white me-2">
-                            <c:if test="${sessionScope.user ne null}">
-                                Chào, ${sessionScope.user.getFullName()}
-                            </c:if>
-                        </span>
-                        <div class="dropdown">
-                            <button type="button" 
-                                    class="btn btn-info btn-floating"dun
-                                    id="dropdown-user"
-                                    data-mdb-ripple-init
-                                    data-mdb-dropdown-init
-                                    aria-expanded="false">
-                                <i class="fa-solid fa-user" style="color:#fff"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-                                <li><a href="#" class="dropdown-item">Hồ sơ</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
-                            </ul>
-                        </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"style="color:white;" href="promotion">Khuyến mại</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"style="color:white;" href="#">Tin tức</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:white;" href="#">liên Hệ</a>
+                            </li>
+                        </ul>
                     </div>
-                </c:if>
-                <c:if test="${sessionScope.user==null}">
-                    <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
-                    <a class="btn btn-light  " href="register.jsp">Đăng Ký</a>
-                </c:if>
-            </div>
-        </div>
-    </nav>
-    <!--mdb bootstrap-->
+                    <div class="d-flex justify-content-center">
+                        <c:if test="${sessionScope.user!=null}">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <span class="fs-5 text-white me-2">
+                                    <c:if test="${sessionScope.user ne null}">
+                                        Chào, ${sessionScope.user.getFullName()}
+
+                                    </c:if>
+                                </span>
+                                <div class="dropdown">
+                                    <button type="button" 
+                                            class="btn btn-info btn-floating"dun
+                                            id="dropdown-user"
+                                            data-mdb-ripple-init
+                                            data-mdb-dropdown-init
+                                            aria-expanded="false">
+                                        <i class="fa-solid fa-user" style="color:#fff"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdown-user">
+                                        <li><a href="#" class="dropdown-item">Hồ sơ</a></li>
+                                        <li class="dropdown-divider"></li>
+                                        <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.user==null}">
+                            <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
+                            <a class="btn btn-light  " href="register.jsp">Đăng Ký</a>
+                        </c:if>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:white;" href="homeManager">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"style="color:white;" href="listAgency">Danh sách đại lý</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"style="color:white;" href="customerList">Danh sách khách hàng</a>
+                        </li>
+
+                    </ul>    
+                </div>
+                <div class="d-flex justify-content-center">
+                    <c:if test="${sessionScope.user!=null}">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="fs-5 text-white me-2">
+                                <c:if test="${sessionScope.user ne null}">
+                                    Chào, ${sessionScope.user.getFullName()}
+
+                                </c:if>
+                            </span>
+                            <div class="dropdown">
+                                <button type="button" 
+                                        class="btn btn-info btn-floating"dun
+                                        id="dropdown-user"
+                                        data-mdb-ripple-init
+                                        data-mdb-dropdown-init
+                                        aria-expanded="false">
+                                    <i class="fa-solid fa-user" style="color:#fff"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdown-user">
+                                    <li><a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Hồ sơ</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${sessionScope.user==null}">
+                        <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
+                        <a class="btn btn-light  " href="register.jsp">Đăng Ký</a>
+                    </c:if>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
+
+    </div>
+</nav>
+<!--mdb bootstrap-->
 </body>

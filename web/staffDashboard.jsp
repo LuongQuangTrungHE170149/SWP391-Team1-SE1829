@@ -127,19 +127,6 @@
         </div>
     </c:if>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!--    Thanh nav của Manager-->
     <c:if test="${sessionScope.user.getRole() == 'Manager'}">
         <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
@@ -177,7 +164,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(0px, -33.6px, 0px);" data-popper-placement="top-start" data-mdb-popper="null">
                     <li>
-                        <a href="#" class="dropdown-item">Hồ sơ </a>
+                        <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Hồ sơ </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
