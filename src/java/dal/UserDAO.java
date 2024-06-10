@@ -204,7 +204,7 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public boolean checkPhoneExistById(String phone) {
+    public boolean checkPhoneExist(String phone) {
         String sql = "SELECT *\n"
                 + "  FROM [dbo].[Users] \n"
                 + "  where phoneNumber = ?";
@@ -222,13 +222,30 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public boolean checkEmailExistById(String email) {
+    public boolean checkEmailExist(String email) {
         String sql = "SELECT *\n"
                 + "  FROM [dbo].[Users] \n"
                 + "  where email = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean checkUsernameExist(String username) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 return true;
@@ -278,6 +295,24 @@ public class UserDAO extends DBContext {
             System.out.println(e);
         }
         return false;
+    }
+
+    public String getCustomerName(int customerId) throws SQLException {
+        String customerName = null;
+        String sql = "SELECT firstName, lastName FROM Users WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, customerId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String firstName = resultSet.getString("firstName");
+                    String lastName = resultSet.getString("lastName");
+                    customerName = firstName + " " + lastName;
+                }
+            }
+        }
+
+        return customerName;
     }
 
     public List<User> searchCustomerByName(String key) {
@@ -496,7 +531,6 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-
     public boolean changePassword(int userId, String password) {
         try {
             String sql = "update users set password = ? where id = ?";
@@ -541,7 +575,7 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-  
+
 
 
     public String getCustomerName(int customerId) throws SQLException {
