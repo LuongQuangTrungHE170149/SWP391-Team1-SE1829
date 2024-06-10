@@ -54,7 +54,7 @@ public class LoginController extends HttpServlet {
             req.setAttribute("message", "You login failed");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
-<<<<<<< Updated upstream
+
             session.setAttribute("user", user);
             if (user.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
@@ -66,10 +66,10 @@ public class LoginController extends HttpServlet {
                 resp.sendRedirect("homeManager");
             }
 
-=======
+
             req.getSession().setAttribute("user", user);
             req.getRequestDispatcher("home.jsp").forward(req, resp);
->>>>>>> Stashed changes
+
         }
     }
     }
