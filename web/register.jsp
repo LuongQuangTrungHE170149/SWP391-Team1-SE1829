@@ -44,7 +44,6 @@
                                                 <img src="images/icon motor color 419fa3.png" alt="f-care" style="width: 80px;"/>
                                                 <h4 class="mt-4 mb-3 pb-1" style="color:#419FA3;">Register</h4>
                                             </div>
-
                                             <form action="register" method="post">
                                                 <p class="text-muted" style="font-size: 16px;">Vui lòng điền thông tin tài khoản của bạn</p>
                                                 <div data-mdb-input-init class="form-outline mb-4">
@@ -114,6 +113,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
         <jsp:include page="consultation.jsp"></jsp:include>

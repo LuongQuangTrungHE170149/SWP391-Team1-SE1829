@@ -98,7 +98,7 @@ public class CustomerEditServlet extends HttpServlet {
             String phone = request.getParameter("phone");
             String genderRaw = request.getParameter("gender");
             String email = request.getParameter("email");
-            int gender = genderRaw.equals("Nam") ? 0 : 1;
+            int gender = Integer.parseInt(genderRaw);
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             Date utilDate = formatter.parse(dob);
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -113,14 +113,32 @@ public class CustomerEditServlet extends HttpServlet {
             user.setGender(gender);
             user.setEmail(email);
             UserDAO udb = new UserDAO();
-            HttpSession session = request.getSession();
-            if (udb.updateUserById(user)) {
-                session.setAttribute("updateSuccess", "Chỉnh sửa khách hàng thành công");
-                response.sendRedirect("customerList");
+            User u = udb.getUserById(id);
+
+            if (udb.checkEmailExistById(email) & !email.equalsIgnoreCase(u.getEmail())) {
+                request.setAttribute("invalidEmail", "Email '" + email + "' đã tồn tại! Vui lòng nhập email khác!");
+
             } else {
-                session.setAttribute("updateFail", "Chỉnh sửa khách hàng thất bại");
-                response.sendRedirect("customerEdit");
+                if (udb.checkPhoneExistById(phone) & !phone.equalsIgnoreCase(u.getPhone())) {
+
+                    request.setAttribute("invalidPhone", "Số điện thoại '" + phone + "' đã tồn tại! Vui lòng nhập số điện thoại khác!");
+
+                } else {
+                    HttpSession session = request.getSession();
+                    if (udb.updateUserById(user)) {
+                        session.setAttribute("updateSuccess", "Chỉnh sửa khách hàng thành công");
+
+                    } else {
+                        session.setAttribute("updateFail", "Chỉnh sửa khách hàng thất bại");
+
+                    }
+
+                }
+
             }
+            User uAfterUpdate = udb.getUserById(id);
+            request.setAttribute("user", uAfterUpdate);
+            request.getRequestDispatcher("customerEdit.jsp").forward(request, response);
 
         } catch (ParseException e) {
             response.sendRedirect("customerList");

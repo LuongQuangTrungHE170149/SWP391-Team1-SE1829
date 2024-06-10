@@ -113,7 +113,7 @@
                                 <span class="customer-info">${customer.address}</span>
                             </div>
 
-                            <a href="">
+                            <a href="customerEdit?customerId=${customer.id}">
                                 <button class="update-btn">Sửa</button>
                             </a>
                         </div>

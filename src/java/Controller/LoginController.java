@@ -33,8 +33,8 @@ public class LoginController extends HttpServlet {
                 resp.sendRedirect("homeManager");
             }
         } else {
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
-    }
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+        }
 
     }
 
@@ -66,6 +66,4 @@ public class LoginController extends HttpServlet {
             }
         }
     }
-    }
-
-
+}

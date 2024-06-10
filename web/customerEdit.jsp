@@ -22,6 +22,21 @@
     </head>
     <body>
         <div id="editCustomer-page">
+            <c:if test="${sessionScope.updateSuccess != null}">
+                <div id="toast-success" class="toast-container top-0 end-0 p-3">
+                    <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                ${sessionScope.updateSuccess}
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <c:remove var="updateSuccess" scope="session" />
+            </c:if>
+
+
             <c:if test="${sessionScope.updateFail != null}">
                 <div class="toast-container top-0 end-0 p-3">
                     <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
@@ -53,7 +68,7 @@
                         </div>
                         <div class="form-wrapper">
                             <c:set var="user" value="${user}" />
-                            <form class="add-form-agency" action="customerEdit" method="post">
+                            <form class="edit-form-customer" action="customerEdit" method="post">
                                 <div style="margin-bottom: 20px">
                                     <label class="input-label" for="customer-id">Mã khách hàng</label></br>
                                     <input type="number" readonly="" id="customer-id" class="input-full" name="customerId" value="${user.id}"/>
@@ -94,19 +109,26 @@
                                     <div>
                                         <label class="input-label" for="customer-phone">Điện thoại</label></br>
                                         <input type="text" required="" id="customer-phone" class="input-half" name="phone" value="${user.phone}"/>
+                                        <p class="text-danger m-0">${invalidPhone}</p>
                                         <span class="error-messeage"></span>
                                     </div>
                                     <div>
-                                        <label class="input-label" for="customer-gender">Giới tính</label></br>
-                                        <input type="text" required="" id="customer-gender" class="input-half" name="gender" value="${user.gender == 0 ? 'Name' : 'Nữ'}"/>
-                                        <span class="error-messeage"></span>
+                                        <label class="input-label" for="customer-gender">Giới tính</label></br
+                                        <select  name="gender">
+                                            <select class="select-half" name="gender">
+                                                <option value="0" ${user.gender == 0  ? 'selected' : ''} >Nam</option>
+                                                <option value="1" ${user.gender == 1  ? 'selected' : ''}>Nữ</option>
+                                            </select>
+
+                                        </select>
+
 
                                     </div>
                                 </div>
                                 <div style="margin-bottom: 20px">
                                     <label class="input-label" for="customer-Email">Email</label></br>
-                                    <input type="text" required="" id="customer-Email" class="input-full" name="email" value="${user.email}"/>
-                                    <span class="error-messeage"></span>
+                                    <input type="email" required="" id="customer-Email" class="input-full" name="email" value="${user.email}"/>
+                                    <p class="text-danger m-0">${invalidEmail}</p>
                                 </div>                              
 
 
@@ -125,6 +147,47 @@
         </div>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+        <script>
 
+            const phone = document.getElementById("customer-phone");
+            const form = document.querySelector(".edit-form-customer");
+
+            const validationPhone = (value) => {
+                const phoneRegex = /^(0[1-9])+([0-9]{8})$/;
+                return phoneRegex.test(value) ? undefined : "Nhập số điện thoại hợp lệ";
+            }
+
+            var isValid = true;
+            phone.onblur = () => {
+                var errorElement = phone.parentElement.querySelector(".error-messeage");
+                var errorMessage = validationPhone(phone.value);
+                if (errorMessage) {
+                    errorElement.innerText = errorMessage;
+                    phone.parentElement.classList.add('invalid');
+                    isValid = false;
+                } else {
+                    errorElement.innerText = '';
+                    phone.parentElement.classList.remove('invalid');
+                    isValid = true;
+                }
+            }
+
+            form.addEventListener('submit', function (event) {
+                if (isValid === false) {
+                    event.preventDefault(); // Ngăn chặn việc submit form
+                }
+            });
+
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const successToast = document.getElementById('toast-success');
+                    if (successToast) {
+                        successToast.style.opacity = '0';
+                        setTimeout(() => successToast.style.display = 'none', 1000);
+                    }
+
+                }, 3000);
+            });
+        </script>
     </body>
 </html>
