@@ -56,10 +56,10 @@
             <div class="container">
                 <p>Bạn có muốn đăng ký bảo hiểm cho phương tiện không?</p>
                 <div class="btn-container">
-                    
+                        <input type="hidden" name="customerId" value="${param.customerId}">
                         <input type="hidden" name="vehicleId" value="${param.vehicleId}">
                 <a href="addContract.jsp" class="btn btn-yes" >Yes</button>
-                <a href="ListVehicleServlet" class="btn btn-no"  >No</button>
+                <a href="ListVehicleServlet?customerId=${param.customerId}" class="btn btn-no"  >No</button>
                 
             </div>
         </div>

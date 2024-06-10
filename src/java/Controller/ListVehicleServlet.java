@@ -72,6 +72,7 @@ public class ListVehicleServlet extends HttpServlet {
             Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
             request.setAttribute("customerName", customerName);
+            request.setAttribute("customerId", customerId);
         request.setAttribute("vehicleList", vehicleList);
         request.getRequestDispatcher("vehicleManager.jsp").forward(request, response);
     }

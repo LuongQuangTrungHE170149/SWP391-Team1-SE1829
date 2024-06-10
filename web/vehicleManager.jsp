@@ -104,7 +104,8 @@
             <input type="text" name="searchQuery" placeholder="Tìm kiếm bằng nhãn hiệu hoặc biển số" value="${param.searchQuery}">
             <button type="submit">Tìm kiếm</button>
         </form>
-        <form action="addVehicle.jsp">
+        <form action="AddVehicleForm">
+            <input type="hidden" name="customerId" value="${param.customerId}">
             <button type="submit">Thêm Phương tiện mới</button>
         </form>
         <table>
@@ -125,14 +126,14 @@
                         <td class="actions">
                             <c:choose>
                                 <c:when test="${vehicle.hasContract}">
-                                    <a href="viewContract.jsp?vehicleId=${vehicle.id}">Xem Bảo hiểm</a>
+                                    <a href="viewContract.jsp?vehicleId=${vehicle.id}&customerId=${customerId}">Xem Bảo hiểm</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="addContract.jsp?vehicleId=${vehicle.id}">Tạo Bảo hiểm</a>
+                                    <a href="addContract.jsp?vehicleId=${vehicle.id}&customerId=${customerId}">Tạo Bảo hiểm</a>
                                 </c:otherwise>
                             </c:choose>
-                            <a href="editVehicle.jsp?vehicleId=${vehicle.id}">Sửa Thông tin Phương tiện</a>
-                            <a href="DeleteVehicleServlet?vehicleId=${vehicle.id}" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Xóa</a>
+                            
+                            <a href="DeleteVehicleServlet?vehicleId=${vehicle.id}&customerId=${customerId}"" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Xóa</a>
                         </td>
                     </tr>
                 </c:forEach>

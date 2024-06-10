@@ -61,6 +61,7 @@ public class DeleteVehicleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int customerId = Integer.parseInt(request.getParameter("customerId"));
         String vehicleIdStr = request.getParameter("vehicleId");
         int vehicleId = Integer.parseInt(vehicleIdStr);
         try {
@@ -68,7 +69,7 @@ public class DeleteVehicleServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(DeleteVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("ListVehicleServlet"); // Redirect to the vehicle list page after deletion
+        response.sendRedirect("ListVehicleServlet?customerId="+customerId); // Redirect to the vehicle list page after deletion
 
     }
 
