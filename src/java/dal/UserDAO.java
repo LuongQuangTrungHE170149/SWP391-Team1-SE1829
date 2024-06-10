@@ -577,30 +577,6 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 84fe04ba36748670b99af33a4b9b0d2eee81f694
-    public String getCustomerName(int customerId) throws SQLException {
-        String customerName = null;
-        String sql = "SELECT firstName, lastName FROM Users WHERE id = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, customerId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    String firstName = resultSet.getString("firstName");
-                    String lastName = resultSet.getString("lastName");
-                    customerName = firstName + " " + lastName;
-                }
-            }
-        }
-
-        return customerName;
-    }
-
     public List<User> getAllCustomerByStatus(String status) {
         List<User> list = new ArrayList<>();
         String sql = "select * from Users where role = 'customer' and status = ?";
@@ -631,6 +607,41 @@ public class UserDAO extends DBContext {
         }
 
         return list;
+    }
+
+    public boolean checkPhoneExistById(String phone) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where phoneNumber = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, phone);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean checkEmailExistById(String email) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
     public static void main(String[] args) {
