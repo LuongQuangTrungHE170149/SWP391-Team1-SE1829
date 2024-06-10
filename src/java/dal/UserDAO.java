@@ -200,7 +200,7 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public boolean checkPhoneExistById(String phone) {
+    public boolean checkPhoneExist(String phone) {
         String sql = "SELECT *\n"
                 + "  FROM [dbo].[Users] \n"
                 + "  where phoneNumber = ?";
@@ -218,7 +218,7 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public boolean checkEmailExistById(String email) {
+    public boolean checkEmailExist(String email) {
         String sql = "SELECT *\n"
                 + "  FROM [dbo].[Users] \n"
                 + "  where email = ?";
@@ -234,6 +234,24 @@ public class UserDAO extends DBContext {
         }
         return false;
     }
+    
+     public boolean checkUsernameExist(String username) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
 
     public boolean changePasswordById(int id, String password) {
         String sql = "UPDATE [dbo].[Users]\n"
@@ -561,7 +579,7 @@ public class UserDAO extends DBContext {
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());
-        System.out.println(udb.checkPhoneExistById("0327983593"));
+        System.out.println(udb.checkUsernameExist("kha211"));
 
     }
 }
