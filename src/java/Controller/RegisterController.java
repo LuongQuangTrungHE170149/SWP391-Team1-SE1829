@@ -15,17 +15,17 @@ import utils.EmailHelper;
 
 @WebServlet(name = "RegisterController", urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("register.jsp").forward(req, resp);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDAO dbUser = new UserDAO();
-        
-        String username = req.getParameter("userName");
+
+        String username = req.getParameter("username");
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String password = req.getParameter("password");
@@ -46,7 +46,7 @@ public class RegisterController extends HttpServlet {
 //            req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
         User user = new User();
-        user.setUserName(username);
+        user.setUsername(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(password);
@@ -54,7 +54,7 @@ public class RegisterController extends HttpServlet {
         user.setGender(Gender.MALE.getValue());
         user.setEmail(email);
         user.setPhone(phone);
-        user.setDate(dob);
+        user.setDob(dob);
         user.setAddress(address);
         String OTPCode = EmailHelper.generateOTP();
         String bodyEmailOTP = "Your veriftication code is: " + OTPCode;
@@ -64,5 +64,5 @@ public class RegisterController extends HttpServlet {
 //        dbUser.insert(user);
         req.getRequestDispatcher("confirmOTP.jsp").forward(req, resp);
     }
-    
+
 }
