@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.regex.Pattern;
 import utils.EmailHelper;
 
 /**
@@ -20,6 +21,12 @@ import utils.EmailHelper;
  */
 @WebServlet(name = "ForgetPasswordController", urlPatterns = {"/forgetPassword"})
 public class ForgetPasswordController extends HttpServlet {
+
+    // Pattern to validate email address
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+            Pattern.CASE_INSENSITIVE
+    );
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,9 +46,12 @@ public class ForgetPasswordController extends HttpServlet {
             String bodyEmailOTP = "Your veriftication code is: " + OTPCode;
             req.getSession().setAttribute("OTP", OTPCode);
             req.getSession().setAttribute("userForgetPassword", user);
-            EmailHelper.sendEmail(email, EmailHelper.TITLE_PROJECT, bodyEmailOTP);
+            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
             req.getRequestDispatcher("confirmOTP.jsp").forward(req, resp);
         }
     }
 
+    private boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).find();
+    }
 }

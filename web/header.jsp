@@ -77,10 +77,14 @@
             <div class="d-flex justify-content-center">
                 <c:if test="${sessionScope.user!=null}">
                     <div class="d-flex justify-content-center align-items-center">
-                        <span class="fs-5 text-white me-2">Chào, ${sessionScope.user.getFullName()}</span>
+                        <span class="fs-5 text-white me-2">
+                            <c:if test="${sessionScope.user ne null}">
+                                Chào, ${sessionScope.user.getFullName()}
+                            </c:if>
+                        </span>
                         <div class="dropdown">
                             <button type="button" 
-                                    class="btn btn-info btn-floating"
+                                    class="btn btn-info btn-floating"dun
                                     id="dropdown-user"
                                     data-mdb-ripple-init
                                     data-mdb-dropdown-init
@@ -96,8 +100,8 @@
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.user==null}">
-                    <a class="btn btn-info me-2" href="login">Đăng Nhập</a>
-                    <a class="btn btn-light  " href="register">Đăng Ký</a>
+                    <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
+                    <a class="btn btn-light  " href="register.jsp">Đăng Ký</a>
                 </c:if>
             </div>
         </div>
