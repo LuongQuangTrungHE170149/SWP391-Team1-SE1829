@@ -83,19 +83,23 @@
                                         <td>${cusomter.email}</td>
                                         <td>${cusomter.phone}</td>
                                         <td>${cusomter.address}</td> 
-                                        <td>${cusomter.status eq 'active' ? 'Làm việc' : 'Nghỉ làm' }</td> 
+                                        <td><span class="${cusomter.status eq 'active' ? 'active-customer' : 'inactive-customer' }">
+                                                ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
+                                            </span>
+                                        </td> 
                                         <td> <div class="button-customer-group">
                                                 <a href="customerDetail?customerId=${cusomter.id}">
                                                     <button class="button-customer view">Chi tiết</button>
                                                 </a>
                                                 <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
+                                                <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
                                             </div>
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </c:if>
 
-                                    <c:if test="${requestScope.listSearchCustomer != null && requestScope.listSearchCustomer.size() > 0 && filterCustomerList == null}">
+                            <c:if test="${requestScope.listSearchCustomer != null && requestScope.listSearchCustomer.size() > 0 && filterCustomerList == null}">
                                 <c:forEach var="cusomter" items="${requestScope.listSearchCustomer}"  >
                                     <tr>
                                         <td>${cusomter.getFullName()}</td>
@@ -107,12 +111,16 @@
                                         <td>${cusomter.email}</td>
                                         <td>${cusomter.phone}</td>
                                         <td>${cusomter.address}</td> 
-                                        <td>${cusomter.status eq 'active' ? 'Làm việc' : 'Nghỉ làm' }</td> 
+                                        <td><span class="${cusomter.status eq 'active' ? 'active-customer' : 'inactive-customer' }">
+                                                ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
+
+                                            </span></td> 
                                         <td> <div class="button-group">
                                                 <a href="customerDetail?customerId=${cusomter.id}">
                                                     <button class="button-customer view">Chi tiết</button>
                                                 </a>
                                                 <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
+                                                <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -131,12 +139,15 @@
                                         <td>${cusomter.email}</td>
                                         <td>${cusomter.phone}</td>
                                         <td>${cusomter.address}</td> 
-                                        <td>${cusomter.status eq 'active' ? 'Làm việc' : 'Nghỉ làm' }</td> 
+                                        <td><span class="${cusomter.status eq 'active' ? 'active-customer' : 'inactive-customer' }">
+                                                ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
+                                            </span></td> 
                                         <td> <div class="button-group">
                                                 <a href="customerDetail?customerId=${cusomter.id}">
                                                     <button class="button-customer view">Chi tiết</button>
                                                 </a>
                                                 <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
+                                                <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
                                             </div>
                                         </td>
                                     </tr>

@@ -70,7 +70,7 @@ public class CustomerListServlet extends HttpServlet {
         if ("sort".equals(sortAction)) {
             List<User> listSortCustomer;
             if ("asc".equals(currentSortOrder)) {
-                listSortCustomer = userDao.getAllUserByRole("Customer"); // Original order
+                listSortCustomer = userDao.getAllUserByRole("Customer"); 
                 session.setAttribute("currentSortOrder", "desc");
             } else {
                 listSortCustomer = userDao.sortCusomterById(); 
@@ -80,7 +80,7 @@ public class CustomerListServlet extends HttpServlet {
         } else {
             List<User> listCustomer = userDao.getAllUserByRole("Customer");
             request.setAttribute("listCustomer", listCustomer);
-            session.removeAttribute("currentSortOrder"); // Reset sort order
+            session.removeAttribute("currentSortOrder"); 
         }
 
         request.getRequestDispatcher("customerList.jsp").forward(request, response);

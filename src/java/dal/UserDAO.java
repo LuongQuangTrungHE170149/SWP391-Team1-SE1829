@@ -496,6 +496,8 @@ public class UserDAO extends DBContext {
                 user.setPhone(rs.getString("phoneNumber"));
                 user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
+
                 list.add(user);
 
             }
@@ -575,9 +577,12 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> 84fe04ba36748670b99af33a4b9b0d2eee81f694
     public String getCustomerName(int customerId) throws SQLException {
         String customerName = null;
         String sql = "SELECT firstName, lastName FROM Users WHERE id = ?";
