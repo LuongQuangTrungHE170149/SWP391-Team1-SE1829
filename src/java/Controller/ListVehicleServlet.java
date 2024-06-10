@@ -52,10 +52,10 @@ public class ListVehicleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //int customerId = Integer.parseInt(request.getParameter("customerId"));
+        int customerId = Integer.parseInt(request.getParameter("customerId"));
         List<Vehicle> vehicleList;
         String searchQuery = request.getParameter("searchQuery");
-        vehicleList = VehicleDAO.INSTANCE.getListVehicle(1, searchQuery);
+        vehicleList = VehicleDAO.INSTANCE.getListVehicle(customerId, searchQuery);
         for (Vehicle vehicle : vehicleList) {
             try {
                 boolean hasContract = VehicleDAO.INSTANCE.hasContract(vehicle.getId());
