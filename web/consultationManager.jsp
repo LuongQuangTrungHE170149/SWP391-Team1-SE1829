@@ -131,38 +131,56 @@
                          style="background-color: #fff; border-radius: 12px;">
                         <!--search-->
                         <div class=" d-flex justify-content-center mb-3">
-                            <div>
-                                <button onclick="location.href = 'consultationManager?status=notReply'" type="button" class="btn btn-danger btn-sm mb-2" data-mdb-ripple-init>
-                                    Chưa trả lời <span class="badge badge-danger">${countNotReply}</span>
-                                </button>
-                                <button onclick="location.href = 'consultationManager?status=reply'" type="button" class="btn btn-primary btn-sm mb-2" data-mdb-ripple-init>
-                                    Đã trả lời <span class="badge badge-danger">${countReply}</span>
-                                </button>
-                                <button onclick="location.href = 'consultationManager'" type="button" class="btn btn-primary btn-sm me-2 mb-2" data-mdb-ripple-init>
-                                    All <span class="badge badge-danger">${countAll}</span>
-                                </button>
-                            </div>
+                            <input type="hidden" name="status" value="${status}"/>
+                            <input type="hidden" name="staff" value="${staff}"/>
+                            <input type="hidden" name="staff" value="${staff}"/>
+                            <form action="consultationManager" method="GET" id="select-Form" class="d-flex me-2" >
+                                <div>
+                                    <div class="d-flex me-2">
+                                        <label class="form-label mb-0 me-2" for="form-select" style="align-content: center;">Staff</label>
 
+                                        <select class="form-select" name="staff" id="form-select" onchange="document.getElementById('select-Form').submit();">
+                                            <option value="" ${staff eq ""?'selected':''}>All</option>
+                                            <c:forEach items="${listStaffAnswer}" var="s">
+                                                <option value="${s[0]}" ${s[0] == staff?'selected':''}>${s[1]}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex me-2">
+                                        <label class="form-label mb-0 me-2" for="form-select" style="align-content: center;">Status</label>
+                                        <select class="form-select" name="status" id="form-select" onchange="document.getElementById('select-Form').submit();">
+                                            <option value="" ${status eq ""?'selected':''}>All</option>
+                                            <option value="true" ${status eq "true"?'selected':''} class="text-primary fw-bold">Response</option>
+                                            <option value="false" ${status eq "false"?'selected':''} class="text-danger fw-bold">Not Response</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <!--search-->
-                            <div>
-                                <input type="hidden" id="searchValue" value="${searchValue}"/>
-                                <form action="consultationManager" method="GET" class="input-group" style="width: 400px;">
-                                    <input type="search" id="formSearch" 
-                                           name="searchValue" 
-                                           class="form-control rounded" 
-                                           aria-label="Search" aria-describedby="search-addon"
-                                           Value="${searchValue!=null?searchValue:''}" 
-                                           placeholder="Name or Email to search"/>
-                                    <button type="submit" class="input-group-text border-0" id="search-addon">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </form>
-                                <c:if test="${not empty searchValue && searchValue != null}">
-                                    <div class="text-danger fw-bold mt-3">Tìm được <span class="fs-5">${totalSearchResult}</span> bản ghi với "<span class="fs-5">${searchValue}</span>"</div>
-                                </c:if>
-                            </div>
-                            <!--end search-->
+                                <!--search-->
+                                <div>
+                                    <div class="d-flex" style="width: 300px;">
+                                        <input type="hidden" id="searchValue" value="${searchValue}"/>
+                                        <input type="search" id="formSearch" 
+                                               name="searchValue" 
+                                               class="form-control rounded" 
+                                               aria-label="Search" aria-describedby="search-addon"
+                                               Value="${searchValue!=null?searchValue:''}" 
+                                               placeholder="Name or Email to search"/>
+                                        <button type="submit" class="input-group-text border-0" id="search-addon">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                    <c:if test="${not empty searchValue && searchValue != null}">
+                                        <div class="text-danger fw-bold mt-3">Tìm được <span class="fs-5">${totalSearchResult}</span> bản ghi với "<span class="fs-5">${searchValue}</span>"</div>
+                                    </c:if>
+                                </div>
+                                               <div>
+                                                   <h3><span class="badge badge-danger">${totalSearchResult}</span></h3>
+                                               </div>
+
+                            </form>
                         </div>
 
                         <!--table-->
@@ -175,7 +193,7 @@
                                         <ul class="pagination justify-content-center">
                                             <!-- Nút Previous -->
                                             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                                <a class="page-link" href="consultationManager?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
+                                                <a class="page-link" href="consultationManager?<c:if test="${not empty staff}">staff=${staff}&</c:if><c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
                                                 </li>
                                             <c:forEach begin="1" end="${numberOfPages}" var="page">
                                                 <c:choose>
@@ -187,7 +205,7 @@
                                                     <c:otherwise>
                                                         <input type="hidden"id="page" value="${currentPage}">
                                                         <li class="page-item">
-                                                            <a class="page-link" href="consultationManager?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${page}">${page}</a>
+                                                            <a class="page-link" href="consultationManager?<c:if test="${not empty staff}">staff=${staff}&</c:if><c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${page}">${page}</a>
                                                             </li>
                                                     </c:otherwise>
                                                 </c:choose>
@@ -195,7 +213,7 @@
 
                                             <!-- Nút Next -->
                                             <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                                <a class="page-link" href="consultationManager?<c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
+                                                <a class="page-link" href="consultationManager?<c:if test="${not empty staff}">staff=${staff}&</c:if><c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -204,12 +222,13 @@
                                 <table class="table table-hover table-bordered ">
                                     <thead class="">
                                         <tr class="">
-                                            <th scope="col" style="width: 20px;">#</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Create Date</th>
-                                            <th scope="col" class="text-center">Status</th>
-                                            <th scope="col">Detail</th>
+                                            <th scope="col" class="text-light" style="width: 20px; background: #1ca4c4;">#</th>
+                                            <th scope="col" class="text-light" style="background: #1ca4c4;">Name</th>
+                                            <th scope="col" class="text-light" style="background: #1ca4c4;">Email</th>
+                                            <th scope="col" class="text-light" style="background: #1ca4c4;">Create Date</th>
+                                            <th scope="col" class="text-light text-center" style="background: #1ca4c4;">Detail</th>
+                                            <th scope="col" class="text-center text-light" style="background: #1ca4c4;">Status</th>
+
                                         </tr>
                                     </thead>
 
@@ -223,19 +242,15 @@
                                                 <td>${listAll.name}</td>
                                                 <td>${listAll.email}</td>
                                                 <td><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
+                                                <td class="text-center"><button class="btn btn-primary btn-rounded btn-sm btn-table badge-detail " data-mdb-modal-init data-mdb-target="#detailModal"data-id="${listAll.id}">Detail</button></td>
                                                 <c:if test="${listAll.status == true}" >
-                                                    <td class=""><span class="btn btn-primary btn-rounded btn-sm btn-table ms-3" style="cursor: auto;" >Responsed</span></td>
-                                                </c:if>
-                                                <c:if test="${listAll.status == false}" >
-                                                    <td>
-                                                        <div class="d-flex align-items-center ms-3">
-                                                            <div ><span class="btn btn-danger btn-sm btn-rounded btn-table me-2  text-nowrap" style="cursor: auto;" >Not Responsed</span></div>
-                                                            <div><button class="btn btn-primary btn-rounded btn-sm btn-table badge-reply" data-id="${listAll.id}" data-mdb-modal-init data-mdb-target="#replyModal">Reply</button></div>
-                                                        </div>
+                                                    <td class="text-center"><span class="btn btn-primary btn-rounded btn-sm btn-floating" style="cursor: auto;" ><i class="fa-solid fa-circle-check"></i></span></td>
+                                                        </c:if>
+                                                        <c:if test="${listAll.status == false}" >
+                                                    <td class="text-center">
+                                                        <div><button class="btn btn-danger btn-rounded btn-sm btn-floating badge-reply" data-id="${listAll.id}" data-mdb-modal-init data-mdb-target="#replyModal"><i class="fa-solid fa-comment-dots"></i></button></div>
                                                     </td>
                                                 </c:if>    
-
-                                                <td class="text-center"><button class="btn btn-primary btn-rounded btn-sm btn-table badge-detail " data-mdb-modal-init data-mdb-target="#detailModal"data-id="${listAll.id}">Detail</button></td>
                                             </tr>
                                         </c:forEach>
                                     </c:if>
@@ -254,11 +269,11 @@
                         <input type="hidden"id="page" value="${currentPage}">
                         <c:if test="${numberOfPages > 1}">
                             <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center mb-0">
+                                <ul class="pagination justify-content-center">
                                     <!-- Nút Previous -->
                                     <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                        <a class="page-link" href="consultationManager?status=${status}&page=${currentPage - 1}" aria-label="Previous">Previous</a>
-                                    </li>
+                                        <a class="page-link" href="consultationManager?<c:if test="${not empty staff}">staff=${staff}&</c:if><c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
+                                        </li>
                                     <c:forEach begin="1" end="${numberOfPages}" var="page">
                                         <c:choose>
                                             <c:when test="${page == currentPage}">
@@ -269,18 +284,18 @@
                                             <c:otherwise>
                                                 <input type="hidden"id="page" value="${currentPage}">
                                                 <li class="page-item">
-                                                    <a class="page-link" href="consultationManager?status=${status}&page=${page}">${page}</a>
-                                                </li>
+                                                    <a class="page-link" href="consultationManager?<c:if test="${not empty staff}">staff=${staff}&</c:if><c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${page}">${page}</a>
+                                                    </li>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
 
                                     <!-- Nút Next -->
                                     <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
-                                        <a class="page-link" href="consultationManager?status=${status}&page=${currentPage + 1}" aria-label="Next">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                        <a class="page-link" href="consultationManager?<c:if test="${not empty staff}">staff=${staff}&</c:if><c:if test="${not empty status}">status=${status}&</c:if><c:if test="${not empty searchValue}">searchValue=${searchValue}&</c:if>page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </nav>
                         </c:if>
                         <!--pagination-->
                     </div>
@@ -370,21 +385,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 mb-3">
-                                <label for="replyMessage" class="form-label  text-primary">Reply message</label>
-                                <textarea class="form-control" id="replyMessage" rows="3" required=""></textarea>
-                            </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-12 mb-3">
                                 <label for="senderMessage" class="form-label text-danger">Consulting content</label>
                                 <textarea class="form-control" id="senderMessage" rows="3" name="senderMessage" placeholder=""readonly></textarea>
                             </div>
-
-
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="replyMessage" class="form-label  text-primary">Reply message</label>
+                                <textarea class="form-control" id="replyMessage" rows="3" required=""></textarea>
+                            </div>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-between ps-0 pe-0 pb-0">
                             <div class="d-flex">
-                                <button type="submit" class="btn btn-primary">Gửi</button>
+                                <button type="submit" class="btn btn-primary me-2">Gửi</button>
                                 <button type="button" class="btn btn-danger" onclick="confirmDeletion()">Xóa</button>
                                 <!--spinner-->
                                 <div id="loading-overlay" style="display: none;">
