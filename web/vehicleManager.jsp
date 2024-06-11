@@ -148,7 +148,7 @@
                                         <a href="viewContract.jsp?vehicleId=${vehicle.id}&customerId=${customerId}">Xem Bảo hiểm</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="addContract.jsp?vehicleId=${vehicle.id}&customerId=${customerId}">Tạo Bảo hiểm</a>
+                                        <a href="AddContractForm?vehicleId=${vehicle.id}&customerId=${customerId}">Tạo Bảo hiểm</a>
                                     </c:otherwise>
                                 </c:choose>
 
