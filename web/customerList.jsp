@@ -49,7 +49,7 @@
 
                     <div style="display: flex;">
                         <a href="customerList?action=sort" class="btn-wrapper btn-filter">Sắp xếp</a>
-                        <a href="" class="btn-wrapper btn-add">Thêm</a>
+                        <a href="customerAdd" class="btn-wrapper btn-add">Thêm</a>
 
                     </div>   
                 </div>

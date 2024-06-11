@@ -349,9 +349,9 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public User insert(User modal) {
+    public Boolean insert(User modal) {
 
-        String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phone, dob, [address], gender)"
+        String sql = "INSERT INTO Users ( username, firstName, lastName, password, [role], email, phoneNumber, dob, [address], gender)"
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -367,12 +367,11 @@ public class UserDAO extends DBContext {
             ps.setString(posParam++, modal.getAddress());
             ps.setInt(posParam++, modal.getGender());
             ps.executeUpdate();
-            return modal;
+            return true;
         } catch (SQLException e) {
             System.out.println(e);
         }
-
-        return null;
+        return false;
     }
 
     public User getUserById(int id) {

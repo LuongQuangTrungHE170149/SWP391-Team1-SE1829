@@ -23,18 +23,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .wrraper {
     width: 100%;
-    min-height: 1000px;
-    /*background-color: #d9d9d9;*/
-    padding-top:100px
+    min-height: 800px;
+
+    padding-top: 50px
 
 }
 
 .add-form {
     width: 638px;
-    height: 696px;
+    height: 650px;
     margin-top: 20px;
     flex-shrink: 0;
     background: #FFF;
+    border-radius: 8px;
 }
 
 .add-form__header {
@@ -396,8 +397,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /*Edit Agency*/
 .edit-agency--wrapper {
     width: 100%;
-    min-height: 1000px;
-    padding-top:100px
+    min-height: 800px;
+    padding-top: 50px
 }
 
 .edit-form-wrapper {

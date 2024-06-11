@@ -8,17 +8,15 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author trand
+ * @author tranm
  */
-@WebServlet(name="ConfirmCodeController", urlPatterns={"/ConfirmCodeController"})
-public class ConfirmCodeController extends HttpServlet {
+public class CustomerAddServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +33,10 @@ public class ConfirmCodeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConfirmCodeController</title>");  
+            out.println("<title>Servlet CustomerAddServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConfirmCodeController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CustomerAddServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +53,7 @@ public class ConfirmCodeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       request.getRequestDispatcher("customerAdd.jsp").forward(request, response);
     } 
 
     /** 
