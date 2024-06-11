@@ -50,12 +50,11 @@
                 </div>
                 <c:remove var="updateFail" scope="session" />
             </c:if>
-            <div>
+           
                 <jsp:include page="./header.jsp" />      
-            </div>
+           
 
-            <div class="container edit-agency--wrapper">
-
+            <div class="container edit-customer--wrapper">
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6 edit-form-wrapper">
