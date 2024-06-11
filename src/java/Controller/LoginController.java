@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
             }
         } else {
         req.getRequestDispatcher("login.jsp").forward(req, resp);
-    }
+        }
 
     }
 
@@ -64,11 +64,6 @@ public class LoginController extends HttpServlet {
             } else if (user.getRole().equalsIgnoreCase("manager")) {
                 resp.sendRedirect("homeManager");
             }
-
-            req.getSession().setAttribute("user", user);
-            req.getRequestDispatcher("home.jsp").forward(req, resp);
-
-
         }
     }
     }
