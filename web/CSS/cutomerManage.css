@@ -12,11 +12,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 #customerDetail-page,
-#editCustomer-page {
+#editCustomer-page,
+#addCustomer-page{
     background-image: url(../images/side-view-man-with-motorbike.jpg);
     background-size: cover;
 
 
+}
+
+.edit-customer--wrapper,
+.edit-add--wrapper{
+    width: 100%;
+    min-height: 1000px;
+    padding-top:50px;
 }
 
 .button-customer-group {
@@ -48,7 +56,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .customerDetail-wrapper {
     width: 100%;
-    min-height: 700px;
+    min-height: 850px;
 }
 
 .customerDetail-avatar {
@@ -107,3 +115,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-top: 20px;
 }
 
+.select-half {
+    width: 200px;
+    height: 41px;
+    border-radius: 11px;
+    border: 1px solid #000;
+}
+
+.active-customer{
+    color: green;
+}
+
+.inactive-customer{
+    color: red;
+}

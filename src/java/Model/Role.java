@@ -9,7 +9,7 @@ package Model;
  * @author trand
  */
 public enum Role {
-
+    USER("User"),
     CUSTOMER("Customer"),
     STAFF("Staff"),
     MANAGER("Manager");

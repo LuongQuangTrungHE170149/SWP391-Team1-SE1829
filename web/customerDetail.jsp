@@ -113,7 +113,7 @@
                                 <span class="customer-info">${customer.address}</span>
                             </div>
 
-                            <a href="">
+                            <a href="customerEdit?customerId=${customer.id}">
                                 <button class="update-btn">Sửa</button>
                             </a>
                         </div>
@@ -124,6 +124,7 @@
             </div>
 
         </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
     </body>
 </html>

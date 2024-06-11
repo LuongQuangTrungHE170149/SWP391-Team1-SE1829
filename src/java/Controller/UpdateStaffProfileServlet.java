@@ -71,11 +71,11 @@ public class UpdateStaffProfileServlet extends HttpServlet {
             //update profile
             int gender = Integer.parseInt(request.getParameter("gender"));
             String email = request.getParameter("email");
-            if (udb.checkEmailExistById(email) & !email.equalsIgnoreCase(u.getEmail())) {
+            if (udb.checkEmailExist(email) & !email.equalsIgnoreCase(u.getEmail())) {
                 request.setAttribute("invalidEmail", "Email '"+email+"' already exist! Please try another email!");
             } else {
                 String phone = request.getParameter("phone");
-                if (udb.checkPhoneExistById(phone) & !phone.equalsIgnoreCase(u.getPhone())) {
+                if (udb.checkPhoneExist(phone) & !phone.equalsIgnoreCase(u.getPhone())) {
                     request.setAttribute("invalidPhone", "Phone number '"+phone+"' already exist! Please try another phone number!");
                 } else {
                     String address = request.getParameter("address");

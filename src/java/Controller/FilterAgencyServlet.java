@@ -66,8 +66,7 @@ public class FilterAgencyServlet extends HttpServlet {
             if (key.equals("all")) {
                 response.sendRedirect("listAgency");
 
-            } else {
-                
+            } else {            
                 switch (key) {      
                 case "active":
                     key = "active";

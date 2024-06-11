@@ -4,27 +4,21 @@
  */
 package Controller;
 
-import Model.Vehicle;
+import Model.User;
 import dal.UserDAO;
-import dal.VehicleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author QUANG TRUNG
+ * @author tranm
  */
-@WebServlet(name = "ListVehicleServlet", urlPatterns = {"/ListVehicleServlet"})
-public class ListVehicleServlet extends HttpServlet {
+public class FilterCustomerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +31,19 @@ public class ListVehicleServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet FilterCustomerServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet FilterCustomerServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,29 +58,33 @@ public class ListVehicleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int customerId = Integer.parseInt(request.getParameter("customerId"));
-        List<Vehicle> vehicleList;
-        String searchQuery = request.getParameter("searchQuery");
-        vehicleList = VehicleDAO.INSTANCE.getListVehicle(customerId, searchQuery);
-        for (Vehicle vehicle : vehicleList) {
-            try {
-                boolean hasContract = VehicleDAO.INSTANCE.hasContract(vehicle.getId());
-                vehicle.setHasContract(hasContract);
-            } catch (SQLException ex) {
-                Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        String key = request.getParameter("filter");
+        String selectedStatus = "";
+        if (!key.isEmpty()) {
+            if (key.equals("all")) {
+                response.sendRedirect("customerList");
+            } else {
+                switch (key) {
+                    case "active":
+                        key = "active";
+                        selectedStatus = "active";
+                        break;
+                    case "inactive":
+                        key = "inactive";
+                        selectedStatus = "inactive";
+                        break;
+                }
+                UserDAO udb = new UserDAO();
+
+                List<User> filterCustomerList = udb.getAllCustomerByStatus(key);
+                request.setAttribute("filterCustomerList", filterCustomerList);
+                request.setAttribute("selectedCity", selectedStatus);
+                request.getRequestDispatcher("customerList").forward(request, response);
             }
+
+        } else {
+            response.sendRedirect("customerList");
         }
-        UserDAO userDAO = new UserDAO();
-        String customerName = null;
-        try {
-            customerName = userDAO.getCustomerName(customerId);
-        } catch (SQLException ex) {
-            Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            request.setAttribute("customerName", customerName);
-            request.setAttribute("customerId", customerId);
-        request.setAttribute("vehicleList", vehicleList);
-        request.getRequestDispatcher("vehicleManager.jsp").forward(request, response);
     }
 
     /**
