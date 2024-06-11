@@ -120,6 +120,10 @@
         <servlet-name>ChangePasswordStaffServlet</servlet-name>
         <servlet-class>Controller.ChangePasswordStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilterCustomerServlet</servlet-name>
+        <servlet-class>Controller.FilterCustomerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -239,6 +243,10 @@
     <servlet-mapping>
         <servlet-name>ChangePasswordStaffServlet</servlet-name>
         <url-pattern>/changePasswordStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterCustomerServlet</servlet-name>
+        <url-pattern>/filterCustomer</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
