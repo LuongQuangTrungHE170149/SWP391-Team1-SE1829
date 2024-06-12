@@ -125,43 +125,19 @@
                 <div class="tab-content p-4 pt-0" id="ex-with-icons-content">
 
                     <!--tab list Consultation-->
-                    <div class="tab-pane fade show active shadow-lg pt-4 pb-4" 
+                    <div class="tab-pane fade show active shadow-lg pb-4" 
                          id="listConsultation" role="tabpanel" 
                          aria-labelledby="ex-with-icons-tab-1"
                          style="background-color: #fff; border-radius: 12px;">
                         <!--search-->
-                        <div class=" d-flex justify-content-center mb-3">
+                        <div class="nav navbar justify-content-start mb-3 px-2">
                             <input type="hidden" name="status" value="${status}"/>
                             <input type="hidden" name="staff" value="${staff}"/>
-                            <input type="hidden" name="staff" value="${staff}"/>
-                            <form action="consultationManager" method="GET" id="select-Form" class="d-flex me-2" >
-                                <div>
-                                    <div class="d-flex me-2">
-                                        <label class="form-label mb-0 me-2" for="form-select" style="align-content: center;">Staff</label>
-
-                                        <select class="form-select" name="staff" id="form-select" onchange="document.getElementById('select-Form').submit();">
-                                            <option value="" ${staff eq ""?'selected':''}>All</option>
-                                            <c:forEach items="${listStaffAnswer}" var="s">
-                                                <option value="${s[0]}" ${s[0] == staff?'selected':''}>${s[1]}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="d-flex me-2">
-                                        <label class="form-label mb-0 me-2" for="form-select" style="align-content: center;">Status</label>
-                                        <select class="form-select" name="status" id="form-select" onchange="document.getElementById('select-Form').submit();">
-                                            <option value="" ${status eq ""?'selected':''}>All</option>
-                                            <option value="true" ${status eq "true"?'selected':''} class="text-primary fw-bold">Response</option>
-                                            <option value="false" ${status eq "false"?'selected':''} class="text-danger fw-bold">Not Response</option>
-                                        </select>
-                                    </div>
-                                </div>
-
+                            <form action="consultationManager" method="GET" id="select-Form" class="d-flex" >
                                 <!--search-->
                                 <div>
-                                    <div class="d-flex" style="width: 300px;">
-                                        <input type="hidden" id="searchValue" value="${searchValue}"/>
+                                    <input type="hidden" id="searchValue" value="${searchValue}"/>
+                                    <div class="form-outline d-flex" data-mdb-input-init style="width: 300px;">
                                         <input type="search" id="formSearch" 
                                                name="searchValue" 
                                                class="form-control rounded" 
@@ -176,9 +152,28 @@
                                         <div class="text-danger fw-bold mt-3">Tìm được <span class="fs-5">${totalSearchResult}</span> bản ghi với "<span class="fs-5">${searchValue}</span>"</div>
                                     </c:if>
                                 </div>
-                                               <div>
-                                                   <h3><span class="badge badge-danger">${totalSearchResult}</span></h3>
-                                               </div>
+                                <div class="ms-3">
+                                    <select class="form-select" name="staff" id="form-select" onchange="document.getElementById('select-Form').submit();">
+                                        <option value=""selected="" disabled="">Staff</option>
+                                        <option value="" ${staff eq ""?'selected':''}>All</option>
+                                        <c:forEach items="${listStaffAnswer}" var="s">
+                                            <option value="${s[0]}" ${s[0] == staff?'selected':''}>${s[1]}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="ms-3 me-3">
+                                    <select class="form-select" name="status" id="form-select" onchange="document.getElementById('select-Form').submit();">
+                                        <option disabled="" selected="">Status</option>
+                                        <option value="" ${status eq ""?'selected':''}>All</option>
+                                        <option value="true" ${status eq "true"?'selected':''} class="text-primary fw-bold">Response</option>
+                                        <option value="false" ${status eq "false"?'selected':''} class="text-danger fw-bold">Not Response</option>
+                                    </select>
+                                </div>
+
+
+                                <div>
+                                    <h3><span class="badge badge-danger">${totalSearchResult}</span></h3>
+                                </div>
 
                             </form>
                         </div>

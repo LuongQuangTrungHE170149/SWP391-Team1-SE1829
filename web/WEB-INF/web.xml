@@ -61,8 +61,8 @@
         <servlet-class>Controller.UpdatePromotionServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffManagerServlet</servlet-name>
-        <servlet-class>Controller.StaffManagerServlet</servlet-class>
+        <servlet-name>StaffHomeServlet</servlet-name>
+        <servlet-class>Controller.StaffHomeServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReplyConsultationServlet</servlet-name>
@@ -189,8 +189,8 @@
         <url-pattern>/updatePromotion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffManagerServlet</servlet-name>
-        <url-pattern>/staffManager</url-pattern>
+        <servlet-name>StaffHomeServlet</servlet-name>
+        <url-pattern>/staffHome</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReplyConsultationServlet</servlet-name>

@@ -58,7 +58,7 @@ public class PromotionServlet extends HttpServlet {
     throws ServletException, IOException {
         PromotionDAO pdb = new PromotionDAO();
         List<Promotion> listAll = pdb.getAll();
-        Promotion promotionHeader = pdb.getPromotionByIsHeader(true);
+        Promotion promotionHeader = pdb.getPromotionByIsHeader();
         
         request.setAttribute("listAll", listAll);
         request.setAttribute("promotionHeader", promotionHeader);

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,41 +23,6 @@ import java.util.List;
  */
 public class PromotionManagerServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PromotionManagerServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PromotionManagerServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -94,30 +60,23 @@ public class PromotionManagerServlet extends HttpServlet {
                 }
 
                 //search
+                String selectedStaff = request.getParameter("selectedStaff");
                 String searchValue = request.getParameter("searchValue");
-                if (searchValue != null && !searchValue.isEmpty()) {
-                    listAll = pdb.SearchByTitleOrDescriptionOrContent(searchValue);
-                    int totalSearchResult = listAll.size();
-                    request.setAttribute("totalSearchResult", totalSearchResult);
-                } else {
-                    listAll = pdb.getAll();
-                }
+                listAll = pdb.searchPromotion(searchValue, selectedStaff);
 
-                String selectedStaffParam = request.getParameter("selectedStaff");
-                if (selectedStaffParam != null) {
-                    int selectedStaff = Integer.parseInt(selectedStaffParam);
-                    if (selectedStaff == 0) {
-                        request.setAttribute("selectedStaff", 0);
-                        listAll = pdb.getAll();
-                    } else {
-                        request.setAttribute("selectedStaff", selectedStaff);
-                        listAll = pdb.listPromotionAddByStaff(selectedStaff);
-
+                try {
+                    String getHeader = request.getParameter("getHeader");
+                    if (getHeader.equals("true")) {
+                        if (!pdb.getHeader().isEmpty()) {
+                            listAll = pdb.getHeader();
+                        }else{
+                            request.setAttribute("invalidHeader", "Bạn chưa chọn header!");
+                        }
                     }
-
-                } else {
-                    request.setAttribute("selectedStaff", 0);
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
+
 //                 
                 //for pagination
                 int page = 1;
@@ -130,6 +89,8 @@ public class PromotionManagerServlet extends HttpServlet {
 
                 List<Promotion> listForPage = listAll.subList(start, end);
                 int numberOfPages = (int) Math.ceil(listAll.size() * 1.0 / recordPerPage);
+
+                request.setAttribute("selectedStaff", selectedStaff);
                 request.setAttribute("totalPromotion", listAll.size());
                 request.setAttribute("listAll", listForPage);
                 request.setAttribute("numberOfPages", numberOfPages);
@@ -152,7 +113,7 @@ public class PromotionManagerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**

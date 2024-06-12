@@ -63,8 +63,12 @@
                                     <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
                                     <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
                                 </ul>
-
                             </li>
+                            <c:if test="${sessionScope.user.getRole() eq 'Staff' || sessionScope.user.getRole() eq 'staff'}">
+                                <li class="nav-item">
+                                    <a class="nav-link"style="color:white;" href="staffHome">Quản lý</a>
+                                </li>
+                            </c:if>
                             <li class="nav-item">
                                 <a class="nav-link"style="color:white;" href="promotion">Khuyến mại</a>
                             </li>
@@ -95,7 +99,11 @@
                                         <i class="fa-solid fa-user" style="color:#fff"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-                                        <li><a href="#" class="dropdown-item">Hồ sơ</a></li>
+                                        <li><a href="
+                                               <c:if test="${sessionScope.user.role eq 'staff' or sessionScope.user.role eq 'staff'}">
+                                                   staffProfile?staffId=${sessionScope.user.id}
+                                               </c:if>
+                                               " class="dropdown-item">Hồ sơ</a></li>
                                         <li class="dropdown-divider"></li>
                                         <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
                                     </ul>

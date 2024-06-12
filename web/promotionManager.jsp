@@ -63,62 +63,69 @@
 
                 <!--tab content-->
                 <div class="p-4 m-0" style="width: 100%;">
-                    <div class="shadow-lg pt-4 pb-4"
-                         style="background-color: #fff; border-radius: 12px;">
+                    <div class="shadow-lg pb-4"
+                         style="background-color: #fff; border-radius: 12px; ">
 
                         <!--nav-->
-                        <div class="d-flex mb-3"> 
+                        <div class="nav navbar justify-content-between align-items-start mb-3 px-2"> 
                             <!--add promotion-->
-                            <div>
-                                <button type="button"
-                                        class="btn btn-info me-3" 
-                                        data-mdb-ripple-init
-                                        data-mdb-modal-init
-                                        data-mdb-target="#addPromotionModal">
-                                    <i class="fa-solid fa-plus me-2"></i>Add Promotion
-                                </button>
-                            </div>
+
                             <!--end add promotion-->
                             <!--search-->
                             <div>
-                                <form action="promotionManager" method="GET" class="input-group" style="width: 400px;">
-                                    <input type="search" id="formSearch" 
-                                           name="searchValue" 
-                                           class="form-control rounded" 
-                                           aria-label="Search" aria-describedby="search-addon"
-                                           Value="${searchValue!=null?searchValue:''}" 
-                                           placeholder="Title, description or content (all)"/>
-                                    <button type="submit" class="input-group-text border-0" id="search-addon">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                <form action="promotionManager" method="GET" class="input-group" id="select-Form">
+                                    <div>
+                                        <div class="form-outline d-flex" data-mdb-input-init>
+                                            <input type="search" id="formSearch" 
+                                                   name="searchValue" 
+                                                   class="form-control rounded" 
+                                                   aria-label="Search" aria-describedby="search-addon"
+                                                   Value="${searchValue!=null?searchValue:''}" 
+                                                   placeholder="Title, description..."/>
+                                            <button type="submit" class="input-group-text border-0" id="search-addon">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                        <c:if test="${not empty searchValue && searchValue != null}">
+                                            <div class="text-danger fw-bold mt-3">Tìm được <span class="fs-5">${totalPromotion}</span> bản ghi với "<span class="fs-5">${searchValue}</span>"</div>
+                                        </c:if>
+                                    </div>
+                                    <div class="ms-3">
+                                        <c:set var="dataList" value="${requestScope.listStaffAddPromotion}" />
+                                        <c:set var="selectedStaff" value="${requestScope.selectedStaff}" />
+                                        <select class="form-select" name="selectedStaff" id="form-select" onchange="document.getElementById('select-Form').submit();">
+                                            <option disabled="">Staff</option>
+                                            <option value="">All</option>
+                                            <c:forEach var="record" items="${dataList}">
+                                                <option value="${record[0]}" ${record[0] == selectedStaff ? 'selected' : ''}>${record[1]}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="ms-3"><span class=" badge badge-danger">${totalPromotion}</span></h3>
+                                    </div>
+
                                 </form>
-                                <c:if test="${not empty searchValue && searchValue != null}">
-                                    <div class="text-danger fw-bold mt-3">Tìm được <span class="fs-5">${totalSearchResult}</span> bản ghi với "<span class="fs-5">${searchValue}</span>"</div>
-                                </c:if>
+
+                            </div>
+                            <div class="">
+                                <div>
+                                    <button type="button" class="btn btn-info btn-sm" onclick="location.href = 'promotionManager?getHeader=true'" data-mdb-ripple-init>Header</button>
+                                    <button type="button"
+                                            class="btn btn-info btn-sm" 
+                                            data-mdb-ripple-init
+                                            data-mdb-modal-init
+                                            data-mdb-target="#addPromotionModal">
+                                        <i class="fa-sharp fa-solid fa-plus"></i>Add
+                                    </button>
+                                </div>
+                                <p class="m-0 text-danger">${invalidHeader}</p>
+
                             </div>
                             <!--end search-->
-                            <c:set var="dataList" value="${requestScope.listStaffAddPromotion}" />
-                            <c:set var="selectedStaff" value="${requestScope.selectedStaff}" />
 
-                            <form action="promotionManager" method="GET" id="select-Form" class="d-flex ms-5" style="height: 35px; width: 250px;">
-                                <label class="form-label text-nowrap me-2" for="form-select" style="width: 150px; margin-bottom:0; align-content: center;">Create By Staff</label>
-                                <select class="form-select" name="selectedStaff" id="form-select" onchange="document.getElementById('select-Form').submit();">
-                                    <option value="0">All</option>
-                                    <c:forEach var="record" items="${dataList}">
-                                        <option value="${record[0]}" ${record[0] == selectedStaff ? 'selected' : ''}>${record[1]}</option>
-                                    </c:forEach>
-                                </select>
-                            </form>
-                            <div>
-                                <c:forEach items="${dataList}" var="record">
-                                    <c:if test="${record[0] == selectedStaff}">
-                                        <h3 class="text-danger ms-2 badge badge-danger">${record[2]} records</h3>
-                                    </c:if>
-                                </c:forEach>
-                                <c:if test="${selectedStaff==0}">
-                                    <h3 class="text-danger ms-2 badge badge-danger">${totalPromotion} records</h3>
-                                </c:if>
-                            </div>
+
 
 
 
@@ -184,13 +191,19 @@
                                                 <td style="width: 45px;">${status.index+1+(currentPage - 1)*20}</td>
                                                 <td style="font-size: 12px;width: 350px;">${listAll.title}</td>
                                                 <td style="font-size: 12px;width: 850px;">
+                                                    ${listAll.description} 
                                                     <a href="#"  
-                                                       class="badge badge-info rounded-pill btn-detailPromotion" 
+                                                       class="badge badge-info rounded-pill btn-detailPromotion float-end" 
                                                        data-id="${listAll.id}" data-mdb-modal-init data-mdb-target="#detailPromotionModal"
                                                        data-mdb-ripple-init>
-                                                        <span>see detail</span>
+                                                        <i class="fa-solid fa-eye"></i>
                                                     </a>
-                                                    ${listAll.description} 
+                                                    <a href="promotionDetail?id=${listAll.id}" target="_blank"
+                                                       data-mdb-ripple-init
+                                                       class="badge badge-info rounded-pill me-2 float-end">
+                                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                                    </a>
+
                                                 </td>
                                                 <td style="width: 50px;"><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
                                                 <c:if test="${listAll.isHeader == true}" >
