@@ -8,7 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 #listCustomer-page {
     width: 100%;
-    padding-top:100px;
+    padding-top: 50px;
 }
 
 #customerDetail-page,
@@ -21,7 +21,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .edit-customer--wrapper,
-.edit-add--wrapper{
+.add-customer--wrapper{
     width: 100%;
     min-height: 1000px;
     padding-top:50px;
@@ -129,3 +129,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .inactive-customer{
     color: red;
 }
+
