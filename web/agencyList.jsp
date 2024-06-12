@@ -233,10 +233,6 @@
                 }, 3000);
             });
 
-
-
-
-
             function confirmAction(id, action) {
                 const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                 const confirmBtn = document.getElementById('confirmBtn');

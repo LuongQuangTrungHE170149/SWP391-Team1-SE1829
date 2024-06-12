@@ -23,6 +23,21 @@
 
         <div id="listCustomer-page">
 
+            <c:if test="${sessionScope.addSuccess != null}">
+                <div id="toast-success" class="toast-container top-0 end-0 p-3">
+                    <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                ${sessionScope.addSuccess}
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <c:remove var="addSuccess" scope="session" />
+            </c:if>
+
+
             <div class="container">
 
                 <h1>${requestScope.haha}</h1>
@@ -73,7 +88,7 @@
 
                             <c:if test="${listSearchCustomer == null && filterCustomerList == null}">
                                 <c:forEach var="cusomter" items="${requestScope.listCustomer}"  >
-                                    <tr>
+                                    <tr class="customerList-container">
                                         <td>${cusomter.getFullName()}</td>
                                         <td>
                                             <fmt:parseDate value="${cusomter.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
@@ -101,7 +116,7 @@
 
                             <c:if test="${requestScope.listSearchCustomer != null && requestScope.listSearchCustomer.size() > 0 && filterCustomerList == null}">
                                 <c:forEach var="cusomter" items="${requestScope.listSearchCustomer}"  >
-                                    <tr>
+                                    <tr class="customerList-container">
                                         <td>${cusomter.getFullName()}</td>
                                         <td>
                                             <fmt:parseDate value="${cusomter.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
@@ -129,7 +144,7 @@
 
                             <c:if test="${filterCustomerList != null && requestScope.listSearchCustomer == null}">
                                 <c:forEach var="cusomter" items="${requestScope.filterCustomerList}"  >
-                                    <tr>
+                                    <tr class="customerList-container">
                                         <td>${cusomter.getFullName()}</td>
                                         <td>
                                             <fmt:parseDate value="${cusomter.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
@@ -163,15 +178,93 @@
 
             </div>
 
-
+            <div class="pagination">
+                <a href="#" class="prev">&laquo; Trước</a>
+                <a href="#" class="page">1</a>
+                <a href="#" class="page">2</a>
+                <a href="#" class="page">3</a>
+                <a href="#" class="next">Sau &raquo;</a>
+            </div>
 
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
+
+                            window.addEventListener('load', () => {
+                                setTimeout(() => {
+                                    const successToast = document.getElementById('toast-success');
+                                    if (successToast) {
+                                        successToast.style.opacity = '0';
+                                        setTimeout(() => successToast.style.display = 'none', 1000);
+                                    }
+
+                                }, 3000);
+                            });
                             function redirectToServlet(selectElement) {
                                 var selectedValue = selectElement.value;
                                 window.location.href = "filterCustomer?filter=" + encodeURIComponent(selectedValue);
                             }
+
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const prevBtn = document.querySelector('.prev');
+                                const nextBtn = document.querySelector('.next');
+                                const pages = document.querySelectorAll('.page');
+
+                                let currentPage = 1;
+
+                                function showPage(pageNum) {
+
+                                    const customerList = document.querySelectorAll('.customerList-container');
+                                    customerList.forEach(item => {
+                                        item.style.display = 'none';
+                                    });
+
+
+                                    const startIndex = (pageNum - 1) * 10;
+                                    const endIndex = pageNum * 10;
+
+
+                                    for (let i = startIndex; i < endIndex; i++) {
+                                        if (customerList[i]) {
+                                            customerList[i].style.display = 'table-row';
+                                        }
+                                    }
+
+
+                                    pages.forEach(page => {
+                                        page.classList.remove('active');
+                                    });
+                                    pages[pageNum - 1].classList.add('active');
+                                }
+
+
+                                showPage(currentPage);
+
+
+                                prevBtn.addEventListener('click', function () {
+                                    if (currentPage > 1) {
+                                        currentPage--;
+                                        showPage(currentPage);
+                                    }
+                                });
+
+
+                                nextBtn.addEventListener('click', function () {
+                                    if (currentPage < pages.length) {
+                                        currentPage++;
+                                        showPage(currentPage);
+                                    }
+                                });
+
+
+                                pages.forEach((page, index) => {
+                                    page.addEventListener('click', function () {
+                                        currentPage = index + 1;
+                                        showPage(currentPage);
+                                    });
+                                });
+                            });
 
 
         </script>
