@@ -53,7 +53,6 @@
            
                 <jsp:include page="./header.jsp" />      
            
-
             <div class="container edit-customer--wrapper">
                 <div class="row">
                     <div class="col-md-3"></div>
@@ -132,7 +131,7 @@
 
 
                                 <div style="display: flex; justify-content: space-between; width: 473px">
-                                    <button type="submit" class="btn-wrapper btn-save">Sửa</button>                      
+                                    <button type="submit" class="btn-wrapper btn-save">Lưu</button>                      
                                 </div>
                             </form>
                         </div>
