@@ -51,19 +51,21 @@
     <body>
         <jsp:include page="header.jsp"></jsp:include>
 
-
-            <h2>Đã đăng ký phương tiện</h2>
-            <div class="container">
-                <p>Bạn có muốn đăng ký bảo hiểm cho phương tiện không?</p>
-                <div class="btn-container">
-                        <input type="hidden" name="customerId" value="${param.customerId}">
-                        <input type="hidden" name="vehicleId" value="${param.vehicleId}">
-                <a href="addContract.jsp" class="btn btn-yes" >Yes</button>
-                <a href="ListVehicleServlet?customerId=${param.customerId}" class="btn btn-no"  >No</button>
-                
+        <h2>Đã đăng ký phương tiện</h2>
+        <div class="container">
+            <p>Bạn có muốn đăng ký bảo hiểm cho phương tiện không?</p>
+             <div class="btn-container">
+                <form action="AddContractForm" method="get">
+                    <input type="hidden" name="customerId" value="${param.customerId}">
+                    <input type="hidden" name="vehicleId" value="${param.vehicleId}">
+                    <button class="btn btn-yes" type="submit">Yes</button>
+                </form>
+                <form action="ListVehicleServlet" method="get" style="display:inline;">
+                    <input type="hidden" name="customerId" value="${param.customerId}">
+                    <button class="btn btn-no" type="submit">No</button>
+                </form>
             </div>
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
-
 </html>

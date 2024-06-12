@@ -163,15 +163,15 @@
                                     </nav>
                                 </c:if>
                                 <!--pagination-->
-                                <table class="table table-hover table-bordered ">
+                                <table class="table table-hover table-bordered " >
                                     <thead class="text-nowrap">
                                         <tr class="">
-                                            <th scope="col">#</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col" >Description</th>
-                                            <th scope="col">Create Date</th>
-                                            <th scope="col" class="text-center">Set Header</th>
-                                            <th scope="col" class="text-center">Action</th>
+                                            <th scope="col" class=" text-light" style="background: #1ca4c4;">#</th>
+                                            <th scope="col" class=" text-light" style="background: #1ca4c4;">Title</th>
+                                            <th scope="col" class=" text-light" style="background: #1ca4c4;">Description</th>
+                                            <th scope="col" class=" text-light" style="background: #1ca4c4;">Create Date</th>
+                                            <th scope="col" class=" text-light text-center" style="background: #1ca4c4;">Set Header</th>
+                                            <th scope="col" class=" text-light text-center" style="background: #1ca4c4;">Action</th>
                                         </tr>
                                     </thead>
 

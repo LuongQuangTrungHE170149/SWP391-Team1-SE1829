@@ -60,7 +60,7 @@ public class ContractDAO extends DBContext {
         try {
 
             // Calculate End Date
-            String sql = "INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, contract.getCustomerId());
@@ -176,6 +176,9 @@ public class ContractDAO extends DBContext {
     public static void main(String[] args) {
 //        ContractDAO cd = new ContractDAO();
 //        List<User> users = cd.getCustomer("jdoe");
-       
+        Date startDate = new Date(2024, 6, 12);
+        Date endDate = new Date(2025, 6, 12);
+        Contract contract = new Contract(2,1,1,3, startDate, endDate, 1, "abcxya", 400000D, "Đang hiêu lực");
+        ContractDAO.INSTANCE.addContract(contract);
     }
 }
