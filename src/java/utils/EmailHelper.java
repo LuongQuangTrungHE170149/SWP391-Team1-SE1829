@@ -17,7 +17,7 @@ public class EmailHelper {
     public static final String TITLE_PROJECT = "SWP391 - TEAM1 - SE1829 - Agency Project";
 
     public static void sendEmail(String recipientEmail, String subject, String body) {
-        // Set up mail server properties
+        
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
