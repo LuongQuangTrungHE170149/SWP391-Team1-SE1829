@@ -44,7 +44,7 @@
                 <h3 style="text-align: center"><span>Danh sách khách hàng</span></h3>
                 <div class="container-action">
                     <div>
-                        <form action="customerList" method="post">
+                        <form action="customerList">
                             <div class="list-agency--search">
                                 <input  value="${name}" placeholder="Tìm kiếm tên khách hàng..." name="key"/>
                                 <button type="submit" class="search-agency--btn"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -55,8 +55,8 @@
                         <select name="filter" class="select-filter" onchange="redirectToServlet(this)">
                             <option disabled selected>Trạng thái</option>
                             <option value="all">Tất cả</option>
-                            <option value="active" >Hoạt động</option>
-                            <option value="inactive" >Dừng hoạt động</option>
+                            <option value="active" ${requestScope.selectedStatus eq "active" ? "selected" : ""} >Hoạt động</option>
+                            <option value="inactive" ${requestScope.selectedStatus eq "inactive" ? "selected" : ""} >Dừng hoạt động</option>
                         </select>
 
                     </div>       
@@ -72,7 +72,6 @@
                     <table class="styled-table">
                         <thead>
                             <tr>
-
                                 <th>Họ tên</th>
                                 <th>Năm sinh</th>
                                 <th>Giới tính</th>
@@ -86,88 +85,37 @@
                         <tbody >
 
 
-                            <c:if test="${listSearchCustomer == null && filterCustomerList == null}">
-                                <c:forEach var="cusomter" items="${requestScope.listCustomer}"  >
-                                    <tr class="customerList-container">
-                                        <td>${cusomter.getFullName()}</td>
-                                        <td>
-                                            <fmt:parseDate value="${cusomter.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
-                                            <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
-                                            ${formattedDate}</td>
-                                        <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
-                                        <td>${cusomter.email}</td>
-                                        <td>${cusomter.phone}</td>
-                                        <td>${cusomter.address}</td> 
-                                        <td><span class="${cusomter.status eq 'active' ? 'active-customer' : 'inactive-customer' }">
-                                                ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
-                                            </span>
-                                        </td> 
-                                        <td> <div class="button-customer-group">
-                                                <a href="customerDetail?customerId=${cusomter.id}">
-                                                    <button class="button-customer view">Chi tiết</button>
-                                                </a>
-                                                <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
-                                                <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
 
-                            <c:if test="${requestScope.listSearchCustomer != null && requestScope.listSearchCustomer.size() > 0 && filterCustomerList == null}">
-                                <c:forEach var="cusomter" items="${requestScope.listSearchCustomer}"  >
-                                    <tr class="customerList-container">
-                                        <td>${cusomter.getFullName()}</td>
-                                        <td>
-                                            <fmt:parseDate value="${cusomter.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
-                                            <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
-                                            ${formattedDate}</td>
-                                        <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
-                                        <td>${cusomter.email}</td>
-                                        <td>${cusomter.phone}</td>
-                                        <td>${cusomter.address}</td> 
-                                        <td><span class="${cusomter.status eq 'active' ? 'active-customer' : 'inactive-customer' }">
-                                                ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
+                            <c:forEach var="cusomter" items="${requestScope.listCustomer}"  >
+                                <tr class="customerList-container">
+                                    <td>${cusomter.getFullName()}</td>
+                                    <td>
+                                        <fmt:parseDate value="${cusomter.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                        <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
+                                        ${formattedDate}</td>
+                                    <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
+                                    <td>${cusomter.email}</td>
+                                    <td>${cusomter.phone}</td>
+                                    <td>${cusomter.address}</td> 
+                                    <td><span class="${cusomter.status eq 'active' ? 'active-customer' : 'inactive-customer' }">
+                                            ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
+                                        </span>
+                                    </td> 
+                                    <td> <div class="button-customer-group">
+                                            <a href="customerDetail?customerId=${cusomter.id}">
+                                                <button class="button-customer view">Chi tiết</button>
+                                            </a>
+                                            <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
+                                            <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
 
-                                            </span></td> 
-                                        <td> <div class="button-group">
-                                                <a href="customerDetail?customerId=${cusomter.id}">
-                                                    <button class="button-customer view">Chi tiết</button>
-                                                </a>
-                                                <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
-                                                <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
 
-                            <c:if test="${filterCustomerList != null && requestScope.listSearchCustomer == null}">
-                                <c:forEach var="cusomter" items="${requestScope.filterCustomerList}"  >
-                                    <tr class="customerList-container">
-                                        <td>${cusomter.getFullName()}</td>
-                                        <td>
-                                            <fmt:parseDate value="${cusomter.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
-                                            <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
-                                            ${formattedDate}</td>
-                                        <td>${cusomter.gender == 0 ? "Nam" : "Nữ"}</td>
-                                        <td>${cusomter.email}</td>
-                                        <td>${cusomter.phone}</td>
-                                        <td>${cusomter.address}</td> 
-                                        <td><span class="${cusomter.status eq 'active' ? 'active-customer' : 'inactive-customer' }">
-                                                ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
-                                            </span></td> 
-                                        <td> <div class="button-group">
-                                                <a href="customerDetail?customerId=${cusomter.id}">
-                                                    <button class="button-customer view">Chi tiết</button>
-                                                </a>
-                                                <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
-                                                <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
+
+
+
 
 
                         </tbody>
@@ -202,7 +150,7 @@
                             });
                             function redirectToServlet(selectElement) {
                                 var selectedValue = selectElement.value;
-                                window.location.href = "filterCustomer?filter=" + encodeURIComponent(selectedValue);
+                                window.location.href = "customerList?filter=" + encodeURIComponent(selectedValue);
                             }
 
 
