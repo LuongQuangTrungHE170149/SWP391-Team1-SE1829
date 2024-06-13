@@ -127,8 +127,11 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int agencyId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+    public Contract(int customerId, int staffId, int agencyId, int vehicleId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+        this.customerId = customerId;
+        this.staffId = staffId;
         this.agencyId = agencyId;
+        this.vehicleId = vehicleId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.contractType = contractType;
@@ -136,6 +139,12 @@ public class Contract {
         this.payment = payment;
         this.status = status;
     }
+
+    
+
+    
+
+    
 
    
     

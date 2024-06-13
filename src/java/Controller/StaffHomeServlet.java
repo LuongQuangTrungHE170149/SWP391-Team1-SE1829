@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author thuhu
  */
-public class StaffManagerServlet extends HttpServlet {
+public class StaffHomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -74,7 +74,7 @@ public class StaffManagerServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } //manager true =>>
             else {
-                request.getRequestDispatcher("staffManager.jsp").forward(request, response);
+                request.getRequestDispatcher("staffHome.jsp").forward(request, response);
             }
         }
     }

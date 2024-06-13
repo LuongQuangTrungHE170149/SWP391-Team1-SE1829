@@ -53,7 +53,7 @@ Create table Contracts(
 			ContractType nvarchar(255),
 			[Description] nvarchar(1000),
 			Payment Bigint,
-			IsPay Bit
+			status nvarchar(255)
 )
 GO
 
@@ -125,20 +125,13 @@ VALUES
 ('Toyota Corolla', 'CD5678', 1),
 ('Ford Focus', 'EF9012', 2);
 
-INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, IsPay)
+INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status)
 VALUES 
-(1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 0),
-(2, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 1);
+(1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'Đang hiệu lực'),
+(2, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'Đang hiệu lực');
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
-INSERT INTO Staff_Workplace ( AgencyId, StaffId, [status])
-VALUES ( 1, 2, 'active')
 
-
--- Thêm dữ liệu mẫu vào bảng Punishments
-INSERT INTO Punishments ( ContractId, [Description], [Type], [Action])
-(1, 2, 1, 1, '2024-01-01', '2024-12-31', 'lease', 'Annual lease contract', 12000, 0),
-(1, 2, 2, 2, '2024-01-01', '2024-06-30', 'lease', 'Half-year lease contract', 6000, 0);
 
 INSERT INTO Staff_Workplace (AgencyId, StaffId, [status])
 VALUES 

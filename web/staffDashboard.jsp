@@ -59,14 +59,14 @@
         <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px !important; height: 100vh;">
             <a href="#" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
                 <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
-                <span class="fs-5 mt-1">Staff Manager</span>
+                <span class="fs-5 mt-1">Staff Home</span>
             </a>
             <hr class="mt-0 bg-light" style="height: 2px;
                 border: none;">
             
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="staffManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
+                    <a href="" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
                         <i class="fa-solid fa-house me-2"></i>Home 
                     </a>
                 </li>
@@ -186,7 +186,7 @@
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
     <script>
         var currentLocation = window.location.href;
-        if (currentLocation.includes("staffManager")) {
+        if (currentLocation.includes("staffHome")) {
             document.getElementById("btnHome").classList.add("activeDash");
         } else if (currentLocation.includes("consultationManager")) {
             document.getElementById("btnConsultation").classList.add("activeDash");

@@ -77,6 +77,90 @@ public class ConsultationDAO extends DBContext {
         return list;
     }
 
+    public List<Object[]> listStaffAnswer() {
+        List<Object[]> list = new ArrayList<>();
+        String sql = " select c.staff as id, u.username as username\n"
+                + "  from Consultations c\n"
+                + "  inner join Users u On c.staff = u.id \n"
+                + "  group by c.staff, u.username";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                Object[] obj = new Object[]{id, username};
+                list.add(obj);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Consultation> searchConsultation(String staff, String status, String searchValue) {
+        List<Consultation> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT [id]\n"
+                + "      ,[name]\n"
+                + "      ,[email]\n"
+                + "      ,[content]\n"
+                + "      ,[createDate]\n"
+                + "      ,[reply_message]\n"
+                + "      ,[staff]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Consultations] where 1=1");
+
+        if (staff != null && !staff.isEmpty() && !staff.equals("all")) {
+            sql.append(" AND [staff] = ?");
+        }
+
+        if (status != null && !status.isEmpty() && !status.equals("all")) {
+            sql.append(" AND [status] = ?");
+        }
+
+        if (searchValue != null && !searchValue.isEmpty()) {
+            sql.append(" AND ([name] LIKE ? OR [email] LIKE ?)");
+        }
+        //
+        sql.append(" Order by createDate DESC");
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql.toString());
+            int index = 1;
+            if (staff != null && !staff.isEmpty() && !staff.equals("all")) {
+                st.setInt(index++, Integer.parseInt(staff));
+            }
+            if (status != null && !status.isEmpty() && !status.equals("all")) {
+                st.setString(index++, status);
+            }
+            if (searchValue != null && !searchValue.isEmpty()) {
+                String search = "%" + searchValue + "%";
+                st.setString(index++, search);
+                st.setString(index++, search);
+            }
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Consultation c = new Consultation();
+                c.setId(rs.getInt("id"));
+                c.setName(rs.getString("name"));
+                c.setEmail(rs.getString("email"));
+                c.setContent(rs.getString("content"));
+                c.setCreateDate(rs.getDate("createDate"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                c.setStaff(u);
+
+                c.setStatus(rs.getBoolean("status"));
+
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<Consultation> getConsultationByNameOrEmail(String searchValue) {
         List<Consultation> list = new ArrayList<>();
         String sql = "SELECT [id]\n"
@@ -274,7 +358,8 @@ public class ConsultationDAO extends DBContext {
 
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println(cdb.getConsultationById(1).getStaff().getUsername());
-        System.out.println(cdb.getConsultationByNameOrEmail("yasuo"));
+        System.out.println(cdb.searchConsultation("9", "0", ""));
+        System.out.println(cdb.searchConsultation("all", "", "").size());
+        System.out.println(cdb.listStaffAnswer().get(0)[1]);
     }
 }

@@ -18,8 +18,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PromotionDAO extends DBContext {
 
@@ -70,6 +68,65 @@ public class PromotionDAO extends DBContext {
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Promotion> searchPromotion(String searchValue, String staff) {
+        List<Promotion> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[image]\n"
+                + "      ,[staff]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[Promotion] where 1=1");
+        if (staff != null && !staff.isEmpty()) {
+            sql.append(" AND [staff] = ?");
+        }
+        if (searchValue != null && !searchValue.isEmpty()) {
+            sql.append(" AND ([title] LIKE ? OR [description] LIKE ? OR [content] LIKE ?)");
+        }
+        //
+        sql.append(" Order by createDate DESC");
+        try {
+            int index = 1;
+            PreparedStatement st = connection.prepareStatement(sql.toString());
+            if (staff != null && !staff.isEmpty()) {
+                st.setInt(index++, Integer.parseInt(staff));
+            }
+            if (searchValue != null && !searchValue.isEmpty()) {
+                String search = "%" + searchValue + "%";
+                st.setString(index++, search);
+                st.setString(index++, search);
+                st.setString(index++, search);
+            }
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Promotion p = new Promotion();
@@ -254,7 +311,7 @@ public class PromotionDAO extends DBContext {
         return null;
     }
 
-    public Promotion getPromotionByIsHeader(boolean isHeader) {
+    public Promotion getPromotionByIsHeader() {
         String sql = "SELECT [id]\n"
                 + "      ,[title]\n"
                 + "      ,[description]\n"
@@ -265,10 +322,9 @@ public class PromotionDAO extends DBContext {
                 + "      ,[isHeader]\n"
                 + "      ,[staff]\n"
                 + "      ,[createDate]\n"
-                + "  FROM [dbo].[Promotion] where isHeader = ?";
+                + "  FROM [dbo].[Promotion] where isHeader = 1";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setBoolean(1, isHeader);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Promotion p = new Promotion();
@@ -293,6 +349,47 @@ public class PromotionDAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+
+    public List<Promotion> getHeader() {
+        List<Promotion> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[image]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[staff]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[Promotion] where isHeader = 1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setDescription(rs.getString("description"));
+                p.setContent(rs.getString("content"));
+                p.setImage(rs.getString("image"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 
     public boolean deletePromotionById(int id) {
@@ -414,8 +511,10 @@ public class PromotionDAO extends DBContext {
 
     public static void main(String[] args) {
         PromotionDAO pdb = new PromotionDAO();
-        System.out.println(pdb.listStaffAddPromotion().get(0)[1]);
-        System.out.println(pdb.getTop3LatestPromotions());
+//        System.out.println(pdb.listStaffAddPromotion().get(0)[1]);
+//        System.out.println(pdb.getTop3LatestPromotions());
+        System.out.println(pdb.searchPromotion("", "9"));
+        System.out.println(pdb.searchPromotion("", "9").size());
     }
 
 }

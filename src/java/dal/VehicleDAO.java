@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import Model.Vehicle;
@@ -114,11 +111,37 @@ public class VehicleDAO extends DBContext {
             statement.executeUpdate();
         }
     }
+    
+    public Vehicle getVehicleById(int vehicleId) {
+        Vehicle vehicle = new Vehicle();    
+        String sql = "SELECT * FROM Vehicles WHERE MotocycleId = ?";
+        try {
+            
+
+            
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, vehicleId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                vehicle = new Vehicle();
+                vehicle.setId(resultSet.getInt("MotocycleId"));
+                vehicle.setModel(resultSet.getString("Model"));
+                vehicle.setLicensePlates(resultSet.getString("LicensePlates"));
+                vehicle.setOwnerId(resultSet.getInt("OwnerId"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+
+        return vehicle;
+    }
+    
     public static void main(String[] args) throws SQLException {
 
         Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.getListVehicle(1,"yamaha"));
+        System.out.println(VehicleDAO.INSTANCE.getVehicleById(3));
     }
 }
