@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -61,30 +63,64 @@ public class CustomerListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO userDao = new UserDAO();
-
         HttpSession session = request.getSession();
+        UserDAO userDao = new UserDAO();
+        List<User> listCustomer;
+
         String sortAction = request.getParameter("action");
         String currentSortOrder = (String) session.getAttribute("currentSortOrder");
 
-        if ("sort".equals(sortAction)) {
-            List<User> listSortCustomer;
-            if ("asc".equals(currentSortOrder)) {
-                listSortCustomer = userDao.getAllUserByRole("Customer"); 
-                session.setAttribute("currentSortOrder", "desc");
-            } else {
-                listSortCustomer = userDao.sortCusomterById(); 
-                session.setAttribute("currentSortOrder", "asc");
+        String status = request.getParameter("filter");
+        String selectedStatus = "";
+
+        if (status != null) {
+            switch (status) {
+                case "active":
+                    listCustomer = userDao.getAllCustomerByStatus("active");
+                    selectedStatus = "active";
+                    break;
+                case "inactive":
+                    listCustomer = userDao.getAllCustomerByStatus("inactive");
+                    selectedStatus = "inactive";
+                    break;
+                default:
+                    listCustomer = userDao.getAllUserByRole("Customer");
+                    break;
             }
-            request.setAttribute("listCustomer", listSortCustomer);
+            request.setAttribute("selectedStatus", selectedStatus);
         } else {
-            List<User> listCustomer = userDao.getAllUserByRole("Customer");
-            request.setAttribute("listCustomer", listCustomer);
-            session.removeAttribute("currentSortOrder"); 
+            listCustomer = userDao.getAllUserByRole("Customer");
         }
 
-        request.getRequestDispatcher("customerList.jsp").forward(request, response);
+        String searchValue = request.getParameter("key");
+        if (searchValue != null && !searchValue.isEmpty()) {
+            listCustomer = userDao.searchCustomerByName(searchValue);
+            request.setAttribute("name", searchValue);
+        }
+        if ("sort".equals(sortAction)) {
+            if ("asc".equals(currentSortOrder)) {
+                Collections.sort(listCustomer, new Comparator<User>() {
+                    @Override
+                    public int compare(User u1, User u2) {
+                        return Integer.compare(u1.getId(), u2.getId());
+                    }
+                });
+                session.setAttribute("currentSortOrder", "desc");
+            } else {
+                Collections.sort(listCustomer, new Comparator<User>() {
+                    @Override
+                    public int compare(User u1, User u2) {
+                        return Integer.compare(u2.getId(), u1.getId());
+                    }
+                });
+                session.setAttribute("currentSortOrder", "asc");
+            }
+        } else {
+            session.removeAttribute("currentSortOrder");
+        }
 
+        request.setAttribute("listCustomer", listCustomer);
+        request.getRequestDispatcher("customerList.jsp").forward(request, response);
     }
 
     /**
@@ -98,18 +134,7 @@ public class CustomerListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("key");
-        if (!name.isBlank()) {
-            UserDAO userDao = new UserDAO();
-            List<User> listSearchCustomer = userDao.searchCustomerByName(name);
-            request.setAttribute("name", name);
-            request.setAttribute("listSearchCustomer", listSearchCustomer);
 
-            request.getRequestDispatcher("customerList.jsp").forward(request, response);
-
-        } else {
-            response.sendRedirect("customerList");
-        }
     }
 
     /**
