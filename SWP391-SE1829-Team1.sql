@@ -3,6 +3,7 @@ use SWP391_SE1829_Team1
 go
 
 
+
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -36,8 +37,10 @@ GO
 
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
-			Model nvarchar(255),
+			MotocycleType nvarchar(255),
 			LicensePlates nvarchar(255),
+			Chassis nvarchar(255),
+			Engine nvarchar(255)
 			OwnerId int REFERENCES Users(id),
 )
 GO
@@ -46,7 +49,6 @@ Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
 			StaffId int references Users(id),
-			AgencyId int references Agencies(AgencyId),
 			VehicleId int references Vehicles(MotocycleId),
 			StartDate date,
 			EndDate date,

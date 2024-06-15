@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -136,10 +136,10 @@ public class AgencyDAO {
 
         return null;
     }
-    
+
     public List<Agency> getAllAgenciesByStatus(String key) {
         List<Agency> list = new ArrayList<>();
-        String sql = "select * from Agencies where status = '" + key +"'";
+        String sql = "select * from Agencies where status = '" + key + "'";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -162,13 +162,10 @@ public class AgencyDAO {
         return list;
     }
 
-    
-
     public BigInteger getTotalPaymentByAgencyId(int agencyId) {
         BigInteger total = BigInteger.ZERO;
-        String sql = "SELECT SUM(Payment) AS TotalEarnings\n"
-                + "FROM Contracts\n"
-                + "WHERE AgencyId = ?;";
+        String sql = "SELECT SUM(c.Payment) AS TotalEarnings FROM Contracts c JOIN  Staff_Workplace sw ON c.StaffId = sw.StaffId\n"
+                + "JOIN Agencies a ON sw.AgencyId = a.AgencyId WHERE a.AgencyId = ? GROUP BY sw.StaffId;";
 
         try {
 
@@ -206,36 +203,35 @@ public class AgencyDAO {
         return hash;
 
     }
-    
-    
+
     public HashMap<Integer, String> getStaffByAgency() {
         HashMap<Integer, String> hash = new HashMap<>();
         String sql = "select sw.StaffId, a.AgencyName from Staff_Workplace sw join Agencies a on sw.AgencyId = a.AgencyId";
-        
+
         try {
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 hash.put(rs.getInt("StaffId"), rs.getString("AgencyName"));
-                
+
             }
-            
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return hash;
     }
-    
+
     public int countAgency() {
         String sql = "select count(*) as TotalAgency  from Agencies";
         int total = 0;
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 total = rs.getInt("TotalAgency");
             }
         } catch (SQLException e) {
@@ -243,26 +239,26 @@ public class AgencyDAO {
         }
         return total;
     }
-    
+
     public BigInteger totalPayment() {
         BigInteger total = BigInteger.ZERO;
         String sql = "SELECT SUM(Payment) AS TotalPayment FROM Contracts;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 total = BigInteger.valueOf(rs.getInt("TotalPayment"));
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         return total;
     }
-    
-     public HashMap<String, BigInteger> getMonthlyMoney() {
+
+    public HashMap<String, BigInteger> getMonthlyMoney() {
         HashMap<String, BigInteger> hash = new HashMap<>();
         String sql = "SELECT MONTH(StartDate) AS Month, SUM(Payment) AS TotalRevenue FROM Contracts GROUP BY  MONTH(StartDate) ORDER BY Month";
 
@@ -368,11 +364,10 @@ public class AgencyDAO {
 
         return false;
     }
-    
-    
+
     public boolean changeWorkPlaceByStaffId(int staffId, int agencyId) {
         String sql = "Update Staff_Workplace SET AgencyId = ? where StaffId = ?";
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, agencyId);
@@ -382,7 +377,7 @@ public class AgencyDAO {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return false;
     }
 
