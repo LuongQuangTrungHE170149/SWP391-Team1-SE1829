@@ -58,7 +58,14 @@ public class ViewServlet extends HttpServlet {
             request.getRequestDispatcher("terms.jsp").forward(request, response);
         } else if(id == 2){
             request.getRequestDispatcher("privacy.jsp").forward(request, response);
+        }else if(id == 3){
+            request.getRequestDispatcher("serviceCenter.jsp").forward(request, response);
+        }else if(id == 4){
+            request.getRequestDispatcher("editingInstructions.jsp").forward(request, response);
+        }else if(id == 5){
+            request.getRequestDispatcher("orderInstructions.jsp").forward(request, response);
         }
+        
     } 
 
     /** 

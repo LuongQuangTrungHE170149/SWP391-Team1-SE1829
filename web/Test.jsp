@@ -54,16 +54,6 @@
                 margin-left: 0;
             }
             .openbtn {
-                font-size: 20px;
-                cursor: pointer;
-                background-color: #343a40;
-                color: white;
-                border: none;
-                position: fixed;
-                top: 15px;
-                left: 15px;
-                z-index: 1;
-                padding: 10px 15px;
                 display: none;
             }
 
@@ -74,7 +64,7 @@
     </head>
 <body>
     <div class="sidebar" id="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">close</a>
+        <a href="#" class="closebtn" onclick="toggleSidebar()"><i class="fa-solid fa-chevron-left"></i></a>
         <a href="#">Home</a>
         <a href="#">Services</a>
         <a href="#">Clients</a>
@@ -84,8 +74,8 @@
     <div class="main-content" id="main-content">
 
         <div class="container-fluid">
+            <a href="#" class="openbtn" id="openbtn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></a>
             <h1>Main Content</h1>
-            <button class="openbtn" id="openbtn" onclick="toggleSidebar()">open</button>
             <p>This is the main content area.</p>
         </div>
     </div>

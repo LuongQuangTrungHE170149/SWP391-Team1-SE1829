@@ -24,18 +24,16 @@
             .image:hover{
                 transform: scale(1.1);
                 box-shadow: 0 10px 50px #23232333;
-
             }
-
         </style>
     </head>
     <body>
-        <div class="main d-flex">
+      
             <jsp:include page="staffDashboard.jsp"/>
-            <div class="content d-flex flex-column align-items-center" style="background-color: #f0f2fa;">
+            <div class="main-content" id="main-content">
                 <!--navbar-->
-                <div class=" navbar-custom d-flex justify-content-end align-items-center shadow-3 sticky-top" style="width: 100%;">
-                    <div class="fs-3 fw-bold text-white me-3">Staff Profile</div>
+                <div class="nav navbar bg-light justify-content-start sticky-top mb-3 px-2">
+                    <div class="fs-3 fw-bold text-info">Staff Profile</div>
                 </div>
                 <!--end navbar-->
                 <div>
@@ -165,7 +163,7 @@
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
                                                 <p class="mb-0">Phone</p>
-                                                
+
                                             </div>
                                             <div class="col-sm-9">
                                                 <input type="text" name="phone" value="${user.phone}" class="form-control" required>
@@ -194,15 +192,15 @@
 
                 </div>
             </div>
-        </div>
+       
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- MDB -->
         <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
-                                            function goBack() {
-                                                window.history.back();
-                                            }
+                        function goBack() {
+                            window.history.back();
+                        }
         </script>
     </body>
 </html>
