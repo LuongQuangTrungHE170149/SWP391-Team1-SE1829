@@ -28,7 +28,7 @@
                     </div>
                     <p style="red">${message}</p>
                 <div class="register-button">
-                    <button type="submit">Forgot</button>
+                    <button type="submit">Forget</button>
                 </div>
                 <p style="color: red">${message}</p>
             </form>

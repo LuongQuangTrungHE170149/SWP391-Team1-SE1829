@@ -10,8 +10,34 @@ package Model;
  */
 public class Vehicle {
     private int id;
-    private String model;
+    private String motocycleType;
     private String LicensePlates;
+    private String chassis;
+
+    public String getMtocycleType() {
+        return motocycleType;
+    }
+
+    public void setMtocycleType(String MtocycleType) {
+        this.motocycleType = MtocycleType;
+    }
+
+    public String getChassis() {
+        return chassis;
+    }
+
+    public void setChassis(String chassis) {
+        this.chassis = chassis;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+    private String engine;
     private int ownerId;
     private boolean hasContract;
 
@@ -24,14 +50,7 @@ public class Vehicle {
         this.id = id;
     }
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
+  
     public String getLicensePlates() {
         return LicensePlates;
     }
@@ -48,6 +67,25 @@ public class Vehicle {
         this.ownerId = ownerId;
     }
 
+    public Vehicle(int id, String motocycleType, String LicensePlates, String chassis, String engine, int ownerId, boolean hasContract) {
+        this.id = id;
+        this.motocycleType = motocycleType;
+        this.LicensePlates = LicensePlates;
+        this.chassis = chassis;
+        this.engine = engine;
+        this.ownerId = ownerId;
+        this.hasContract = hasContract;
+    }
+
+    public Vehicle(String motocycleType, String LicensePlates, String chassis, String engine, int ownerId, boolean hasContract) {
+        this.motocycleType = motocycleType;
+        this.LicensePlates = LicensePlates;
+        this.chassis = chassis;
+        this.engine = engine;
+        this.ownerId = ownerId;
+        this.hasContract = hasContract;
+    }
+
     public Vehicle() {
     }
 
@@ -59,28 +97,6 @@ public class Vehicle {
         this.hasContract = hasContract;
     }
 
-    public Vehicle(int id, String model, String LicensePlates, int ownerId) {
-        this.id = id;
-        this.model = model;
-        this.LicensePlates = LicensePlates;
-        this.ownerId = ownerId;
-    }
-
-    public Vehicle(String model, String LicensePlates, int ownerId) {
-        this.model = model;
-        this.LicensePlates = LicensePlates;
-        this.ownerId = ownerId;
-    }
-
-    public Vehicle(int id, String model, String LicensePlates) {
-        this.id = id;
-        this.model = model;
-        this.LicensePlates = LicensePlates;
-    }
-
-    @Override
-    public String toString() {
-        return "Vehicle{" + "id=" + id + ", model=" + model + ", LicensePlates=" + LicensePlates + ", ownerId=" + ownerId + '}';
-    }
+    
     
 }
