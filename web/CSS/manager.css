@@ -9,13 +9,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 */
 
-.dashboard{
-    display: flex;
-    height: 100vh;
-    position: fixed;
-    z-index: 1000;
-}
-
 
 .home-manager--wrapper {
     margin-left: 250px;
