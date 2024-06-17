@@ -59,9 +59,8 @@
                                    style="color:white;" 
                                    href="#">Dịch vụ</a>
                                 <ul class="dropdown-menu" aria-labelledby="dlink">
-                                    <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
-                                    <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
-                                    <li><a class="dropdown-item" href="#">Bảo hiểm xe máy</a></li>
+                                    <li><a class="dropdown-item" href="motorbikeInsurance">Bảo hiểm xe máy</a></li>
+                                    <li><a class="dropdown-item" href="motorbikeInsurance">Bảo hiểm xe máy</a></li>
                                 </ul>
                             </li>
                             <c:if test="${sessionScope.user.getRole() eq 'Staff' || sessionScope.user.getRole() eq 'staff'}">
