@@ -125,7 +125,7 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Nhãn hiệu</th>
+                        <th>Loại xe</th>
                         <th>Biển số</th>
                         <th>Số khung</th>
                         <th>Số máy</th>
