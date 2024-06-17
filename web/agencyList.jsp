@@ -24,7 +24,6 @@
             <jsp:include page="staffDashboard.jsp" />
         </div>
 
-
         <div id="listAgency-page">
 
             <c:if test="${sessionScope.updateSuccess != null}">
@@ -179,15 +178,16 @@
 
                 </div>
             </div>
+            <div class="pagination">
+                <a href="#" class="prev">&laquo; Trước</a>
+                <a href="#" class="page">1</a>
+                <a href="#" class="page">2</a>
+                <a href="#" class="page">3</a>
+                <a href="#" class="next">Sau &raquo;</a>
+            </div>
         </div>
 
-        <div class="pagination">
-            <a href="#" class="prev">&laquo; Trước</a>
-            <a href="#" class="page">1</a>
-            <a href="#" class="page">2</a>
-            <a href="#" class="page">3</a>
-            <a href="#" class="next">Sau &raquo;</a>
-        </div>
+
         <!-- Modal -->
         <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -212,107 +212,107 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
         <script>
-           
-            var childNav = document.querySelector('.nav-wrapper .sticky-top');
-            if (childNav) {
-                childNav.classList.remove('sticky-top');
-            }
 
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    const successToast = document.getElementById('toast-success');
-                    const failToast = document.getElementById('toast-fail');
-                    if (successToast) {
-                        successToast.style.opacity = '0';
-                        setTimeout(() => successToast.style.display = 'none', 1000);
-                    }
-                    if (failToast) {
-                        failToast.style.opacity = '0';
-                        setTimeout(() => failToast.style.display = 'none', 1000);
-                    }
-                }, 3000);
-            });
+                                                    var childNav = document.querySelector('.nav-wrapper .sticky-top');
+                                                    if (childNav) {
+                                                        childNav.classList.remove('sticky-top');
+                                                    }
 
-            function confirmAction(id, action) {
-                const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-                const confirmBtn = document.getElementById('confirmBtn');
-                const confirmModalBody = document.getElementById('confirmModalBody');
+                                                    window.addEventListener('load', () => {
+                                                        setTimeout(() => {
+                                                            const successToast = document.getElementById('toast-success');
+                                                            const failToast = document.getElementById('toast-fail');
+                                                            if (successToast) {
+                                                                successToast.style.opacity = '0';
+                                                                setTimeout(() => successToast.style.display = 'none', 1000);
+                                                            }
+                                                            if (failToast) {
+                                                                failToast.style.opacity = '0';
+                                                                setTimeout(() => failToast.style.display = 'none', 1000);
+                                                            }
+                                                        }, 3000);
+                                                    });
 
-                confirmModalBody.textContent = action === 'inactive' ? 'Bạn có chắc chắn muốn ngưng hoạt động đại lý này không?' : 'Bạn có chắc chắn muốn kích hoạt đại lý này không?';
+                                                    function confirmAction(id, action) {
+                                                        const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                                                        const confirmBtn = document.getElementById('confirmBtn');
+                                                        const confirmModalBody = document.getElementById('confirmModalBody');
 
-
-                confirmBtn.onclick = function () {
-                    window.location.href = "inactiveAgency?id=" + id + "&action=" + action;
-                };
-
-                confirmModal.show();
-            }
-
-            function redirectToServlet(selectElement) {
-                var selectedValue = selectElement.value;
-                window.location.href = "filterAgency?filter=" + encodeURIComponent(selectedValue);
-            }
+                                                        confirmModalBody.textContent = action === 'inactive' ? 'Bạn có chắc chắn muốn ngưng hoạt động đại lý này không?' : 'Bạn có chắc chắn muốn kích hoạt đại lý này không?';
 
 
-            document.addEventListener('DOMContentLoaded', function () {
-                const prevBtn = document.querySelector('.prev');
-                const nextBtn = document.querySelector('.next');
-                const pages = document.querySelectorAll('.page');
+                                                        confirmBtn.onclick = function () {
+                                                            window.location.href = "inactiveAgency?id=" + id + "&action=" + action;
+                                                        };
 
-                let currentPage = 1;
+                                                        confirmModal.show();
+                                                    }
 
-                function showPage(pageNum) {
-
-                    const agenciesList = document.querySelectorAll('.agency-container');
-                    agenciesList.forEach(item => {
-                        item.style.display = 'none';
-                    });
+                                                    function redirectToServlet(selectElement) {
+                                                        var selectedValue = selectElement.value;
+                                                        window.location.href = "filterAgency?filter=" + encodeURIComponent(selectedValue);
+                                                    }
 
 
-                    const startIndex = (pageNum - 1) * 10;
-                    const endIndex = pageNum * 10;
+                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                        const prevBtn = document.querySelector('.prev');
+                                                        const nextBtn = document.querySelector('.next');
+                                                        const pages = document.querySelectorAll('.page');
+
+                                                        let currentPage = 1;
+
+                                                        function showPage(pageNum) {
+
+                                                            const agenciesList = document.querySelectorAll('.agency-container');
+                                                            agenciesList.forEach(item => {
+                                                                item.style.display = 'none';
+                                                            });
 
 
-                    for (let i = startIndex; i < endIndex; i++) {
-                        if (agenciesList[i]) {
-                            agenciesList[i].style.display = 'table-row';
-                        }
-                    }
+                                                            const startIndex = (pageNum - 1) * 10;
+                                                            const endIndex = pageNum * 10;
 
 
-                    pages.forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    pages[pageNum - 1].classList.add('active');
-                }
+                                                            for (let i = startIndex; i < endIndex; i++) {
+                                                                if (agenciesList[i]) {
+                                                                    agenciesList[i].style.display = 'table-row';
+                                                                }
+                                                            }
 
 
-                showPage(currentPage);
+                                                            pages.forEach(page => {
+                                                                page.classList.remove('active');
+                                                            });
+                                                            pages[pageNum - 1].classList.add('active');
+                                                        }
 
 
-                prevBtn.addEventListener('click', function () {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        showPage(currentPage);
-                    }
-                });
+                                                        showPage(currentPage);
 
 
-                nextBtn.addEventListener('click', function () {
-                    if (currentPage < pages.length) {
-                        currentPage++;
-                        showPage(currentPage);
-                    }
-                });
+                                                        prevBtn.addEventListener('click', function () {
+                                                            if (currentPage > 1) {
+                                                                currentPage--;
+                                                                showPage(currentPage);
+                                                            }
+                                                        });
 
 
-                pages.forEach((page, index) => {
-                    page.addEventListener('click', function () {
-                        currentPage = index + 1;
-                        showPage(currentPage);
-                    });
-                });
-            });
+                                                        nextBtn.addEventListener('click', function () {
+                                                            if (currentPage < pages.length) {
+                                                                currentPage++;
+                                                                showPage(currentPage);
+                                                            }
+                                                        });
+
+
+                                                        pages.forEach((page, index) => {
+                                                            page.addEventListener('click', function () {
+                                                                currentPage = index + 1;
+                                                                showPage(currentPage);
+                                                            });
+                                                        });
+                                                    });
 
 
         </script>

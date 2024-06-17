@@ -11,11 +11,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Điều Khoản Sử Dụng</title>
         <style>
-            body{
-                font-family: Arial,sans-serif;
-                margin: 0;
-                padding: 0;
-            }
             .middle{
                 position: relative;
                 width: 100%;
@@ -76,10 +71,6 @@
             }
         </style>
         <style>
-            .container{
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
             .list-group-item {
                 cursor: pointer;
             }
@@ -100,9 +91,9 @@
                     <div class="f-title">Các Điều Kiện Sử Dụng</div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container py-4">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-3">
                         <div class="list-group">
                             <a href="view?id=1" class="list-group-item align-items-center d-flex justify-content-between active" style="background-color:#419FA3; border-color: #419FA3">
                                 <span>Điều khoản sử dụng</span><span class="me-2">&rarr;</span>
@@ -323,12 +314,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         <jsp:include page="footer.jsp"/>
-        <!-- MDB -->
-        <!--<script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
-
     </body>
 </html>

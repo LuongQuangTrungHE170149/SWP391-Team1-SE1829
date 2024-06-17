@@ -8,7 +8,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
-
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"rel="stylesheet"/>
 <!-- Google Fonts -->
@@ -49,130 +48,164 @@
             border-left: 5px solid #ccc;
             background-color: #e9e9e9;
         }
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transition: width 0.3s;
+            overflow: hidden;
+        }
+        .sidebar.collapsed {
+            width: 0;
+        }
 
+        .sidebar.collapsed a {
+            display: none;
+        }
 
+        .openbtn {
+            position: fixed;
+            top: 70px;
+            left: 15px;
+            z-index: 9999;
+            display: none;
+        }
+
+        .openbtn:hover{
+            transform: scale(1.1);
+        }
+
+        .openbtn.visible {
+            display: block;
+        }
+        #main-content {
+            transition: margin-left 0.3s;
+            margin-left: 250px; 
+        }
 
     </style>
+    <a href="#" class="openbtn fs-3 text-info" id="openbtn" onclick="toggleSidebar()"><i class="fa-solid fa-chevron-right"></i></a>
 
     <!--    Thanh nav của staff-->
     <c:if test="${sessionScope.user.getRole() == 'Staff' || sessionScope.user.getRole() == 'staff'}">
-        <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px !important; height: 100vh;">
-            <a href="#" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
-                <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
-                <span class="fs-5 mt-1">Staff Home</span>
-            </a>
-            <hr class="mt-0 bg-light" style="height: 2px;
-                border: none;">
-            
-            <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
-                        <i class="fa-solid fa-house me-2"></i>Home 
+        <div class="sidebar" id="sidebar">
+            <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px !important; height: 100vh;">
+                <div class="d-flex">
+                    <a href="#" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
+                        <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
+                        <span class="fs-5 mt-1 text-nowrap">Staff Home</span>
                     </a>
-                </li>
-                <li class="nav-item btn-group">
-                    <a href="consultationManager" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
-                        <i class="fa-solid fa-message me-2"></i> 
-                        Consultation
-                        <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
-                    </a>
-                    <button type="button "
-                            class="btn btn-light btn-custom dropdown-toggle dropdown-toggle-split"
-                            data-mdb-ripple-init
-                            data-mdb-dropdown-init
-                            aria-expanded="false">
-                        <span class="visually-hidden">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a href="consultationManager#listConsultation" class="dropdown-item">1. List consultation</a></li>
-                        <li><a href="consultationManager#chart" class="dropdown-item">2. Total staff answer</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="promotionManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
-                        <i class="fa-solid fa-gift me-2"></i> Promotion <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="btn btn-light btn-custom" data-mdb-ripple-init id="btnContract">
-                        <i class="fa-solid fa-file-contract me-2"></i>Contract
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="btn btn-light btn-custom"data-mdb-ripple-init id="btnCustomer">
-                        <i class="fa-solid fa-user me-2"></i>Customer
-                    </a>
-                </li>
-            </ul>
-            <hr class="mt-0 bg-light" style="height: 2px;
-                border: none;">
-            <div class="dropup">
-                <a style="cursor: pointer" 
-                   class="d-flex align-items-center  text-decoration-none dropdown-toggle text-white"
-                   data-mdb-dropdown-init
-                   aria-expanded="false">
-                    <img src="images/profile-circle 1.png" class="me-2" width="32" height="32" alt="alt"/>
-                    <strong>${sessionScope.user.username}</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li>
-                        <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Profile</a>
+                    <a href="#" class="closebtn fs-3 text-info" onclick="toggleSidebar()"><i class="fa-solid fa-chevron-left"></i></a>
+                </div>
+                <hr class="mt-0 bg-light" style="height: 2px;
+                    border: none;">
+
+                <ul class="nav flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
+                            <i class="fa-solid fa-house me-2"></i>Home 
+                        </a>
                     </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a href="logout" class="dropdown-item">Sign out <img src="images/sign-out 1.png" width="16" height="16"" alt="alt"/></a>
+                    <li class="nav-item btn-group">
+                        <a href="consultationManager" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
+                            <i class="fa-solid fa-message me-2"></i> 
+                            Consultation
+                            <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="promotionManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
+                            <i class="fa-solid fa-gift me-2"></i> Promotion <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-light btn-custom" data-mdb-ripple-init id="btnContract">
+                            <i class="fa-solid fa-file-contract me-2"></i>Contract
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-light btn-custom"data-mdb-ripple-init id="btnCustomer">
+                            <i class="fa-solid fa-user me-2"></i>Customer
+                        </a>
                     </li>
                 </ul>
+                <hr class="mt-0 bg-light" style="height: 2px;
+                    border: none;">
+                <div class="dropup">
+                    <a style="cursor: pointer" 
+                       class="d-flex align-items-center  text-decoration-none dropdown-toggle text-white"
+                       data-mdb-dropdown-init
+                       aria-expanded="false">
+                        <img src="images/profile-circle 1.png" class="me-2" width="32" height="32" alt="alt"/>
+                        <strong>${sessionScope.user.username}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li>
+                            <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Profile</a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a href="logout" class="dropdown-item">Sign out <img src="images/sign-out 1.png" width="16" height="16"" alt="alt"/></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </c:if>
 
     <!--    Thanh nav của Manager-->
     <c:if test="${sessionScope.user.getRole() == 'Manager'}">
-        <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
-            <a href="homeManager" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
-                <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
-                <span class="fs-5 mt-1">Quản lý</span>
-            </a>
-            <hr class="mt-0 bg-light" style="height: 2px;
-                border: none;">
-            <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="homeManager" class="btn btn-light btn-sm btn-custom " id="btnHome">
-                        <i class="fa-solid fa-house me-2"></i>Home 
-                    </a>  
-                </li>
-                <li class="nav-item btn-group">
-                    <a href="listAgency" class="btn btn-light  btn-custom " id="btnConsultation">
-                        <i class="fa-solid fa-list me-2"></i>
-                        Danh sách đại lý
+        <div class="sidebar" id="sidebar">
+            <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
+                <div class="d-flex">
+                    <a href="homeManager" class="d-flex align-items-center ms-1 mb-3 me-md-auto  text-decoration-none text-white">
+                        <img src="images/icon motor.png" class="me-2 mb-1" width="30" height="30" alt="alt"/>
+                        <span class="fs-5 mt-1 text-nowrap">Quản lý</span>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="customerList" class="btn btn-light btn-sm btn-custom" id="btnPromotion">
-                      <i class="fa-regular fa-user me-2"></i>
-                        Danh sách khách hàng 
-                    </a>
-                </li>
-            </ul>
-            <hr class="mt-0 bg-light" style="height: 2px;
-                border: none;">
-            <div class="dropup">
-                <a style="cursor: pointer" class="d-flex align-items-center text-decoration-none dropdown-toggle text-white" data-mdb-dropdown-init="" aria-expanded="false" data-mdb-dropdown-initialized="true">
-                    <img src="images/profile-circle 1.png" class="me-2" width="32" height="32" alt="alt">
-                    <strong>${sessionScope.user.username}</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(0px, -33.6px, 0px);" data-popper-placement="top-start" data-mdb-popper="null">
-                    <li>
-                        <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Hồ sơ </a>
+                    <a href="#" class="closebtn fs-3 text-info" onclick="toggleSidebar()"><i class="fa-solid fa-chevron-left"></i></a>
+                </div>
+                <hr class="mt-0 bg-light" style="height: 2px;
+                    border: none;">
+                <ul class="nav flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="homeManager" class="btn btn-light btn-sm btn-custom " id="btnHome">
+                            <i class="fa-solid fa-house me-2"></i>Home 
+                        </a>  
                     </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a href="logout" class="dropdown-item">Đăng xuất<img src="images/sign-out 1.png" width="16" height="16" "="" alt="alt"></a>
+                    <li class="nav-item btn-group">
+                        <a href="listAgency" class="btn btn-light  btn-custom " id="btnConsultation">
+                            <i class="fa-solid fa-list me-2"></i>
+                            Danh sách đại lý
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="customerList" class="btn btn-light btn-sm btn-custom" id="btnPromotion">
+                            <i class="fa-regular fa-user me-2"></i>
+                            Danh sách khách hàng 
+                        </a>
                     </li>
                 </ul>
-            </div>
+                <hr class="mt-0 bg-light" style="height: 2px;
+                    border: none;">
+                <div class="dropup">
+                    <a style="cursor: pointer" class="d-flex align-items-center text-decoration-none dropdown-toggle text-white" data-mdb-dropdown-init="" aria-expanded="false" data-mdb-dropdown-initialized="true">
+                        <img src="images/profile-circle 1.png" class="me-2" width="32" height="32" alt="alt">
+                        <strong>${sessionScope.user.username}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(0px, -33.6px, 0px);" data-popper-placement="top-start" data-mdb-popper="null">
+                        <li>
+                            <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Hồ sơ </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a href="logout" class="dropdown-item">Đăng xuất<img src="images/sign-out 1.png" width="16" height="16" "="" alt="alt"></a>
+                        </li>
+                    </ul>
+                </div>
 
+            </div>
         </div>
 
     </c:if>
@@ -185,6 +218,20 @@
     <!--mdb bootstrap-->
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>-->
     <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var openbtn = document.getElementById("openbtn");
+            var mainContent = document.getElementById("main-content");
+            sidebar.classList.toggle("collapsed");
+            openbtn.classList.toggle("visible");
+
+            if (sidebar.classList.contains("collapsed")) {
+                mainContent.style.marginLeft = "0";
+            } else {
+                mainContent.style.marginLeft = "250px";
+            }
+        }
+
         var currentLocation = window.location.href;
         if (currentLocation.includes("staffHome")) {
             document.getElementById("btnHome").classList.add("activeDash");

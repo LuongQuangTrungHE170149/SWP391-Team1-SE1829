@@ -5,18 +5,22 @@
 
 package Controller;
 
+import Model.Contract;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
 
 /**
  *
- * @author Kha21
+ * @author QUANG TRUNG
  */
-public class ViewServlet extends HttpServlet {
+@WebServlet(name="RequestContract", urlPatterns={"/RequestContract"})
+public class RequestContract extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +37,10 @@ public class ViewServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewServlet</title>");  
+            out.println("<title>Servlet RequestContract</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet RequestContract at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,18 +57,6 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id =Integer.parseInt(request.getParameter("id"));
-        if(id == 1){
-            request.getRequestDispatcher("terms.jsp").forward(request, response);
-        } else if(id == 2){
-            request.getRequestDispatcher("privacy.jsp").forward(request, response);
-        }else if(id == 3){
-            request.getRequestDispatcher("serviceCenter.jsp").forward(request, response);
-        }else if(id == 4){
-            request.getRequestDispatcher("editingInstructions.jsp").forward(request, response);
-        }else if(id == 5){
-            request.getRequestDispatcher("orderInstructions.jsp").forward(request, response);
-        }
         
     } 
 
@@ -78,7 +70,14 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String motocycleType = request.getParameter("vehicle_type");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        request.setAttribute(motocycleType, "motocycleType");
+        request.setAttribute(startDate, "startDate");
+        request.setAttribute(endDate, "endDate");
+        response.sendRedirect("RequestUserInfo.jsp");
     }
 
     /** 

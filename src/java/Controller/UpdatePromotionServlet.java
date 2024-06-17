@@ -5,10 +5,8 @@
 package Controller;
 
 import Model.Promotion;
-import com.google.gson.Gson;
 import dal.PromotionDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;

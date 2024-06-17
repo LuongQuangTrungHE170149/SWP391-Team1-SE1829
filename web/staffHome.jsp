@@ -18,17 +18,17 @@
         }
     </style>
     <body>
-        <div class="main d-flex">
+        
             <!--dashboard-->
             <jsp:include page="staffDashboard.jsp"></jsp:include>
 
             <!--content-->
-            <div class="content d-flex justify-content-center align-items-center">
-                <div class="nav navbar navbar-custom d-flex justify-content-center align-items-center sticky-top" style="width: 100%;">
-                    <div class="fs-3 fw-bold text-white">Staff Manager</div>
+            <div class="main-content" id="main-content">
+                <div class="nav navbar sticky-top justify-content-start mb-3 px-2">
+                    <div class="fs-3 fw-bold text-info">Staff Home</div>
                 </div>
             </div>
-        </div>
+       
     </body>
     <!--mdb bootstrap-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>

@@ -14,9 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Kha21
+ * @author thuhu
  */
-public class ViewServlet extends HttpServlet {
+public class MotorbikeInsuranceServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +33,10 @@ public class ViewServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewServlet</title>");  
+            out.println("<title>Servlet MotorbikeInsuranceServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet MotorbikeInsuranceServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,19 +53,7 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id =Integer.parseInt(request.getParameter("id"));
-        if(id == 1){
-            request.getRequestDispatcher("terms.jsp").forward(request, response);
-        } else if(id == 2){
-            request.getRequestDispatcher("privacy.jsp").forward(request, response);
-        }else if(id == 3){
-            request.getRequestDispatcher("serviceCenter.jsp").forward(request, response);
-        }else if(id == 4){
-            request.getRequestDispatcher("editingInstructions.jsp").forward(request, response);
-        }else if(id == 5){
-            request.getRequestDispatcher("orderInstructions.jsp").forward(request, response);
-        }
-        
+        request.getRequestDispatcher("motorbikeInsurance.jsp").forward(request, response);
     } 
 
     /** 
