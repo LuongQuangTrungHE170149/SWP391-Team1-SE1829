@@ -1,4 +1,3 @@
-
 package dal;
 
 import Model.Vehicle;
@@ -24,13 +23,15 @@ public class VehicleDAO extends DBContext {
     }
 
     public boolean addVehicle(Vehicle vehicle) throws SQLException {
-        String sql = "INSERT INTO Vehicles (Model, LicensePlates, OwnerId) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Vehicles (MotocycleType, LicensePlates, Chassis, Engine, OwnerId) VALUES (?, ?, ? , ? , ?)";
 
         try {
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setString(1, vehicle.getModel());
+            statement.setString(1, vehicle.getMotocycleType());
             statement.setString(2, vehicle.getLicensePlates());
-            statement.setInt(3, vehicle.getOwnerId());
+            statement.setString(3, vehicle.getChassis());
+            statement.setString(4, vehicle.getEngine());
+            statement.setInt(5, vehicle.getOwnerId());
 
             statement.executeUpdate();
             return true;
@@ -57,13 +58,13 @@ public class VehicleDAO extends DBContext {
 
         return total;
     }
-    
-    public List<Vehicle> getListVehicle(int customerId, String searchQuery){
+
+    public List<Vehicle> getListVehicle(int customerId, String searchQuery) {
         List<Vehicle> vehicleList = new ArrayList<>();
-        try  {
+        try {
             String sql = "SELECT * FROM Vehicles WHERE OwnerId = ?";
             if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-                sql += " AND (Model LIKE ? OR LicensePlates LIKE ?)";
+                sql += " AND (MotocycleType LIKE ? OR LicensePlates LIKE ?)";
             }
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, customerId);
@@ -73,19 +74,22 @@ public class VehicleDAO extends DBContext {
                 statement.setString(3, queryParam);
             }
             ResultSet resultSet = statement.executeQuery();
-            
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("MotocycleId");
-                String model = resultSet.getString("Model");
-                String licensePlates = resultSet.getString("LicensePlates");                
-                vehicleList.add(new Vehicle(id, model, licensePlates));
+                String motocycleType = resultSet.getString("MotocycleType");
+                String licensePlates = resultSet.getString("LicensePlates");
+                String chassis = resultSet.getString("Chassis");
+                String engine = resultSet.getString("Engine");
+                int ownerId = resultSet.getInt("OwnerId");
+                vehicleList.add(new Vehicle(id, motocycleType, licensePlates, chassis, engine, ownerId));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return vehicleList;
     }
-    
+
     public boolean hasContract(int vehicleId) throws SQLException {
         boolean hasContract = false;
         String sql = "SELECT COUNT(*) FROM Contracts WHERE VehicleId = ?";
@@ -102,7 +106,7 @@ public class VehicleDAO extends DBContext {
 
         return hasContract;
     }
-    
+
     public void deleteVehicle(int vehicleId) throws SQLException {
         String sql = "DELETE FROM Vehicles WHERE MotocycleId = ?";
 
@@ -111,14 +115,12 @@ public class VehicleDAO extends DBContext {
             statement.executeUpdate();
         }
     }
-    
+
     public Vehicle getVehicleById(int vehicleId) {
-        Vehicle vehicle = new Vehicle();    
+        Vehicle vehicle = new Vehicle();
         String sql = "SELECT * FROM Vehicles WHERE MotocycleId = ?";
         try {
-            
 
-            
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, vehicleId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -126,22 +128,21 @@ public class VehicleDAO extends DBContext {
             if (resultSet.next()) {
                 vehicle = new Vehicle();
                 vehicle.setId(resultSet.getInt("MotocycleId"));
-                vehicle.setModel(resultSet.getString("Model"));
+                vehicle.setMotocycleType(resultSet.getString("Model"));
                 vehicle.setLicensePlates(resultSet.getString("LicensePlates"));
                 vehicle.setOwnerId(resultSet.getInt("OwnerId"));
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
 
         return vehicle;
     }
-    
+
     public static void main(String[] args) throws SQLException {
 
-        Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
-
+        //Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.getVehicleById(3));
+        System.out.println(VehicleDAO.INSTANCE.hasContract(6));
     }
 }
