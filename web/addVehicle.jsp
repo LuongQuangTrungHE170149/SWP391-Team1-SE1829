@@ -18,15 +18,25 @@
         <jsp:include page="./header.jsp" />  
         <div class="container" style="padding-top: 200px;">
             <h2>Add New Vehicle</h2>
-            
+
             <form action="AddVehicle" method="post">
                 <input type="hidden" name="customerId" value="${param.customerId}">
-                <label for="model">Model:</label>
-                <input type="text" id="model" name="model" required>
-
-                <label for="licensePlates">License Plates:</label>
+                <label for="vehicleType">Vehicle Type:</label>
+                <select id="vehicleType" name="vehicleType" required>
+                    <option value="motorbike_under_50cc">Xe moto 2 bánh dung tích nhỏ hơn 50cc</option>
+                    <option value="motorbike_over_50cc">Xe moto 2 bánh dung tích lớn hơn 50cc</option>
+                    <option value="electric_bike">Xe điện</option>
+                    <option value="three_wheel_motorbike">Moto 3 bánh</option>
+                    <option value="other">Các loại xe còn lại</option>
+                </select>
+                <label for="licensePlates">Biển kiểm soát:</label>
                 <input type="text" id="licensePlates" name="licensePlates" required>
 
+                <label for="frameNumber">Số khung:</label>
+                <input type="text" id="chassis" name="chassis" required>
+
+                <label for="engineNumber">Số máy:</label>
+                <input type="text" id="engine" name="engine" required>
                 <input type="submit" value="Add Vehicle">
             </form>
         </div>

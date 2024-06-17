@@ -13,12 +13,15 @@ public class Vehicle {
     private String motocycleType;
     private String LicensePlates;
     private String chassis;
-
-    public String getMtocycleType() {
+    private String engine;
+    private int ownerId;
+    private boolean hasContract;
+    
+    public String getMotocycleType() {
         return motocycleType;
     }
 
-    public void setMtocycleType(String MtocycleType) {
+    public void setMotocycleType(String MtocycleType) {
         this.motocycleType = MtocycleType;
     }
 
@@ -37,9 +40,7 @@ public class Vehicle {
     public void setEngine(String engine) {
         this.engine = engine;
     }
-    private String engine;
-    private int ownerId;
-    private boolean hasContract;
+    
 
     
     public int getId() {
@@ -77,13 +78,14 @@ public class Vehicle {
         this.hasContract = hasContract;
     }
 
-    public Vehicle(String motocycleType, String LicensePlates, String chassis, String engine, int ownerId, boolean hasContract) {
+    public Vehicle(int id,String motocycleType, String LicensePlates, String chassis, String engine, int ownerId) {
+        this.id = id;
         this.motocycleType = motocycleType;
         this.LicensePlates = LicensePlates;
         this.chassis = chassis;
         this.engine = engine;
         this.ownerId = ownerId;
-        this.hasContract = hasContract;
+       
     }
 
     public Vehicle() {
@@ -96,6 +98,15 @@ public class Vehicle {
     public void setHasContract(boolean hasContract) {
         this.hasContract = hasContract;
     }
+
+    
+
+    @Override
+    public String toString() {
+        return "Vehicle{" + "id=" + id + ", motocycleType=" + motocycleType + ", LicensePlates=" + LicensePlates + ", chassis=" + chassis + ", engine=" + engine + ", ownerId=" + ownerId + ", hasContract=" + hasContract + '}';
+    }
+
+    
 
     
     

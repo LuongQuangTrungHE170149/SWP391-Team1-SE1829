@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,16 +54,19 @@ public class ListVehicleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int customerId = Integer.parseInt(request.getParameter("customerId"));
-        List<Vehicle> vehicleList;
+        
         String searchQuery = request.getParameter("searchQuery");
-        vehicleList = VehicleDAO.INSTANCE.getListVehicle(customerId, searchQuery);
-        for (Vehicle vehicle : vehicleList) {
-            try {
+        List<Vehicle> vehicleList = new ArrayList<>();
+        try {
+            vehicleList = VehicleDAO.INSTANCE.getListVehicle(customerId, searchQuery);
+            for (Vehicle vehicle : vehicleList) {
+
                 boolean hasContract = VehicleDAO.INSTANCE.hasContract(vehicle.getId());
                 vehicle.setHasContract(hasContract);
-            } catch (SQLException ex) {
-                Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
+
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         UserDAO userDAO = new UserDAO();
         String customerName = null;
@@ -71,8 +75,9 @@ public class ListVehicleServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-            request.setAttribute("customerName", customerName);
-            request.setAttribute("customerId", customerId);
+        request.setAttribute("customerName", customerName);
+        request.setAttribute("searchQuery", searchQuery);
+        request.setAttribute("customerId", customerId);
         request.setAttribute("vehicleList", vehicleList);
         request.getRequestDispatcher("vehicleManager.jsp").forward(request, response);
     }
@@ -101,4 +106,5 @@ public class ListVehicleServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
 }

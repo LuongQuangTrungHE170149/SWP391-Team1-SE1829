@@ -1,9 +1,3 @@
-<%-- 
-    Document   : vehicleManager
-    Created on : 9 thg 6, 2024, 19:35:15
-    Author     : QUANG TRUNG
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -51,13 +45,13 @@
                 float: right; /* Di chuyển form ra ngoài cùng bên phải */
                 margin-left: 10px; /* Tạo khoảng cách giữa nút tìm kiếm và form thêm phương tiện */
             }
-            
+
             .formSearch{
                 float: left; /* Di chuyển form ra ngoài cùng bên phải */
                 margin-right: 10px;
             }
-            
-            
+
+
             .formSearch input[type="text"],
             .formSearch button,
             .formAdd button {
@@ -133,6 +127,8 @@
                         <th>STT</th>
                         <th>Nhãn hiệu</th>
                         <th>Biển số</th>
+                        <th>Số khung</th>
+                        <th>Số máy</th>
                         <th style="width: 200px; text-align: center;">Hành động</th>
                     </tr>
                 </thead>
@@ -140,19 +136,20 @@
                     <c:forEach var="vehicle" items="${vehicleList}" varStatus="status">
                         <tr>
                             <td>${status.index + 1}</td>
-                            <td>${vehicle.model}</td>
+                            <td>${vehicle.motocycleType}</td>
                             <td>${vehicle.licensePlates}</td>
+                            <td>${vehicle.chassis}</td>
+                            <td>${vehicle.engine}</td>
                             <td class="actions">
                                 <c:choose>
                                     <c:when test="${vehicle.hasContract}">
-                                        <a href="viewContract.jsp?vehicleId=${vehicle.id}&customerId=${customerId}">Xem Bảo hiểm</a>
+                                        <a href="viewContract.jsp?vehicleId=${vehicle.motocycleId}&customerId=${customerId}">Xem Bảo hiểm</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="AddContractForm?vehicleId=${vehicle.id}&customerId=${customerId}">Tạo Bảo hiểm</a>
+                                        <a href="AddContractForm?vehicleId=${vehicle.motocycleId}&customerId=${customerId}">Tạo Bảo hiểm</a>
                                     </c:otherwise>
                                 </c:choose>
-
-                                <a href="DeleteVehicleServlet?vehicleId=${vehicle.id}&customerId=${customerId}"" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Xóa</a>
+                                <a href="DeleteVehicleServlet?vehicleId=${vehicle.motocycleId}&customerId=${customerId}" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Xóa</a>
                             </td>
                         </tr>
                     </c:forEach>
