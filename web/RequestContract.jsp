@@ -75,7 +75,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-lg-2 border-end mb-3 ">
-                    <label for="num_years" class="ms-1">Số năm bảo hiểm:</label> <br>
+                    <label for="num_years" class="ms-1">Số năm bảo hiểm</label> <br>
                     <select id="num_years" name="num_years" class="m-0 p-0" required onchange="calculateEndDate()">
                         <option value="1">1 năm</option>
                         <option value="2">2 năm</option>
