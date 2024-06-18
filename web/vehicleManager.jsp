@@ -121,10 +121,11 @@
                 <input type="hidden" name="customerId" value="${param.customerId}">
                 <button type="submit">Thêm Phương tiện mới</button>
             </form>
+              
             <table>
                 <thead>
                     <tr>
-                        <th>STT</th>
+
                         <th>Loại xe</th>
                         <th>Biển số</th>
                         <th>Số khung</th>
@@ -133,24 +134,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="vehicle" items="${vehicleList}" varStatus="status">
+                    <c:forEach var="vehicle" items="${requestScope.vehicleList}" >
                         <tr>
-                            <td>${status.index + 1}</td>
                             <td>${vehicle.motocycleType}</td>
-                            <td>${vehicle.licensePlates}</td>
-                            <td>${vehicle.chassis}</td>
-                            <td>${vehicle.engine}</td>
+                            <td>${vehicle.getLicensePlates()}</td>
+                            <td>${vehicle.getChassis()}</td>
+                            <td>${vehicle.getEngine()}</td>
                             <td class="actions">
                                 <c:choose>
-                                    <c:when test="${vehicle.hasContract}">
-                                        <a href="viewContract.jsp?vehicleId=${vehicle.motocycleId}&customerId=${customerId}">Xem Bảo hiểm</a>
+                                    <c:when test="${vehicle.isHasContract()}">
+                                        <a href="viewContract.jsp?vehicleId=${vehicle.id}&customerId=${customerId}">Xem Bảo hiểm</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="AddContractForm?vehicleId=${vehicle.motocycleId}&customerId=${customerId}">Tạo Bảo hiểm</a>
+                                        <a href="AddContractForm?vehicleId=${vehicle.id}&customerId=${customerId}">Tạo Bảo hiểm</a>
                                     </c:otherwise>
                                 </c:choose>
-                                <a href="DeleteVehicleServlet?vehicleId=${vehicle.motocycleId}&customerId=${customerId}" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Xóa</a>
+                                <a href="DeleteVehicleServlet?vehicleId=${vehicle.id}&customerId=${customerId}" onclick="return confirm('Bạn muốn xóa phương tiện này không?')">Xóa</a>
                             </td>
+
                         </tr>
                     </c:forEach>
                 </tbody>

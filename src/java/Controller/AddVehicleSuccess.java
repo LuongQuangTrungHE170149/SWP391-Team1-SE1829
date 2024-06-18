@@ -56,7 +56,9 @@ public class AddVehicleSuccess extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
          int customerId = Integer.parseInt(request.getParameter("customerId"));
+         int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
         request.setAttribute("customerId", customerId);
+        request.setAttribute("vehicleId", vehicleId);
         request.getRequestDispatcher("AddVehicleSuccess.jsp").forward(request, response);
     } 
 

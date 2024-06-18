@@ -34,7 +34,7 @@ Create table Agencies(
 )
 GO
 
-
+select * from Vehicles
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
 			MotocycleType nvarchar(255),
@@ -125,15 +125,15 @@ INSERT INTO Vehicles (MotocycleType, LicensePlates, Chassis, Engine, OwnerId)
 VALUES 
 ('Xe moto 2 bánh dung tích nhỏ hơn 50cc', '29A-12345', 'CH123456', 'EN123456', 1),
 ('Xe moto 2 bánh dung tích lớn hơn 50cc', '30B-67890', 'CH654321', 'EN654321', 2),
-('Xe điện', '31C-54321', 'CH789012', 'EN789012', 3),
+('Xe điện', '31C-54321', 'CH789012', 'EN789012', 2),
 ('Moto 3 bánh', '32D-09876', 'CH345678', 'EN345678', 1),
 ('Các loại xe còn lại', '33E-13579', 'CH246810', 'EN246810', 2);
 GO
 
-INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status)
+INSERT INTO Contracts (CustomerId, StaffId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status)
 VALUES 
-(1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'Đang hiệu lực'),
-(2, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'Đang hiệu lực');
+(1, 2, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'Đang hiệu lực'),
+(2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'Đang hiệu lực');
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 

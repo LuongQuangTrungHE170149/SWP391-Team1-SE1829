@@ -89,8 +89,8 @@ public class AddVehicleServlet extends HttpServlet {
         vehicle.setEngine(engine);
         try {
             VehicleDAO.INSTANCE.addVehicle(vehicle);
-            
-            response.sendRedirect("AddVehicleSuccess?customerId="+ownerId+"&vehicleId=3"); // Redirect to a success page
+            int vehicleId = VehicleDAO.INSTANCE.getVehicleIdAfterAdd();
+            response.sendRedirect("AddVehicleSuccess?customerId="+ownerId+"&vehicleId="+vehicleId); // Redirect to a success page
         } catch (SQLException e) {
             throw new ServletException(e);
         }
