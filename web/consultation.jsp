@@ -5,21 +5,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Consultation</title>
         <style>
-            /* Tùy chỉnh vị trí của button */
+            
             .btn-fixed {
                 position: fixed;
                 right: 20px;
                 bottom: 20px;
-                z-index: 1000; /* Đảm bảo button hiển thị trên cùng */
+                z-index: 1000; 
             }
             .btn-custom{
                 background-color: #419FA3 !important;
                 border-color:#419FA3 !important;
             }
-            /*            .btn-custom:hover{
-                            background-color: #198754;
-                            border-color: #198754;
-                        }*/
+          
         </style>
     </head>
     <body> 
@@ -62,17 +59,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script>
-
             $(document).ready(function () {
-//                $('#consultationModal').on('hidden.bs.modal', function () {
-//                    // Đặt lại giá trị của các trường dữ liệu trong modal
-//                    $('#name').val('');
-//                    $('#email').val('');
-//                    $('#content').val('');
-//                    // Xóa lớp mờ
-//                    
-//                });
-
                 $('#consForm').on('submit', function (e) {
                     e.preventDefault();
                     let formData = {

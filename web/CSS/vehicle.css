@@ -1,53 +1,60 @@
+/* Định dạng cơ bản cho toàn bộ trang */
 body {
-    margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
-/* Style for the container where the form is placed */
+/* Định dạng cho tiêu đề chính */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Định dạng container chính của form */
 .container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
     background-color: #fff;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
-/* Form title */
-h2 {
-    color: #333;
-    margin-bottom: 20px;
+/* Định dạng cho các phần tử form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-/* Style for form labels */
+/* Định dạng cho các nhãn */
 form label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
     font-weight: bold;
 }
 
-/* Style for form inputs */
-form input[type="text"], form input[type="submit"] {
-    width: 100%;
+/* Định dạng cho các trường nhập liệu và danh sách thả xuống */
+form input[type="text"],
+form select {
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
 }
 
-/* Submit button specific styles */
+/* Định dạng cho nút gửi form */
 form input[type="submit"] {
-    background-color: #28a745;
+    background-color: #007bff;
     color: #fff;
     border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
+/* Định dạng cho nút gửi form khi di chuột qua */
 form input[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }

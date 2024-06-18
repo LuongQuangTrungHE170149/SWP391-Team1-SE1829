@@ -43,7 +43,7 @@
             <jsp:include page="staffDashboard.jsp"/>
         </div>
 
-       
+        <div class="main-content" id="main-content">
             <div class="home-manager--wrapper" >
                 <div class="container" style="padding: 30px;">
                     <h2 class="main-title">Tổng quan</h2>
@@ -244,7 +244,7 @@
                     </div>
                 </div>
             </div>
-        
+        </div>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>

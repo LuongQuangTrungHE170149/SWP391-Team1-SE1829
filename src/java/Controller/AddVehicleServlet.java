@@ -79,13 +79,14 @@ public class AddVehicleServlet extends HttpServlet {
         int ownerId = Integer.parseInt(request.getParameter("customerId"));
         String model = request.getParameter("model");
         String licensePlates = request.getParameter("licensePlates");
-
+        String chassis = request.getParameter("chassis");
+        String engine = request.getParameter("engine");
         Vehicle vehicle = new Vehicle();
-        vehicle.setModel(model);
+        vehicle.setMotocycleType(model);
         vehicle.setLicensePlates(licensePlates);
         vehicle.setOwnerId(ownerId);
-
-        
+        vehicle.setChassis(chassis);
+        vehicle.setEngine(engine);
         try {
             VehicleDAO.INSTANCE.addVehicle(vehicle);
             

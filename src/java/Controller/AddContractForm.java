@@ -79,7 +79,7 @@ public class AddContractForm extends HttpServlet {
             request.setAttribute("customerId", customerId);
             request.setAttribute("customerName", customerName);
             request.setAttribute("vehicleId", vehicleId);
-            request.setAttribute("model", vehicle.getModel());
+            request.setAttribute("model", vehicle.getMotocycleType());
             request.setAttribute("licensePlates", vehicle.getLicensePlates());
             request.getRequestDispatcher("addContract.jsp").forward(request, response);
         } catch (SQLException ex) {
