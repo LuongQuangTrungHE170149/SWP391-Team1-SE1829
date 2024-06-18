@@ -23,171 +23,170 @@
         <div class="nav-wrapper" style="height: 0">
             <jsp:include page="staffDashboard.jsp" />
         </div>
-
-        <div id="listAgency-page">
-
-            <c:if test="${sessionScope.updateSuccess != null}">
-                <div id="toast-success" class="toast-container top-0 end-0 p-3">
-                    <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body">
-                                ${sessionScope.updateSuccess}
+        <div class="main-content" id="main-content">
+            <div id="listAgency-page">
+                <c:if test="${sessionScope.updateSuccess != null}">
+                    <div id="toast-success" class="toast-container top-0 end-0 p-3">
+                        <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    ${sessionScope.updateSuccess}
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div>
-                </div>
-                <c:remove var="updateSuccess" scope="session" />
-            </c:if>
+                    <c:remove var="updateSuccess" scope="session" />
+                </c:if>
 
 
-            <div class="container list-agency--wrapper">
-                <h3 class="list-agency--header">Quản lí đại lý</h3>
-                <div class="container-action">
-                    <form action="listAgency" method="post">
-                        <div class="list-agency--search">
-                            <input  value="${key}" placeholder="Tìm kiếm đại lý..." name="key"/>
-                            <button type="submit" class="search-agency--btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
+                <div class="container list-agency--wrapper">
+                    <h3 class="list-agency--header">Quản lí đại lý</h3>
+                    <div class="container-action">
+                        <form action="listAgency" method="post">
+                            <div class="list-agency--search">
+                                <input  value="${key}" placeholder="Tìm kiếm đại lý..." name="key"/>
+                                <button type="submit" class="search-agency--btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+
+                        <div>
+                            <select name="filter" class="select-filter" onchange="redirectToServlet(this)">
+                                <option disabled selected>Trạng thái</option>
+                                <option value="all">Tất cả</option>
+                                <option value="active" ${requestScope.selectedCity eq "active" ? "selected" : ""} >Hoạt động</option>
+                                <option value="inactive" ${requestScope.selectedCity eq "inactive" ? "selected" : ""}>Dừng hoạt động</option>
+                            </select>
+
+                        </div>      
+
+                        <div style="display: flex;">
+                            <a href="listAgency?action=sort" class="btn-wrapper btn-filter">Sắp xếp</a>
+
+                            <a href="addAgency" class="btn-wrapper btn-add">Thêm đại lý</a>
+
+                        </div>    
+                    </div>
+
+
 
                     <div>
-                        <select name="filter" class="select-filter" onchange="redirectToServlet(this)">
-                            <option disabled selected>Trạng thái</option>
-                            <option value="all">Tất cả</option>
-                            <option value="active" ${requestScope.selectedCity eq "active" ? "selected" : ""} >Hoạt động</option>
-                            <option value="inactive" ${requestScope.selectedCity eq "inactive" ? "selected" : ""}>Dừng hoạt động</option>
-                        </select>
 
-                    </div>      
 
-                    <div style="display: flex;">
-                        <a href="listAgency?action=sort" class="btn-wrapper btn-filter">Sắp xếp</a>
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên đại lí</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Hotline</th>
+                                    <th>Giờ làm việc</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
 
-                        <a href="addAgency" class="btn-wrapper btn-add">Thêm đại lý</a>
+                                </tr>
+                            </thead>
+                            <tbody >
 
-                    </div>    
+                                <c:if test="${requestScope.listSearchAgency == null  && requestScope.filterAgencyList == null}">
+                                    <c:forEach var="agency" items="${requestScope.listAgency}">
+                                        <tr class="agency-container">
+
+                                            <td>${agency.agencyId}</td>
+                                            <td>${agency.agencyName}</td>
+                                            <td>${agency.agencyAddress}</td>
+                                            <td>${agency.hotline}</td>
+                                            <td>${agency.worktime}</td>
+                                            <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
+                                            <td>
+                                                <a class="agency-link" href="editAgency?id=${agency.agencyId}">Sửa</a>
+                                                <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
+
+
+                                                <c:if test="${agency.status eq 'active'}">
+                                                    <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'inactive')">Ngưng hoạt động</a>
+                                                </c:if>
+                                                <c:if test="${agency.status ne 'active'}">
+                                                    <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'active')">Hoạt động</a>
+                                                </c:if>
+                                            </td>
+
+                                        </tr>
+                                    </c:forEach>
+
+                                </c:if>
+
+                                <c:if test="${requestScope.listSearchAgency != null && requestScope.listSearchAgency.size() > 0 && requestScope.filterAgencyList == null}">
+                                    <c:forEach var="agency" items="${requestScope.listSearchAgency}">
+                                        <tr class="agency-container">
+
+                                            <td>${agency.agencyId}</td>
+                                            <td>${agency.agencyName}</td>
+                                            <td>${agency.agencyAddress}</td>
+                                            <td>${agency.hotline}</td>
+                                            <td>${agency.worktime}</td>
+                                            <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
+                                            <td>
+                                                <a class="agency-link" href="editAgency?id=${agency.agencyId}">Sửa</a>
+                                                <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
+                                                <c:if test="${agency.status eq 'active'}">
+                                                    <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'inactive')">Ngưng hoạt động</a>
+                                                </c:if>
+                                                <c:if test="${agency.status ne 'active'}">
+                                                    <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'active')">Hoạt động</a>
+                                                </c:if>
+
+                                            </td>
+
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+
+                                <c:if test="${requestScope.filterAgencyList != null && requestScope.listSearchAgency == null}">
+                                    <c:forEach var="agency" items="${requestScope.filterAgencyList}">
+                                        <tr class="agency-container">
+                                            <td>${agency.agencyId}</td>
+                                            <td>${agency.agencyName}</td>
+                                            <td>${agency.agencyAddress}</td>
+                                            <td>${agency.hotline}</td>
+                                            <td>${agency.worktime}</td>
+                                            <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
+                                            <td>
+                                                <a class="agency-link" href="editAgency?id=${agency.agencyId}">Sửa</a>
+                                                <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
+                                                <c:if test="${agency.status eq 'active'}">
+                                                    <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'inactive')">Ngưng hoạt động</a>
+                                                </c:if>
+                                                <c:if test="${agency.status ne 'active'}">
+                                                    <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'active')">Hoạt động</a>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+
+
+
+
+                            </tbody>
+                        </table>
+
+
+
+
+
+                    </div>
                 </div>
-
-
-
-                <div>
-
-
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th>Mã</th>
-                                <th>Tên đại lí</th>
-                                <th>Địa chỉ</th>
-                                <th>Hotline</th>
-                                <th>Giờ làm việc</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-
-                            </tr>
-                        </thead>
-                        <tbody >
-
-                            <c:if test="${requestScope.listSearchAgency == null  && requestScope.filterAgencyList == null}">
-                                <c:forEach var="agency" items="${requestScope.listAgency}">
-                                    <tr class="agency-container">
-
-                                        <td>${agency.agencyId}</td>
-                                        <td>${agency.agencyName}</td>
-                                        <td>${agency.agencyAddress}</td>
-                                        <td>${agency.hotline}</td>
-                                        <td>${agency.worktime}</td>
-                                        <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
-                                        <td>
-                                            <a class="agency-link" href="editAgency?id=${agency.agencyId}">Sửa</a>
-                                            <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
-
-
-                                            <c:if test="${agency.status eq 'active'}">
-                                                <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'inactive')">Ngưng hoạt động</a>
-                                            </c:if>
-                                            <c:if test="${agency.status ne 'active'}">
-                                                <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'active')">Hoạt động</a>
-                                            </c:if>
-                                        </td>
-
-                                    </tr>
-                                </c:forEach>
-
-                            </c:if>
-
-                            <c:if test="${requestScope.listSearchAgency != null && requestScope.listSearchAgency.size() > 0 && requestScope.filterAgencyList == null}">
-                                <c:forEach var="agency" items="${requestScope.listSearchAgency}">
-                                    <tr class="agency-container">
-
-                                        <td>${agency.agencyId}</td>
-                                        <td>${agency.agencyName}</td>
-                                        <td>${agency.agencyAddress}</td>
-                                        <td>${agency.hotline}</td>
-                                        <td>${agency.worktime}</td>
-                                        <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
-                                        <td>
-                                            <a class="agency-link" href="editAgency?id=${agency.agencyId}">Sửa</a>
-                                            <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
-                                            <c:if test="${agency.status eq 'active'}">
-                                                <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'inactive')">Ngưng hoạt động</a>
-                                            </c:if>
-                                            <c:if test="${agency.status ne 'active'}">
-                                                <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'active')">Hoạt động</a>
-                                            </c:if>
-
-                                        </td>
-
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-
-                            <c:if test="${requestScope.filterAgencyList != null && requestScope.listSearchAgency == null}">
-                                <c:forEach var="agency" items="${requestScope.filterAgencyList}">
-                                    <tr class="agency-container">
-                                        <td>${agency.agencyId}</td>
-                                        <td>${agency.agencyName}</td>
-                                        <td>${agency.agencyAddress}</td>
-                                        <td>${agency.hotline}</td>
-                                        <td>${agency.worktime}</td>
-                                        <td>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</td>
-                                        <td>
-                                            <a class="agency-link" href="editAgency?id=${agency.agencyId}">Sửa</a>
-                                            <a class="agency-link" href="agencyDetail?id=${agency.agencyId}">Chi tiết</a>
-                                            <c:if test="${agency.status eq 'active'}">
-                                                <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'inactive')">Ngưng hoạt động</a>
-                                            </c:if>
-                                            <c:if test="${agency.status ne 'active'}">
-                                                <a class="agency-link" href="#" onclick="confirmAction('${agency.agencyId}', 'active')">Hoạt động</a>
-                                            </c:if>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-
-
-
-
-                        </tbody>
-                    </table>
-
-
-
-
-
+                <div class="pagination">
+                    <a href="#" class="prev">&laquo; Trước</a>
+                    <a href="#" class="page">1</a>
+                    <a href="#" class="page">2</a>
+                    <a href="#" class="page">3</a>
+                    <a href="#" class="next">Sau &raquo;</a>
                 </div>
             </div>
-            <div class="pagination">
-                <a href="#" class="prev">&laquo; Trước</a>
-                <a href="#" class="page">1</a>
-                <a href="#" class="page">2</a>
-                <a href="#" class="page">3</a>
-                <a href="#" class="next">Sau &raquo;</a>
-            </div>
+
         </div>
-
-
         <!-- Modal -->
         <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
             <div class="modal-dialog">
