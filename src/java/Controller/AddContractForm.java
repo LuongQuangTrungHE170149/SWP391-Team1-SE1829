@@ -68,18 +68,18 @@ public class AddContractForm extends HttpServlet {
             throws ServletException, IOException {
         int customerId = Integer.parseInt(request.getParameter("customerId"));
         int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
-        
+
         try {
             UserDAO userDao = new UserDAO();
-            
+
             String customerName = userDao.getCustomerName(customerId);
             Vehicle vehicle = VehicleDAO.INSTANCE.getVehicleById(vehicleId);
-            List<Agency> agencies = AgencyDAO.INSTANCE.getAllAgencies();
-            request.setAttribute("agencies", agencies);
             request.setAttribute("customerId", customerId);
             request.setAttribute("customerName", customerName);
             request.setAttribute("vehicleId", vehicleId);
             request.setAttribute("model", vehicle.getMotocycleType());
+            request.setAttribute("chassis", vehicle.getChassis());
+            request.setAttribute("engine", vehicle.getEngine());
             request.setAttribute("licensePlates", vehicle.getLicensePlates());
             request.getRequestDispatcher("addContract.jsp").forward(request, response);
         } catch (SQLException ex) {

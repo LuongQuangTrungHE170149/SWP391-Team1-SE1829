@@ -128,8 +128,10 @@ public class VehicleDAO extends DBContext {
             if (resultSet.next()) {
                 vehicle = new Vehicle();
                 vehicle.setId(resultSet.getInt("MotocycleId"));
-                vehicle.setMotocycleType(resultSet.getString("Model"));
+                vehicle.setMotocycleType(resultSet.getString("MotocycleType"));
                 vehicle.setLicensePlates(resultSet.getString("LicensePlates"));
+                vehicle.setChassis(resultSet.getString("Chassis"));
+                vehicle.setEngine(resultSet.getString("Engine"));
                 vehicle.setOwnerId(resultSet.getInt("OwnerId"));
             }
         } catch (Exception e) {
@@ -158,7 +160,7 @@ public class VehicleDAO extends DBContext {
 
         //Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.getListVehicle(1, ""));
+        System.out.println(VehicleDAO.INSTANCE.getVehicleById(15));
     }
 
 }

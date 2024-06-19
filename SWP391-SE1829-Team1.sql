@@ -7,7 +7,7 @@ go
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
-			password nvarchar (16) not null,
+			password nvarchar (16),
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
@@ -34,7 +34,7 @@ Create table Agencies(
 )
 GO
 
-select * from Vehicles
+
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
 			MotocycleType nvarchar(255),

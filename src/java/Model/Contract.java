@@ -11,14 +11,14 @@ import java.sql.Date;
  * @author QUANG TRUNG
  */
 public class Contract {
+
     private int contractId;
     private int customerId;
     private int staffId;
-    private int agencyId;
     private int vehicleId;
     private Date startDate;
     private Date endDate;
-    private int contractType;
+    private String contractType;
     private String descripttion;
     private Double payment;
     private String status;
@@ -47,14 +47,6 @@ public class Contract {
         this.staffId = staffId;
     }
 
-    public int getAgencyId() {
-        return agencyId;
-    }
-
-    public void setAgencyId(int agencyId) {
-        this.agencyId = agencyId;
-    }
-
     public int getVehicleId() {
         return vehicleId;
     }
@@ -62,8 +54,6 @@ public class Contract {
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
     }
-
-    
 
     public Date getStartDate() {
         return startDate;
@@ -81,11 +71,11 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public int getContractType() {
+    public String getContractType() {
         return contractType;
     }
 
-    public void setContractType(int contractType) {
+    public void setContractType(String contractType) {
         this.contractType = contractType;
     }
 
@@ -113,9 +103,8 @@ public class Contract {
         this.status = status;
     }
 
-    public Contract(int contractId, int agencyId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+    public Contract(int contractId, Date startDate, Date endDate, String contractType, String descripttion, Double payment, String status) {
         this.contractId = contractId;
-        this.agencyId = agencyId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.contractType = contractType;
@@ -127,10 +116,9 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int customerId, int staffId, int agencyId, int vehicleId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+    public Contract(int customerId, int staffId, int vehicleId, Date startDate, Date endDate, String contractType, String descripttion, Double payment, String status) {
         this.customerId = customerId;
         this.staffId = staffId;
-        this.agencyId = agencyId;
         this.vehicleId = vehicleId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -140,12 +128,4 @@ public class Contract {
         this.status = status;
     }
 
-    
-
-    
-
-    
-
-   
-    
 }

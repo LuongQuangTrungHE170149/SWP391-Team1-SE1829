@@ -60,19 +60,18 @@ public class ContractDAO extends DBContext {
         try {
 
             // Calculate End Date
-            String sql = "INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Contracts (CustomerId, StaffId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, contract.getCustomerId());
-            stmt.setInt(2, contract.getStaffId());
-            stmt.setInt(3, contract.getAgencyId());
-            stmt.setInt(4, contract.getVehicleId());
-            stmt.setDate(5, contract.getStartDate());
-            stmt.setDate(6, new Date(contract.getStartDate().getTime() + (long) contract.getContractType() * 365 * 24 * 60 * 60 * 1000));
-            stmt.setString(7, contract.getContractType() + " Year");
-            stmt.setString(8, contract.getDescripttion());
-            stmt.setDouble(9, contract.getPayment());
-            stmt.setString(10, contract.getStatus());
+            stmt.setInt(2, contract.getStaffId());            
+            stmt.setInt(3, contract.getVehicleId());
+            stmt.setDate(4, contract.getStartDate());
+            stmt.setDate(5, contract.getEndDate());
+            stmt.setString(6, contract.getContractType());
+            stmt.setString(7, contract.getDescripttion());
+            stmt.setDouble(8, contract.getPayment());
+            stmt.setString(9, contract.getStatus());
 
             stmt.executeUpdate();
             stmt.close();
@@ -178,7 +177,7 @@ public class ContractDAO extends DBContext {
 //        List<User> users = cd.getCustomer("jdoe");
         Date startDate = new Date(2024, 6, 12);
         Date endDate = new Date(2025, 6, 12);
-        Contract contract = new Contract(2,1,1,3, startDate, endDate, 1, "abcxya", 400000D, "Đang hiêu lực");
+        Contract contract = new Contract(2,1,3, startDate, endDate, "bắt buộc", "abcxya", 400000D, "Đang hiêu lực");
         ContractDAO.INSTANCE.addContract(contract);
     }
 }

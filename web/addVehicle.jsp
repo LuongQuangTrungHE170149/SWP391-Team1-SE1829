@@ -23,19 +23,19 @@
                 <input type="hidden" name="customerId" value="${param.customerId}">
                 <label for="vehicleType">Vehicle Type:</label>
                 <select id="vehicleType" name="vehicleType" required>
-                    <option value="motorbike_under_50cc">Xe moto 2 bánh dung tích nhỏ hơn 50cc</option>
-                    <option value="motorbike_over_50cc">Xe moto 2 bánh dung tích lớn hơn 50cc</option>
-                    <option value="electric_bike">Xe điện</option>
-                    <option value="three_wheel_motorbike">Moto 3 bánh</option>
-                    <option value="other">Các loại xe còn lại</option>
+                    <option value="Xe moto 2 bánh dung tích nhỏ hơn 50cc">Xe moto 2 bánh dung tích nhỏ hơn 50cc</option>
+                    <option value="Xe moto 2 bánh dung tích lớn hơn 50cc">Xe moto 2 bánh dung tích lớn hơn 50cc</option>
+                    <option value="Xe điện">Xe điện</option>
+                    <option value="Moto 3 bánh">Moto 3 bánh</option>
+                    <option value="Các loại xe còn lại">Các loại xe còn lại</option>
                 </select>
                 <label for="licensePlates">Biển kiểm soát:</label>
                 <input type="text" id="licensePlates" name="licensePlates" required>
 
-                <label for="frameNumber">Số khung:</label>
+                <label for="chassis">Số khung:</label>
                 <input type="text" id="chassis" name="chassis" required>
 
-                <label for="engineNumber">Số máy:</label>
+                <label for="engine">Số máy:</label>
                 <input type="text" id="engine" name="engine" required>
                 <input type="submit" value="Add Vehicle">
             </form>
