@@ -23,10 +23,10 @@ import utils.EmailHelper;
 public class ForgetPasswordController extends HttpServlet {
 
     // Pattern to validate email address
-//    private static final Pattern EMAIL_PATTERN = Pattern.compile(
-//            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-//            Pattern.CASE_INSENSITIVE
-//    );
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+            Pattern.CASE_INSENSITIVE
+    );
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,7 +51,7 @@ public class ForgetPasswordController extends HttpServlet {
         }
     }
 
-//    private boolean isValidEmail(String email) {
-//        return EMAIL_PATTERN.matcher(email).find();
-//    }
+    private boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).find();
+    }
 }
