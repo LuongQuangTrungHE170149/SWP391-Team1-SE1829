@@ -61,7 +61,7 @@ public class CustomerDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         String idRaw = request.getParameter("customerId");
         UserDAO udb = new UserDAO();
-        try {
+        try {   
             int customerId = Integer.parseInt(idRaw);
             User user = udb.getUserById(customerId);
             int totalContract = ContractDAO.INSTANCE.countContractByCustomer(customerId);
