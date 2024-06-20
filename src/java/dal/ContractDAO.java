@@ -6,6 +6,8 @@ package dal;
 
 import Model.Contract;
 import Model.User;
+import Model.Vehicle;
+import dto.Contractdto;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -69,7 +71,7 @@ public class ContractDAO extends DBContext {
             stmt.setDate(4, contract.getStartDate());
             stmt.setDate(5, contract.getEndDate());
             stmt.setString(6, contract.getContractType());
-            stmt.setString(7, contract.getDescripttion());
+            stmt.setString(7, contract.getDescription());
             stmt.setDouble(8, contract.getPayment());
             stmt.setString(9, contract.getStatus());
 
@@ -85,6 +87,57 @@ public class ContractDAO extends DBContext {
 
     }
 
+    public Contract findContractByVehicleId(int vehicleId){
+        String sql = "SELECT * FROM Contracts WHERE VehicleId = ?";
+        Contract contract = new Contract();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, vehicleId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                contract.setContractId(rs.getInt("ContractId"));
+                contract.setCustomerId(rs.getInt("CustomerId"));
+                contract.setStaffId(rs.getInt("StaffId"));
+                contract.setVehicleId(rs.getInt("VehicleId"));
+                contract.setContractType("ContractType");
+                contract.setStartDate(rs.getDate("StartDate"));
+                contract.setEndDate(rs.getDate("EndDate"));
+                contract.setDescription(rs.getString("Description"));
+                contract.setPayment(rs.getDouble("Payment"));
+                contract.setStatus(rs.getString("status"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return contract;
+    }
+    
+    public Contract findContractByContractId(int contractId){
+        String sql = "SELECT * FROM Contracts WHERE ContractId = ?";
+        Contract contract = new Contract();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, contractId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                contract.setContractId(rs.getInt("ContractId"));
+                contract.setCustomerId(rs.getInt("CustomerId"));
+                contract.setStaffId(rs.getInt("StaffId"));
+                contract.setVehicleId(rs.getInt("VehicleId"));
+                contract.setContractType("ContractType");
+                contract.setStartDate(rs.getDate("StartDate"));
+                contract.setEndDate(rs.getDate("EndDate"));
+                contract.setDescription(rs.getString("Description"));
+                contract.setPayment(rs.getDouble("Payment"));
+                contract.setStatus(rs.getString("status"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return contract;
+    }
     public int countContracts() {
         String sql = "select count(*) as totalContracts from Contracts";
         int total = 0;
@@ -172,12 +225,63 @@ public class ContractDAO extends DBContext {
         return total;
     }
 
-    public static void main(String[] args) {
+    public List<Contract> getAllContract(){
+          List<Contract> contracts = new ArrayList<>();
+        String sql = "SELECT * FROM Contracts";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Contract contract = new Contract();
+                contract.setContractId(rs.getInt("ContractId"));
+                contract.setCustomerId(rs.getInt("CustomerId"));
+                contract.setStaffId(rs.getInt("StaffId"));
+                contract.setVehicleId(rs.getInt("VehicleId"));
+                contract.setContractType(rs.getString("ContractType"));
+                contract.setStartDate(rs.getDate("StartDate"));
+                contract.setEndDate(rs.getDate("EndDate"));
+                contract.setDescription(rs.getString("Description"));
+                contract.setPayment(rs.getDouble("Payment"));
+                contract.setStatus(rs.getString("Status"));               
+                contracts.add(contract);
+            }            
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return contracts;               
+    }
+    
+   public List<Contractdto> getAllContractDto() throws SQLException{
+       List<Contractdto> contractdtos = new ArrayList<>();
+       List<Contract> contracts = ContractDAO.INSTANCE.getAllContract();
+       for (Contract contract : contracts) {
+           Contractdto cdto = new Contractdto();
+           Vehicle vehicle = VehicleDAO.INSTANCE.getVehicleById(contract.getVehicleId());
+           UserDAO userDAO = new UserDAO();
+           cdto.setContractId(contract.getContractId());
+           cdto.setEndDate(contract.getEndDate());
+           cdto.setCustomerName(userDAO.getCustomerName(contract.getCustomerId()));
+           cdto.setStaffName(userDAO.getCustomerName(contract.getStaffId()));
+           cdto.setMotocycleType(vehicle.getMotocycleType());
+           cdto.setLicensePlates(vehicle.getLicensePlates());
+           contractdtos.add(cdto);
+       }
+       
+       
+       
+       return contractdtos;
+   }
+    public static void main(String[] args) throws SQLException {
 //        ContractDAO cd = new ContractDAO();
 //        List<User> users = cd.getCustomer("jdoe");
         Date startDate = new Date(2024, 6, 12);
         Date endDate = new Date(2025, 6, 12);
         Contract contract = new Contract(2,1,3, startDate, endDate, "bắt buộc", "abcxya", 400000D, "Đang hiêu lực");
-        ContractDAO.INSTANCE.addContract(contract);
+        System.out.println(ContractDAO.INSTANCE.findContractByContractId(3));
     }
 }

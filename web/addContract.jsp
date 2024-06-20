@@ -1,9 +1,3 @@
-<%-- 
-    Document   : addContract
-    Created on : 22 thg 5, 2024, 23:33:32
-    Author     : QUANG TRUNG
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, java.sql.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -54,20 +48,29 @@
                 switch (vehicleType) {
                     case 'Xe moto 2 bánh dung tích nhỏ hơn 50cc':
                     case 'Xe điện':
-                        if (numYears === "1") paymentAmount = 55000;
-                        else if (numYears === "2") paymentAmount = 100000;
-                        else if (numYears === "3") paymentAmount = 145000;
+                        if (numYears === "1")
+                            paymentAmount = 55000;
+                        else if (numYears === "2")
+                            paymentAmount = 100000;
+                        else if (numYears === "3")
+                            paymentAmount = 145000;
                         break;
                     case 'Xe moto 2 bánh dung tích lớn hơn 50cc':
-                        if (numYears === "1") paymentAmount = 60000;
-                        else if (numYears === "2") paymentAmount = 115000;
-                        else if (numYears === "3") paymentAmount = 160000;
+                        if (numYears === "1")
+                            paymentAmount = 60000;
+                        else if (numYears === "2")
+                            paymentAmount = 115000;
+                        else if (numYears === "3")
+                            paymentAmount = 160000;
                         break;
                     case 'Moto 3 bánh':
                     case 'Các loại xe còn lại':
-                        if (numYears === "1") paymentAmount = 290000;
-                        else if (numYears === "2") paymentAmount = 570000;
-                        else if (numYears === "3") paymentAmount = 850000;
+                        if (numYears === "1")
+                            paymentAmount = 290000;
+                        else if (numYears === "2")
+                            paymentAmount = 570000;
+                        else if (numYears === "3")
+                            paymentAmount = 850000;
                         break;
                     default:
                         paymentAmount = 0;
@@ -153,6 +156,44 @@
             .inline-label span {
                 flex: 1;
             }
+            .flex-row {
+                display: flex;
+                justify-content: space-between;
+            }
+            .flex-row .inline-label {
+                flex: 0 0 48%;
+            }
+            .flex-row-dates {
+                display: flex;
+                justify-content: space-between;
+            }
+            .flex-row-dates .inline-label {
+                flex: 0 0 48%;
+            }
+            #numYear {
+                width: 150px; /* Độ rộng của select */
+                margin-bottom: 10px; /* Khoảng cách với các trường dữ liệu phía dưới */
+            }
+
+            /* CSS for the row containing start date and end date */
+
+            /* Optional: if you want to adjust the width of labels and inputs */
+            .inline-label label {
+                flex: 0 0 120px; /* Độ rộng cố định của label */
+                margin-right: 10px;
+            }
+
+            .inline-label input[type="date"] {
+                width: calc(50% - 5px); /* Độ rộng của input date, chiếm 50% và trừ đi khoảng cách */
+                margin-right: 10px; /* Khoảng cách giữa các input */
+            }
+
+            /* CSS for the row containing start date and end date */
+            .flex-row-dates {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px; /* Khoảng cách với các trường dữ liệu phía dưới */
+            }
         </style>
     </head>
     <body>
@@ -167,25 +208,27 @@
                         <span>${customerName}</span>
                     </div>
 
-                    <div class="inline-label">
-                        <label for="vehicleModel">Loại xe:</label>
-                        <span>${model}</span>
-                        <input type="hidden" id="vehicleType" value="${model}">
+                    <div class="flex-row">
+                        <div class="inline-label">
+                            <label for="vehicleModel">Loại xe:</label>
+                            <span>${model}</span>
+                            <input type="hidden" id="vehicleType" value="${model}">
+                        </div>
+                        <div class="inline-label">
+                            <label for="vehicleLicensePlates">Biển số:</label>
+                            <span>${licensePlates}</span>
+                        </div>
                     </div>
 
-                    <div class="inline-label">
-                        <label for="vehicleLicensePlates">Biển số:</label>
-                        <span>${licensePlates}</span>
-                    </div>
-
-                    <div class="inline-label">
-                        <label for="chassis">Số khung:</label>
-                        <span>${chassis}</span>
-                    </div>
-
-                    <div class="inline-label">
-                        <label for="Engine">Số máy:</label>
-                        <span>${engine}</span>
+                    <div class="flex-row">
+                        <div class="inline-label">
+                            <label for="chassis">Số khung:</label>
+                            <span>${chassis}</span>
+                        </div>
+                        <div class="inline-label">
+                            <label for="engine">Số máy:</label>
+                            <span>${engine}</span>
+                        </div>
                     </div>
 
                     <input type="hidden" name="vehicleId" id="vehicleId" value="${param.vehicleId}">
@@ -197,11 +240,16 @@
                         <option value="3">3 năm</option>
                     </select><br>
 
-                    <label for="startDate">Ngày bắt đầu:</label>
-                    <input type="date" name="startDate" id="startDate" onchange="calculateEndDate()" required><br>
-
-                    <label for="enddate">Ngày kết thúc:</label>
-                    <input type="date" id="enddate" name="endDate" readonly><br>
+                    <div class="flex-row-dates">
+                        <div class="inline-label">
+                            <label for="startDate">Ngày bắt đầu:</label>
+                            <input type="date" name="startDate" id="startDate" onchange="calculateEndDate()" required>
+                        </div>
+                        <div class="inline-label">
+                            <label for="enddate">Ngày kết thúc:</label>
+                            <input type="date" id="enddate" name="endDate" readonly>
+                        </div>
+                    </div>
 
                     <label for="payment">Số tiền thanh toán:</label>
                     <input type="number" name="payment" id="payment" required readonly><br>
@@ -215,7 +263,7 @@
 
                     <label for="description">Mô tả:</label>
                     <textarea name="description" id="description"></textarea><br>
-
+                    <p id="error_message" class="error-message text-danger fw-bold" style="display:none; margin-left: 10px;"></p>
                     <div class="btn-container">
                         <input type="submit" value="Add Contract" class="btn">
                     </div>

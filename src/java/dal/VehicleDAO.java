@@ -142,7 +142,7 @@ public class VehicleDAO extends DBContext {
     }
 
     public int getVehicleIdAfterAdd() throws SQLException {
-        String sql = "SELECT Top 1 FROM Vehicles DESC";
+        String sql = "SELECT Top 1 MotocycleId FROM Vehicles ORDER BY MotocycleId DESC";
         int id = 0;
         try {
             PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -160,7 +160,7 @@ public class VehicleDAO extends DBContext {
 
         //Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.getVehicleById(15));
+        System.out.println(VehicleDAO.INSTANCE.getVehicleIdAfterAdd());
     }
 
 }

@@ -125,7 +125,7 @@
             <table>
                 <thead>
                     <tr>
-
+                        <th>STT</th>
                         <th>Loại xe</th>
                         <th>Biển số</th>
                         <th>Số khung</th>
@@ -134,8 +134,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="vehicle" items="${requestScope.vehicleList}" >
+                    <c:forEach var="vehicle" items="${requestScope.vehicleList}" varStatus="loop">
                         <tr>
+                            <td>${loop.index + 1}</td>
                             <td>${vehicle.motocycleType}</td>
                             <td>${vehicle.getLicensePlates()}</td>
                             <td>${vehicle.getChassis()}</td>
@@ -143,7 +144,7 @@
                             <td class="actions">
                                 <c:choose>
                                     <c:when test="${vehicle.isHasContract()}">
-                                        <a href="viewContract.jsp?vehicleId=${vehicle.id}&customerId=${customerId}">Xem Bảo hiểm</a>
+                                        <a href="ViewContract?vehicleId=${vehicle.id}">Xem Bảo hiểm</a>
                                     </c:when>
                                     <c:otherwise>
                                         <a href="AddContractForm?vehicleId=${vehicle.id}&customerId=${customerId}">Tạo Bảo hiểm</a>

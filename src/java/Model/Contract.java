@@ -19,7 +19,7 @@ public class Contract {
     private Date startDate;
     private Date endDate;
     private String contractType;
-    private String descripttion;
+    private String description;
     private Double payment;
     private String status;
 
@@ -79,12 +79,12 @@ public class Contract {
         this.contractType = contractType;
     }
 
-    public String getDescripttion() {
-        return descripttion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripttion(String descripttion) {
-        this.descripttion = descripttion;
+    public void setDescription(String descripttion) {
+        this.description = descripttion;
     }
 
     public Double getPayment() {
@@ -103,12 +103,12 @@ public class Contract {
         this.status = status;
     }
 
-    public Contract(int contractId, Date startDate, Date endDate, String contractType, String descripttion, Double payment, String status) {
+    public Contract(int contractId, Date startDate, Date endDate, String contractType, String description, Double payment, String status) {
         this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.contractType = contractType;
-        this.descripttion = descripttion;
+        this.description = description;
         this.payment = payment;
         this.status = status;
     }
@@ -116,16 +116,21 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int customerId, int staffId, int vehicleId, Date startDate, Date endDate, String contractType, String descripttion, Double payment, String status) {
+    public Contract(int customerId, int staffId, int vehicleId, Date startDate, Date endDate, String contractType, String description, Double payment, String status) {
         this.customerId = customerId;
         this.staffId = staffId;
         this.vehicleId = vehicleId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.contractType = contractType;
-        this.descripttion = descripttion;
+        this.description = description;
         this.payment = payment;
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Contract{" + "contractId=" + contractId + ", customerId=" + customerId + ", staffId=" + staffId + ", vehicleId=" + vehicleId + ", startDate=" + startDate + ", endDate=" + endDate + ", contractType=" + contractType + ", description=" + description + ", payment=" + payment + ", status=" + status + '}';
     }
 
 }
