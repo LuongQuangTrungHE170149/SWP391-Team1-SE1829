@@ -56,9 +56,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="contract" items="${cdtos}">
+                    <c:forEach var="contract" items="${cdtos}" varStatus="loop">
                         <tr>
-                            <td>${contract.contractId}</td>
+                            <td>${loop.index + 1}</td>
                             <td>${contract.customerName}</td>
                             <td>${contract.motocycleType}</td>
                             <td>${contract.licensePlates}</td>

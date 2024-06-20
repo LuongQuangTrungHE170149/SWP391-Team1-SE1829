@@ -11,7 +11,7 @@ Create table Users(
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
-		    gender int,
+		    gender bit,
 			email nvarchar(255) not null unique,
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
@@ -55,7 +55,7 @@ Create table Contracts(
 			ContractType nvarchar(255),
 			[Description] nvarchar(1000),
 			Payment Bigint,
-			status nvarchar(255)
+				 nvarchar(255)
 )
 GO
 
@@ -123,11 +123,11 @@ VALUES
 
 INSERT INTO Vehicles (MotocycleType, LicensePlates, Chassis, Engine, OwnerId)
 VALUES 
-('Xe moto 2 bánh dung tích nhỏ hơn 50cc', '29A-12345', 'CH123456', 'EN123456', 1),
-('Xe moto 2 bánh dung tích lớn hơn 50cc', '30B-67890', 'CH654321', 'EN654321', 2),
-('Xe điện', '31C-54321', 'CH789012', 'EN789012', 2),
-('Moto 3 bánh', '32D-09876', 'CH345678', 'EN345678', 1),
-('Các loại xe còn lại', '33E-13579', 'CH246810', 'EN246810', 2);
+(N'Xe moto 2 bánh dung tích nhỏ hơn 50cc', '29A-12345', 'CH123456', 'EN123456', 1),
+(N'Xe moto 2 bánh dung tích lớn hơn 50cc', '30B-67890', 'CH654321', 'EN654321', 2),
+(N'Xe điện', '31C-54321', 'CH789012', 'EN789012', 2),
+(N'Moto 3 bánh', '32D-09876', 'CH345678', 'EN345678', 1),
+(N'Các loại xe còn lại', '33E-13579', 'CH246810', 'EN246810', 2);
 GO
 
 INSERT INTO Contracts (CustomerId, StaffId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status)
@@ -162,3 +162,8 @@ INSERT INTO News (Title, Image, Content, Author, [Type])
 VALUES 
 ('New Vehicle Models', 'image1.jpg', 'Details about new vehicle models available.', 2, 'announcement'),
 ('Agency Opening', 'image2.jpg', 'New agency opening details.', 2, 'news');
+
+INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
+VALUES 
+('trunglq8', 'quangtrung93', N'Lương', 'Quang Trung', 'staff', 1, 'trunglq8@gmail.com', '0985187536', '1993-05-09', N'Tân Xã - Thạch Thất - Hà Nội')
+GO

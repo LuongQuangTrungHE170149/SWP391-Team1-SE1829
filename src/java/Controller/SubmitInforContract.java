@@ -5,7 +5,6 @@
 
 package Controller;
 
-import Model.Contract;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,14 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
 
 /**
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name="RequestContract", urlPatterns={"/RequestContract"})
-public class RequestContract extends HttpServlet {
+@WebServlet(name="SubmitInforContract", urlPatterns={"/SubmitInforContract"})
+public class SubmitInforContract extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +35,10 @@ public class RequestContract extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RequestContract</title>");  
+            out.println("<title>Servlet SubmitInforContract</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RequestContract at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SubmitInforContract at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +55,7 @@ public class RequestContract extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        processRequest(request, response);
     } 
 
     /** 
@@ -70,16 +68,23 @@ public class RequestContract extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String motocycleType = request.getParameter("vehicle_type");
+        // Lấy thông tin từ request
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String dob = request.getParameter("dob");
+        String address = request.getParameter("address");
+        String motocycleType = request.getParameter("motocycleType");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-        String numYear = request.getParameter("num_years");
+        String numYear = request.getParameter("numYear");
         
-        request.setAttribute("motocycleType",motocycleType );
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
-        request.setAttribute("numYear", numYear);
-        request.getRequestDispatcher("RequestUserInfo.jsp").forward(request, response);
+        // Thông tin phương tiện
+        String licensePlates = request.getParameter("licensePlates");
+        String chassisNumber = request.getParameter("chassis");
+        String engineNumber = request.getParameter("engine");
     }
 
     /** 
