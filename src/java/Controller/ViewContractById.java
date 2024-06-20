@@ -5,6 +5,11 @@
 
 package Controller;
 
+import Model.Contract;
+import Model.Vehicle;
+import dal.ContractDAO;
+import dal.UserDAO;
+import dal.VehicleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,13 +17,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name="AddVehicleSuccess", urlPatterns={"/AddVehicleSuccess"})
-public class AddVehicleSuccess extends HttpServlet {
+@WebServlet(name="ViewContractById", urlPatterns={"/ViewContractById"})
+public class ViewContractById extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +43,10 @@ public class AddVehicleSuccess extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddVehicleSuccess</title>");  
+            out.println("<title>Servlet ViewContractById</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddVehicleSuccess at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ViewContractById at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,11 +63,33 @@ public class AddVehicleSuccess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         int customerId = Integer.parseInt(request.getParameter("customerId"));
-         int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
-        request.setAttribute("customerId", customerId);
-        request.setAttribute("vehicleId", vehicleId);
-        request.getRequestDispatcher("AddVehicleSuccess.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String contractIdParam = request.getParameter("contractId");
+        if (contractIdParam == null || contractIdParam.isEmpty()) {
+            response.getWriter().println("<h2>Missing contractId parameter</h2>");
+            return;
+        }
+
+        int contractId = Integer.parseInt(contractIdParam);
+        Contract contract = ContractDAO.INSTANCE.findContractByContractId(contractId);
+
+        if (contract == null) {
+            response.getWriter().println("<h2>No contract found for Vehicle ID: " + contractId + "</h2>");
+            return;
+        }
+        Vehicle vehicle = VehicleDAO.INSTANCE.getVehicleById(contract.getVehicleId());
+        UserDAO userDao = new UserDAO();
+        String customerName = null;
+        try {
+            customerName = userDao.getCustomerName(contract.getCustomerId());
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewContract.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("customerName", customerName);
+        request.setAttribute("vehicle", vehicle);
+        request.setAttribute("contract", contract);
+        // Chuyển hướng đến viewContract.jsp với thông tin hợp đồng
+        request.getRequestDispatcher("viewContract.jsp").forward(request, response);
     } 
 
     /** 
@@ -84,4 +114,6 @@ public class AddVehicleSuccess extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    
 }

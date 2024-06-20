@@ -128,8 +128,10 @@ public class VehicleDAO extends DBContext {
             if (resultSet.next()) {
                 vehicle = new Vehicle();
                 vehicle.setId(resultSet.getInt("MotocycleId"));
-                vehicle.setMotocycleType(resultSet.getString("Model"));
+                vehicle.setMotocycleType(resultSet.getString("MotocycleType"));
                 vehicle.setLicensePlates(resultSet.getString("LicensePlates"));
+                vehicle.setChassis(resultSet.getString("Chassis"));
+                vehicle.setEngine(resultSet.getString("Engine"));
                 vehicle.setOwnerId(resultSet.getInt("OwnerId"));
             }
         } catch (Exception e) {
@@ -139,10 +141,26 @@ public class VehicleDAO extends DBContext {
         return vehicle;
     }
 
+    public int getVehicleIdAfterAdd() throws SQLException {
+        String sql = "SELECT Top 1 MotocycleId FROM Vehicles ORDER BY MotocycleId DESC";
+        int id = 0;
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt("MotocycleId");
+            }
+        } catch (Exception e) {
+        }
+        return id;
+    }
+
     public static void main(String[] args) throws SQLException {
 
         //Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.hasContract(6));
+        System.out.println(VehicleDAO.INSTANCE.getVehicleIdAfterAdd());
     }
+
 }

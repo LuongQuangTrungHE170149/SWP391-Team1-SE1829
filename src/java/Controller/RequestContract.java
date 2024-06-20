@@ -73,11 +73,13 @@ public class RequestContract extends HttpServlet {
         String motocycleType = request.getParameter("vehicle_type");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
+        String numYear = request.getParameter("num_years");
         
-        request.setAttribute(motocycleType, "motocycleType");
-        request.setAttribute(startDate, "startDate");
-        request.setAttribute(endDate, "endDate");
-        response.sendRedirect("RequestUserInfo.jsp");
+        request.setAttribute("motocycleType",motocycleType );
+        request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
+        request.setAttribute("numYear", numYear);
+        request.getRequestDispatcher("RequestUserInfo.jsp").forward(request, response);
     }
 
     /** 

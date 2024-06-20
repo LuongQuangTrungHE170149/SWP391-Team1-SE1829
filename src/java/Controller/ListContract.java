@@ -5,6 +5,8 @@
 
 package Controller;
 
+import dal.ContractDAO;
+import dto.Contractdto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,13 +14,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name="AddVehicleSuccess", urlPatterns={"/AddVehicleSuccess"})
-public class AddVehicleSuccess extends HttpServlet {
+@WebServlet(name="ListContract", urlPatterns={"/ListContract"})
+public class ListContract extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +41,10 @@ public class AddVehicleSuccess extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddVehicleSuccess</title>");  
+            out.println("<title>Servlet ListContract</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddVehicleSuccess at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ListContract at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,11 +61,14 @@ public class AddVehicleSuccess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         int customerId = Integer.parseInt(request.getParameter("customerId"));
-         int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
-        request.setAttribute("customerId", customerId);
-        request.setAttribute("vehicleId", vehicleId);
-        request.getRequestDispatcher("AddVehicleSuccess.jsp").forward(request, response);
+        List<Contractdto> cdtos = null;
+        try {
+            cdtos = ContractDAO.INSTANCE.getAllContractDto();
+        } catch (SQLException ex) {
+            Logger.getLogger(ListContract.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("cdtos", cdtos);
+        request.getRequestDispatcher("listContract.jsp").forward(request, response);
     } 
 
     /** 

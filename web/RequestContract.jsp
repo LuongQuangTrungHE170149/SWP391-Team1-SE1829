@@ -67,11 +67,11 @@
                 <div class="col-12 col-lg-4 border-end mb-3">
                     <label for="vehicle_type" class="ms-1">Chọn loại xe</label><br>
                     <select id="vehicle_type" name="vehicle_type" class="m-0 p-0" required>
-                        <option value="motorbike_under_50cc">Xe moto 2 bánh dung tích nhỏ hơn 50cc</option>
-                        <option value="motorbike_over_50cc">Xe moto 2 bánh dung tích lớn hơn 50cc</option>
-                        <option value="electric_bike">Xe điện</option>
-                        <option value="three_wheel_motorbike">Moto 3 bánh</option>
-                        <option value="other">Các loại xe còn lại</option>
+                        <option value="Xe moto 2 bánh dung tích nhỏ hơn 50cc">Xe moto 2 bánh dung tích nhỏ hơn 50cc</option>
+                        <option value="Xe moto 2 bánh dung tích lớn hơn 50cc">Xe moto 2 bánh dung tích lớn hơn 50cc</option>
+                        <option value="Xe điện">Xe điện</option>
+                        <option value="Moto 3 bánh">Moto 3 bánh</option>
+                        <option value="Các loại xe còn lại">Các loại xe còn lại</option>
                     </select>
                 </div>
                 <div class="col-12 col-lg-2 border-end mb-3 ">

@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Contract;
+import Model.User;
 import dal.ContractDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,21 +69,19 @@ public class AddContractServlet extends HttpServlet {
             throws ServletException, IOException {
 
         int customerId = Integer.parseInt(request.getParameter("customerId"));
-        int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
-        int agencyId = Integer.parseInt(request.getParameter("agencyId"));
-        int contractType = Integer.parseInt(request.getParameter("contractType"));
+        int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));        
+        String contractType = "bắt buộc";
         Date startDate = Date.valueOf(request.getParameter("startDate"));
+        Date endDate = Date.valueOf(request.getParameter("endDate"));
         String description = request.getParameter("description");
         Double payment = Double.valueOf(request.getParameter("payment"));
         String status = request.getParameter("status");
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(startDate);
-        calendar.add(Calendar.YEAR, contractType);
-        Date endDate = new Date(calendar.getTimeInMillis());
+        
 
-        int staffId = 1;
-
-        Contract contract = new Contract(customerId, staffId, agencyId, vehicleId, startDate, endDate, contractType, description, payment, status);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        int staffId = user.getId();
+        Contract contract = new Contract(customerId, staffId, vehicleId, startDate, endDate, contractType, description, payment, status);
 
         ContractDAO.INSTANCE.addContract(contract);
 

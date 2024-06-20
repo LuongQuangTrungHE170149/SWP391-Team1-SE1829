@@ -77,7 +77,7 @@ public class AddVehicleServlet extends HttpServlet {
 //        HttpSession session = request.getSession();
 //        int ownerId = (int) session.getAttribute("userId"); // Assuming userId is stored in session
         int ownerId = Integer.parseInt(request.getParameter("customerId"));
-        String model = request.getParameter("model");
+        String model = request.getParameter("vehicleType");
         String licensePlates = request.getParameter("licensePlates");
         String chassis = request.getParameter("chassis");
         String engine = request.getParameter("engine");
@@ -89,8 +89,8 @@ public class AddVehicleServlet extends HttpServlet {
         vehicle.setEngine(engine);
         try {
             VehicleDAO.INSTANCE.addVehicle(vehicle);
-            
-            response.sendRedirect("AddVehicleSuccess?customerId="+ownerId+"&vehicleId=3"); // Redirect to a success page
+            int vehicleId = VehicleDAO.INSTANCE.getVehicleIdAfterAdd();
+            response.sendRedirect("AddVehicleSuccess?customerId="+ownerId+"&vehicleId="+vehicleId); // Redirect to a success page
         } catch (SQLException e) {
             throw new ServletException(e);
         }

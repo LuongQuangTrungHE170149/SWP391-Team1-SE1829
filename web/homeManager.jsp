@@ -121,7 +121,7 @@
                         </div>     
 
                         <div class="chart-container">
-                            <h2>Thông kê hợp đồng</h2>
+                            <h2>Thông kê tình trạng bồi thường</h2>
                             <div class="chart">
                                 <canvas id="payment-status"></canvas>
                                     <c:forEach var="entry" items="${requestScope.countIsPayment.entrySet()}">

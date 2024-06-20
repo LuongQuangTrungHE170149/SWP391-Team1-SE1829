@@ -3,15 +3,14 @@ use SWP391_SE1829_Team1
 go
 
 
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
-			password nvarchar (16) not null,
+			password nvarchar (16),
 			firstName nvarchar(255),
 			lastName nvarchar(255),
 			[role] nvarchar(255),
-		    gender int,
+		    gender bit,
 			email nvarchar(255) not null unique,
 			phoneNumber nvarchar(15) not null unique,
 			dob date,
@@ -55,7 +54,7 @@ Create table Contracts(
 			ContractType nvarchar(255),
 			[Description] nvarchar(1000),
 			Payment Bigint,
-			status nvarchar(255)
+				 nvarchar(255)
 )
 GO
 
@@ -75,7 +74,6 @@ Create table Punishments(
 			[Action] nvarchar(255),
 )
 GO
-
 Create table Compensations(
 			CompensationId int identity(1,1) primary key,
 			ContractId int references Contracts(ContractId),
@@ -123,17 +121,17 @@ VALUES
 
 INSERT INTO Vehicles (MotocycleType, LicensePlates, Chassis, Engine, OwnerId)
 VALUES 
-('Xe moto 2 bánh dung tích nhỏ hơn 50cc', '29A-12345', 'CH123456', 'EN123456', 1),
-('Xe moto 2 bánh dung tích lớn hơn 50cc', '30B-67890', 'CH654321', 'EN654321', 2),
-('Xe điện', '31C-54321', 'CH789012', 'EN789012', 3),
-('Moto 3 bánh', '32D-09876', 'CH345678', 'EN345678', 1),
-('Các loại xe còn lại', '33E-13579', 'CH246810', 'EN246810', 2);
+(N'Xe moto 2 bánh dung tích nhỏ hơn 50cc', '29A-12345', 'CH123456', 'EN123456', 1),
+(N'Xe moto 2 bánh dung tích lớn hơn 50cc', '30B-67890', 'CH654321', 'EN654321', 2),
+(N'Xe điện', '31C-54321', 'CH789012', 'EN789012', 2),
+(N'Moto 3 bánh', '32D-09876', 'CH345678', 'EN345678', 1),
+(N'Các loại xe còn lại', '33E-13579', 'CH246810', 'EN246810', 2);
 GO
 
-INSERT INTO Contracts (CustomerId, StaffId, AgencyId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status)
+INSERT INTO Contracts (CustomerId, StaffId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status)
 VALUES 
-(1, 2, 1, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'Đang hiệu lực'),
-(2, 2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'Đang hiệu lực');
+(1, 2, 1, '2023-01-01', '2024-01-01', 'Rental', 'One-year rental contract', 5000000, 'Đang hiệu lực'),
+(2, 2, 2, '2023-06-01', '2024-06-01', 'Rental', 'One-year rental contract', 6000000, 'Đang hiệu lực');
 
 -- Thêm dữ liệu mẫu vào bảng Staff_Workplace
 
@@ -150,8 +148,8 @@ VALUES
 
 INSERT INTO Compensations (ContractId, [Description], [Type], Payment, IsPay)
 VALUES 
-(1, 'Accident compensation', 'damage', 2000, 0),
-(2, 'Late return compensation', 'delay', 500, 1);
+(3, 'Accident compensation', 'damage', 2000, 0),
+(4, 'Late return compensation', 'delay', 500, 1);
 
 INSERT INTO Consultations (name, email, content)
 VALUES 
@@ -162,3 +160,8 @@ INSERT INTO News (Title, Image, Content, Author, [Type])
 VALUES 
 ('New Vehicle Models', 'image1.jpg', 'Details about new vehicle models available.', 2, 'announcement'),
 ('Agency Opening', 'image2.jpg', 'New agency opening details.', 2, 'news');
+
+INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
+VALUES 
+('trunglq8', 'quangtrung93', N'Lương', 'Quang Trung', 'staff', 1, 'trunglq8@gmail.com', '0985187536', '1993-05-09', N'Tân Xã - Thạch Thất - Hà Nội')
+GO

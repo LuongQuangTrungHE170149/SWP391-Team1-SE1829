@@ -11,15 +11,15 @@ import java.sql.Date;
  * @author QUANG TRUNG
  */
 public class Contract {
+
     private int contractId;
     private int customerId;
     private int staffId;
-    private int agencyId;
     private int vehicleId;
     private Date startDate;
     private Date endDate;
-    private int contractType;
-    private String descripttion;
+    private String contractType;
+    private String description;
     private Double payment;
     private String status;
 
@@ -47,14 +47,6 @@ public class Contract {
         this.staffId = staffId;
     }
 
-    public int getAgencyId() {
-        return agencyId;
-    }
-
-    public void setAgencyId(int agencyId) {
-        this.agencyId = agencyId;
-    }
-
     public int getVehicleId() {
         return vehicleId;
     }
@@ -62,8 +54,6 @@ public class Contract {
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
     }
-
-    
 
     public Date getStartDate() {
         return startDate;
@@ -81,20 +71,20 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public int getContractType() {
+    public String getContractType() {
         return contractType;
     }
 
-    public void setContractType(int contractType) {
+    public void setContractType(String contractType) {
         this.contractType = contractType;
     }
 
-    public String getDescripttion() {
-        return descripttion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripttion(String descripttion) {
-        this.descripttion = descripttion;
+    public void setDescription(String descripttion) {
+        this.description = descripttion;
     }
 
     public Double getPayment() {
@@ -113,13 +103,12 @@ public class Contract {
         this.status = status;
     }
 
-    public Contract(int contractId, int agencyId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+    public Contract(int contractId, Date startDate, Date endDate, String contractType, String description, Double payment, String status) {
         this.contractId = contractId;
-        this.agencyId = agencyId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.contractType = contractType;
-        this.descripttion = descripttion;
+        this.description = description;
         this.payment = payment;
         this.status = status;
     }
@@ -127,25 +116,21 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int customerId, int staffId, int agencyId, int vehicleId, Date startDate, Date endDate, int contractType, String descripttion, Double payment, String status) {
+    public Contract(int customerId, int staffId, int vehicleId, Date startDate, Date endDate, String contractType, String description, Double payment, String status) {
         this.customerId = customerId;
         this.staffId = staffId;
-        this.agencyId = agencyId;
         this.vehicleId = vehicleId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.contractType = contractType;
-        this.descripttion = descripttion;
+        this.description = description;
         this.payment = payment;
         this.status = status;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Contract{" + "contractId=" + contractId + ", customerId=" + customerId + ", staffId=" + staffId + ", vehicleId=" + vehicleId + ", startDate=" + startDate + ", endDate=" + endDate + ", contractType=" + contractType + ", description=" + description + ", payment=" + payment + ", status=" + status + '}';
+    }
 
-    
-
-    
-
-   
-    
 }
