@@ -3,7 +3,6 @@ use SWP391_SE1829_Team1
 go
 
 
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -75,7 +74,6 @@ Create table Punishments(
 			[Action] nvarchar(255),
 )
 GO
-
 Create table Compensations(
 			CompensationId int identity(1,1) primary key,
 			ContractId int references Contracts(ContractId),
@@ -150,8 +148,8 @@ VALUES
 
 INSERT INTO Compensations (ContractId, [Description], [Type], Payment, IsPay)
 VALUES 
-(1, 'Accident compensation', 'damage', 2000, 0),
-(2, 'Late return compensation', 'delay', 500, 1);
+(3, 'Accident compensation', 'damage', 2000, 0),
+(4, 'Late return compensation', 'delay', 500, 1);
 
 INSERT INTO Consultations (name, email, content)
 VALUES 
