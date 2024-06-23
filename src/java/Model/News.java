@@ -4,32 +4,36 @@
  */
 package Model;
 
-import java.util.Date;
-
 /**
  *
- * @author tranm
+ * @author thuhu
  */
+
+import java.sql.Date;
 public class News {
     private int id;
     private String title;
-    private String image;
+    private String description;
     private String content;
-    private int author;
+    private String image;
+    private boolean isHeader;
+    private User staff;
     private String type;
-    private Date date;
+    private Date createDate;
 
     public News() {
     }
 
-    public News(int id, String title, String image, String content, int author, String type, Date date) {
+    public News(int id, String title, String description, String content, String image, boolean isHeader, User staff, String type, Date createDate) {
         this.id = id;
         this.title = title;
-        this.image = image;
+        this.description = description;
         this.content = content;
-        this.author = author;
+        this.image = image;
+        this.isHeader = isHeader;
+        this.staff = staff;
         this.type = type;
-        this.date = date;
+        this.createDate = createDate;
     }
 
     public int getId() {
@@ -48,12 +52,12 @@ public class News {
         this.title = title;
     }
 
-    public String getImage() {
-        return image;
+    public String getDescription() {
+        return description;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getContent() {
@@ -64,12 +68,28 @@ public class News {
         this.content = content;
     }
 
-    public int getAuthor() {
-        return author;
+    public String getImage() {
+        return image;
     }
 
-    public void setAuthor(int author) {
-        this.author = author;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isIsHeader() {
+        return isHeader;
+    }
+
+    public void setIsHeader(boolean isHeader) {
+        this.isHeader = isHeader;
+    }
+
+    public User getStaff() {
+        return staff;
+    }
+
+    public void setStaff(User staff) {
+        this.staff = staff;
     }
 
     public String getType() {
@@ -80,13 +100,15 @@ public class News {
         this.type = type;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
+
+   
     
     
 }

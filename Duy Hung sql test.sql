@@ -39,16 +39,20 @@ create table Promotion(
 			content nvarchar(max) not null,
 			image varchar(max),
 			isHeader bit,
-			staff int foreign key references Users(id) not null
+			staff int foreign key references Users(id) not null,
+			createDate datetime default getdate()
 )
 
 Create Table News(
-			NewsId nvarchar(255) primary key,
-			Title nvarchar(255),
-			Content nvarchar(4000),
-			Author int references Users(id),
-			Type nvarchar(255),
-			[Date] date
+			id int identity(1,1) primary key,
+			title nvarchar(max)  not null,
+			description nvarchar(max) not null,
+			content nvarchar(max) not null,
+			image varchar(255),
+			isHeader bit,
+			staff int foreign key references Users(id),
+			[type] nvarchar(255)  not null,
+			createDate Datetime default getdate()
 )
 GO
 

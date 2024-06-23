@@ -85,26 +85,40 @@ Create table Compensations(
 GO
 
 Create table Consultations(
-		    id  int Identity(1,1) primary key,
-			name nvarchar(255),
-			email nvarchar(255),
-			content nvarchar(max),
+			id int identity(1,1) primary key,
+			name nvarchar(255) not null,
+			email nvarchar(255) not null,
+			content nvarchar(255) not null,
 			createDate datetime default getdate(),
-			reply_message nvarchar(max),
 			staff int foreign key references Users(id),
 			status bit default 0
+)
+GO
+
+create table Promotion(
+            id int identity(1,1) primary key,
+			title nvarchar(max) not null,
+			[description] nvarchar(max),
+			timeStart date not null,
+			timeEnd date not null,
+			content nvarchar(max) not null,
+			image varchar(max),
+			isHeader bit,
+			staff int foreign key references Users(id) not null,
+			createDate datetime default getdate()
 )
 
 
 Create Table News(
-			NewsId int identity(1,1) primary key,
-			Title nvarchar(255),
-			Image nvarchar(255),
-			Content nvarchar(max),
-			Author int foreign key references Users(id),
-			[Type] nvarchar(255),
-			[Date] Datetime default getdate()
-
+			id int identity(1,1) primary key,
+			title nvarchar(max)  not null,
+			description nvarchar(max) not null,
+			content nvarchar(max) not null,
+			image varchar(255),
+			isHeader bit,
+			staff int foreign key references Users(id),
+			[type] nvarchar(255)  not null,
+			createDate Datetime default getdate()
 )
 GO
 
@@ -156,10 +170,6 @@ VALUES
 ('Nguyễn Duy Hùng', 'Kharrr2001@gmail.com', 'Tôi cần anh em hỗ trợ tôi'),
 ('John Doe', 'john.doe@example.com', 'I need help with my vehicle contract');
 
-INSERT INTO News (Title, Image, Content, Author, [Type])
-VALUES 
-('New Vehicle Models', 'image1.jpg', 'Details about new vehicle models available.', 2, 'announcement'),
-('Agency Opening', 'image2.jpg', 'New agency opening details.', 2, 'news');
 
 INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
 VALUES 

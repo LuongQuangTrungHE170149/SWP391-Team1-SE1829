@@ -76,7 +76,7 @@ public class HomeManagerServlet extends HttpServlet {
         int totalAgency = AgencyDAO.INSTANCE.countAgency();
         int totalContracts = ContractDAO.INSTANCE.countContracts();
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
-        int totalNews = NewsDAO.INSTANCE.countNews();
+//        int totalNews = NewsDAO.INSTANCE.countNews();
         BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
         HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
@@ -97,7 +97,7 @@ public class HomeManagerServlet extends HttpServlet {
         request.setAttribute("listStaffs", listStaffs);
         request.setAttribute("staffByAgency", staffByAgency);
         request.setAttribute("listAgency", listAgency);
-        request.setAttribute("totalNews", totalNews);
+//        request.setAttribute("totalNews", totalNews);
 
         request.getRequestDispatcher("homeManager.jsp").forward(request, response);
     }

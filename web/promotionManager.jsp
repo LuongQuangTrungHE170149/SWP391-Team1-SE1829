@@ -22,11 +22,6 @@
             background: rgb(0,167,209);
             background: linear-gradient(204deg, rgba(0,167,209,1) 0%, rgba(65,159,163,1) 100%);
         }
-
-        .modal-header{
-            background: rgb(0,167,209);
-            background: linear-gradient(204deg, rgba(0,167,209,1) 0%, rgba(65,159,163,1) 100%);
-        }
         .limited-text{
             white-space: nowrap;
             overflow: hidden;
@@ -271,7 +266,7 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-white" id="addPromotionModalLabel">Add Promotion</h5>
+                    <h5 class="modal-title text-info" id="addPromotionModalLabel">Add Promotion</h5>
                     <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -335,9 +330,6 @@
                         </form>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>

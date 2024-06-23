@@ -116,6 +116,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="newsManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnNews">
+                            <i class="fa-regular fa-newspaper me-2"></i> News <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalNews}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="promotionManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
                             <i class="fa-solid fa-gift me-2"></i> Promotion <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
                         </a>
@@ -241,6 +246,7 @@
             document.getElementById("btnPromotion").classList.add("activeDash");
         } else if (currentLocation.includes("contractManager")) {
             document.getElementById("btnContract").classList.add("activeDash");
+        }else if (currentLocation.includes("newsManager")) {
+            document.getElementById("btnNews").classList.add("activeDash");
         }
-
     </script>
