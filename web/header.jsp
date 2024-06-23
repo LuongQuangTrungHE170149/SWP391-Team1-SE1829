@@ -78,7 +78,7 @@
                                 <a class="nav-link" style="color:white;" href="#">Liên Hệ</a>
                             </li>
                              <li class="nav-item">
-                                <a class="nav-link" style="color:white;" href="searchContract.jsp">Tra cứu hợp đồng</a>
+                                <a class="nav-link" style="color:white;" href="searchContract">Tra cứu hợp đồng</a>
                             </li>
                         </ul>
                     </div>

@@ -156,6 +156,28 @@ public class VehicleDAO extends DBContext {
         return id;
     }
 
+    public List<Vehicle> getAllVehicle() {
+        List<Vehicle> list = new ArrayList<>();
+        String sql = "select * from Vehicles";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Vehicle ve = new Vehicle();
+                ve.setId(rs.getInt("MotocycleId"));
+                ve.setMotocycleType(rs.getString("MotocycleType"));
+                ve.setLicensePlates(rs.getString("LicensePlates"));
+                ve.setChassis(rs.getString("Chassis"));
+                ve.setEngine(rs.getString("Engine"));
+                ve.setOwnerId(rs.getInt("OwnerId"));
+                list.add(ve);
+            }
+        } catch (Exception e) {
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) throws SQLException {
 
         //Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);

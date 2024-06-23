@@ -32,8 +32,6 @@ Create table Agencies(
 			[status] nvarchar(30) default 'active'
 )
 GO
-
-
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
 			MotocycleType nvarchar(255),
@@ -43,7 +41,6 @@ Create table Vehicles(
 			OwnerId int REFERENCES Users(id),
 )
 GO
-
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
@@ -54,7 +51,7 @@ Create table Contracts(
 			ContractType nvarchar(255),
 			[Description] nvarchar(1000),
 			Payment Bigint,
-				 nvarchar(255)
+			[status] nvarchar(255),
 )
 GO
 
