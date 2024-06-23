@@ -4,12 +4,13 @@
  */
 package Controller;
 
-import Model.NewsType;
+
 import Model.User;
 import dal.NewsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import java.nio.file.Paths;
  *
  * @author thuhu
  */
+@MultipartConfig()
 public class AddNewsServlet extends HttpServlet {
 
     /**
@@ -77,31 +79,40 @@ public class AddNewsServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
-
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        String content = request.getParameter("content");
-        String type = request.getParameter("type");
-        String isHeaderParam = request.getParameter("isHeader");
-        System.out.println("is header: " + isHeaderParam);
-        NewsDAO ndb = new NewsDAO();
-
-        boolean isHeader = Boolean.parseBoolean(isHeaderParam);
-        if (isHeader == true) {
-            ndb.setIsHeaderToFalse();
-        }
-        String image = "images/news_img/null_image.png";
         try {
-            Part filePart = request.getPart("image");
-            System.out.println("file Part: " + filePart);
-            String url = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            image = "images/news_img/" + url;
-            System.out.println("url: " + url);
+            String title = request.getParameter("title");
+            String description = request.getParameter("description");
+            String content = request.getParameter("content");
+            String type = request.getParameter("type");
+            String isHeaderParam = request.getParameter("isHeader");
+            System.out.println("is header: " + isHeaderParam
+                    + "\ntitle: " + title
+                    + "\ndescription: " + description
+                    + "\ncontent: " + content
+                    + "\ntype: " + type);
+
+            NewsDAO ndb = new NewsDAO();
+
+            boolean isHeader = Boolean.parseBoolean(isHeaderParam);
+            if (isHeader == true) {
+                ndb.setIsHeaderToFalse();
+            }
+            String image = "images/news_img/null_image.png";
+            try {
+                Part filePart = request.getPart("image");
+                System.out.println("file Part: " + filePart);
+                String url = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                image = "images/news_img/" + url;
+                System.out.println("url: " + url);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            System.out.println(ndb.addNews(title, description, content, image, isHeader, u.getId(), type));
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        System.out.println(ndb.addNews(title, description, content, image, isHeader, u.getId(), type));
     }
 
     /**

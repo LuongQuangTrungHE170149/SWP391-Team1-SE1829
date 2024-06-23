@@ -161,13 +161,9 @@
                                 height: 200
                             });
         </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- MDB -->
-        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
                             $(document).ready(function () {
-
-                                //add promotion function
+                                //add news function
                                 $('#addNewsForm').on('submit', function (e) {
                                     e.preventDefault();
                                     const formData = new FormData();
@@ -175,7 +171,6 @@
                                     formData.append("description", $("#description").val());
                                     formData.append("content", $("#content").val());
                                     formData.append("type", $("#type").val());
-                                    
                                     const isHeader = $("input[name=isHeader]:checked").val();
                                     console.log(isHeader);
                                     formData.append("isHeader", isHeader);
@@ -203,5 +198,8 @@
                                 });
                             });
         </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- MDB -->
+        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
     </body>
 </html>
