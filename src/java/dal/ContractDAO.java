@@ -186,7 +186,7 @@ public class ContractDAO extends DBContext {
     public HashMap<String, Integer> countIsPay() {
         HashMap<String, Integer> hash = new HashMap<>();
         String sql = "SELECT CASE  WHEN IsPay = 1 THEN 'Paid'  ELSE 'Unpaid' END AS PaymentStatus,\n"
-                + "COUNT(*) AS Count FROM Contracts GROUP BY IsPay;";
+                + "COUNT(*) AS Count FROM Compensations GROUP BY IsPay;";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
