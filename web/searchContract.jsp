@@ -32,10 +32,13 @@
 
 
         <div class="container">
-            <div style="margin-top: 20px" class="form-outline mb-4" data-mdb-input-init>
-                <input type="search" class="form-control" id="datatable-search-input">
-                <label class="form-label" for="datatable-search-input">Nhập mã hợp đồng hoặc mã người dùng để tra cứu</label>
-            </div>
+            <form>
+                <div style="margin-top: 20px" class="form-outline mb-4" data-mdb-input-init>
+                    <input type="search" class="form-control" id="datatable-search-input">
+                    <label class="form-label" for="datatable-search-input">Nhập mã hợp đồng hoặc mã người dùng để tra cứu</label>
+                </div>
+            </form>
+
         </div>
 
         <!-- MDB -->
