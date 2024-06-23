@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -71,8 +72,8 @@ public class RequestContract extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String motocycleType = request.getParameter("vehicle_type");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
+        Date startDate = Date.valueOf(request.getParameter("startDate"));
+        Date endDate = Date.valueOf(request.getParameter("endDate"));
         String numYear = request.getParameter("num_years");
         
         request.setAttribute("motocycleType",motocycleType );

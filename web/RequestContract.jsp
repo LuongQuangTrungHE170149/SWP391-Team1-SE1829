@@ -38,6 +38,44 @@
                     return true;
                 }
             }
+            function calculatePayment() {
+                const vehicleType = document.getElementById('vehicle_type').value;
+                const numYears = document.getElementById('num_years').value;
+                let paymentAmount = 0;
+
+                switch (vehicleType) {
+                    case 'Xe moto 2 bánh dung tích nhỏ hơn 50cc':
+                    case 'Xe điện':
+                        if (numYears === "1")
+                            paymentAmount = 55000;
+                        else if (numYears === "2")
+                            paymentAmount = 100000;
+                        else if (numYears === "3")
+                            paymentAmount = 145000;
+                        break;
+                    case 'Xe moto 2 bánh dung tích lớn hơn 50cc':
+                        if (numYears === "1")
+                            paymentAmount = 60000;
+                        else if (numYears === "2")
+                            paymentAmount = 115000;
+                        else if (numYears === "3")
+                            paymentAmount = 160000;
+                        break;
+                    case 'Moto 3 bánh':
+                    case 'Các loại xe còn lại':
+                        if (numYears === "1")
+                            paymentAmount = 290000;
+                        else if (numYears === "2")
+                            paymentAmount = 570000;
+                        else if (numYears === "3")
+                            paymentAmount = 850000;
+                        break;
+                    default:
+                        paymentAmount = 0;
+                }
+
+                document.getElementById('payment').value = paymentAmount;
+            }
         </script>
         <style>
 

@@ -87,6 +87,35 @@ public class ContractDAO extends DBContext {
 
     }
 
+    public boolean requestContract(Contract contract) {
+        try {
+
+            // Calculate End Date
+            String sql = "INSERT INTO Contracts (CustomerId,  VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, contract.getCustomerId());                     
+            stmt.setInt(2, contract.getVehicleId());
+            stmt.setDate(3, contract.getStartDate());
+            stmt.setDate(4, contract.getEndDate());
+            stmt.setString(5, contract.getContractType());
+            stmt.setString(6, contract.getDescription());
+            stmt.setDouble(7, contract.getPayment());
+            stmt.setString(8, contract.getStatus());
+
+            stmt.executeUpdate();
+            stmt.close();
+            con.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    
     public Contract findContractByVehicleId(int vehicleId){
         String sql = "SELECT * FROM Contracts WHERE VehicleId = ?";
         Contract contract = new Contract();

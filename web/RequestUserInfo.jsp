@@ -86,11 +86,11 @@
         <jsp:include page="./header.jsp" />
         <div class="content">
             <div class="container">
-                <h2>Nhập thông tin chủ sở hữu</h2>
+                <h2>Nhập thông tin chủ sở hữu ${startDate} ${endDate}</h2>
                 <form action="RequestVehicle" method="post">
-                    <input type="hidden" id="startDate" name="contract" value="${startDate}">
-                    <input type="hidden" id="endDate" name="contract" value="${endDate}">
-                    <input type="hidden" id="endDate" name="contract" value="${numYear}">
+                    <input type="hidden" id="startDate" name="startDate" value="${startDate}">
+                    <input type="hidden" id="endDate" name="endDate" value="${endDate}">
+                    <input type="hidden" id="numYear" name="numYear" value="${numYear}">
                     <input type="hidden" id="motocycleType" name="motocycleType" value="${motocycleType}">
                     <div class="form-group">
                         <div>

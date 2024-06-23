@@ -643,10 +643,27 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    public int getLastUserId() {
+        String sql = "SELECT TOP 1 id FROM Users ORDER BY id DESC";
+        int userId = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);            
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                userId = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return userId;
+    }
+
+    
+    
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());
-        System.out.println(udb.checkPhoneExistById("0327983593"));
+        System.out.println(udb.getLastUserId());
 
     }
 }

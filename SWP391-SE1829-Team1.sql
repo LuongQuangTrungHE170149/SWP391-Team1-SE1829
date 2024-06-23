@@ -167,3 +167,8 @@ INSERT INTO Users (username, password, firstName, lastName, [role], gender, emai
 VALUES 
 ('trunglq8', 'quangtrung93', N'Lương', 'Quang Trung', 'staff', 1, 'trunglq8@gmail.com', '0985187536', '1993-05-09', N'Tân Xã - Thạch Thất - Hà Nội')
 GO
+
+
+SELECT * FROM Users
+SELECT * FROM Vehicles
+SELECT * FROM Contracts
