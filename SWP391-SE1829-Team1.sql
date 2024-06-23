@@ -32,8 +32,6 @@ Create table Agencies(
 			[status] nvarchar(30) default 'active'
 )
 GO
-
-
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
 			MotocycleType nvarchar(255),
@@ -43,7 +41,6 @@ Create table Vehicles(
 			OwnerId int REFERENCES Users(id),
 )
 GO
-
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
@@ -54,7 +51,7 @@ Create table Contracts(
 			ContractType nvarchar(255),
 			[Description] nvarchar(1000),
 			Payment Bigint,
-				 nvarchar(255)
+			[status] nvarchar(255),
 )
 GO
 
@@ -175,3 +172,8 @@ INSERT INTO Users (username, password, firstName, lastName, [role], gender, emai
 VALUES 
 ('trunglq8', 'quangtrung93', N'Lương', 'Quang Trung', 'staff', 1, 'trunglq8@gmail.com', '0985187536', '1993-05-09', N'Tân Xã - Thạch Thất - Hà Nội')
 GO
+
+
+SELECT * FROM Users
+SELECT * FROM Vehicles
+SELECT * FROM Contracts

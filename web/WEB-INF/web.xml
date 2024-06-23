@@ -133,12 +133,17 @@
         <servlet-class>Controller.MotorbikeInsuranceServlet</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>NewsManagerServlet</servlet-name>
         <servlet-class>Controller.NewsManagerServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddNewsServlet</servlet-name>
         <servlet-class>Controller.AddNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchContractServlet</servlet-name>
+        <servlet-class>Controller.SearchContractServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
@@ -275,6 +280,10 @@
     <servlet-mapping>
         <servlet-name>NewsManagerServlet</servlet-name>
         <url-pattern>/newsManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchContractServlet</servlet-name>
+        <url-pattern>/searchContract</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddNewsServlet</servlet-name>

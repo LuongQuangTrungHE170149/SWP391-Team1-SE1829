@@ -69,8 +69,8 @@
         <jsp:include page="./header.jsp" />
         <div class="content">
             <div class="container">
-                <h2>Nhập thông tin phương tiện</h2>
-                <form action="SubmitInfoContract" method="post">
+                <h2>Nhập thông tin phương tiện ${startDate} ${endDate}</h2>
+                <form action="SubmitInforContract" method="post">
                     <!-- Các trường ẩn để giữ lại dữ liệu từ trang trước -->
                     <input type="hidden" name="firstName" value="${firstName}">
                     <input type="hidden" name="lastName" value="${lastName}">

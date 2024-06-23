@@ -2,54 +2,58 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller;
 
 import Model.Contract;
+import Model.User;
+import Model.Vehicle;
+import dal.ContractDAO;
+import dal.UserDAO;
+import dal.VehicleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
- * @author QUANG TRUNG
+ * @author tranm
  */
-@WebServlet(name="RequestContract", urlPatterns={"/RequestContract"})
-public class RequestContract extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+public class SearchContractServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RequestContract</title>");  
+            out.println("<title>Servlet SearchContractServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RequestContract at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SearchContractServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,12 +61,14 @@ public class RequestContract extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
-    } 
+            throws ServletException, IOException {
 
-    /** 
+        request.getRequestDispatcher("searchContract.jsp").forward(request, response);
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -70,21 +76,23 @@ public class RequestContract extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String motocycleType = request.getParameter("vehicle_type");
-        Date startDate = Date.valueOf(request.getParameter("startDate"));
-        Date endDate = Date.valueOf(request.getParameter("endDate"));
-        String numYear = request.getParameter("num_years");
-        
-        request.setAttribute("motocycleType",motocycleType );
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
-        request.setAttribute("numYear", numYear);
-        request.getRequestDispatcher("RequestUserInfo.jsp").forward(request, response);
+            throws ServletException, IOException {
+        String key = request.getParameter("key");
+        UserDAO udb = new UserDAO();
+        List<Contract> listContract = ContractDAO.INSTANCE.searchContractByPlates(key);
+        List<User> listUser = udb.getAllUserByRole("customer");
+        List<Vehicle> listVehicle = VehicleDAO.INSTANCE.getAllVehicle();
+        request.setAttribute("key", key);
+        request.setAttribute("listContract", listContract);
+        request.setAttribute("listUser", listUser);
+        request.setAttribute("listVehicle", listVehicle);
+
+        request.getRequestDispatcher("searchContract.jsp").forward(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
