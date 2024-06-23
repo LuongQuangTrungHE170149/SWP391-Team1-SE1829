@@ -132,6 +132,10 @@
         <servlet-name>MotorbikeInsuranceServlet</servlet-name>
         <servlet-class>Controller.MotorbikeInsuranceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchContractServlet</servlet-name>
+        <servlet-class>Controller.SearchContractServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>MotorbikeInsuranceServlet</servlet-name>
         <url-pattern>/motorbikeInsurance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchContractServlet</servlet-name>
+        <url-pattern>/searchContract</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
