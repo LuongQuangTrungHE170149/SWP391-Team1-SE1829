@@ -643,27 +643,59 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public int getLastUserId() {
-        String sql = "SELECT TOP 1 id FROM Users ORDER BY id DESC";
-        int userId = 0;
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);            
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                userId = rs.getInt("id");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return userId;
-    }
-
-    
-    
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
 //        System.out.println(udb.sortCusomterById());
-        System.out.println(udb.getLastUserId());
+        System.out.println(udb.checkPhoneExistById("0327983593"));
 
     }
+
+    public boolean update(User user) {
+        String sql = "UPDATE Users SET username = ?, firstName = ?, lastName = ?, password = ?, role = ?, gender = ?, email = ?, phoneNumber = ?, dob = ?, address = ?, status = ? WHERE id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getFirstName());
+            ps.setString(3, user.getLastName());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getRole());
+            ps.setInt(6, user.getGender());
+            ps.setString(7, user.getEmail());
+            ps.setString(8, user.getPhone());
+            ps.setDate(9, new java.sql.Date(user.getDob().getTime()));
+            ps.setString(10, user.getAddress());
+            ps.setString(11, user.getStatus());
+            ps.setInt(12, user.getId());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+public boolean updateUser(User user) {
+    String sql = "UPDATE Users SET username = ?, firstName = ?, lastName = ?, password = ?, role = ?, gender = ?, email = ?, phoneNumber = ?, dob = ?, address = ?, status = ? WHERE id = ?";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, user.getUsername());
+        ps.setString(2, user.getFirstName());
+        ps.setString(3, user.getLastName());
+        ps.setString(4, user.getPassword());
+        ps.setString(5, user.getRole());
+        ps.setInt(6, user.getGender());
+        ps.setString(7, user.getEmail());
+        ps.setString(8, user.getPhone());
+        ps.setDate(9, new java.sql.Date(user.getDob().getTime()));
+        ps.setString(10, user.getAddress());
+        ps.setString(11, user.getStatus());
+        ps.setInt(12, user.getId());
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        System.out.println(e);
+        return false;
+    }
+}
 }

@@ -36,8 +36,8 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12 col-lg-5 pe-0">
                                             <div class="form-outline" data-mdb-input-init>
-                                                <input type="text" id="ConfirmOTPCode" name="ConfirmOTPCode" class="form-control" required=""/>
-                                                <label for="ConfirmOTPCode" class="form-label">Nhập code</label>
+                                                <input type="text" id="OTPCode" name="ConfirmOTPCode" class="form-control" required=""/>
+                                                <label for="OTPCode" class="form-label">Nhập code</label>
                                             </div>
                                             <p class="m-0 ps-2 text-danger">${error}</p>
                                         </div>

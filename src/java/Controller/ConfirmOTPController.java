@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import utils.EmailHelper;
 
 /**
@@ -27,30 +28,41 @@ public class ConfirmOTPController extends HttpServlet {
         if (u != null) {
             String OTPCode = EmailHelper.generateOTP();
             req.getSession().setAttribute("OTPCode", OTPCode);
-            System.out.println("OTP: "+OTPCode);
-            req.getRequestDispatcher("confirmOTP.jsp").forward(req, resp);
+            System.out.println("OTP: " + OTPCode);
 
             String bodyEmailOTP = "Your veriftication code is: " + OTPCode;
             EmailHelper.sendEmail(u.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
+            req.getRequestDispatcher("confirmOTP.jsp").forward(req, resp);
         }
-
+        PrintWriter out = resp.getWriter();
+        out.println("<html><body>");
+        out.println("<h1>Error</h1>");
+        out.println("<p>An error occurred</p>");
+        out.println("</body></html>");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String OTPCode = (String)req.getSession().getAttribute("OTPCode");
+        String OTPCode = (String) req.getSession().getAttribute("OTPCode");
         String ConfirmOTPCode = req.getParameter("ConfirmOTPCode");
-        System.out.println("otp: "+OTPCode);
-        System.out.println("confirm: "+ConfirmOTPCode);
+        System.out.println("otp: " + OTPCode);
+        System.out.println("confirm: " + ConfirmOTPCode);
 
         if (OTPCode.equals(ConfirmOTPCode)) {
+            String op = (String) req.getSession().getAttribute("op");
+            System.out.println(op);
             User u = (User) req.getSession().getAttribute("userRegister");
             UserDAO udb = new UserDAO();
-            System.out.println(udb.insert(u));
-            req.getSession().removeAttribute("userRegister");
             req.getSession().removeAttribute("OTPCode");
-            req.getRequestDispatcher("confirmOTP.jsp").forward(req, resp);
+            if ("change-password".equals(op)) {
+                udb.update(u);
+                resp.sendRedirect("changePassword");
+            } else if ("register".equals(op)) {
+                System.out.println(udb.insert(u));
+                resp.sendRedirect("login");
+            }
+
         } else {
             req.setAttribute("error", "Mã OTP không chính xác!");
             req.getRequestDispatcher("confirmOTP.jsp").forward(req, resp);

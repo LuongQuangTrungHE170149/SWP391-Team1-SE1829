@@ -20,8 +20,11 @@ public class RegisterController extends HttpServlet {
         req.getRequestDispatcher("register.jsp").forward(req, resp);
     }
 
-    @Override
+   @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        super.doPost(req, resp); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+
 
         UserDAO udb = new UserDAO();
         try {
@@ -53,6 +56,12 @@ public class RegisterController extends HttpServlet {
                             user.setDob(dobValue);
                             user.setAddress(address);
                             req.getSession().setAttribute("userRegister", user);
+                            req.getSession().setAttribute("op", "register");
+
+//                            String OTPCode = EmailHelper.generateOTP();
+//                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
+//                            req.getSession().setAttribute("OTP", OTPCode);
+//                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
 
                             resp.sendRedirect("confirmOTP");
 
@@ -81,6 +90,7 @@ public class RegisterController extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
+
     }
 
 }
