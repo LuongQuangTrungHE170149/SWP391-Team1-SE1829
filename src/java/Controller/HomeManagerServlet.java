@@ -76,7 +76,7 @@ public class HomeManagerServlet extends HttpServlet {
         int totalAgency = AgencyDAO.INSTANCE.countAgency();
         int totalContracts = ContractDAO.INSTANCE.countContracts();
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
-        int totalNews = newsDAO.countNews();
+        int totalNews = newsDAO.getAll().size();
         BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
         HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
