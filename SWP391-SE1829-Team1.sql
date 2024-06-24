@@ -40,8 +40,6 @@ Create table Vehicles(
 			OwnerId int REFERENCES Users(id),
 )
 GO
-SELECT c.ContractId, c.VehicleId, c.CustomerId, c.StaffId, c.StartDate, c.EndDate, c.ContractType, c.[Description], c.Payment FROM Contracts c JOIN Vehicles v ON c.VehicleId = v.MotocycleId
-WHERE v.LicensePlates = '29A-12345'
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),

@@ -27,7 +27,7 @@ public class LoginController extends HttpServlet {
         if (u != null) {
             if (u.getRole().equalsIgnoreCase("staff")) {
                 resp.sendRedirect("staffHome");
-            } else if (u.getRole().equalsIgnoreCase("user")) {
+            } else if (u.getRole().equalsIgnoreCase("user") || u.getRole().equalsIgnoreCase("customer")) {
                 resp.sendRedirect("home");
             } else if (u.getRole().equalsIgnoreCase("manager")) {
                 resp.sendRedirect("homeManager");
