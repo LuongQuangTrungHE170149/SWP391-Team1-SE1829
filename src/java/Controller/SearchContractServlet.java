@@ -79,8 +79,9 @@ public class SearchContractServlet extends HttpServlet {
             throws ServletException, IOException {
         String key = request.getParameter("key");
         UserDAO udb = new UserDAO();
-        List<Contract> listContract = ContractDAO.INSTANCE.searchContractByPlates(key);
         List<User> listUser = udb.getAllUserByRole("customer");
+
+        List<Contract> listContract = ContractDAO.INSTANCE.searchContractByPlates(key);
         List<Vehicle> listVehicle = VehicleDAO.INSTANCE.getAllVehicle();
         request.setAttribute("key", key);
         request.setAttribute("listContract", listContract);

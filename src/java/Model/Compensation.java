@@ -16,12 +16,8 @@ public class Compensation {
     private int id;
     private int contractId;
     private int customerId;
-    private Date dateOfAccident;
-    private String accidentLocation;
-    private String policeReportNumber;
-    private String descriptionOfAccident;
-    private String vehicleDamage;
-    private BigInteger EstimatedRepairCost;
+    private int accidentId;
+    private BigInteger estimatedRepairCost;
     private String claimStatus;
     private Date dateFiled;
     private Date dateApproved;
@@ -32,16 +28,12 @@ public class Compensation {
     public Compensation() {
     }
 
-    public Compensation(int id, int contractId, int customerId, Date dateOfAccident, String accidentLocation, String policeReportNumber, String descriptionOfAccident, String vehicleDamage, BigInteger EstimatedRepairCost, String claimStatus, Date dateFiled, Date dateApproved, BigInteger paymentAmount, Date paymentDate, String notes) {
+    public Compensation(int id, int contractId, int customerId, int accidentId, BigInteger estimatedRepairCost, String claimStatus, Date dateFiled, Date dateApproved, BigInteger paymentAmount, Date paymentDate, String notes) {
         this.id = id;
         this.contractId = contractId;
         this.customerId = customerId;
-        this.dateOfAccident = dateOfAccident;
-        this.accidentLocation = accidentLocation;
-        this.policeReportNumber = policeReportNumber;
-        this.descriptionOfAccident = descriptionOfAccident;
-        this.vehicleDamage = vehicleDamage;
-        this.EstimatedRepairCost = EstimatedRepairCost;
+        this.accidentId = accidentId;
+        this.estimatedRepairCost = estimatedRepairCost;
         this.claimStatus = claimStatus;
         this.dateFiled = dateFiled;
         this.dateApproved = dateApproved;
@@ -74,52 +66,20 @@ public class Compensation {
         this.customerId = customerId;
     }
 
-    public Date getDateOfAccident() {
-        return dateOfAccident;
+    public int getAccidentId() {
+        return accidentId;
     }
 
-    public void setDateOfAccident(Date dateOfAccident) {
-        this.dateOfAccident = dateOfAccident;
-    }
-
-    public String getAccidentLocation() {
-        return accidentLocation;
-    }
-
-    public void setAccidentLocation(String accidentLocation) {
-        this.accidentLocation = accidentLocation;
-    }
-
-    public String getPoliceReportNumber() {
-        return policeReportNumber;
-    }
-
-    public void setPoliceReportNumber(String policeReportNumber) {
-        this.policeReportNumber = policeReportNumber;
-    }
-
-    public String getDescriptionOfAccident() {
-        return descriptionOfAccident;
-    }
-
-    public void setDescriptionOfAccident(String descriptionOfAccident) {
-        this.descriptionOfAccident = descriptionOfAccident;
-    }
-
-    public String getVehicleDamage() {
-        return vehicleDamage;
-    }
-
-    public void setVehicleDamage(String vehicleDamage) {
-        this.vehicleDamage = vehicleDamage;
+    public void setAccidentId(int accidentId) {
+        this.accidentId = accidentId;
     }
 
     public BigInteger getEstimatedRepairCost() {
-        return EstimatedRepairCost;
+        return estimatedRepairCost;
     }
 
-    public void setEstimatedRepairCost(BigInteger EstimatedRepairCost) {
-        this.EstimatedRepairCost = EstimatedRepairCost;
+    public void setEstimatedRepairCost(BigInteger estimatedRepairCost) {
+        this.estimatedRepairCost = estimatedRepairCost;
     }
 
     public String getClaimStatus() {
@@ -172,9 +132,11 @@ public class Compensation {
 
     @Override
     public String toString() {
-        return "Compensation{" + "id=" + id + ", contractId=" + contractId + ", customerId=" + customerId + ", dateOfAccident=" + dateOfAccident + ", accidentLocation=" + accidentLocation + ", policeReportNumber=" + policeReportNumber + ", descriptionOfAccident=" + descriptionOfAccident + ", vehicleDamage=" + vehicleDamage + ", EstimatedRepairCost=" + EstimatedRepairCost + ", claimStatus=" + claimStatus + ", dateFiled=" + dateFiled + ", dateApproved=" + dateApproved + ", paymentAmount=" + paymentAmount + ", paymentDate=" + paymentDate + ", notes=" + notes + '}';
+        return "Compensation{" + "id=" + id + ", contractId=" + contractId + ", customerId=" + customerId + ", accidentId=" + accidentId + ", estimatedRepairCost=" + estimatedRepairCost + ", claimStatus=" + claimStatus + ", dateFiled=" + dateFiled + ", dateApproved=" + dateApproved + ", paymentAmount=" + paymentAmount + ", paymentDate=" + paymentDate + ", notes=" + notes + '}';
     }
 
+    
+   
 
     
 

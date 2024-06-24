@@ -31,35 +31,43 @@
     <body>
         <jsp:include page="header.jsp" />
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="container">
+            <h2>Lịch sử yêu cầu đền bù</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Họ tên</th>
+                        <th scope="col">Chi phí sửa chữa ước tính</th>
+                        <th scope="col">Ngày làm đơn</th>
+                        <th scope="col">Ngày duyệt đơn</th>
+                        <th scope="col">Bồi thường</th>
+                        <th scope="col">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="compensation" items="${requestScope.listCompensation}">
+                        <tr>
+                            <c:forEach var="customer" items="${requestScope.listUser}">
+                                <c:if test="${customer.id == compensation.customerId}">
+                                    <td>${customer.getFullName()}</td>
+                                </c:if>
+                            </c:forEach>
+
+                            <td>${compensation.getEstimatedRepairCost()}</td>
+                            <td>${compensation.dateFiled}</td>
+                            <c:if test="${compensation.claimStatus eq 'pending'}">
+                                <td class="text-warning">Đang xử lý</td>
+                                <td class="text-warning">Đang xử lý</td>
+                                <td class="text-warning">Đang xử lý</td>
+                            </c:if>
+
+                        </tr>
+                    </c:forEach>
+
+
+                </tbody>
+            </table>
+        </div>
 
 
         <script
