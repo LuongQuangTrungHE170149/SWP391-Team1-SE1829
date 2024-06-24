@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Controller;
 
 import Model.Role;
@@ -12,6 +16,10 @@ import java.io.IOException;
 import java.sql.Date;
 import utils.EmailHelper;
 
+/**
+ *
+ * @author trand
+ */
 @WebServlet(name = "RegisterController", urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
 
@@ -20,11 +28,8 @@ public class RegisterController extends HttpServlet {
         req.getRequestDispatcher("register.jsp").forward(req, resp);
     }
 
-   @Override
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        super.doPost(req, resp); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-
 
         UserDAO udb = new UserDAO();
         try {
@@ -62,7 +67,10 @@ public class RegisterController extends HttpServlet {
 //                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
 //                            req.getSession().setAttribute("OTP", OTPCode);
 //                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
-
+//                            String OTPCode = EmailHelper.generateOTP();
+//                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
+//                            req.getSession().setAttribute("OTP", OTPCode);
+//                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
                             resp.sendRedirect("confirmOTP");
 
                         } else {
