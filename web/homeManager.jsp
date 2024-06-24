@@ -313,7 +313,15 @@
                                                             })
 
                                                             isPayElements.forEach(function (element, index) {
-                                                                var isPay = element.innerText === "Paid" ? "Đã thanh toán" : "Chưa thanh toán";
+                                                                var isPay;
+                                                                if (element.innerText === "pending") {
+                                                                    isPay = "Đang xử lý";
+                                                                } else if (element.innerText === "approved") {
+                                                                    isPay = "Đã thanh toán";
+                                                                } else {
+                                                                    isPay = "Từ chối bồi thường";
+
+                                                                }
                                                                 var count = countIsPayElements[index].innerText;
                                                                 isPayLabel.push(isPay);
                                                                 countIsPay.push(count);

@@ -60,81 +60,81 @@ public class NewsManagerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        final String loginFirst = "Bạn cần phải đăng nhập trước!";
-//        final String error = "Bạn không có quyền truy cập trang web này!";
-//        HttpSession session = request.getSession();
-//        User u = (User) session.getAttribute("user");
-//
-//        //check
-//        if (u == null) {
-//            request.setAttribute("loginFirst", loginFirst);
-//            request.getRequestDispatcher("error").forward(request, response);
-//        } //neu da dang nhap => check role
-//        else {
-//            if (u.getRole().equalsIgnoreCase("user")) {
-//                request.setAttribute("error", error);
-//                request.getRequestDispatcher("error").forward(request, response);
-//            } //staff, manager true =>>
-//            else {
-//                NewsDAO ndb = new NewsDAO();
-//                List<News> listAll;
-//
-//                List<Object[]> listStaffAddPromotion = ndb.listStaffAddNews();
-//
-//                //un/setHeader
-//                String unset = request.getParameter("unset");
-//                if (unset != null) {
-//                    ndb.setIsHeaderToFalse();
-//                }
-//                String setHeaderAtIdParam = request.getParameter("setHeaderAtId");
-//                if (setHeaderAtIdParam != null) {
-//                    int setHeaderAtId = Integer.parseInt(setHeaderAtIdParam);
-//                    ndb.setIsHeaderToFalse();
-//                    ndb.setIsHeaderToTrueById(Boolean.TRUE, setHeaderAtId);
-//                }
-//
-//                //search
-//                String selectedStaff = request.getParameter("selectedStaff");
-//                String searchValue = request.getParameter("searchValue");
-//                listAll = ndb.searchNews(searchValue, selectedStaff);
-//
-//                try {
-//                    String getHeader = request.getParameter("getHeader");
-//                    if (getHeader.equals("true")) {
-//                        if (!ndb.getHeader().isEmpty()) {
-//                            listAll = ndb.getHeader();
-//                        } else {
-//                            request.setAttribute("invalidHeader", "Bạn chưa chọn header!");
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    System.out.println(e);
-//                }
-//
-////                 
-//                //for pagination
-//                int page = 1;
-//                int recordPerPage = 20;
-//                if (request.getParameter("page") != null) {
-//                    page = Integer.parseInt(request.getParameter("page"));
-//                }
-//                int start = (page - 1) * recordPerPage;
-//                int end = Math.min(start + recordPerPage, listAll.size());
-//
-//                List<News> listForPage = listAll.subList(start, end);
-//                int numberOfPages = (int) Math.ceil(listAll.size() * 1.0 / recordPerPage);
-//
-//                request.setAttribute("selectedStaff", selectedStaff);
-//                request.setAttribute("totalPromotion", listAll.size());
-//                request.setAttribute("listAll", listForPage);
-//                request.setAttribute("numberOfPages", numberOfPages);
-//                request.setAttribute("currentPage", page);
-//                request.setAttribute("searchValue", searchValue);
-//                request.setAttribute("listStaffAddPromotion", listStaffAddPromotion);
-//                
-//            }
-//        }
-        request.getRequestDispatcher("newsManager.jsp").forward(request, response);
+        final String loginFirst = "Bạn cần phải đăng nhập trước!";
+        final String error = "Bạn không có quyền truy cập trang web này!";
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("user");
+
+        //check
+        if (u == null) {
+            request.setAttribute("loginFirst", loginFirst);
+            request.getRequestDispatcher("error").forward(request, response);
+        } //neu da dang nhap => check role
+        else {
+            if (u.getRole().equalsIgnoreCase("user")) {
+                request.setAttribute("error", error);
+                request.getRequestDispatcher("error").forward(request, response);
+            } //staff, manager true =>>
+            else {
+                NewsDAO ndb = new NewsDAO();
+                List<News> listAll;
+
+                List<Object[]> listStaffAddNews = ndb.listStaffAddNews();
+
+                //un/setHeader
+                String unset = request.getParameter("unset");
+                if (unset != null) {
+                    ndb.setIsHeaderToFalse();
+                }
+                String setHeaderAtIdParam = request.getParameter("setHeaderAtId");
+                if (setHeaderAtIdParam != null) {
+                    int setHeaderAtId = Integer.parseInt(setHeaderAtIdParam);
+                    ndb.setIsHeaderToFalse();
+                    ndb.setIsHeaderToTrueById(Boolean.TRUE, setHeaderAtId);
+                }
+
+                //search
+                String selectedStaff = request.getParameter("selectedStaff");
+                String searchValue = request.getParameter("searchValue");
+                listAll = ndb.searchNews(searchValue, selectedStaff);
+
+                try {
+                    String getHeader = request.getParameter("getHeader");
+                    if (getHeader.equals("true")) {
+                        if (!ndb.getHeader().isEmpty()) {
+                            listAll = ndb.getHeader();
+                        } else {
+                            request.setAttribute("invalidHeader", "Bạn chưa chọn header!");
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+//                 
+                //for pagination
+                int page = 1;
+                int recordPerPage = 20;
+                if (request.getParameter("page") != null) {
+                    page = Integer.parseInt(request.getParameter("page"));
+                }
+                int start = (page - 1) * recordPerPage;
+                int end = Math.min(start + recordPerPage, listAll.size());
+
+                List<News> listForPage = listAll.subList(start, end);
+                int numberOfPages = (int) Math.ceil(listAll.size() * 1.0 / recordPerPage);
+
+                request.setAttribute("selectedStaff", selectedStaff);
+                request.setAttribute("totalNews", listAll.size());
+                request.setAttribute("listAll", listForPage);
+                request.setAttribute("numberOfPages", numberOfPages);
+                request.setAttribute("currentPage", page);
+                request.setAttribute("searchValue", searchValue);
+                request.setAttribute("listStaffAddNews", listStaffAddNews);
+                request.getRequestDispatcher("newsManager.jsp").forward(request, response);
+            }
+        }
+        
     }
 
     /**

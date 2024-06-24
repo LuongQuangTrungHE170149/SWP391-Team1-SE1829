@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,10 +20,10 @@ import java.util.List;
  * @author tranm
  */
 public class CompensationDAO {
-    
+
     public static CompensationDAO INSTANCE = new CompensationDAO();
     private Connection con;
-    
+
     public CompensationDAO() {
         if (INSTANCE == null) {
             con = new DBContext().connection;
@@ -30,11 +31,11 @@ public class CompensationDAO {
             INSTANCE = this;
         }
     }
-    
+
     public int countCompensation() {
         String sql = "select count(*) as TotalCompensations from Compensations";
         int total = 0;
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -46,7 +47,7 @@ public class CompensationDAO {
         }
         return total;
     }
-    
+
     public List<Compensation> getCompensationsByCusId(int id) {
         List<Compensation> list = new ArrayList<>();
         String sql = "Select * from Compensations where CustomerId = ?";
@@ -59,11 +60,7 @@ public class CompensationDAO {
                 compensation.setId(rs.getInt("CompensationId"));
                 compensation.setContractId(rs.getInt("ContractId"));
                 compensation.setCustomerId(rs.getInt("CustomerId"));
-                compensation.setDateOfAccident(rs.getDate("DateOfAccident"));    
-                compensation.setAccidentLocation(rs.getString("AccidentLocation"));
-                compensation.setPoliceReportNumber(rs.getString("PoliceReportNumber"));
-                compensation.setDescriptionOfAccident(rs.getString("DescriptionOfAccident"));
-                compensation.setVehicleDamage(rs.getString("VehicleDamage"));
+                compensation.setCustomerId(rs.getInt("AccidentId"));
                 compensation.setEstimatedRepairCost(BigInteger.valueOf(rs.getInt("EstimatedRepairCost")));
                 compensation.setClaimStatus(rs.getString("ClaimStatus"));
                 compensation.setDateFiled(rs.getDate("DateFiled"));
@@ -73,15 +70,35 @@ public class CompensationDAO {
                 compensation.setNotes(rs.getString("Notes"));
                 list.add(compensation);
             }
-            
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return list;
     }
-    
+
+    public HashMap<String, Integer> countCompensationsByStatus() {
+        HashMap<String, Integer> hash = new HashMap<>();
+        String sql = "SELECT ClaimStatus, COUNT(*) AS CountOfCompensations FROM Compensations\n"
+                + "WHERE ClaimStatus IN ('pending', 'approved', 'rejected') GROUP BY ClaimStatus;";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                hash.put(rs.getString("ClaimStatus"), rs.getInt("CountOfCompensations"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return hash;
+    }
+
     public static void main(String[] args) {
-        System.out.println(CompensationDAO.INSTANCE.getCompensationsByCusId(1));
+        System.out.println(CompensationDAO.INSTANCE.countCompensationsByStatus());
     }
 }

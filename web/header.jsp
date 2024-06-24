@@ -60,7 +60,6 @@
                                    href="#">Dịch vụ</a>
                                 <ul class="dropdown-menu" aria-labelledby="dlink">
                                     <li><a class="dropdown-item" href="motorbikeInsurance">Bảo hiểm xe máy</a></li>
-                                    <li><a class="dropdown-item" href="motorbikeInsurance">Bảo hiểm xe máy</a></li>
                                 </ul>
                             </li>
                             <c:if test="${sessionScope.user.getRole() eq 'Staff' || sessionScope.user.getRole() eq 'staff'}">
@@ -72,7 +71,7 @@
                                 <a class="nav-link"style="color:white;" href="promotion">Khuyến mại</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"style="color:white;" href="#">Tin tức</a>
+                                <a class="nav-link"style="color:white;" href="news">Tin tức</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" style="color:white;" href="#">Liên Hệ</a>

@@ -76,11 +76,11 @@ public class HomeManagerServlet extends HttpServlet {
         int totalAgency = AgencyDAO.INSTANCE.countAgency();
         int totalContracts = ContractDAO.INSTANCE.countContracts();
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
-        int totalNews = newsDAO.countNews();
+        int totalNews = newsDAO.getAll().size();
         BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
         HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
-//        HashMap<String, Integer> countIsPayment = ContractDAO.INSTANCE.countIsPay();
+        HashMap<String, Integer> countIsPayment = CompensationDAO.INSTANCE.countCompensationsByStatus();
         List<StaffWorkplace> staffByAgency = StaffWorkplaceDAO.INSTANCE.getAllStaffWorkplace();
         List<User> listStaffs = udb.getAllStaffs();
         List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
@@ -93,7 +93,7 @@ public class HomeManagerServlet extends HttpServlet {
         request.setAttribute("totalContracts", totalContracts);
         request.setAttribute("totalCompensations", totalCompensations);
         request.setAttribute("listCustomerByGender", listCustomerByGender);
-//        request.setAttribute("countIsPayment", countIsPayment);
+        request.setAttribute("countIsPayment", countIsPayment);
         request.setAttribute("listStaffs", listStaffs);
         request.setAttribute("staffByAgency", staffByAgency);
         request.setAttribute("listAgency", listAgency);

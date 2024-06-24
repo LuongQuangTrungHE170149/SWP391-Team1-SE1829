@@ -14,7 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
 
 /**
  *
@@ -60,8 +60,6 @@ public class PromotionManagerDetailServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         PromotionDAO cdb = new PromotionDAO();
         Promotion p = cdb.getPromotionById(id);
-        
-        
 
         String json = new Gson().toJson(p);
 

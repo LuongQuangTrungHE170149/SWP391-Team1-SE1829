@@ -4,12 +4,8 @@
  */
 package Controller;
 
-import Model.Contract;
-import Model.User;
-import Model.Vehicle;
-import dal.ContractDAO;
-import dal.UserDAO;
-import dal.VehicleDAO;
+import Model.News;
+import dal.NewsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,9 +16,9 @@ import java.util.List;
 
 /**
  *
- * @author tranm
+ * @author thuhu
  */
-public class SearchContractServlet extends HttpServlet {
+public class NewsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,10 @@ public class SearchContractServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SearchContractServlet</title>");
+            out.println("<title>Servlet NewsServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SearchContractServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet NewsServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,8 +58,13 @@ public class SearchContractServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        NewsDAO pdb = new NewsDAO();
+        List<News> listAll = pdb.getAll();
+        News newsHeader = pdb.getNewsByIsHeader();
 
-        request.getRequestDispatcher("searchContract.jsp").forward(request, response);
+        request.setAttribute("listAll", listAll);
+        request.setAttribute("newsHeader", newsHeader);
+        request.getRequestDispatcher("news.jsp").forward(request, response);
     }
 
     /**
@@ -77,18 +78,7 @@ public class SearchContractServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String key = request.getParameter("key");
-        UserDAO udb = new UserDAO();
-        List<User> listUser = udb.getAllUserByRole("customer");
-
-        List<Contract> listContract = ContractDAO.INSTANCE.searchContractByPlates(key);
-        List<Vehicle> listVehicle = VehicleDAO.INSTANCE.getAllVehicle();
-        request.setAttribute("key", key);
-        request.setAttribute("listContract", listContract);
-        request.setAttribute("listUser", listUser);
-        request.setAttribute("listVehicle", listVehicle);
-
-        request.getRequestDispatcher("searchContract.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

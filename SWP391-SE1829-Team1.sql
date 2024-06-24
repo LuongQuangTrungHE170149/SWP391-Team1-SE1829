@@ -70,23 +70,31 @@ Create table Punishments(
 			[Action] nvarchar(255),
 )
 GO
-Create table Compensations(
-			CompensationId int identity(1,1) primary key,
-			ContractId int references Contracts(ContractId),	
-			CustomerId int references Users(id),
-			DateOfAccident DATE NOT NULL,
-			AccidentLocation NVARCHAR(255) NOT NULL,
-			PoliceReportNumber NVARCHAR(50),
-			DescriptionOfAccident NTEXT NOT NULL,
-			VehicleDamage NTEXT NOT NULL,
-			EstimatedRepairCost DECIMAL(10, 2),
-			ClaimStatus NVARCHAR(50) NOT NULL DEFAULT 'pending',
-			DateFiled DATE NOT NULL,
-			DateApproved DATE,
-			PaymentAmount DECIMAL(10, 2),
-			PaymentDate DATE,
-			Notes NTEXT
-)
+
+select * from Accidents
+CREATE TABLE Compensations (
+    CompensationId INT IDENTITY(1,1) PRIMARY KEY,
+    ContractId INT REFERENCES Contracts(ContractId),
+    CustomerId INT REFERENCES Users(id),
+    AccidentId INT REFERENCES Accidents(AccidentId),
+    EstimatedRepairCost DECIMAL(10, 2),
+    ClaimStatus NVARCHAR(50) NOT NULL DEFAULT 'pending',
+    DateFiled DATE NOT NULL,
+    DateApproved DATE,
+    PaymentAmount DECIMAL(10, 2),
+    PaymentDate DATE,
+    Notes NTEXT
+);
+
+CREATE TABLE Accidents (
+    AccidentId INT IDENTITY(1,1) PRIMARY KEY,
+    CustomerId INT REFERENCES Users(id),
+    DateOfAccident DATE NOT NULL,
+    AccidentLocation NVARCHAR(255) NOT NULL,
+    PoliceReportNumber NVARCHAR(50),
+    DescriptionOfAccident NTEXT NOT NULL,
+    VehicleDamage NTEXT NOT NULL
+);
 GO
 
 
@@ -127,37 +135,16 @@ Create Table News(
 )
 GO
 
-INSERT INTO Compensations (
-    ContractId,
-    CustomerId,
-    DateOfAccident,
-    AccidentLocation,
-    PoliceReportNumber,
-    DescriptionOfAccident,
-    VehicleDamage,
-    EstimatedRepairCost,
-    ClaimStatus,
-    DateFiled,
-    DateApproved,
-    PaymentAmount,
-    PaymentDate,
-    Notes
-) VALUES (
-    1, -- ContractId
-    1, -- CustomerId
-    '2024-06-20', -- DateOfAccident
-    '123 Main St, Cityville', -- AccidentLocation
-    'PR123456', -- PoliceReportNumber
-    N'Va chạm giữa xe máy và ô tô', -- DescriptionOfAccident
-    N'Hỏng đèn trước và gương chiếu hậu', -- VehicleDamage
-    150.00, -- EstimatedRepairCost
-    'pending', -- ClaimStatus
-    '2024-06-21', -- DateFiled
-    NULL, -- DateApproved (Chưa được phê duyệt)
-    NULL, -- PaymentAmount (Chưa thanh toán)
-    NULL, -- PaymentDate (Chưa thanh toán)
-    N'Đang chờ xử lý từ phía bảo hiểm' -- Notes
-);
+
+
+INSERT INTO Accidents (ContractId, CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
+VALUES (1, 1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
+
+INSERT INTO Compensations (AccidentId, EstimatedRepairCost, ClaimStatus, DateFiled, DateApproved, PaymentAmount, PaymentDate, Notes)
+VALUES (2, 5000.00, N'pending', '2023-06-16', NULL, NULL, NULL, N'Đang chờ xử lý từ phía bảo hiểm');
+
+
+
 
 
 INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
