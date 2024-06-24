@@ -3,11 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Model/Agency.java</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/view/agency/addAgency.jsp</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/dal/AgencyDAO.java</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/CSS/agency.css</file>
             <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/src/java/Controller/AddAgencyServlet.java</file>
+=======
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/StringUtils.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/ForgetPasswordController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/userDetail.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/WebSocketServer.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/PasswordGenerate.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/CustomerAddServlet.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/createNewMotobikeInsuranceContract.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/LoginController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Model/Contract.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/header.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/register.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/UpdateStaffProfileServlet.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/motorbikeInsurance.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/HomePageServlet.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/CustomerEditServlet.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/UserIDGenerator.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/ChangePasswordController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/RegisterController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/changePassword.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/dal/UserDAO.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/WEB-INF/web.xml</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/ConfirmOTPController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/confirmOTP.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/HomeManagerServlet.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Model/User.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
