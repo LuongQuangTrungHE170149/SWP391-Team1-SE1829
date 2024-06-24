@@ -14,6 +14,17 @@
         <title>Tin tức</title>
         <!--summer note--> 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+        <style>
+            table td{
+                padding:8px 12px !important;
+                align-content: center;
+            }
+
+            .btn-table{
+                padding: 3px 10px;
+                font-size: 10px!important;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="staffDashboard.jsp"/>
@@ -76,9 +87,217 @@
             </div>
             <!--nav-->
 
+            <!--table-->
+            <div class="">
+                <div>
+                    <!--pagination-->
+                    <input type="hidden" id="selectedStaff" value="${selectedStaff}"/>
+                    <input type="hidden"id="page" value="${currentPage}">
+                    <input type="hidden" id="searchValue" value="${searchValue}"/>
+                    <c:if test="${numberOfPages > 1}">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center m-0">
+                                <!-- Nút Previous -->
+                                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="newsManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
+                                </li>
+                                <c:forEach begin="1" end="${numberOfPages}" var="page">
+                                    <c:choose>
+                                        <c:when test="${page == currentPage}">
+                                            <li class="page-item active" aria-current="page">
+                                                <span class="page-link">${page}</span>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="hidden"id="page" value="${currentPage}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="newsManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
 
+                                <!-- Nút Next -->
+                                <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
+                                    <a class="page-link" href="newsManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </c:if>
+                    <!--pagination-->
+                    <table class="table table-hover " >
+                        <thead class="text-nowrap">
+                            <tr class="">
+                                <th scope="col" class="" >Title</th>
+                                <th scope="col" class="" >Description</th>
+                                <th scope="col" class="" >Type</th>
+                                <th scope="col" class="" >Create Date</th>
+                                <th scope="col" class="text-center" >Set Header</th>
+                                <th scope="col" class="text-center" >Action</th>
+                            </tr>
+                        </thead>
 
-            <!--add promotion modal-->
+                        <tbody >
+
+                            <c:if test="${not empty listAll}">
+                                <c:forEach var="listAll" items="${listAll}" varStatus="status">
+                                <input type="hidden" id="id" value="${listAll.id}"/>
+                                <tr>
+                                    <td class="ps-4">${listAll.title}</td>
+                                    <td class="ps-4">${listAll.description}</td>
+                                    <c:if test="${listAll.type == 'Hoạt động công ty'}">
+                                        <td class="ps-4"><div class="badge badge-danger">${listAll.type}</div></td>
+                                        </c:if>
+                                        <c:if test="${listAll.type == 'Hoạt động xã hội'}">
+                                        <td class="ps-4"><div class="badge badge-success">${listAll.type}</div></td>
+                                        </c:if>
+                                        <c:if test="${listAll.type == 'Sản phẩm - Dịch vụ'}">
+                                        <td class="ps-4"><div class="badge badge-primary">${listAll.type}</div></td>
+                                        </c:if>
+                                    <td class="ps-4"><fmt:formatDate value="${listAll.createDate}" pattern="dd/MM/yyyy"/></td>
+                                    <c:if test="${listAll.isHeader == true}" >
+                                        <td class="text-center">
+                                            <a href = 'newsManager?unset=true&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'
+                                               class="fs-3 text-info">
+                                                    <i class="fa-solid fa-toggle-on"></i></a>
+                                            </td>
+                                    </c:if>
+                                    <c:if test="${listAll.isHeader == false}" >
+                                        <td class="text-center">
+                                            <a href ='newsManager?setHeaderAtId=${listAll.id}&selectedStaff=${selectedStaff}&page=${currentPage}<c:if test="${not empty searchValue && searchValue != null}">&searchValue=${searchValue}</c:if>'
+                                               class="fs-3 text-info">
+                                                    <i class="fa-solid fa-toggle-off"></i>
+                                                </a>
+                                            </td>
+                                    </c:if> 
+                                    <td>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <a href="#" class="btn-detailNews fs-6 text-info me-3" 
+                                               data-id="${listAll.id}" data-mdb-modal-init data-mdb-target="#detailNewsModal"
+                                               data-mdb-ripple-init>
+                                                <i class="fa-regular fa-eye"></i>
+                                            </a>
+                                            <a href="newsDetail?id=${listAll.id}" target="_blank"
+                                               data-mdb-ripple-init
+                                               class="fs-6 text-info me-3">
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                            <a href="#" class="fs-6 text-info me-3"  
+                                               onclick="location.href = 'updateNews?id=${listAll.id}'">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                            <a href="#" class="fs-6 text-danger" onclick="confirmDeletion(${listAll.id})">
+                                                <i class="fa-regular fa-trash-can"></i>
+                                            </a>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${empty listAll}">
+                            <tr>
+                                <td colspan="7">No data</td>
+                            </tr> 
+                        </c:if>
+                        </tbody>
+                    </table>
+                    <!--pagination-->
+                    <c:if test="${numberOfPages > 1}">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <!-- Nút Previous -->
+                                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="newsManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage - 1}" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></a>
+                                </li>
+                                <c:forEach begin="1" end="${numberOfPages}" var="page">
+                                    <c:choose>
+                                        <c:when test="${page == currentPage}">
+                                            <li class="page-item active" aria-current="page">
+                                                <span class="page-link">${page}</span>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="hidden"id="page" value="${currentPage}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="newsManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${page}">${page}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+
+                                <!-- Nút Next -->
+                                <li class="page-item ${currentPage == numberOfPages ? 'disabled' : ''}">
+                                    <a class="page-link" href="newsManager?searchValue=${searchValue}&selectedStaff=${selectedStaff}&page=${currentPage + 1}" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </c:if>
+                    <!--pagination-->
+                </div>
+            </div>
+            <!--table-->
+
+            <!--add detail promotion modal-->
+            <div class="modal fade" id="detailNewsModal" tabindex="-1" aria-labelledby="detailNewsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-info" id="detailNewsModalLabel">News Detail</h5>
+                            <button type="button" class="btn-close text-white" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-4">
+                                        <div>
+                                            <div class="badge badge-primary">ID: <span class="fw-normal" id="id_detail"></span></div>
+                                            <div class="badge badge-secondary">Create By: <span class="fw-normal" id="staff_detail"></span></div>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">Image</div>
+                                            <div id="image_detail"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-2 fw-bold"> Title:</div>
+                                            <div id="title_detail" class="col-12 col-lg-10"></div>
+                                        </div>
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-12 col-lg-2 fw-bold">Create Date:</div>
+                                            <div id="createDate_detail" class="col-12 col-lg-10"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-2 fw-bold">Description:</div>
+                                            <div id="description_detail" class="col-12 col-lg-10"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-2 fw-bold">Type:</div>
+                                            <div id="type_detail" class="col-12 col-lg-10"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="fw-bold">Content:</div>
+                                        <div class="border border-1 p-3 shadow" style="border-radius: 12px;">
+                                            <div id="content_detail"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-update me-2" data-mdb-ripple-init>Update</button>
+                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end add detail promotion modal-->
+            <!--add new modal-->
             <div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content">
@@ -107,7 +326,7 @@
                                             <select id="type" name="type" class="form-select" required="">
                                                 <option value="Hoạt động công ty">Hoạt động công ty</option>
                                                 <option value="Hoạt động xã hội">Hoạt động xã hội</option>
-                                                <option value="Sản phảm - Dịch vụ">Sản phảm - Dịch vụ</option>
+                                                <option value="Sản phẩm - Dịch vụ">Sản phẩm - Dịch vụ</option>
                                             </select>
                                         </div>
                                     </div>
@@ -148,55 +367,106 @@
                     </div>
                 </div>
             </div>
-            <!--end promotion modal-->
+            <!--end new modal-->
         </div>
 
         <!--summernote-->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script>
-                            $('#content').summernote({
-                                placeholder: 'Write your content here!',
-                                tabsize: 2,
-                                height: 200
-                            });
+                                                $('#content').summernote({
+                                                    placeholder: 'Write your content here!',
+                                                    tabsize: 2,
+                                                    height: 200
+                                                });
         </script>
         <script>
-                            $(document).ready(function () {
-                                //add news function
-                                $('#addNewsForm').on('submit', function (e) {
-                                    e.preventDefault();
-                                    const formData = new FormData();
-                                    formData.append("title", $("#title").val());
-                                    formData.append("description", $("#description").val());
-                                    formData.append("content", $("#content").val());
-                                    formData.append("type", $("#type").val());
-                                    const isHeader = $("input[name=isHeader]:checked").val();
-                                    console.log(isHeader);
-                                    formData.append("isHeader", isHeader);
+            function confirmDeletion(id) {
+                var searchValue = document.getElementById('searchValue').value;
+                //                var  = encodeURIComponent(searchValueEncode);
+                var selectedStaff = document.getElementById('selectedStaff').value;
+                var page = 1;
+                var pageParam = document.getElementById('page').value;
+                if (pageParam && !isNaN(pageParam)) {
+                    page = parseInt(pageParam);
+                }
+                if (confirm('Bạn có chắc chắn muốn xóa news với id = ' + id + '?')) {
+                    window.location.href = 'deleteNews?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
+                }
+            }
+            $(document).ready(function () {
+                //add news function
+                $('#addNewsForm').on('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData();
+                    formData.append("title", $("#title").val());
+                    formData.append("description", $("#description").val());
+                    formData.append("content", $("#content").val());
+                    formData.append("type", $("#type").val());
+                    const isHeader = $("input[name=isHeader]:checked").val();
+                    console.log(isHeader);
+                    formData.append("isHeader", isHeader);
 
-                                    let imgFile = $("#image")[0].files[0];
-                                    formData.append("image", imgFile);
+                    let imgFile = $("#image")[0].files[0];
+                    formData.append("image", imgFile);
 
-                                    // AJAX request to send the reply to the servlet
-                                    $.ajax({
-                                        url: 'addNews',
-                                        type: 'POST',
-                                        data: formData,
-                                        processData: false,
-                                        contentType: false,
-                                        success: function (response) {
-                                            alert('Add thành công!');
-                                            location.reload();
-                                        },
-                                        error: function (err) {
-                                            console.log(err);
-                                            // Show error toast
-                                            alert('Add failed, try again!');
-                                        }
-                                    });
-                                });
-                            });
+                    // AJAX request to send the reply to the servlet
+                    $.ajax({
+                        url: 'addNews',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            alert('Add thành công!');
+                            location.reload();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            // Show error toast
+                            alert('Add failed, try again!');
+                        }
+                    });
+                });
+
+                $('.btn-detailNews').on('click', function (e) {
+                    e.preventDefault();
+                    let newsId = $(this).data('id');
+                    $.ajax({
+                        url: 'newsManagerDetail',
+                        type: 'GET',
+                        data: {id: newsId},
+                        success: function (data) {
+                            $('#id_detail').html(data.id);
+                            $('#staff_detail').html(data.staff.username);
+                            $('#title_detail').html(data.title);
+                            //handle date
+                            var createDate = new Date(data.createDate);
+                            var day = String(createDate.getDate()).padStart(2, '0');
+                            var month = String(createDate.getMonth() + 1).padStart(2, '0');
+                            var year = createDate.getFullYear();
+                            var formattedDate = day + '/' + month + '/' + year;
+                            $('#createDate_detail').html(formattedDate);
+                            $('#type_detail').html(data.type);
+                            $('#description_detail').html(data.description);
+                            $('#content_detail').html(data.content);
+                            $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
+                            $('#detailNewsModal').modal('show');
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            // Show error toast
+                            alert('Add failed, try again!');
+                        }
+                    });
+                });
+                $('.btn-update').on('click', function () {
+                    var id = $('#id_detail').html();
+                    window.location.href = 'updateNews?id=' + id;
+                });
+
+
+            });
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- MDB -->

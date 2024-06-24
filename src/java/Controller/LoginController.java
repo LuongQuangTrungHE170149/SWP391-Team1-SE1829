@@ -2,6 +2,7 @@ package Controller;
 
 import Model.User;
 import dal.ConsultationDAO;
+import dal.NewsDAO;
 import dal.PromotionDAO;
 import dal.UserDAO;
 import jakarta.servlet.ServletException;
@@ -46,9 +47,11 @@ public class LoginController extends HttpServlet {
 
         ConsultationDAO cdb = new ConsultationDAO();
         PromotionDAO pdb = new PromotionDAO();
+        NewsDAO ndb = new NewsDAO();
         int totalConsultation = cdb.CountConsultationByStatus("all");
         session.setAttribute("totalConsultation", totalConsultation);
         session.setAttribute("totalPromotion", pdb.getAll().size());
+        session.setAttribute("totalNews", ndb.getAll().size());
 
         UserDAO dbUser = new UserDAO();
         User user = dbUser.findByUsernameOrEmailAndPassword(usernameEmail, password);

@@ -5,22 +5,21 @@
 
 package Controller;
 
-import Model.Promotion;
-import com.google.gson.Gson;
-import dal.PromotionDAO;
+import Model.News;
+import dal.NewsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import java.util.List;
 
 /**
  *
  * @author thuhu
  */
-public class PromotionManagerDetailServlet extends HttpServlet {
+public class NewsDetailServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +36,10 @@ public class PromotionManagerDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PromotionManagerDetailServlet</title>");  
+            out.println("<title>Servlet NewsDetailServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PromotionManagerDetailServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet NewsDetailServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,14 +56,19 @@ public class PromotionManagerDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        PromotionDAO cdb = new PromotionDAO();
-        Promotion p = cdb.getPromotionById(id);
-
-        String json = new Gson().toJson(p);
-
-        response.setContentType("application/json");
-        response.getWriter().write(json);
+        try{
+            int id = Integer.parseInt(request.getParameter("id"));
+            NewsDAO ndb = new NewsDAO();
+            News p = ndb.getNewsById(id);
+            List<News> listTop3LatestNews = ndb.getTop3LatestNews();
+            
+            request.setAttribute("listTop3LatestNews", listTop3LatestNews);
+            request.setAttribute("p", p);
+            request.getRequestDispatcher("newsDetail.jsp").forward(request, response);
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
     } 
 
     /** 

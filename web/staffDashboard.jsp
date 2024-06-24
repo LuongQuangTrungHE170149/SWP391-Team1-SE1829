@@ -82,7 +82,7 @@
         }
         #main-content {
             transition: margin-left 0.3s;
-            margin-left: 250px; 
+            margin-left: 250px;
         }
 
     </style>
@@ -103,36 +103,48 @@
                     border: none;">
 
                 <ul class="nav flex-column mb-auto">
-                    <li class="nav-item">
+                    <li class="nav-item btn-group">
                         <a href="" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
                             <i class="fa-solid fa-house me-2"></i>Home 
                         </a>
                     </li>
                     <li class="nav-item btn-group">
-                        <a href="consultationManager" class="btn btn-light  btn-custom "data-mdb-ripple-init id="btnConsultation">
-                            <i class="fa-solid fa-message me-2"></i> 
-                            Consultation
+                        <a href="consultationManager" class="btn btn-light btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnConsultation">
+                            <div>
+                                <i class="fa-solid fa-message me-2"></i> Consultation
+                            </div>
                             <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="newsManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnNews">
-                            <i class="fa-regular fa-newspaper me-2"></i> News <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalNews}</span>
+                    <li class="nav-item btn-group">
+                        <a href="newsManager" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnNews">
+                            <div>
+                                <i class="fa-regular fa-newspaper me-2"></i> News
+                            </div>
+                            <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalNews}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="promotionManager" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnPromotion">
-                            <i class="fa-solid fa-gift me-2"></i> Promotion <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
+                    <li class="nav-item btn-group">
+
+                        <a href="promotionManager" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnPromotion">
+                            <div><i class="fa-solid fa-gift me-2"></i> Promotion</div>
+                            <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="btn btn-light btn-custom" data-mdb-ripple-init id="btnContract">
-                            <i class="fa-solid fa-file-contract me-2"></i>Contract
+                    <li class="nav-item btn-group">
+                        <a href="#" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
+                            <div>
+                                <i class="fa-solid fa-file-contract me-2"></i>Contract
+                            </div>
+
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="btn btn-light btn-custom"data-mdb-ripple-init id="btnCustomer">
-                            <i class="fa-solid fa-user me-2"></i>Customer
+                    <li class="nav-item btn-group">
+                        <a href="#" class="btn btn-light btn-custom d-flex justify-content-between m-0"data-mdb-ripple-init id="btnCustomer">
+                            <div>
+                                <i class="fa-solid fa-user me-2"></i>Customer
+                            </div>
+
                         </a>
                     </li>
                 </ul>
@@ -246,7 +258,7 @@
             document.getElementById("btnPromotion").classList.add("activeDash");
         } else if (currentLocation.includes("contractManager")) {
             document.getElementById("btnContract").classList.add("activeDash");
-        }else if (currentLocation.includes("newsManager")) {
+        } else if (currentLocation.includes("newsManager")) {
             document.getElementById("btnNews").classList.add("activeDash");
         }
     </script>

@@ -133,7 +133,6 @@
         <servlet-class>Controller.MotorbikeInsuranceServlet</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>NewsManagerServlet</servlet-name>
         <servlet-class>Controller.NewsManagerServlet</servlet-class>
     </servlet>
@@ -144,6 +143,26 @@
     <servlet>
         <servlet-name>SearchContractServlet</servlet-name>
         <servlet-class>Controller.SearchContractServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewsManagerDetailServlet</servlet-name>
+        <servlet-class>Controller.NewsManagerDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateNewsServlet</servlet-name>
+        <servlet-class>Controller.UpdateNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteNewsServlet</servlet-name>
+        <servlet-class>Controller.DeleteNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewsDetailServlet</servlet-name>
+        <servlet-class>Controller.NewsDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewsServlet</servlet-name>
+        <servlet-class>Controller.NewsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
@@ -288,6 +307,26 @@
     <servlet-mapping>
         <servlet-name>AddNewsServlet</servlet-name>
         <url-pattern>/addNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewsManagerDetailServlet</servlet-name>
+        <url-pattern>/newsManagerDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateNewsServlet</servlet-name>
+        <url-pattern>/updateNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteNewsServlet</servlet-name>
+        <url-pattern>/deleteNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewsDetailServlet</servlet-name>
+        <url-pattern>/newsDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewsServlet</servlet-name>
+        <url-pattern>/news</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

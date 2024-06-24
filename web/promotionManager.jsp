@@ -40,17 +40,17 @@
             /*background-color: #3c9a9f !important;*/
             /*background-color: #7FC7D9 !important;*/
         }
-/*        #main-content {
-            transition: margin-left 0.3s;
-            margin-left: 250px;  initial margin when sidebar is open 
-        }*/
+        /*        #main-content {
+                    transition: margin-left 0.3s;
+                    margin-left: 250px;  initial margin when sidebar is open 
+                }*/
     </style>
     <body>
         <!--main-->
 
         <!--dashboard-->
         <jsp:include page="staffDashboard.jsp"/>
-       
+
         <!--tab content-->
         <div class="main-content" id="main-content">
             <!--nav-->
@@ -388,113 +388,113 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!--end add detail promotion modal-->
 
-        <!--end add detail promotion modal-->
+    <!--add update promotion modal-->
 
-        <!--add update promotion modal-->
-
-        <!--end add update promotion modal-->
-        <!--summernote-->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-        <script>
+    <!--end add update promotion modal-->
+    <!--summernote-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
                                                 $('#content').summernote({
                                                     placeholder: 'Write your content here!',
                                                     tabsize: 2,
                                                     height: 200
                                                 });
-        </script>
-        <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
 
-            function confirmDeletion(id) {
-                var searchValue = document.getElementById('searchValue').value;
-                //                var  = encodeURIComponent(searchValueEncode);
-                var selectedStaff = document.getElementById('selectedStaff').value;
-                var page = 1;
-                var pageParam = document.getElementById('page').value;
-                if (pageParam && !isNaN(pageParam)) {
-                    page = parseInt(pageParam);
-                }
-                if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
-                    window.location.href = 'deletePromotion?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
-                }
+        function confirmDeletion(id) {
+            const searchValue = document.getElementById('searchValue').value;
+//            var encodedSearchValue = encodeURIComponent(searchValue); // Mã hóa giá trị searchValue
+            var selectedStaff = document.getElementById('selectedStaff').value;
+            var page = 1;
+            var pageParam = document.getElementById('page').value;
+            if (pageParam && !isNaN(pageParam)) {
+                page = parseInt(pageParam);
             }
+            if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
+                window.location.href = 'deletePromotion?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
+            }
+        }
 
 
 
-            $(document).ready(function () {
+        $(document).ready(function () {
 
-                //add promotion function
-                $('#addPromotionForm').on('submit', function (e) {
-                    e.preventDefault();
-                    const formData = new FormData();
-                    formData.append("title", $("#title").val());
-                    formData.append("description", $("#description").val());
-                    formData.append("content", $("#content").val());
-                    formData.append("timeStart", $("#timeStart").val());
-                    formData.append("timeEnd", $("#timeEnd").val());
+            //add promotion function
+            $('#addPromotionForm').on('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData();
+                formData.append("title", $("#title").val());
+                formData.append("description", $("#description").val());
+                formData.append("content", $("#content").val());
+                formData.append("timeStart", $("#timeStart").val());
+                formData.append("timeEnd", $("#timeEnd").val());
 
-                    const isHeader = $("input[name=isHeader]:checked").val();
-                    console.log(isHeader);
-                    formData.append("isHeader", isHeader);
+                const isHeader = $("input[name=isHeader]:checked").val();
+                console.log(isHeader);
+                formData.append("isHeader", isHeader);
 
-                    let imgFile = $("#image")[0].files[0];
-                    formData.append("image", imgFile);
+                let imgFile = $("#image")[0].files[0];
+                formData.append("image", imgFile);
 
-                    // AJAX request to send the reply to the servlet
-                    $.ajax({
-                        url: 'addPromotion',
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            alert('Add thành công!');
-                            location.reload();
-                        },
-                        error: function (err) {
-                            console.log(err);
-                            // Show error toast
-                            alert('Add failed, try again!');
-                        }
-                    });
-                });
-                $('.btn-detailPromotion').on('click', function (e) {
-                    e.preventDefault();
-                    let promotionId = $(this).data('id');
-                    $.ajax({
-                        url: 'promotionManagerDetail',
-                        type: 'GET',
-                        data: {id: promotionId},
-                        success: function (data) {
-                            $('#id_detail').html(data.id);
-                            $('#staff_detail').html(data.staff.username);
-                            $('#title_detail').html(data.title);
-                            //handle date
-                            var createDate = new Date(data.createDate);
-                            var day = String(createDate.getDate()).padStart(2, '0');
-                            var month = String(createDate.getMonth() + 1).padStart(2, '0');
-                            var year = createDate.getFullYear();
-                            var formattedDate = day + '/' + month + '/' + year;
-                            $('#createDate_detail').html(formattedDate);
-                            $('#timeStart_detail').html(data.timeStart);
-                            $('#timeEnd_detail').html(data.timeEnd);
-                            $('#description_detail').html(data.description);
-                            $('#content_detail').html(data.content);
-                            $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
-                            $('#detailPromotionModal').modal('show');
-                        }
-                    });
-                });
-
-                $('.btn-update').on('click', function () {
-                    var id = $('#id_detail').html();
-                    window.location.href = 'updatePromotion?id=' + id;
+                // AJAX request to send the reply to the servlet
+                $.ajax({
+                    url: 'addPromotion',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert('Add thành công!');
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        // Show error toast
+                        alert('Add failed, try again!');
+                    }
                 });
             });
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- MDB -->
-        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+            $('.btn-detailPromotion').on('click', function (e) {
+                e.preventDefault();
+                let promotionId = $(this).data('id');
+                $.ajax({
+                    url: 'promotionManagerDetail',
+                    type: 'GET',
+                    data: {id: promotionId},
+                    success: function (data) {
+                        $('#id_detail').html(data.id);
+                        $('#staff_detail').html(data.staff.username);
+                        $('#title_detail').html(data.title);
+                        //handle date
+                        var createDate = new Date(data.createDate);
+                        var day = String(createDate.getDate()).padStart(2, '0');
+                        var month = String(createDate.getMonth() + 1).padStart(2, '0');
+                        var year = createDate.getFullYear();
+                        var formattedDate = day + '/' + month + '/' + year;
+                        $('#createDate_detail').html(formattedDate);
+                        $('#timeStart_detail').html(data.timeStart);
+                        $('#timeEnd_detail').html(data.timeEnd);
+                        $('#description_detail').html(data.description);
+                        $('#content_detail').html(data.content);
+                        $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
+                        $('#detailPromotionModal').modal('show');
+                    }
+                });
+            });
+
+            $('.btn-update').on('click', function () {
+                var id = $('#id_detail').html();
+                window.location.href = 'updatePromotion?id=' + id;
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- MDB -->
+    <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 </body>
 </html>
