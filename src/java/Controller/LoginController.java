@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
             session.setAttribute("user", user);
-            if (user.getRole().equalsIgnoreCase("user")) {
+            if (user.getRole().equalsIgnoreCase("user")|| user.getRole().equalsIgnoreCase("customer")) {
                 resp.sendRedirect("home");
             } else if (user.getRole().equalsIgnoreCase("staff")) {
                 resp.sendRedirect("staffHome");

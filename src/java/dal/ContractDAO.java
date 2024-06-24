@@ -182,27 +182,6 @@ public class ContractDAO extends DBContext {
         }
         return total;
     }
-
-    public HashMap<String, Integer> countIsPay() {
-        HashMap<String, Integer> hash = new HashMap<>();
-        String sql = "SELECT CASE  WHEN IsPay = 1 THEN 'Paid'  ELSE 'Unpaid' END AS PaymentStatus,\n"
-                + "COUNT(*) AS Count FROM Compensations GROUP BY IsPay;";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                hash.put(rs.getString("PaymentStatus"), rs.getInt("Count"));
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return hash;
-    }
-
     public int countContractByCustomer(int customerId) {
         int total = 0;
         String sql = " select  Count(*) as TotalContract from Contracts where CustomerId = ?";
