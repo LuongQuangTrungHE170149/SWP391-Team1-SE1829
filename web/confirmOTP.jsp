@@ -1,7 +1,7 @@
 <%-- 
     Document   : confirmOTP
     Created on : June 10, 2024, 9:53:29 AM
-    Author     : kha21
+    Author     : trand
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

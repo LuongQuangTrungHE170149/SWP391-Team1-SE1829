@@ -709,7 +709,7 @@ public class UserDAO extends DBContext {
             if (rs.next()) {
                 userId = rs.getInt("id");
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return userId;
