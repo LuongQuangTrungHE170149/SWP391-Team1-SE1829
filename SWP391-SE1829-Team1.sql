@@ -2,7 +2,6 @@ create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
 
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -41,6 +40,8 @@ Create table Vehicles(
 			OwnerId int REFERENCES Users(id),
 )
 GO
+SELECT c.ContractId, c.VehicleId, c.CustomerId, c.StaffId, c.StartDate, c.EndDate, c.ContractType, c.[Description], c.Payment FROM Contracts c JOIN Vehicles v ON c.VehicleId = v.MotocycleId
+WHERE v.LicensePlates = '29A-12345'
 Create table Contracts(
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
@@ -105,7 +106,6 @@ create table Promotion(
 			createDate datetime default getdate()
 )
 
-
 Create Table News(
 			id int identity(1,1) primary key,
 			title nvarchar(max)  not null,
@@ -159,8 +159,8 @@ VALUES
 
 INSERT INTO Compensations (ContractId, [Description], [Type], Payment, IsPay)
 VALUES 
-(3, 'Accident compensation', 'damage', 2000, 0),
-(4, 'Late return compensation', 'delay', 500, 1);
+(1, 'Accident compensation', 'damage', 2000, 0),
+(2, 'Late return compensation', 'delay', 500, 1);
 
 INSERT INTO Consultations (name, email, content)
 VALUES 

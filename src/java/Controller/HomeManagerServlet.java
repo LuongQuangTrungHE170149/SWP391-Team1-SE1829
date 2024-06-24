@@ -70,13 +70,13 @@ public class HomeManagerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         UserDAO udb = new UserDAO();
-
+        NewsDAO newsDAO = new NewsDAO();
         int countCustomer = udb.getCountAllCustomer();
         int countStaff = udb.getCountAllStaffs();
         int totalAgency = AgencyDAO.INSTANCE.countAgency();
         int totalContracts = ContractDAO.INSTANCE.countContracts();
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
-//        int totalNews = NewsDAO.INSTANCE.countNews();
+        int totalNews = newsDAO.countNews();
         BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
         HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
         HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
@@ -97,7 +97,7 @@ public class HomeManagerServlet extends HttpServlet {
         request.setAttribute("listStaffs", listStaffs);
         request.setAttribute("staffByAgency", staffByAgency);
         request.setAttribute("listAgency", listAgency);
-//        request.setAttribute("totalNews", totalNews);
+        request.setAttribute("totalNews", totalNews);
 
         request.getRequestDispatcher("homeManager.jsp").forward(request, response);
     }

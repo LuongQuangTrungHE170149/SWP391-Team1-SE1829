@@ -75,6 +75,23 @@ public class NewsDAO extends DBContext {
         return false;
     }
     
+    public int countNews() {
+        int total = 0;
+        String sql = "select Count(*) as TotalNews from News";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                total = rs.getInt("TotalNews");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return total;
+    }
+    
+    
     public static void main(String[] args) {
         NewsDAO ndb = new NewsDAO();
         System.out.println(ndb.setIsHeaderToFalse());
