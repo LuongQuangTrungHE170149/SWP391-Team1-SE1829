@@ -76,7 +76,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" style="color:white;" href="#">Liên Hệ</a>
                             </li>
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link" style="color:white;" href="searchContract">Tra cứu hợp đồng</a>
                             </li>
                         </ul>
@@ -105,6 +105,7 @@
                                                    staffProfile?staffId=${sessionScope.user.id}
                                                </c:if>
                                                " class="dropdown-item">Hồ sơ</a></li>
+                                        <li><a href="compensationHistory?id=${sessionScope.user.id}" class="dropdown-item">Đền bù</a></li>
                                         <li class="dropdown-divider"></li>
                                         <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
                                     </ul>

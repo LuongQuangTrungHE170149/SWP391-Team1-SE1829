@@ -1,7 +1,7 @@
 <%-- 
     Document   : confirmOTP
     Created on : June 10, 2024, 9:53:29 AM
-    Author     : kha21
+    Author     : trand
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -36,8 +36,8 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12 col-lg-5 pe-0">
                                             <div class="form-outline" data-mdb-input-init>
-                                                <input type="text" id="ConfirmOTPCode" name="ConfirmOTPCode" class="form-control" required=""/>
-                                                <label for="ConfirmOTPCode" class="form-label">Nhập code</label>
+                                                <input type="text" id="OTPCode" name="ConfirmOTPCode" class="form-control" required=""/>
+                                                <label for="OTPCode" class="form-label">Nhập code</label>
                                             </div>
                                             <p class="m-0 ps-2 text-danger">${error}</p>
                                         </div>

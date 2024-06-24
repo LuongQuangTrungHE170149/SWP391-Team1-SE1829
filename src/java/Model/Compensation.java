@@ -5,30 +5,49 @@
 package Model;
 
 import java.math.BigInteger;
+import java.sql.Date;
 
 /**
  *
  * @author tranm
  */
 public class Compensation {
-    
+
     private int id;
     private int contractId;
-    private String description;
-    private String type;
-    private BigInteger payment;
-    private int isPay;
+    private int customerId;
+    private Date dateOfAccident;
+    private String accidentLocation;
+    private String policeReportNumber;
+    private String descriptionOfAccident;
+    private String vehicleDamage;
+    private BigInteger EstimatedRepairCost;
+    private String claimStatus;
+    private Date dateFiled;
+    private Date dateApproved;
+    private BigInteger paymentAmount;
+    private Date paymentDate;
+    private String notes;
 
     public Compensation() {
     }
 
-    public Compensation(int id, int contractId, String description, String type, BigInteger payment, int isPay) {
+    public Compensation(int id, int contractId, int customerId, Date dateOfAccident, String accidentLocation, String policeReportNumber, String descriptionOfAccident, String vehicleDamage, BigInteger EstimatedRepairCost, String claimStatus, Date dateFiled, Date dateApproved, BigInteger paymentAmount, Date paymentDate, String notes) {
         this.id = id;
         this.contractId = contractId;
-        this.description = description;
-        this.type = type;
-        this.payment = payment;
-        this.isPay = isPay;
+        this.customerId = customerId;
+        this.dateOfAccident = dateOfAccident;
+        this.accidentLocation = accidentLocation;
+        this.policeReportNumber = policeReportNumber;
+        this.descriptionOfAccident = descriptionOfAccident;
+        this.vehicleDamage = vehicleDamage;
+        this.EstimatedRepairCost = EstimatedRepairCost;
+        this.claimStatus = claimStatus;
+        this.dateFiled = dateFiled;
+        this.dateApproved = dateApproved;
+        this.paymentAmount = paymentAmount;
+        this.paymentDate = paymentDate;
+        this.notes = notes;
     }
 
     public int getId() {
@@ -47,38 +66,116 @@ public class Compensation {
         this.contractId = contractId;
     }
 
-    public String getDescription() {
-        return description;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public String getType() {
-        return type;
+    public Date getDateOfAccident() {
+        return dateOfAccident;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDateOfAccident(Date dateOfAccident) {
+        this.dateOfAccident = dateOfAccident;
     }
 
-    public BigInteger getPayment() {
-        return payment;
+    public String getAccidentLocation() {
+        return accidentLocation;
     }
 
-    public void setPayment(BigInteger payment) {
-        this.payment = payment;
+    public void setAccidentLocation(String accidentLocation) {
+        this.accidentLocation = accidentLocation;
     }
 
-    public int getIsPay() {
-        return isPay;
+    public String getPoliceReportNumber() {
+        return policeReportNumber;
     }
 
-    public void setIsPay(int isPay) {
-        this.isPay = isPay;
+    public void setPoliceReportNumber(String policeReportNumber) {
+        this.policeReportNumber = policeReportNumber;
     }
+
+    public String getDescriptionOfAccident() {
+        return descriptionOfAccident;
+    }
+
+    public void setDescriptionOfAccident(String descriptionOfAccident) {
+        this.descriptionOfAccident = descriptionOfAccident;
+    }
+
+    public String getVehicleDamage() {
+        return vehicleDamage;
+    }
+
+    public void setVehicleDamage(String vehicleDamage) {
+        this.vehicleDamage = vehicleDamage;
+    }
+
+    public BigInteger getEstimatedRepairCost() {
+        return EstimatedRepairCost;
+    }
+
+    public void setEstimatedRepairCost(BigInteger EstimatedRepairCost) {
+        this.EstimatedRepairCost = EstimatedRepairCost;
+    }
+
+    public String getClaimStatus() {
+        return claimStatus;
+    }
+
+    public void setClaimStatus(String claimStatus) {
+        this.claimStatus = claimStatus;
+    }
+
+    public Date getDateFiled() {
+        return dateFiled;
+    }
+
+    public void setDateFiled(Date dateFiled) {
+        this.dateFiled = dateFiled;
+    }
+
+    public Date getDateApproved() {
+        return dateApproved;
+    }
+
+    public void setDateApproved(Date dateApproved) {
+        this.dateApproved = dateApproved;
+    }
+
+    public BigInteger getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(BigInteger paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return "Compensation{" + "id=" + id + ", contractId=" + contractId + ", customerId=" + customerId + ", dateOfAccident=" + dateOfAccident + ", accidentLocation=" + accidentLocation + ", policeReportNumber=" + policeReportNumber + ", descriptionOfAccident=" + descriptionOfAccident + ", vehicleDamage=" + vehicleDamage + ", EstimatedRepairCost=" + EstimatedRepairCost + ", claimStatus=" + claimStatus + ", dateFiled=" + dateFiled + ", dateApproved=" + dateApproved + ", paymentAmount=" + paymentAmount + ", paymentDate=" + paymentDate + ", notes=" + notes + '}';
+    }
+
+
     
-    
-    
+
 }

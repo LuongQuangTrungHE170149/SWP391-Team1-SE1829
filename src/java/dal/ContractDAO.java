@@ -306,7 +306,7 @@ public class ContractDAO extends DBContext {
 
     public List<Contract> searchContractByPlates(String plates) {
         List<Contract> contracts = new ArrayList<>();
-        String sql = "SELECT c.ContractId, c.CustomerId, c.StaffId, c.StartDate, c.EndDate, c.ContractType, c.[Description], c.Payment FROM Contracts c\n"
+        String sql = "SELECT c.ContractId, c.VehicleId, c.CustomerId, c.StaffId, c.StartDate, c.EndDate, c.ContractType, c.[Description], c.Payment FROM Contracts c\n"
                 + "JOIN Vehicles v ON c.VehicleId = v.MotocycleId\n"
                 + "WHERE v.LicensePlates = ?;";
 
@@ -317,12 +317,13 @@ public class ContractDAO extends DBContext {
             while (rs.next()) {
                 Contract contract = new Contract();
                 contract.setContractId(rs.getInt("ContractId"));
+                contract.setVehicleId(rs.getInt("VehicleId"));
                 contract.setCustomerId(rs.getInt("CustomerId"));
                 contract.setStaffId(rs.getInt("StaffId"));
                 contract.setStartDate(rs.getDate("StartDate"));
                 contract.setEndDate(rs.getDate("EndDate"));
-                contract.setContractType("ContractType");
-                contract.setDescription("Description");
+                contract.setContractType(rs.getString("ContractType"));
+                contract.setDescription(rs.getString("Description"));
                 contract.setPayment(rs.getDouble("Payment"));
                 contracts.add(contract);
 
@@ -330,7 +331,7 @@ public class ContractDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return contracts;
     }
 

@@ -365,6 +365,7 @@ public class NewsDAO extends DBContext {
         return false;
     }
 
+
     public boolean updateNewsById(int id, String title, String description, String content, String type, String image, Boolean isHeader, int staff) {
         String sql = "UPDATE [dbo].[News]\n"
                 + "   SET [title] = ?\n"
@@ -408,7 +409,7 @@ public class NewsDAO extends DBContext {
         }
         return false;
     }
-
+    
     public static void main(String[] args) {
         NewsDAO ndb = new NewsDAO();
         System.out.println(ndb.updateNewsById(2, "Test New", "Test description", "Test Contnet", "Hoạt động công ty", "images/news_img/null_image.png", Boolean.TRUE, 1));

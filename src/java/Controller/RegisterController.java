@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Controller;
 
 import Model.Role;
@@ -12,6 +16,10 @@ import java.io.IOException;
 import java.sql.Date;
 import utils.EmailHelper;
 
+/**
+ *
+ * @author trand
+ */
 @WebServlet(name = "RegisterController", urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
 
@@ -53,7 +61,16 @@ public class RegisterController extends HttpServlet {
                             user.setDob(dobValue);
                             user.setAddress(address);
                             req.getSession().setAttribute("userRegister", user);
+                            req.getSession().setAttribute("op", "register");
 
+//                            String OTPCode = EmailHelper.generateOTP();
+//                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
+//                            req.getSession().setAttribute("OTP", OTPCode);
+//                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
+//                            String OTPCode = EmailHelper.generateOTP();
+//                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
+//                            req.getSession().setAttribute("OTP", OTPCode);
+//                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
                             resp.sendRedirect("confirmOTP");
 
                         } else {
@@ -81,6 +98,7 @@ public class RegisterController extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
+
     }
 
 }
