@@ -5,7 +5,7 @@
  */
 package dal;
 
-import Model.*;
+import Model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
