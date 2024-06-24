@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,8 +32,6 @@
     </head>
     <body>
         <jsp:include page="header.jsp" />
-
-
         <div class="container">
             <form action="searchContract" method="post">
                 <div style="margin-top: 20px" class="form-outline mb-4" data-mdb-input-init>
@@ -43,30 +41,50 @@
             </form>
 
             <div>
-                <c:if test="${requestScope.listContract.size() > 0}">
-                    <table class="table">
-                        <thead> 
-                            <tr>
-                                <th>Tên chủ xe</th>
-                                <th>Biển số xe</th>
-                                <th>Số khung</th>
-                                <th>Số máy</th>
-                                <th>Loại bảo hiểm</th>
-                                <th>Ngày hiệu lực</th>
-                                <th>Ngày kết thúc</th>
-                            </tr>
 
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>12</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </c:if>
-                <c:if test="${requestScope.listContract.size() > 0}">
-                    <h1>Không có hợp đồng</h1>
-                </c:if>
+                <c:choose>
+                    <c:when test="${requestScope.listContract.size() > 0}">
+                        <table class="table">
+                            <thead> 
+                                <tr>
+                                    <th>Tên chủ xe</th>
+                                    <th>Biển số xe</th>
+                                    <th>Số khung</th>
+                                    <th>Số máy</th>
+                                    <th>Loại bảo hiểm</th>
+                                    <th>Ngày hiệu lực</th>
+                                    <th>Ngày kết thúc</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <c:forEach var="contract" items="${requestScope.listContract}">
+                                    <tr>
+                                        <c:forEach var="customer" items="${requestScope.listUser}">
+                                            <c:if test="${contract.customerId == customer.id}">
+                                                <td>${customer.getFullName()}</td>
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:forEach var="vehicle" items="${listVehicle}">
+                                            <c:if test="${contract.vehicleId == vehicle.id}">
+                                                <td>${vehicle.getLicensePlates()}</td>
+                                                <td>${vehicle.chassis}</td>
+                                                <td>${vehicle.engine}</td>
+                                            </c:if>
+                                        </c:forEach>
+                                        <td>${contract.getContractType()}</td>
+                                        <td>${contract.startDate}</td>
+                                        <td>${contract.endDate}</td>
+                                    </tr>
+                                </c:forEach>
+
+                            </tbody>
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <h1>Không có hợp đồng</h1>
+                    </c:otherwise>
+                </c:choose>
 
             </div>
 
