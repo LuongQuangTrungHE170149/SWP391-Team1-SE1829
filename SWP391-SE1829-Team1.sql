@@ -72,13 +72,23 @@ Create table Punishments(
 GO
 Create table Compensations(
 			CompensationId int identity(1,1) primary key,
-			ContractId int references Contracts(ContractId),
-			[Description] nvarchar(255),
-			[Type] nvarchar(255),
-			Payment Bigint,
-			IsPay bit,
+			ContractId int references Contracts(ContractId),	
+			CustomerId int references Users(id),
+			DateOfAccident DATE NOT NULL,
+			AccidentLocation NVARCHAR(255) NOT NULL,
+			PoliceReportNumber NVARCHAR(50),
+			DescriptionOfAccident NTEXT NOT NULL,
+			VehicleDamage NTEXT NOT NULL,
+			EstimatedRepairCost DECIMAL(10, 2),
+			ClaimStatus NVARCHAR(50) NOT NULL DEFAULT 'pending',
+			DateFiled DATE NOT NULL,
+			DateApproved DATE,
+			PaymentAmount DECIMAL(10, 2),
+			PaymentDate DATE,
+			Notes NTEXT
 )
 GO
+
 
 Create table Consultations(
 			id int identity(1,1) primary key,
@@ -116,6 +126,38 @@ Create Table News(
 			createDate Datetime default getdate()
 )
 GO
+
+INSERT INTO Compensations (
+    ContractId,
+    CustomerId,
+    DateOfAccident,
+    AccidentLocation,
+    PoliceReportNumber,
+    DescriptionOfAccident,
+    VehicleDamage,
+    EstimatedRepairCost,
+    ClaimStatus,
+    DateFiled,
+    DateApproved,
+    PaymentAmount,
+    PaymentDate,
+    Notes
+) VALUES (
+    1, -- ContractId
+    1, -- CustomerId
+    '2024-06-20', -- DateOfAccident
+    '123 Main St, Cityville', -- AccidentLocation
+    'PR123456', -- PoliceReportNumber
+    N'Va chạm giữa xe máy và ô tô', -- DescriptionOfAccident
+    N'Hỏng đèn trước và gương chiếu hậu', -- VehicleDamage
+    150.00, -- EstimatedRepairCost
+    'pending', -- ClaimStatus
+    '2024-06-21', -- DateFiled
+    NULL, -- DateApproved (Chưa được phê duyệt)
+    NULL, -- PaymentAmount (Chưa thanh toán)
+    NULL, -- PaymentDate (Chưa thanh toán)
+    N'Đang chờ xử lý từ phía bảo hiểm' -- Notes
+);
 
 
 INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
@@ -155,10 +197,6 @@ VALUES
 (1, 'Late payment', 'financial', 'fine'),
 (2, 'Vehicle damage', 'operational', 'repair');
 
-INSERT INTO Compensations (ContractId, [Description], [Type], Payment, IsPay)
-VALUES 
-(1, 'Accident compensation', 'damage', 2000, 0),
-(2, 'Late return compensation', 'delay', 500, 1);
 
 INSERT INTO Consultations (name, email, content)
 VALUES 
@@ -170,8 +208,3 @@ INSERT INTO Users (username, password, firstName, lastName, [role], gender, emai
 VALUES 
 ('trunglq8', 'quangtrung93', N'Lương', 'Quang Trung', 'staff', 1, 'trunglq8@gmail.com', '0985187536', '1993-05-09', N'Tân Xã - Thạch Thất - Hà Nội')
 GO
-
-
-SELECT * FROM Users
-SELECT * FROM Vehicles
-SELECT * FROM Contracts
