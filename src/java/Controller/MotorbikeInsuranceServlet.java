@@ -5,12 +5,15 @@
 
 package Controller;
 
+import Model.VehicleType;
+import dal.VehicleTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -53,6 +56,10 @@ public class MotorbikeInsuranceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        VehicleTypeDAO vdb = new VehicleTypeDAO();
+        List<VehicleType> listVT = vdb.getAll();
+        
+        request.getSession().setAttribute("listVT", listVT);
         request.getRequestDispatcher("motorbikeInsurance.jsp").forward(request, response);
     } 
 
