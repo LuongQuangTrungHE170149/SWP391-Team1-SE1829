@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +33,12 @@
         <jsp:include page="header.jsp" />
 
         <div class="container">
-            <h2>Lịch sử yêu cầu đền bù</h2>
+            <h2 style="margin-top: 20px">Lịch sử yêu cầu đền bù</h2>
+            <a href="home">
+                <button type="button" class="btn btn-primary float-end" data-mdb-ripple-init>
+                    Yêu cầu bồi thường
+                </button>
+            </a>
             <table class="table">
                 <thead>
                     <tr>
@@ -53,12 +59,27 @@
                                 </c:if>
                             </c:forEach>
 
-                            <td>${compensation.getEstimatedRepairCost()}</td>
+                            <td>
+                                <fmt:formatNumber value="${compensation.getEstimatedRepairCost()}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+
+                            </td>
                             <td>${compensation.dateFiled}</td>
                             <c:if test="${compensation.claimStatus eq 'pending'}">
                                 <td class="text-warning">Đang xử lý</td>
                                 <td class="text-warning">Đang xử lý</td>
                                 <td class="text-warning">Đang xử lý</td>
+                            </c:if>
+                            <c:if test="${compensation.claimStatus eq 'approved'}">
+                                <td>${compensation.dateApproved}</td>
+                                <td>
+                                    <fmt:formatNumber value="${compensation.paymentAmount}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                </td>
+                                <td class="text-success">Đã duyệt</td>
+                            </c:if>
+                            <c:if test="${compensation.claimStatus eq 'rejected'}">
+                                <td class="text-danger">Bị từ chối</td>
+                                <td class="text-danger">Bị từ chối</td>
+                                <td class="text-danger">Bị từ chối</td>
                             </c:if>
 
                         </tr>
