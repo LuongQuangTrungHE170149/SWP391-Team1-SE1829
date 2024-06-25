@@ -31,10 +31,9 @@
     </head>
     <body>
         <jsp:include page="header.jsp" />
-
         <div class="container">
             <h2 style="margin-top: 20px">Lịch sử yêu cầu đền bù</h2>
-            <a href="home">
+            <a href="compensation">
                 <button type="button" class="btn btn-primary float-end" data-mdb-ripple-init>
                     Yêu cầu bồi thường
                 </button>
@@ -48,6 +47,7 @@
                         <th scope="col">Ngày duyệt đơn</th>
                         <th scope="col">Bồi thường</th>
                         <th scope="col">Trạng thái</th>
+                        <th scope="col">Mô tả</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,15 +81,15 @@
                                 <td class="text-danger">Bị từ chối</td>
                                 <td class="text-danger">Bị từ chối</td>
                             </c:if>
+                            <td>${compensation.notes}</td>
 
                         </tr>
                     </c:forEach>
-
-
                 </tbody>
             </table>
         </div>
 
+        <%--<jsp:include page="footer.jsp" />--%>
 
         <script
             type="text/javascript"
