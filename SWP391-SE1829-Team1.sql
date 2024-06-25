@@ -71,7 +71,8 @@ Create table Punishments(
 )
 GO
 
-select * from Accidents
+
+
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),
@@ -86,7 +87,7 @@ CREATE TABLE Compensations (
     Notes NTEXT
 );
 
-CREATE TABLE Accidents (
+create TABLE Accidents (
     AccidentId INT IDENTITY(1,1) PRIMARY KEY,
     CustomerId INT REFERENCES Users(id),
     DateOfAccident DATE NOT NULL,
@@ -137,11 +138,11 @@ GO
 
 
 
-INSERT INTO Accidents (ContractId, CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
-VALUES (1, 1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
+INSERT INTO Accidents (CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
+VALUES (1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
 
-INSERT INTO Compensations (AccidentId, EstimatedRepairCost, ClaimStatus, DateFiled, DateApproved, PaymentAmount, PaymentDate, Notes)
-VALUES (2, 5000.00, N'pending', '2023-06-16', NULL, NULL, NULL, N'Đang chờ xử lý từ phía bảo hiểm');
+INSERT INTO Compensations (ContractId, CustomerId, AccidentId, EstimatedRepairCost, ClaimStatus, DateFiled, DateApproved, PaymentAmount, PaymentDate, Notes)
+VALUES (1, 1, 1, 5000.00, N'pending', '2023-06-16', NULL, NULL, NULL, N'Đang chờ xử lý từ phía bảo hiểm');
 
 
 
