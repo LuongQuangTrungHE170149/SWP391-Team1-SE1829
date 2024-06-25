@@ -260,6 +260,43 @@
             </div>
         </div>
 
+        <!--Khuyen mai-->
+        <c:if test="${not empty listTop3LatestNews}">
+            <c:set var="listNews3" value="${listTop3LatestNews}"/>
+            <div class="container mt-5">
+                <div class="latest-promotion">
+                    <hr>
+                    <h2 class="mb-3">Tin tức mới nhất</h2>
+                    <!--list-->
+                    <div class="list-item">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <c:forEach items="${listNews3}" var="a">
+                                <div class="col">
+                                    <div class="card h-100 hover-shadow" style="background-color: #eee;">
+                                        <a href="newsDetail?id=${a.id}"><img class="object-fit-cover card-img-top" style="height: 400px; width: 100%;" src="${a.image}" alt="promotion image"/></a>
+                                        <div class="card-body" >
+                                            <div class="badge badge-info fs-6 mb-2"> ${a.type}</div>
+                                            <a href="newsDetail?id=${a.id}" class="text-4f4f4f"><h5 class="card-title">${a.title}</h5></a>
+                                            <p class="card-text">${a.description}</p>
+                                            <div class="text-muted">
+                                                <i class="fa-regular fa-calendar-days"></i> <fmt:formatDate value="${a.createDate}" pattern="dd/MM/yyyy"/>
+                                            </div>  
+                                        </div>
+                                        <div style="padding: 0 24px 12px;">
+                                            <a href="newsDetail?id=${a.id}" class="badge badge-info">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5 mb-5">
+                        <a role="button" href="news" class="btn btn-primary" data-mdb-ripple-init>Xem nhiều tin tức</a>
+                    </div>
+                    <!--end list-->
+                </div>
+            </div>
+        </c:if>
 
         <!--Khuyen mai-->
         <c:if test="${not empty listTop3LatestPromotions}">

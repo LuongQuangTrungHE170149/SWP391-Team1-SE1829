@@ -28,7 +28,7 @@ public class LoginController extends HttpServlet {
         if (u != null) {
             if (u.getRole().equalsIgnoreCase("staff")) {
                 resp.sendRedirect("staffHome");
-            } else if (u.getRole().equalsIgnoreCase("user") || u.getRole().equalsIgnoreCase("customer")) {
+            } else if (u.getRole().equalsIgnoreCase("user")) {
                 resp.sendRedirect("home");
             } else if (u.getRole().equalsIgnoreCase("manager")) {
                 resp.sendRedirect("homeManager");
@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
             session.setAttribute("user", user);
-            if (user.getRole().equalsIgnoreCase("user")|| user.getRole().equalsIgnoreCase("customer")) {
+            if (user.getRole().equalsIgnoreCase("user") || user.getRole().equalsIgnoreCase("customer")) {
                 resp.sendRedirect("home");
             } else if (user.getRole().equalsIgnoreCase("staff")) {
                 resp.sendRedirect("staffHome");

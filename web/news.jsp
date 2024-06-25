@@ -99,31 +99,29 @@
 
                 <!--featured-->
                 <c:if test="${not empty newsHeader}">
-                    <c:set var="p" value="${newsHeader}"/>
+                    <c:set var="n" value="${newsHeader}"/>
                     <div class="featured-news" style="margin-bottom: 40px;">
                         <div class="col-12 featured-news-heading">
                             <h2>Tin tức nổi bật</h2>
                         </div>
                         <div class="featured-news-item d-flex shadow-4-strong ps-0" style="height: 420px;">
                             <div class="featured-news-img ps-0" style="height: 100%; width: auto;">
-                                <a href="newsDetail?id=${p.id}" ><img class="h-100" src="${p.image}" alt="alt"/></a>
+                                <a href="newsDetail?id=${n.id}" ><img class="h-100" src="${n.image}" alt="alt"/></a>
                             </div>
                             <div class="flex-grow-1" style="height: 100%; padding: 45px 36px;">
-                                <div class="badge badge-info fs-6 mb-2"> ${p.type}</div>
+                                <div class="badge badge-info fs-6 mb-2"> ${n.type}</div>
                                 <div class="featured-news-title ">
-                                    <a class="fs-5 fw-bold text-4f4f4f" href="newsDetail?id=${p.id}" >${p.title}</a> 
+                                    <a class="fs-5 fw-bold text-4f4f4f" href="newsDetail?id=${n.id}" >${n.title}</a> 
                                 </div>
                                 <div class="mb-4">
-                                    ${p.description}
+                                    ${n.description}
                                 </div>
                                 <div class="text-muted">
-                                    <i class="fa-regular fa-calendar-days"></i> <fmt:formatDate value="${p.createDate}" pattern="dd/MM/yyyy"/>
+                                    <i class="fa-regular fa-calendar-days"></i> <fmt:formatDate value="${n.createDate}" pattern="dd/MM/yyyy"/>
                                 </div>          
 
-
-
                                 <div>
-                                    <a href="newsDetail?id=${p.id}"  class="text-4f4f4f badge badge-info rounded-pill">Xem chi tiết</a>
+                                    <a href="newsDetail?id=${n.id}"  class="text-4f4f4f badge badge-info rounded-pill">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>

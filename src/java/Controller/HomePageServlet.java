@@ -5,7 +5,9 @@
 
 package Controller;
 
+import Model.News;
 import Model.Promotion;
+import dal.NewsDAO;
 import dal.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +60,10 @@ public class HomePageServlet extends HttpServlet {
     throws ServletException, IOException {
         PromotionDAO pdb = new PromotionDAO();
         List<Promotion> listTop3LatestPromotions = pdb.getTop3LatestPromotions();
+        NewsDAO ndb = new NewsDAO();
+        List<News> listTop3LatestNews = ndb.getTop3LatestNews(); 
         
+        request.setAttribute("listTop3LatestNews", listTop3LatestNews);
         request.setAttribute("listTop3LatestPromotions", listTop3LatestPromotions);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 

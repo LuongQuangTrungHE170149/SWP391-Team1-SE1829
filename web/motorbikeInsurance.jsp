@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-12 col-lg-4 text-end">
                             <a href="#consForm" class="btn btn-outline-primary rounded-pill ">Đăng ký tư vấn</a>
-                            <a href="#request-contract" class="btn btn-primary rounded-pill btn-lg">Gửi yêu cầu</a>
+                            <a href="#request-contract" class="btn btn-primary rounded-pill btn-lg">Tính phí</a>
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@
                     <hr class="mt-0">
                     <!-- Collapsed content -->
                     <div class="collapse show" id="collapse3">
-                        <jsp:include page="RequestContract.jsp"/>
+                        <jsp:include page="calculateInsuranceForm.jsp"/>
                     </div>
                 </div>
 

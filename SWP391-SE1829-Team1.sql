@@ -33,26 +33,46 @@ Create table Agencies(
 GO
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
-			MotocycleType nvarchar(255),
+			VehicleType int foreign references VehicleType(id), /*motorcycle -> VehicleType*/ 
 			LicensePlates nvarchar(255),
 			Chassis nvarchar(255),
 			Engine nvarchar(255),
 			OwnerId int REFERENCES Users(id),
 )
 GO
-Create table Contracts(
+
+Create table VehicleType(
+            id int identity(1,1) primary key,
+			name nvarchar(255),
+			price int,
+)
+GO
+
+insert into VehicleType(name,price) 
+values(N'Xe mô tô 2 bánh dung tích từ 50cc trở xuống',60500), 
+      (N'Xe mô tô 2 bánh dung tích trên 50cc',66000),
+	  (N'Xe máy điện',60500),
+	  (N'Xe mô tô 3 bánh',319000),
+	  (N'Các loại xe còn lại',319000)
+
+Create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
 			StaffId int references Users(id),
 			VehicleId int references Vehicles(MotocycleId),
 			StartDate date,
 			EndDate date,
-			ContractType nvarchar(255),
+			isAccidentInsurance bit default 0,   /*them check co them bao hiem tai nan hay khong*/
+			VehicleType int foreign key references VehicleType(id), /*sua contract type -> vehicle type */
 			[Description] nvarchar(1000),
 			Payment Bigint,
 			[status] nvarchar(255),
 )
 GO
+
+
+
+
 
 create table Staff_Workplace(
 			swId int identity(1,1) primary key,
@@ -70,9 +90,7 @@ Create table Punishments(
 			[Action] nvarchar(255),
 )
 GO
-
-
-
+select * from Compensations
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),

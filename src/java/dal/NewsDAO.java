@@ -412,6 +412,6 @@ public class NewsDAO extends DBContext {
     
     public static void main(String[] args) {
         NewsDAO ndb = new NewsDAO();
-        System.out.println(ndb.updateNewsById(2, "Test New", "Test description", "Test Contnet", "Hoạt động công ty", "images/news_img/null_image.png", Boolean.TRUE, 1));
+        System.out.println(ndb.getAll().size());
     }
 }
