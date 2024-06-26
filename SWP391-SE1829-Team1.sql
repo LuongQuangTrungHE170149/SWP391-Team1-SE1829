@@ -2,6 +2,7 @@ create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
 
+
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -90,6 +91,8 @@ Create table Punishments(
 			[Action] nvarchar(255),
 )
 GO
+
+select * from Accidents
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),
@@ -111,7 +114,9 @@ create TABLE Accidents (
     AccidentLocation NVARCHAR(255) NOT NULL,
     PoliceReportNumber NVARCHAR(50),
     DescriptionOfAccident NTEXT NOT NULL,
-    VehicleDamage NTEXT NOT NULL
+    VehicleDamage NTEXT NOT NULL,
+	image varchar(255),
+
 );
 GO
 

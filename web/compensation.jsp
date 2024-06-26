@@ -31,12 +31,7 @@
     </head>
     <body>
 
-        <jsp:include page="header.jsp" />
-
-
-        
-        <p>${sessionScope.img}</p>
-
+        <jsp:include page="header.jsp" />  
         <div style=" background-color: #f4f4f9; padding: 50px">
             <div class="container">
                 <div class="wrapper">
@@ -57,6 +52,9 @@
                         <label for="vehicleDamage">Tình trạng xe:</label>
                         <input type="text" id="vehicleDamage" name="vehicleDamage" required>
 
+                        <label for="estimatedRepairCost">Chi phi sửa chữa:</label>
+                        <input type="number" min="0" id="estimatedRepairCost" name="estimatedRepairCost" required>
+                        
                         <label for="incidentDescription">Mô tả Sự cố:</label>
                         <textarea id="incidentDescription" name="incidentDescription" rows="4" required></textarea>
 

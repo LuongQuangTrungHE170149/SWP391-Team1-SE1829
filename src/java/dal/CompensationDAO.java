@@ -5,12 +5,14 @@
 package dal;
 
 import Model.Compensation;
-import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +84,6 @@ public class CompensationDAO {
         HashMap<String, Integer> hash = new HashMap<>();
         String sql = "SELECT ClaimStatus, COUNT(*) AS CountOfCompensations FROM Compensations\n"
                 + "WHERE ClaimStatus IN ('pending', 'approved', 'rejected') GROUP BY ClaimStatus;";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -98,7 +99,34 @@ public class CompensationDAO {
         return hash;
     }
 
+    public boolean insertCompensation(Compensation compensation) {
+        String sql = "INSERT INTO Compensations (ContractId, CustomerId, AccidentId, EstimatedRepairCost, DateFiled)\n"
+                + "VALUES (?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, compensation.getContractId());
+            ps.setInt(2, compensation.getCustomerId());
+            ps.setInt(3, compensation.getAccidentId());
+            ps.setBigDecimal(4, new BigDecimal(compensation.getEstimatedRepairCost()));
+            ps.setDate(5, compensation.getDateFiled());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) {
-        System.out.println(CompensationDAO.INSTANCE.countCompensationsByStatus());
+        Compensation compensation = new Compensation();
+        compensation.setCustomerId(1);
+        compensation.setContractId(1);
+        compensation.setAccidentId(2);
+        compensation.setEstimatedRepairCost(new BigInteger("12321312"));
+        LocalDate currentDate = LocalDate.now(); // Get the current date
+        Date sqlCurrentDate = Date.valueOf(currentDate); // Convert to SQL date
+        compensation.setDateFiled(sqlCurrentDate);
+        System.out.println(CompensationDAO.INSTANCE.insertCompensation(compensation));
     }
 }
