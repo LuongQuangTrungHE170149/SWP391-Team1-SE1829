@@ -34,32 +34,36 @@
         <jsp:include page="header.jsp" />
 
 
-
+        
+        <p>${sessionScope.img}</p>
 
         <div style=" background-color: #f4f4f9; padding: 50px">
             <div class="container">
                 <div class="wrapper">
                     <h1>Mẫu Yêu cầu Đền bù</h1>
-                    <form action="/submit-claim" method="post" enctype="multipart/form-data">
+                    <form action="compensation" method="post" enctype="multipart/form-data">
                         <label for="policyNumber">Số Hợp đồng Bảo hiểm:</label>
                         <input type="text" id="policyNumber" name="policyNumber" required>
 
                         <label for="incidentDate">Ngày Sự cố:</label>
                         <input type="date" id="incidentDate" name="incidentDate" required>
 
-                        <label for="incidentTime">Giờ Sự cố:</label>
-                        <input type="time" id="incidentTime" name="incidentTime" required>
-
                         <label for="incidentLocation">Địa điểm Sự cố:</label>
                         <input type="text" id="incidentLocation" name="incidentLocation" required>
+
+                        <label for="policeReportNumber">Số biên bản cảnh sát:</label>
+                        <input type="text" id="policeReportNumber" name="policeReportNumber" required>
+
+                        <label for="vehicleDamage">Tình trạng xe:</label>
+                        <input type="text" id="vehicleDamage" name="vehicleDamage" required>
 
                         <label for="incidentDescription">Mô tả Sự cố:</label>
                         <textarea id="incidentDescription" name="incidentDescription" rows="4" required></textarea>
 
                         <label for="supportingDocuments">Tài liệu Hỗ trợ:</label>
-                        <input type="file" id="supportingDocuments" name="supportingDocuments[]" multiple>
+                        <input type="file" id="supportingDocuments" name="supportingDocuments" multiple>
 
-                        <button type="submit">Gửi Yêu cầu</button>
+                        <button style="margin-top: 20px" type="submit">Gửi Yêu cầu</button>
                     </form>
                 </div>
             </div>
