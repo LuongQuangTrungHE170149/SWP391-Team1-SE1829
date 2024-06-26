@@ -38,25 +38,26 @@
                     <h1>Mẫu Yêu cầu Đền bù</h1>
                     <form action="compensation" method="post" enctype="multipart/form-data">
                         <label for="policyNumber">Số Hợp đồng Bảo hiểm:</label>
-                        <input type="text" id="policyNumber" name="policyNumber" required>
-
+                        <input type="text" id="policyNumber" name="policyNumber" value="${requestScope.policyNumber}" required>
+                        <span style="color: red">${requestScope.error}</span>
+                       
                         <label for="incidentDate">Ngày Sự cố:</label>
-                        <input type="date" id="incidentDate" name="incidentDate" required>
-
+                        <input type="date" id="incidentDate" name="incidentDate" value="${requestScope.incidentDate}" required>
+                       
                         <label for="incidentLocation">Địa điểm Sự cố:</label>
-                        <input type="text" id="incidentLocation" name="incidentLocation" required>
+                        <input type="text" id="incidentLocation" name="incidentLocation" value="${requestScope.incidentLocation}" required>
 
                         <label for="policeReportNumber">Số biên bản cảnh sát:</label>
-                        <input type="text" id="policeReportNumber" name="policeReportNumber" required>
+                        <input type="text" id="policeReportNumber" name="policeReportNumber" value="${requestScope.policeReportNumber}" required>
 
                         <label for="vehicleDamage">Tình trạng xe:</label>
-                        <input type="text" id="vehicleDamage" name="vehicleDamage" required>
+                        <input type="text" id="vehicleDamage" name="vehicleDamage" value="${requestScope.vehicleDamage}" required>
 
                         <label for="estimatedRepairCost">Chi phi sửa chữa:</label>
-                        <input type="number" min="0" id="estimatedRepairCost" name="estimatedRepairCost" required>
-                        
+                        <input type="number" min="0" id="estimatedRepairCost" name="estimatedRepairCost" value="${requestScope.estimatedRepairCost}" required>
+
                         <label for="incidentDescription">Mô tả Sự cố:</label>
-                        <textarea id="incidentDescription" name="incidentDescription" rows="4" required></textarea>
+                        <textarea id="incidentDescription" name="incidentDescription" rows="4" value="${requestScope.incidentDescription}" required></textarea>
 
                         <label for="supportingDocuments">Tài liệu Hỗ trợ:</label>
                         <input type="file" id="supportingDocuments" name="supportingDocuments" multiple>

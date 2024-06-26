@@ -182,6 +182,7 @@ public class ContractDAO extends DBContext {
         }
         return total;
     }
+
     public int countContractByCustomer(int customerId) {
         int total = 0;
         String sql = " select  Count(*) as TotalContract from Contracts where CustomerId = ?";
@@ -312,6 +313,25 @@ public class ContractDAO extends DBContext {
         }
 
         return contracts;
+    }
+
+    public Contract checkContractByCustomerId(int contractId, int customerId) {
+        String sql = "select * from Contracts where ContractId = ? and CustomerId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, contractId);
+            ps.setInt(2, customerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Contract contract = new Contract();
+                contract.setContractId(rs.getInt("ContractId"));
+                return contract;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
     }
 
     public static void main(String[] args) throws SQLException {

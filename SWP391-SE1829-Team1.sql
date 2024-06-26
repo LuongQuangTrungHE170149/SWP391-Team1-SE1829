@@ -2,7 +2,6 @@ create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
 
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -71,10 +70,6 @@ Create table Contracts(                                        /*bao hiem xe may
 )
 GO
 
-
-
-
-
 create table Staff_Workplace(
 			swId int identity(1,1) primary key,
 			AgencyId int References Agencies(AgencyId),
@@ -92,7 +87,6 @@ Create table Punishments(
 )
 GO
 
-select * from Accidents
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),

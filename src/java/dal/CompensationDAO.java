@@ -119,14 +119,7 @@ public class CompensationDAO {
     }
 
     public static void main(String[] args) {
-        Compensation compensation = new Compensation();
-        compensation.setCustomerId(1);
-        compensation.setContractId(1);
-        compensation.setAccidentId(2);
-        compensation.setEstimatedRepairCost(new BigInteger("12321312"));
-        LocalDate currentDate = LocalDate.now(); // Get the current date
-        Date sqlCurrentDate = Date.valueOf(currentDate); // Convert to SQL date
-        compensation.setDateFiled(sqlCurrentDate);
-        System.out.println(CompensationDAO.INSTANCE.insertCompensation(compensation));
+      
+        System.out.println(CompensationDAO.INSTANCE.getCompensationsByCusId(1));
     }
 }

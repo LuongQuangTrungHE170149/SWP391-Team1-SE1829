@@ -9,6 +9,7 @@ import Model.Compensation;
 import Model.User;
 import dal.AccidentDAO;
 import dal.CompensationDAO;
+import dal.ContractDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -92,7 +93,6 @@ public class CompensationRequestServlet extends HttpServlet {
         String vehicleDamage = request.getParameter("vehicleDamage");
         String incidentDescription = request.getParameter("incidentDescription");
         String estimatedRepairCost = request.getParameter("estimatedRepairCost");
-
         String image = "images/accidents_image/null.png";
         int contractId = 0;
         try {
@@ -103,26 +103,39 @@ public class CompensationRequestServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Accident accident = new Accident();
-        accident.setCustomerId(u.getId());
-        Date sqlDate = Date.valueOf(incidentDate);
-        accident.setDateOfAccident(sqlDate);
-        accident.setAccidentLocation(incidentLocation);
-        accident.setPoliceReportNumber(policeReportNumber);
-        accident.setDescriptionOfAccident(incidentDescription);
-        accident.setVehicleDamage(vehicleDamage);
-        accident.setImage(image);
-        int idAccident = AccidentDAO.INSTANCE.insertAccident(accident);
-        Compensation compensation = new Compensation();
-        compensation.setCustomerId(u.getId());
-        compensation.setContractId(contractId);
-        compensation.setAccidentId(idAccident);
-        compensation.setEstimatedRepairCost(new BigInteger(estimatedRepairCost));
-        LocalDate currentDate = LocalDate.now(); // Get the current date
-        Date sqlCurrentDate = Date.valueOf(currentDate); // Convert to SQL date
-        compensation.setDateFiled(sqlCurrentDate);
-        CompensationDAO.INSTANCE.insertCompensation(compensation);
-        request.getRequestDispatcher("compensation.jsp").forward(request, response);
+        if (ContractDAO.INSTANCE.checkContractByCustomerId(contractId, u.getId()) != null) {
+            Accident accident = new Accident();
+            accident.setCustomerId(u.getId());
+            Date sqlDate = Date.valueOf(incidentDate);
+            accident.setDateOfAccident(sqlDate);
+            accident.setAccidentLocation(incidentLocation);
+            accident.setPoliceReportNumber(policeReportNumber);
+            accident.setDescriptionOfAccident(incidentDescription);
+            accident.setVehicleDamage(vehicleDamage);
+            accident.setImage(image);
+            int idAccident = AccidentDAO.INSTANCE.insertAccident(accident);
+            Compensation compensation = new Compensation();
+            compensation.setCustomerId(u.getId());
+            compensation.setContractId(contractId);
+            compensation.setAccidentId(idAccident);
+            compensation.setEstimatedRepairCost(new BigInteger(estimatedRepairCost));
+            LocalDate currentDate = LocalDate.now(); // Get the current date
+            Date sqlCurrentDate = Date.valueOf(currentDate); // Convert to SQL date
+            compensation.setDateFiled(sqlCurrentDate);
+            CompensationDAO.INSTANCE.insertCompensation(compensation);
+            session.setAttribute("requestSuccess", "Gửi yêu cầu bồi thường thành công");
+            response.sendRedirect("compensationHistory?id="+u.getId());
+        } else {
+            request.setAttribute("error", "Số bảo hiểm của bạn không tồn tại");
+            request.setAttribute("policyNumber", policyNumber);
+            request.setAttribute("incidentDate", incidentDate);
+            request.setAttribute("incidentLocation", incidentLocation);
+            request.setAttribute("policeReportNumber", policeReportNumber);
+            request.setAttribute("vehicleDamage", vehicleDamage);
+            request.setAttribute("incidentDescription", incidentDescription);
+            request.setAttribute("estimatedRepairCost", estimatedRepairCost);
+            request.getRequestDispatcher("compensation.jsp").forward(request, response);
+        }
     }
 
     /**
