@@ -81,7 +81,14 @@
                                 <td class="text-danger">Bị từ chối</td>
                                 <td class="text-danger">Bị từ chối</td>
                             </c:if>
-                            <td>${compensation.notes}</td>
+                            <c:choose >
+                                <c:when test="${compensation.notes eq null}">
+                                    <td></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>${compensation.notes}</td>
+                                </c:otherwise>
+                            </c:choose>
 
                         </tr>
                     </c:forEach>

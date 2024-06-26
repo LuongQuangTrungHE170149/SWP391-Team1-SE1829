@@ -4,20 +4,31 @@
  */
 package Controller;
 
+import Model.Accident;
+import Model.Compensation;
+import Model.User;
+import dal.AccidentDAO;
+import dal.CompensationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.io.File;
+import java.math.BigInteger;
 import java.nio.file.Paths;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author tranm
  */
+@MultipartConfig
 public class CompensationRequestServlet extends HttpServlet {
 
     /**
@@ -72,25 +83,46 @@ public class CompensationRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("user");
         String policyNumber = request.getParameter("policyNumber");
         String incidentDate = request.getParameter("incidentDate");
         String incidentLocation = request.getParameter("incidentLocation");
         String policeReportNumber = request.getParameter("policeReportNumber");
         String vehicleDamage = request.getParameter("vehicleDamage");
         String incidentDescription = request.getParameter("incidentDescription");
-        String supportingDocuments = request.getParameter("supportingDocuments[]");
-        
+        String estimatedRepairCost = request.getParameter("estimatedRepairCost");
+
         String image = "images/accidents_image/null.png";
+        int contractId = 0;
         try {
-            Part filePart = request.getPart("image");
+            Part filePart = request.getPart("supportingDocuments");
             String url = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             image = "images/accidents_image/" + url;
+            contractId = Integer.parseInt(policyNumber);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
+        Accident accident = new Accident();
+        accident.setCustomerId(u.getId());
+        Date sqlDate = Date.valueOf(incidentDate);
+        accident.setDateOfAccident(sqlDate);
+        accident.setAccidentLocation(incidentLocation);
+        accident.setPoliceReportNumber(policeReportNumber);
+        accident.setDescriptionOfAccident(incidentDescription);
+        accident.setVehicleDamage(vehicleDamage);
+        accident.setImage(image);
+        int idAccident = AccidentDAO.INSTANCE.insertAccident(accident);
+        Compensation compensation = new Compensation();
+        compensation.setCustomerId(u.getId());
+        compensation.setContractId(contractId);
+        compensation.setAccidentId(idAccident);
+        compensation.setEstimatedRepairCost(new BigInteger(estimatedRepairCost));
+        LocalDate currentDate = LocalDate.now(); // Get the current date
+        Date sqlCurrentDate = Date.valueOf(currentDate); // Convert to SQL date
+        compensation.setDateFiled(sqlCurrentDate);
+        CompensationDAO.INSTANCE.insertCompensation(compensation);
         request.getRequestDispatcher("compensation.jsp").forward(request, response);
-
     }
 
     /**
