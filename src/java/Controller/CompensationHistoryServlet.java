@@ -62,16 +62,11 @@ public class CompensationHistoryServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String idRaw = request.getParameter("id");
-
         if (idRaw != null) {
             try {
                 int id = Integer.parseInt(idRaw);
-                UserDAO udb = new UserDAO();
-                List<User> listUser = udb.getAllUserByRole("customer");
                 List<Compensation> listCompensation = CompensationDAO.INSTANCE.getCompensationsByCusId(id);
                 request.setAttribute("listCompensation", listCompensation);
-                request.setAttribute("listUser", listUser);
-
             } catch (NumberFormatException e) {
             }
 
