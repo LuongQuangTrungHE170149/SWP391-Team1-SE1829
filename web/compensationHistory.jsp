@@ -62,7 +62,7 @@
                         <tr>
                             <td>${sessionScope.user.getFullName()}</td>
                             <td>
-                                <fmt:formatNumber value="${compensation.getEstimatedRepairCost()}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                <fmt:formatNumber value="${compensation.getEstimatedRepairCost()}" type="currency" currencySymbol="VND" groupingUsed="true"/>
 
                             </td>
                             <td>${compensation.dateFiled}</td>

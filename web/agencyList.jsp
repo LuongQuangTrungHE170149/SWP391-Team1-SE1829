@@ -76,7 +76,7 @@
                         <table class="styled-table">
                             <thead>
                                 <tr>
-                                    <th>Mã</th>
+                                  
                                     <th>Tên đại lí</th>
                                     <th>Địa chỉ</th>
                                     <th>Hotline</th>
@@ -92,7 +92,7 @@
                                     <c:forEach var="agency" items="${requestScope.listAgency}">
                                         <tr class="agency-container">
 
-                                            <td>${agency.agencyId}</td>
+                                           
                                             <td>${agency.agencyName}</td>
                                             <td>${agency.agencyAddress}</td>
                                             <td>${agency.hotline}</td>

@@ -18,9 +18,7 @@ Create table Users(
 			status nvarchar(255) default 'active',
 )
 
-
 GO
-
 
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,
@@ -47,7 +45,6 @@ Create table VehicleType(
 			price int,
 )
 GO
-
 insert into VehicleType(name,price) 
 values(N'Xe mô tô 2 bánh dung tích từ 50cc trở xuống',60500), 
       (N'Xe mô tô 2 bánh dung tích trên 50cc',66000),
