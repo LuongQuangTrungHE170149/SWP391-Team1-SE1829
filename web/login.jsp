@@ -55,12 +55,12 @@
                                                 <p style="color: red">${message}</p>
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="text" name="usernameEmail" id="input1" class="form-control" required="">
-                                                <label for="input1" class="form-label">Username</label>
+                                                <label for="input1" class="form-label">Tài khoản</label>
                                             </div>
 
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="password" name="password" id="input2" class="form-control" required="">
-                                                <label for="input2" class="form-label">Password</label>
+                                                <label for="input2" class="form-label">Mật khẩu</label>
                                             </div>
 
                                             <div class="text-center pt-1 mb-5 pb-1">

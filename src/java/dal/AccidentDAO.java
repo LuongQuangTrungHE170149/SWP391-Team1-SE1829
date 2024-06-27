@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -56,17 +58,37 @@ public class AccidentDAO {
         return id;
     }
     
+    public List<Accident> getAllAccidents () { 
+        List<Accident> list = new ArrayList<>();
+        String sql = "select * from accidents";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Accident accident = new Accident();
+                accident.setId(rs.getInt("AccidentId"));
+                accident.setCustomerId(rs.getInt("CustomerId"));
+                accident.setDateOfAccident(rs.getDate("DateOfAccident"));
+                accident.setAccidentLocation(rs.getString("AccidentLocation"));
+                accident.setPoliceReportNumber(rs.getString("PoliceReportNumber"));
+                accident.setDescriptionOfAccident(rs.getString("DescriptionOfAccident"));
+                accident.setVehicleDamage(rs.getString("vehicleDamage"));
+                accident.setImage(rs.getString("image"));
+                list.add(accident);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        
+        
+        return list;
+    }
+    
     public static void main(String[] args) {
-         Accident accident = new Accident();
-        accident.setCustomerId(1);
-        Date sqlDate = Date.valueOf("2021-12-12");
-        accident.setDateOfAccident(sqlDate);
-        accident.setAccidentLocation("Hà Nội");
-        accident.setPoliceReportNumber("abc123");
-        accident.setDescriptionOfAccident("nặng");
-        accident.setVehicleDamage("Hư hại");
-        accident.setImage("images/accidents_image/null.png");
-        System.out.println(AccidentDAO.INSTANCE.insertAccident(accident));
+
+        System.out.println(AccidentDAO.INSTANCE.getAllAccidents());
     }
 
 }
