@@ -98,6 +98,11 @@ public class Accident {
     public void setImage(String image) {
         this.image = image;
     }
+
+    @Override
+    public String toString() {
+        return "Accident{" + "id=" + id + ", customerId=" + customerId + ", dateOfAccident=" + dateOfAccident + ", accidentLocation=" + accidentLocation + ", policeReportNumber=" + policeReportNumber + ", descriptionOfAccident=" + descriptionOfAccident + ", vehicleDamage=" + vehicleDamage + ", image=" + image + '}';
+    }
     
     
     

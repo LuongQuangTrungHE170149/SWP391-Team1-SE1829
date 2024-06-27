@@ -43,7 +43,7 @@
                                     <div class="card-body p-md-5 mx-md-4">
                                         <div class="text-center">
                                             <img src="images/icon motor color 419fa3.png" alt="f-care" height="50"/>
-                                            <h4 class="mt-3 mb-3 pb-1" style="color:#419FA3;">Register</h4>
+                                            <h4 class="mt-3 mb-3 pb-1" style="color:#419FA3;">Đăng ký</h4>
                                         </div>
                                         <form action="register" method="post">
                                             <p class="text-muted" style="font-size: 16px;">Vui lòng điền thông tin tài khoản của bạn</p>
@@ -51,13 +51,13 @@
                                                 <div class="col-6">
                                                     <div data-mdb-input-init class="form-outline mb-4">
                                                         <input type="text" name="firstName" value="${firstName}" id="input2" class="form-control" required/>
-                                                        <label for="input2" class="form-label">First name</label>
+                                                        <label for="input2" class="form-label">Họ</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div data-mdb-input-init class="form-outline mb-4">
                                                         <input type="text" name="lastName" value="${lastName}" id="input2" class="form-control" required="">
-                                                        <label for="input2" class="form-label">Last name</label>
+                                                        <label for="input2" class="form-label">Tên</label>
                                                     </div>
 
                                                 </div>
@@ -66,13 +66,13 @@
                                                 <div class="col-6">
                                                     <div data-mdb-input-init class="form-outline mb-4">
                                                         <input type="date" name="dob" id="input2" value="${dob}" class="form-control" required="">
-                                                        <label for="input2" class="form-label">Date of Birth</label>
+                                                        <label for="input2" class="form-label">Sinh nhật</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <select data-mdb-select-init name="gender" class="form-select" aria-label="selectEx">
-                                                        <option value="1"${gender == 1?'selected':''}>Male</option>
-                                                        <option value="0"${gender == 0?'selected':''}>Female</option>
+                                                        <option value="1"${gender == 1?'selected':''}>Nam</option>
+                                                        <option value="0"${gender == 0?'selected':''}>Nữ</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -84,25 +84,25 @@
                                             <p class="m-0 text-danger">${invalidUsername}</p>
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="text" name="username" value="${username}" id="input1" class="form-control" required="">
-                                                <label for="input1" class="form-label">Username</label>
+                                                <label for="input1" class="form-label">Tài khoản</label>
                                             </div>
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="password" name="password" value="${password}" id="input2" class="form-control" required="">
-                                                <label for="input2" class="form-label">Password</label>
+                                                <label for="input2" class="form-label">Mật khẩu</label>
                                             </div>
                                             <p class="m-0 text-danger">${invalidConfirmPassword}</p>
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="password" name="confirmPassword" id="input2" class="form-control" required="">
-                                                <label for="input2" class="form-label">Confirm password</label>
+                                                <label for="input2" class="form-label">Xác nhận mật khẩu</label>
                                             </div>
                                             <p class="m-0 text-danger">${invalidPhone}</p>
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="text" name="phone" value="${phone}" id="input2" class="form-control" required="">
-                                                <label for="input2" class="form-label">Phone number</label>
+                                                <label for="input2" class="form-label">Số điện thoại</label>
                                             </div>
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="text" name="address" value="${address}" id="input2" class="form-control" required="">
-                                                <label for="input2" class="form-label">Address</label>
+                                                <label for="input2" class="form-label">Địa chỉ</label>
                                             </div>
                                             <div class="text-center pt-1 mb-5 pb-1">
                                                 <p class="m-0 text-success">${success}</p>

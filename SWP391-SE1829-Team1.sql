@@ -1,7 +1,6 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -84,6 +83,7 @@ Create table Punishments(
 )
 GO
 
+
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),
@@ -97,7 +97,6 @@ CREATE TABLE Compensations (
     PaymentDate DATE,
     Notes NTEXT
 );
-
 create TABLE Accidents (
     AccidentId INT IDENTITY(1,1) PRIMARY KEY,
     CustomerId INT REFERENCES Users(id),
@@ -122,7 +121,6 @@ Create table Consultations(
 			status bit default 0
 )
 GO
-
 create table Promotion(
             id int identity(1,1) primary key,
 			title nvarchar(max) not null,
@@ -148,8 +146,6 @@ Create Table News(
 			createDate Datetime default getdate()
 )
 GO
-
-
 
 INSERT INTO Accidents (CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
 VALUES (1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');

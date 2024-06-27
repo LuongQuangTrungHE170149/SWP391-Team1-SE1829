@@ -4,8 +4,10 @@
  */
 package Controller;
 
+import Model.Accident;
 import Model.Compensation;
 import Model.User;
+import dal.AccidentDAO;
 import dal.CompensationDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -64,8 +66,10 @@ public class CompensationApproveServlet extends HttpServlet {
         UserDAO userDao = new UserDAO();
         List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
         List<User> userList = userDao.getAllUserByRole("customer");
+        List<Accident> accidentList = AccidentDAO.INSTANCE.getAllAccidents();
         request.setAttribute("listCompensationPending", listCompensationPending);
         request.setAttribute("userList", userList);
+        request.setAttribute("accidentList", accidentList);
 
         request.getRequestDispatcher("compensationApprove.jsp").forward(request, response);
     }
@@ -81,7 +85,18 @@ public class CompensationApproveServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String notes = request.getParameter("notes");
+        String compensationId = request.getParameter("compensationId");
+        String status = request.getParameter("status");
+        String compensationAmount = request.getParameter("compensationAmount");
+
+        request.setAttribute("notes", notes);
+        request.setAttribute("compensationId", compensationId);
+        request.setAttribute("status", status);
+        request.setAttribute("compensationAmount", compensationAmount);
+        request.getRequestDispatcher("compensationApprove.jsp").forward(request, response);
+
     }
 
     /**
