@@ -106,6 +106,8 @@
                                                </c:if>
                                                " class="dropdown-item">Hồ sơ</a></li>
                                         <li><a href="compensationHistory?id=${sessionScope.user.id}" class="dropdown-item">Đền bù</a></li>
+                                        <li><a href="accidentHistory?id=${sessionScope.user.id}" class="dropdown-item">Lịch sử tai nạn</a></li>
+
                                         <li class="dropdown-divider"></li>
                                         <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
                                     </ul>
