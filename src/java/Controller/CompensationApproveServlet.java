@@ -16,6 +16,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -86,16 +89,27 @@ public class CompensationApproveServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+
         String notes = request.getParameter("notes");
         String compensationId = request.getParameter("compensationId");
         String status = request.getParameter("status");
-        String compensationAmount = request.getParameter("compensationAmount");
-
-        request.setAttribute("notes", notes);
-        request.setAttribute("compensationId", compensationId);
-        request.setAttribute("status", status);
-        request.setAttribute("compensationAmount", compensationAmount);
-        request.getRequestDispatcher("compensationApprove.jsp").forward(request, response);
+//        String compensationAmount = request.getParameter("compensationAmount");
+        int id = 0;
+        try {
+            id = Integer.parseInt(compensationId);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        Compensation compensation = new Compensation();
+        compensation.setNotes(notes);
+        compensation.setId(id);
+        compensation.setClaimStatus(status);
+        LocalDate currentDate = LocalDate.now();
+        Date sqlCurrentDate = Date.valueOf(currentDate);
+        compensation.setDateApproved(sqlCurrentDate);
+        CompensationDAO.INSTANCE.updateStatusCompensation(compensation);
+        response.sendRedirect("compensationApprove");
 
     }
 
