@@ -65,16 +65,29 @@ public class CompensationApproveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("staff")) {
+                UserDAO userDao = new UserDAO();
+                List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
+                List<User> userList = userDao.getAllUserByRole("customer");
+                List<Accident> accidentList = AccidentDAO.INSTANCE.getAllAccidents();
+                request.setAttribute("listCompensationPending", listCompensationPending);
+                request.setAttribute("userList", userList);
+                request.setAttribute("accidentList", accidentList);
 
-        UserDAO userDao = new UserDAO();
-        List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
-        List<User> userList = userDao.getAllUserByRole("customer");
-        List<Accident> accidentList = AccidentDAO.INSTANCE.getAllAccidents();
-        request.setAttribute("listCompensationPending", listCompensationPending);
-        request.setAttribute("userList", userList);
-        request.setAttribute("accidentList", accidentList);
+                request.getRequestDispatcher("compensationApprove.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("home");
 
-        request.getRequestDispatcher("compensationApprove.jsp").forward(request, response);
+            }
+
+        } else {
+            response.sendRedirect("login");
+
+        }
+
     }
 
     /**
@@ -88,8 +101,6 @@ public class CompensationApproveServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
 
         String notes = request.getParameter("notes");
         String compensationId = request.getParameter("compensationId");

@@ -82,7 +82,6 @@ Create table Punishments(
 			[Action] nvarchar(255),
 )
 GO
-
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),

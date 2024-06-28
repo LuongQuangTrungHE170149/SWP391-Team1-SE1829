@@ -54,7 +54,6 @@ public class AccidentDAO {
         } catch (SQLException e) {
             System.out.println(e);
         }
-
         return id;
     }
     
@@ -86,9 +85,38 @@ public class AccidentDAO {
         return list;
     }
     
+    
+     public List<Accident> getAllAccidentsByCusId (int id) { 
+        List<Accident> list = new ArrayList<>();
+        String sql = "select * from accidents where CustomerId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Accident accident = new Accident();
+                accident.setId(rs.getInt("AccidentId"));
+                accident.setCustomerId(rs.getInt("CustomerId"));
+                accident.setDateOfAccident(rs.getDate("DateOfAccident"));
+                accident.setAccidentLocation(rs.getString("AccidentLocation"));
+                accident.setPoliceReportNumber(rs.getString("PoliceReportNumber"));
+                accident.setDescriptionOfAccident(rs.getString("DescriptionOfAccident"));
+                accident.setVehicleDamage(rs.getString("vehicleDamage"));
+                accident.setImage(rs.getString("image"));
+                list.add(accident);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        } 
+        return list;
+    }
+    
+    
+    
     public static void main(String[] args) {
 
-        System.out.println(AccidentDAO.INSTANCE.getAllAccidents());
+        System.out.println(AccidentDAO.INSTANCE.getAllAccidentsByCusId(1));
     }
 
 }

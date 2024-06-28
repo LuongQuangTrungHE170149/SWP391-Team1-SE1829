@@ -47,7 +47,7 @@
                                 <th>Chi phí sửa chữa</th>
                                 <th>Ngày làm đơn</th>
                                 <th>Ghi chú</th>
-                                <th></th>
+                                <th>Xem xét đơn</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,19 +75,20 @@
                                         Chi tiết
                                     </span>
                                 </td>
-                                <td>
-                                    <fmt:formatNumber value="${compensation.estimatedRepairCost}" type="currency" groupingUsed="true"/>
-                                </td>
+
+                                <td class="amount">${compensation.getEstimatedRepairCost()}</td>
+
                                 <td>  <fmt:formatDate value="${compensation.dateFiled}" pattern="dd/MM/yyyy" /></td>
 
                                 <td>
-
-                                    <!-- Thêm class hidden và name để gửi dữ liệu về servlet -->
-                                    <span class="compensation-notes ${empty compensation.notes ? '' : 'hidden'}" onclick="toggleInput(this)">
-                                        ${empty compensation.notes ? 'Click để thêm ghi chú' : compensation.notes}
-                                    </span>
-                                    <input type="text" class="compensation-input ${empty compensation.notes ? 'hidden' : ''}" name="notes" value="${compensation.notes}" />
-
+                                    <div style="display: flex;">
+                                        <!-- Thêm class hidden và name để gửi dữ liệu về servlet -->
+                                        <span class="compensation-notes ${empty compensation.notes ? '' : 'hidden'}" onclick="toggleInput(this)">
+                                            ${empty compensation.notes ? 'Click để thêm ghi chú' : compensation.notes}
+                                        </span>
+                                        <input type="text" class="compensation-input ${empty compensation.notes ? 'hidden' : ''}" name="notes" value="${compensation.notes}" />
+                                        <button onclick="submitPending(${compensation.id})">Gửi</button>
+                                    </div>
                                 </td>
 
 
@@ -95,6 +96,7 @@
                                     <div style="display: flex; justify-content: space-evenly">
                                         <button type="button" class="btn btn-success" onclick="submitApproval(${compensation.id})">Đồng ý bồi thường</button>
                                         <button type="button" class="btn btn-danger" onclick="rejectCompensation(${compensation.id})">Từ chối bồi thường</button>
+
                                     </div>
                                     <input type="hidden" name="compensationId" value="${compensation.id}" />
                                     <input type="hidden" name="status" id="status-${compensation.id}" value="" />
@@ -131,16 +133,22 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
         <script>
+
+                                            window.addEventListener('load', () => {
+                                                const amounts = document.querySelectorAll('.amount');
+                                                amounts.forEach(amount => {
+                                                    const value = parseFloat(amount.textContent);
+                                                    amount.textContent = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
+                                                });
+                                            });
+
+                                            function submitPending(id) {
+                                                document.getElementById('status-' + id).value = 'pending';
+                                                document.getElementById('form-note-' + id).submit();
+                                            }
 
                                             function submitApproval(id) {
                                                 document.getElementById('status-' + id).value = 'approved';
