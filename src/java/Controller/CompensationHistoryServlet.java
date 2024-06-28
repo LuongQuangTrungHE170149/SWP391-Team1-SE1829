@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -60,19 +61,26 @@ public class CompensationHistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("customer")) {
+                String idRaw = request.getParameter("id");
+                if (idRaw != null) {
+                    try {
+                        int id = Integer.parseInt(idRaw);
+                        List<Compensation> listCompensation = CompensationDAO.INSTANCE.getCompensationsByCusId(id);
+                        request.setAttribute("listCompensation", listCompensation);
+                    } catch (NumberFormatException e) {
+                    }
 
-        String idRaw = request.getParameter("id");
-        if (idRaw != null) {
-            try {
-                int id = Integer.parseInt(idRaw);
-                List<Compensation> listCompensation = CompensationDAO.INSTANCE.getCompensationsByCusId(id);
-                request.setAttribute("listCompensation", listCompensation);
-            } catch (NumberFormatException e) {
+                    request.getRequestDispatcher("compensationHistory.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("home");
+                }
             }
-
-            request.getRequestDispatcher("compensationHistory.jsp").forward(request, response);
         } else {
-            response.sendRedirect("home");
+            response.sendRedirect("login");
         }
 
     }

@@ -61,18 +61,20 @@
                     <c:forEach var="compensation" items="${requestScope.listCompensation}">
                         <tr>
                             <td>${sessionScope.user.getFullName()}</td>
-                            <td>
-                                <fmt:formatNumber value="${compensation.getEstimatedRepairCost()}" type="currency" currencySymbol="VND" groupingUsed="true"/>
 
-                            </td>
-                            <td>${compensation.dateFiled}</td>
+                            <td class="amount">${compensation.getEstimatedRepairCost()}</td>
+
+                            <td>  <fmt:formatDate value="${compensation.dateFiled}" pattern="dd/MM/yyyy" /></td>
+
+
                             <c:if test="${compensation.claimStatus eq 'pending'}">
                                 <td class="text-warning">Đang xử lý</td>
                                 <td class="text-warning">Đang xử lý</td>
                                 <td class="text-warning">Đang xử lý</td>
                             </c:if>
                             <c:if test="${compensation.claimStatus eq 'approved'}">
-                                <td>${compensation.dateApproved}</td>
+
+                                <td>  <fmt:formatDate value="${compensation.dateApproved}" pattern="dd/MM/yyyy" /></td>
                                 <td>
                                     <fmt:formatNumber value="${compensation.paymentAmount}" type="currency" currencySymbol="₫" groupingUsed="true"/>
                                 </td>
@@ -113,6 +115,12 @@
                         setTimeout(() => failToast.style.display = 'none', 1000);
                     }
                 }, 3000);
+
+                const amounts = document.querySelectorAll('.amount');
+                amounts.forEach(amount => {
+                    const value = parseFloat(amount.textContent);
+                    amount.textContent = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
+                });
             });
         </script>
     </body>

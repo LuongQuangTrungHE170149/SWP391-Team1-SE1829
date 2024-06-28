@@ -179,6 +179,24 @@ public class CompensationDAO {
 
         return false;
     }
+    
+    
+    public boolean updateStatusCompensation(Compensation compensation) {
+        String sql = "Update Compensations set ClaimStatus = ?, DateApproved = ?, Notes = ? where CompensationId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, compensation.getClaimStatus());
+            ps.setDate(2, compensation.getDateApproved());
+            ps.setString(3, compensation.getNotes());
+            ps.setInt(4, compensation.getId());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return false;
+    }
 
     public static void main(String[] args) {
 
