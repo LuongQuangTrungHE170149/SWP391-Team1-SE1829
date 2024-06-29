@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet {
         UserDAO dbUser = new UserDAO();
         User user = dbUser.findByUsernameOrEmailAndPassword(usernameEmail, password);
         if (user == null) {
-            req.setAttribute("message", "You login failed");
+            req.setAttribute("message", "Đăng nhập thất bại");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
             session.setAttribute("user", user);

@@ -4,8 +4,10 @@
  */
 package Controller;
 
+import Model.Accident;
 import Model.Compensation;
 import Model.User;
+import dal.AccidentDAO;
 import dal.CompensationDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -15,13 +17,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
  *
  * @author tranm
  */
-public class CompensationHistoryServlet extends HttpServlet {
+public class CompensationApproveServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +44,10 @@ public class CompensationHistoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CompensationHistoryServlet</title>");
+            out.println("<title>Servlet CompensastionApproveServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CompensationHistoryServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CompensastionApproveServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,24 +68,24 @@ public class CompensationHistoryServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            if (user.getRole().equalsIgnoreCase("customer")) {
-                String idRaw = request.getParameter("id");
-                if (idRaw != null) {
-                    try {
-                        int id = Integer.parseInt(idRaw);
-                        List<Compensation> listCompensation = CompensationDAO.INSTANCE.getCompensationsByCusId(id);
-                        request.setAttribute("listCompensation", listCompensation);
-                    } catch (NumberFormatException e) {
-                        System.out.println(e);
-                    }
+            if (user.getRole().equalsIgnoreCase("staff")) {
+                UserDAO userDao = new UserDAO();
+                List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
+                List<User> userList = userDao.getAllUserByRole("customer");
+                List<Accident> accidentList = AccidentDAO.INSTANCE.getAllAccidents();
+                request.setAttribute("listCompensationPending", listCompensationPending);
+                request.setAttribute("userList", userList);
+                request.setAttribute("accidentList", accidentList);
 
-                    request.getRequestDispatcher("compensationHistory.jsp").forward(request, response);
-                } else {
-                    response.sendRedirect("home");
-                }
+                request.getRequestDispatcher("compensationApprove.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("home");
+
             }
+
         } else {
             response.sendRedirect("login");
+
         }
 
     }
@@ -97,7 +101,27 @@ public class CompensationHistoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String notes = request.getParameter("notes");
+        String compensationId = request.getParameter("compensationId");
+        String status = request.getParameter("status");
+//        String compensationAmount = request.getParameter("compensationAmount");
+        int id = 0;
+        try {
+            id = Integer.parseInt(compensationId);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        Compensation compensation = new Compensation();
+        compensation.setNotes(notes);
+        compensation.setId(id);
+        compensation.setClaimStatus(status);
+        LocalDate currentDate = LocalDate.now();
+        Date sqlCurrentDate = Date.valueOf(currentDate);
+        compensation.setDateApproved(sqlCurrentDate);
+        CompensationDAO.INSTANCE.updateStatusCompensation(compensation);
+        response.sendRedirect("compensationApprove");
+
     }
 
     /**

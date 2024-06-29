@@ -1,7 +1,6 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -18,9 +17,7 @@ Create table Users(
 			status nvarchar(255) default 'active',
 )
 
-
 GO
-
 
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,
@@ -47,7 +44,6 @@ Create table VehicleType(
 			price int,
 )
 GO
-
 insert into VehicleType(name,price) 
 values(N'Xe mô tô 2 bánh dung tích từ 50cc trở xuống',60500), 
       (N'Xe mô tô 2 bánh dung tích trên 50cc',66000),
@@ -70,10 +66,6 @@ Create table Contracts(                                        /*bao hiem xe may
 )
 GO
 
-
-
-
-
 create table Staff_Workplace(
 			swId int identity(1,1) primary key,
 			AgencyId int References Agencies(AgencyId),
@@ -90,7 +82,6 @@ Create table Punishments(
 			[Action] nvarchar(255),
 )
 GO
-
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),
@@ -104,15 +95,16 @@ CREATE TABLE Compensations (
     PaymentDate DATE,
     Notes NTEXT
 );
-
-CREATE TABLE Accidents (
+create TABLE Accidents (
     AccidentId INT IDENTITY(1,1) PRIMARY KEY,
     CustomerId INT REFERENCES Users(id),
     DateOfAccident DATE NOT NULL,
     AccidentLocation NVARCHAR(255) NOT NULL,
     PoliceReportNumber NVARCHAR(50),
     DescriptionOfAccident NTEXT NOT NULL,
-    VehicleDamage NTEXT NOT NULL
+    VehicleDamage NTEXT NOT NULL,
+	image varchar(255),
+
 );
 GO
 
@@ -127,7 +119,6 @@ Create table Consultations(
 			status bit default 0
 )
 GO
-
 create table Promotion(
             id int identity(1,1) primary key,
 			title nvarchar(max) not null,
@@ -154,13 +145,11 @@ Create Table News(
 )
 GO
 
+INSERT INTO Accidents (CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
+VALUES (1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
 
-
-INSERT INTO Accidents (ContractId, CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
-VALUES (1, 1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
-
-INSERT INTO Compensations (AccidentId, EstimatedRepairCost, ClaimStatus, DateFiled, DateApproved, PaymentAmount, PaymentDate, Notes)
-VALUES (2, 5000.00, N'pending', '2023-06-16', NULL, NULL, NULL, N'Đang chờ xử lý từ phía bảo hiểm');
+INSERT INTO Compensations (ContractId, CustomerId, AccidentId, EstimatedRepairCost, ClaimStatus, DateFiled, DateApproved, PaymentAmount, PaymentDate, Notes)
+VALUES (1, 1, 1, 5000.00, N'pending', '2023-06-16', NULL, NULL, NULL, N'Đang chờ xử lý từ phía bảo hiểm');
 
 
 
