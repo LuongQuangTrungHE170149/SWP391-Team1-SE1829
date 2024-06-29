@@ -172,6 +172,18 @@
         <servlet-name>CalculateInsurancePageServlet</servlet-name>
         <servlet-class>Controller.CalculateInsurancePageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RequestCustomerInforServlet</servlet-name>
+        <servlet-class>Controller.RequestCustomerInforServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReviewCustomerInfoServlet</servlet-name>
+        <servlet-class>Controller.ReviewCustomerInfoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CalculateInsuranceFormServlet</servlet-name>
+        <servlet-class>Controller.CalculateInsuranceFormServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -343,6 +355,18 @@
     <servlet-mapping>
         <servlet-name>CalculateInsurancePageServlet</servlet-name>
         <url-pattern>/calculateInsurancePage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestCustomerInforServlet</servlet-name>
+        <url-pattern>/requestCustomerInfor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewCustomerInfoServlet</servlet-name>
+        <url-pattern>/reviewCustomerInfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CalculateInsuranceFormServlet</servlet-name>
+        <url-pattern>/calculateInsuranceForm</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
