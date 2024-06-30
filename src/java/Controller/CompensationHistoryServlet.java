@@ -79,6 +79,9 @@ public class CompensationHistoryServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("home");
                 }
+            } else {
+                response.sendRedirect("home");
+
             }
         } else {
             response.sendRedirect("login");
