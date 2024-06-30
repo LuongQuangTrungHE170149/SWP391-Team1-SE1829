@@ -47,6 +47,9 @@
             .card{
                 border: 1px solid #419FA3 !important;
             }
+            .border-isAccidentInsurance{
+                border: 1px solid #419FA3 !important;
+            }
         </style>
     </head>
     <body>
@@ -106,7 +109,7 @@
                 </div>
                 <div>
                     <div class="text-419FA3 fs-5 fw-bold mb-3">Bạn có thể chọn thêm</div> 
-                    <div class="row p-3 border rounded-3 shadow-1-strong">
+                    <div class="row p-3 border rounded-3 shadow-1-strong" id="border-isAccidentInsurance">
                         <div class="col-8 col-lg-3 d-flex align-items-center border-end">
                             <input type="checkbox" id="isAccidentInsurance" name="isAccidentInsurance" value="true" ${isAccidentInsurance == true?'checked':''} style="cursor: pointer;"/>
                             <label for="isAccidentInsurance" class="lh-sm ms-2" style="cursor: pointer;">BẢO HIỂM TAI NẠN NGƯỜI TRÊN XE</label>
@@ -175,12 +178,27 @@
                     $("#totalPrice").text(totalPrice.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}));
                     $("#totalPriceInput").val(totalPrice);
                 }
+
+                function updateBorder() {
+                    if ($("#isAccidentInsurance").is(":checked")) {
+                        $("#border-isAccidentInsurance").removeClass("border");
+                        $("#border-isAccidentInsurance").addClass("border-isAccidentInsurance");
+                    }else{
+                        $("#border-isAccidentInsurance").addClass("border");                        
+                    }
+                }
+
+
+
                 $('#isAccidentInsurance').change(function () {
                     calculateTotalPrice();
+                    updateBorder();
                 });
 
                 // Tính toán giá ban đầu khi tải trang
                 calculateTotalPrice();
+                var element = document.getElementById("calculateInsuranceForm");
+                element.scrollIntoView({behavior: "smooth", block: "center"});
             });
         </script>
     </body>

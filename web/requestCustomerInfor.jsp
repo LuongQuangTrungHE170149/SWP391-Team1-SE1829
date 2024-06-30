@@ -75,7 +75,9 @@
 
             <div class="stepper d-flex justify-content-between rounded-3 mb-3" style="background-color: #FAFAFA; padding:16px 200px ; width: 100%;">
                 <div class="step-item text-center">
-                    <div class="rounded-circle border fw-bold m-auto mb-3 done-step" style="width: 30px; height: 30px; align-content: center;"> 1 </div>
+                    <div class="rounded-circle border fw-bold m-auto mb-3 done-step position-relative" style="width: 30px; height: 30px; align-content: center;">
+                        1 <i class="fa-solid fa-check text-success position-absolute bottom-0"></i>
+                    </div>
                     <div>Tính phí</div>
                 </div>
                 <div class="step-item text-center">
@@ -94,7 +96,7 @@
                 </div>
             </div>
 
-            <div class="Customer-information m-auto mt-5 mb-5 p-5 shadow " style="width: 70%;">
+            <div class="Customer-information m-auto mt-5 mb-5 p-5 shadow " style="width: 100%;">
                 <!--Customer info-->
                 <form id="customerInfoForm">
                     <div class="fs-5 fw-bold text-419FA3">Thông tin người yêu cầu bảo hiểm</div>
@@ -409,7 +411,7 @@
                     </div>
                 </div>
             </div>
-            <div id="confirm" class="m-auto ps-5" style="width: 70%; display: none; ">
+            <div id="confirm" class="m-auto ps-5" style=" display: none; ">
                 <div>
                     <div class="error-message text-danger" id="confirm-error"></div>
                     <div class="form-check">

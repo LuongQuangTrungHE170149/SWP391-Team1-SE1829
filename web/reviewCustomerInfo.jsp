@@ -79,11 +79,15 @@
 
             <div class="stepper d-flex justify-content-between rounded-3 mb-3" style="background-color: #FAFAFA; padding:16px 200px ; width: 100%;">
                 <div class="step-item text-center">
-                    <div class="rounded-circle border fw-bold m-auto mb-3 done-step" style="width: 30px; height: 30px; align-content: center;"> 1 </div>
+                    <div class="rounded-circle border fw-bold m-auto mb-3 done-step position-relative" style="width: 30px; height: 30px; align-content: center;">
+                        1 <i class="fa-solid fa-check text-success position-absolute bottom-0"></i>
+                    </div>
                     <div>Tính phí</div>
                 </div>
                 <div class="step-item text-center">
-                    <div class="rounded-circle border fw-bold m-auto mb-3 done-step " style="width: 30px; height: 30px; align-content: center;"> 2 </div>
+                    <div class="rounded-circle border fw-bold m-auto mb-3 done-step position-relative" style="width: 30px; height: 30px; align-content: center;">
+                        2 <i class="fa-solid fa-check text-success position-absolute bottom-0"></i>
+                    </div>
                     <div>Khai báo</div>
                 </div><div class="step-item text-center">
                     <div class="rounded-circle fw-bold m-auto mb-3 current-step" style="width: 30px; height: 30px; align-content: center;"> 3 </div>
@@ -98,7 +102,7 @@
                 </div>
             </div>
 
-            <div class="Customer-information m-auto mt-5 mb-5 pb-5 shadow " style="width: 70%;">
+            <div class="Customer-information m-auto mt-5 mb-5 pb-5 shadow " style="width: 100%;">
                 <button type="button" class="btn btn-sm btn-primary rounded-pill mt-5 mb-5 ms-5" onclick="window.history.back()" data-mdb-ripple-init><i class="fa-solid fa-angle-left me-2"></i>Quay lại chỉnh sửa</button>
 
                 <!--hien thi thong tin nguoi yeu cau-->
@@ -265,7 +269,7 @@
                     </div>
                 </div>
                 <!--hien thi thong tin bao hiem-->
-                <div id="insuranceInfo" class="mb-5 px-5 pb-5 border-bottom">
+                <div id="insuranceInfo" class="px-5">
                     <div class="d-flex justify-content-between">
                         <div class="fs-5 fw-bold text-419FA3">Thông tin bảo hiểm</div>
                         <div></div>
@@ -310,7 +314,7 @@
                     </div>
                 </div>
             </div>
-            <div id="confirm" class="m-auto ps-5" style="width: 70%;">
+            <div id="confirm" class="m-auto ps-5">
                 <div>
                     <div class="error-message text-danger" id="confirm-error1"></div>
                     <div class="form-check mb-3">
@@ -367,10 +371,8 @@
                         }
                         
                         if(isValid){
-                            window.location.href = "nextPage.html";
+                            window.location.href = "payment";
                         }
-
-
                     }
 
 

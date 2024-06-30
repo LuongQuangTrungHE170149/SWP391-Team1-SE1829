@@ -98,7 +98,7 @@
         </style>
     </head>
     <body>
-        <form action="calculateInsuranceForm" method="post" 
+        <form action="calculateInsuranceForm" id="calculateInsuranceForm" method="post" 
               class="insurance-form p-3 border shadow-3-strong rounded-3 mb-3" 
               style="min-width: 500px;"
               onsubmit="return validateForm()"

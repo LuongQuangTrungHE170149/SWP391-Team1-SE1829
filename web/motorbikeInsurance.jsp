@@ -66,8 +66,8 @@
 
                         </div>
                         <div class="col-12 col-lg-4 text-end">
-                            <a href="#consForm" class="btn btn-outline-primary rounded-pill ">Đăng ký tư vấn</a>
-                            <a href="#request-contract" class="btn btn-primary rounded-pill btn-lg">Tính phí</a>
+                            <button type="button" id="btn-consForm" class="btn btn-outline-primary rounded-pill ">Đăng ký tư vấn</button>
+                            <button type="button" id="btn-calculateInsuranceForm" class="btn btn-primary rounded-pill btn-lg">Tính phí</button>
                         </div>
                     </div>
 
@@ -231,6 +231,13 @@
         <jsp:include page="footer.jsp"/>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+            document.getElementById("btn-consForm").addEventListener("click",function(){
+                document.getElementById("consForm").scrollIntoView({behavior:"smooth", block:"center"});
+            });
+            document.getElementById("btn-calculateInsuranceForm").addEventListener("click",function(){
+                var element = document.getElementById("calculateInsuranceForm");
+                element.scrollIntoView({behavior: "smooth", block: "center"});
+            });
             $(document).ready(function () {
                 $('#consForm').on('submit', function (e) {
                     e.preventDefault();
