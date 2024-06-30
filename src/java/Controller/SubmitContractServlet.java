@@ -123,6 +123,12 @@ public class SubmitContractServlet extends HttpServlet {
             ContractDAO cdb = new ContractDAO();
             System.out.println(cdb.addContract(c));
             EmailHelper.sendEmailRequestContractSuccess(email, "[ĐĂNG KÝ] YÊU CẦU HỢP ĐỒNG BẢO HIỂM XE MÁY THÀNH CÔNG", (firstName+" "+lastName).toUpperCase(), contractCode, note);
+            
+            request.getSession().removeAttribute("totalPrice");
+            request.getSession().removeAttribute("num_years");
+            request.getSession().removeAttribute("firstName");
+            request.getSession().removeAttribute("lastName");
+            request.getSession().removeAttribute("vehicleOwnerFirstName");
             response.sendRedirect("requestContractSuccess.jsp");
         } catch (Exception e) {
             System.out.println(e);

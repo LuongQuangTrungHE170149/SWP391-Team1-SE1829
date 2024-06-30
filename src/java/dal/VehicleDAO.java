@@ -51,26 +51,26 @@ public class VehicleDAO extends DBContext {
                 + "      ,[Chassis]\n"
                 + "      ,[Engine]\n"
                 + "  FROM [SWP391_SE1829_Team1].[dbo].[Vehicles] order by id DESC";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Vehicle v = new Vehicle();
                 v.setId(rs.getInt("id"));
                 v.setOwnerFirstName(rs.getString("OwnerFirstName"));
                 v.setOwnerLastName(rs.getString("OwnerLastName"));
                 v.setOwnerAddress(rs.getString("OwnerAddress"));
-                
+
                 VehicleTypeDAO vtdb = new VehicleTypeDAO();
                 VehicleType vt = vtdb.getVehicleTypeById(rs.getInt("VehicleType"));
                 v.setMotocycleType(vt);
                 v.setLicensePlates(rs.getString("LicensePlates"));
                 v.setChassis(rs.getString("Chassis"));
                 v.setEngine(rs.getString("Engine"));
-                
+
                 return v;
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
@@ -150,29 +150,41 @@ public class VehicleDAO extends DBContext {
         }
     }
 
-    public Vehicle getVehicleById(int vehicleId) {
-        Vehicle vehicle = new Vehicle();
-        String sql = "SELECT * FROM Vehicles WHERE MotocycleId = ?";
+    public Vehicle getVehicleById(int id) {
+        String sql = "SELECT [id]\n"
+                + "      ,[OwnerFirstName]\n"
+                + "      ,[OwnerLastName]\n"
+                + "      ,[OwnerAddress]\n"
+                + "      ,[VehicleType]\n"
+                + "      ,[LicensePlates]\n"
+                + "      ,[Chassis]\n"
+                + "      ,[Engine]\n"
+                + "  FROM [dbo].[Vehicles] where id = ?";
         try {
 
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setInt(1, vehicleId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
 
-            if (resultSet.next()) {
-                vehicle = new Vehicle();
-                vehicle.setId(resultSet.getInt("MotocycleId"));
-                vehicle.setMotocycleType(resultSet.getString("MotocycleType"));
-                vehicle.setLicensePlates(resultSet.getString("LicensePlates"));
-                vehicle.setChassis(resultSet.getString("Chassis"));
-                vehicle.setEngine(resultSet.getString("Engine"));
-                vehicle.setOwnerId(resultSet.getInt("OwnerId"));
+            if (rs.next()) {
+               Vehicle v = new Vehicle();
+               v.setId(rs.getInt("id"));
+               v.setOwnerFirstName(rs.getString("OwnerFirstName"));
+               v.setOwnerLastName(rs.getString("OwnerLastName"));
+               v.setOwnerAddress(rs.getString("OwnerAddress"));
+               VehicleTypeDAO vtdb = new VehicleTypeDAO();
+               VehicleType vt = vtdb.getVehicleTypeById(rs.getInt("VehicleType"));
+               v.setMotocycleType(vt);
+               v.setLicensePlates(rs.getString("LicensePlates"));
+               v.setChassis(rs.getString("Chassis"));
+               v.setEngine(rs.getString("Engine"));
+               return v;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return vehicle;
+        return null;
     }
 
     public int getVehicleIdAfterAdd() throws SQLException {
@@ -216,7 +228,8 @@ public class VehicleDAO extends DBContext {
 
         //Vehicle vehicle = new Vehicle("YAMAHA GHI XÁM", "16k1-1860", 2);
 //        boolean result = vd.addVehicle(vehicle);
-        System.out.println(VehicleDAO.INSTANCE.getVehicleIdAfterAdd());
+        VehicleDAO vdb = new VehicleDAO();
+        System.out.println(vdb.getVehicleById(1));
     }
 
 }

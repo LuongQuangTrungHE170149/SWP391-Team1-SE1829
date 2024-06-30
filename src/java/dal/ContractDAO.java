@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class ContractDAO extends DBContext {
 
-
     public List<User> getCustomer(String name) {
         List<User> customers = new ArrayList<>();
         try {
@@ -84,6 +83,48 @@ public class ContractDAO extends DBContext {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Contract getContractByCode(String contractCode) {
+        String sql = "SELECT [ContractId]\n"
+                + "      ,[CustomerId]\n"
+                + "      ,[StaffId]\n"
+                + "      ,[VehicleId]\n"
+                + "      ,[StartDate]\n"
+                + "      ,[EndDate]\n"
+                + "      ,[isAccidentInsurance]\n"
+                + "      ,[Description]\n"
+                + "      ,[Code]\n"
+                + "      ,[Payment]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Contracts] where Code = ?";
+        
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, contractCode);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                Contract c = new Contract();
+                c.setCode(contractCode);
+                c.setContractId(rs.getInt("ContractId"));
+                c.setStaffId(rs.getInt("StaffId"));
+                
+               VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                c.setVehicle(v);
+                
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setStatus(rs.getString("status"));
+                
+                return c;
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        } return null;
     }
 
     public boolean requestContract(Contract contract) {
@@ -342,25 +383,11 @@ public class ContractDAO extends DBContext {
         return null;
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args)  {
         ContractDAO cd = new ContractDAO();
-//        List<User> users = cd.getCustomer("jdoe");
-        Date startDate = new Date(2024, 6, 12);
-        Date endDate = new Date(2025, 6, 12);
         
-        Contract c = new Contract();
-        c.setCode("ABC12341AHF211");
-        c.setCustomerId(18);
-        c.setDescription("Đã có tài khoản");
-        c.setEndDate(endDate);
-        c.setStartDate(startDate);
-        c.setIsAccidentInsurance(true);
+        System.out.println(cd.getContractByCode("XVPR954NK0RM"));
+
         
-        Vehicle vehicle = new Vehicle();
-        vehicle.setId(1);
-        c.setVehicle(vehicle);
-        c.setPayment(1000000.0);
-        
-        System.out.println(cd.addContract(c));
     }
 }

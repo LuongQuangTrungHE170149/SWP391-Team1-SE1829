@@ -6,92 +6,85 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="/SWP391-Team1-SE1829/CSS/searchContract.css">
-
-        <!-- Font Awesome -->
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-            rel="stylesheet"
-            />
-        <!-- Google Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-            rel="stylesheet"
-            />
-        <!-- MDB -->
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
-            rel="stylesheet"
-            />
-        <title>Search Contract Page</title>
-
+        <title>Tra cứu hợp đồng</title>
+        <style>
+            td{
+                padding: 10px !important;
+                font-size: 12px;
+                text-align: center !important;
+            }
+            th{
+                padding: 10px !important;
+                text-align: center !important;
+                font-size: 14px;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp" />
-        <div class="container">
-            <form action="searchContract" method="post">
-                <div style="margin-top: 20px" class="form-outline mb-4" data-mdb-input-init>
-                    <input type="search" name="key" class="form-control" value="${requestScope.key}" id="datatable-search-input">
-                    <label class="form-label" for="datatable-search-input">Nhập biển số xe của bạn</label>
+        <div class="content">
+            <div class="row mt-4 px-3" style="width: 100%;">
+                <div class="col-12 col-lg-4">
+                    <div class="fs-2 fw-bold text-danger">Tra cứu hợp đồng</div> 
                 </div>
-            </form>
 
-            <div>
-
-                <c:choose>
-                    <c:when test="${requestScope.listContract.size() > 0}">
-                        <table class="table">
-                            <thead> 
-                                <tr>
-                                    <th>Tên chủ xe</th>
-                                    <th>Biển số xe</th>
-                                    <th>Số khung</th>
-                                    <th>Số máy</th>
-                                    <th>Loại bảo hiểm</th>
-                                    <th>Ngày hiệu lực</th>
-                                    <th>Ngày kết thúc</th>
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <c:forEach var="contract" items="${requestScope.listContract}">
-                                    <tr>
-                                        <c:forEach var="customer" items="${requestScope.listUser}">
-                                            <c:if test="${contract.customerId == customer.id}">
-                                                <td>${customer.getFullName()}</td>
-                                            </c:if>
-                                        </c:forEach>
-                                        <c:forEach var="vehicle" items="${listVehicle}">
-                                            <c:if test="${contract.vehicleId == vehicle.id}">
-                                                <td>${vehicle.getLicensePlates()}</td>
-                                                <td>${vehicle.chassis}</td>
-                                                <td>${vehicle.engine}</td>
-                                            </c:if>
-                                        </c:forEach>
-                                        <td>${contract.getContractType()}</td>
-                                        <td>${contract.startDate}</td>
-                                        <td>${contract.endDate}</td>
-                                    </tr>
-                                </c:forEach>
-
-                            </tbody>
-                        </table>
-                    </c:when>
-                    <c:otherwise>
-                        <h1>Không có hợp đồng</h1>
-                    </c:otherwise>
-                </c:choose>
-
+                <div class="col-12 col-lg-5 d-flex align-items-center">
+                    <form action="searchContract" method="post" class="flex-grow-1">
+                        <div class="form-outline d-flex align-items-center" data-mdb-input-init>
+                            <input type="search" name="key" class="form-control" value="${key}" id="datatable-search-input">
+                            <button type="submit" class="border-0" style="background-color: #fff"><i class="fa-solid fa-magnifying-glass me-3"></i></button>
+                            <label class="form-label" for="datatable-search-input">Nhập mã hợp đồng</label>
+                        </div>
+                    </form>
+                </div>
+                <c:if test="${message != null and not empty key}">
+                    <div class="text-danger text-center">${message}</div>
+                </c:if>            
             </div>
 
+            <div class="mt-5">
+                <c:if test="${not empty c}">
+                    <table class="table table-hover table-bordered">
+                        <thead> 
+                            <tr>
+                                <th>Tên chủ xe</th>
+                                <th>Biển số xe</th>
+                                <th>Số khung</th>
+                                <th>Số máy</th>
+                                <th>Loại bảo hiểm</th>
+                                <th>Ngày hiệu lực</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Mô tả</th>
+                                <th>Chi tiết</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${c.vehicle.ownerFirstName} ${c.vehicle.ownerLastName}</td>
+                                <td>${c.vehicle.licensePlates}</td>
+                                <td>${c.vehicle.chassis}</td>
+                                <td>${c.vehicle.engine}</td>
+                                <td>${c.vehicle.motocycleType.name}</td>
+                                <td><fmt:formatDate value="${c.startDate}" pattern="dd/MM/yyyy"/></td>
+                                <td><fmt:formatDate value="${c.endDate}" pattern="dd/MM/yyyy"/></td>
+                                <td>${c.description}</td>
+                                <td><a href="#" class="text-info"><i class="fa-regular fa-folder-open"></i></a></td>
+                                <td>
+                                    <div class="badge <c:if test="${c.status == 'Pending'}">badge-warning</c:if>">${c.status}</div>
+                                </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                </c:if>
 
-
+            </div>
         </div>
-
         <!-- MDB -->
         <script
             type="text/javascript"
