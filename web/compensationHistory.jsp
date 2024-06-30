@@ -81,7 +81,9 @@
                                 <td class="text-success">Đã duyệt</td>
                             </c:if>
                             <c:if test="${compensation.claimStatus eq 'rejected'}">
-                                <td class="text-danger">Bị từ chối</td>
+                                <td> 
+                                    <fmt:formatDate value="${compensation.dateApproved}" pattern="dd/MM/yyyy" />
+                                </td>
                                 <td class="text-danger">Bị từ chối</td>
                                 <td class="text-danger">Bị từ chối</td>
                             </c:if>

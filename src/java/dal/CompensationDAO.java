@@ -80,6 +80,35 @@ public class CompensationDAO {
     }
     
     
+      public List<Compensation> getCompensationsNotPending() {
+        List<Compensation> list = new ArrayList<>();
+        String sql = "select * from Compensations where ClaimStatus != 'pending'";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Compensation compensation = new Compensation();
+                compensation.setId(rs.getInt("CompensationId"));
+                compensation.setContractId(rs.getInt("ContractId"));
+                compensation.setCustomerId(rs.getInt("CustomerId"));
+                compensation.setAccidentId(rs.getInt("AccidentId"));
+                compensation.setEstimatedRepairCost(BigInteger.valueOf(rs.getInt("EstimatedRepairCost")));
+                compensation.setClaimStatus(rs.getString("ClaimStatus"));
+                compensation.setDateFiled(rs.getDate("DateFiled"));
+                compensation.setDateApproved(rs.getDate("DateApproved"));
+                compensation.setPaymentAmount(BigInteger.valueOf(rs.getInt("PaymentAmount")));
+                compensation.setPaymentDate(rs.getDate("PaymentDate"));
+                compensation.setNotes(rs.getString("Notes"));
+                list.add(compensation);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+    
     public List<Compensation> getCompensationsApproved() {
         List<Compensation> list = new ArrayList<>();
         String sql = "select * from Compensations where ClaimStatus != 'pending'";

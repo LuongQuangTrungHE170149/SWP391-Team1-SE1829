@@ -54,11 +54,12 @@ Create table Vehicles(
 			Chassis nvarchar(255),
 			Engine nvarchar(255),
 )
+
 Create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int foreign key references Users(id),
-			StaffId int foreign key references Users(id),
-			VehicleId int references Vehicles(id),
+			StaffId int ,
+			VehicleId int foreign key references Vehicles(id),
 			StartDate date,
 			EndDate date,
 			isAccidentInsurance bit default 0,   /*them check co them bao hiem tai nan hay khong*/

@@ -71,9 +71,13 @@ public class CompensationApproveServlet extends HttpServlet {
             if (user.getRole().equalsIgnoreCase("staff")) {
                 UserDAO userDao = new UserDAO();
                 List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
+                List<Compensation> listCompensationNotPending = CompensationDAO.INSTANCE.getCompensationsNotPending();
+
                 List<User> userList = userDao.getAllUserByRole("customer");
                 List<Accident> accidentList = AccidentDAO.INSTANCE.getAllAccidents();
+                session.setAttribute("totalApplication", listCompensationPending.size());
                 request.setAttribute("listCompensationPending", listCompensationPending);
+                request.setAttribute("listCompensationNotPending", listCompensationNotPending);
                 request.setAttribute("userList", userList);
                 request.setAttribute("accidentList", accidentList);
 

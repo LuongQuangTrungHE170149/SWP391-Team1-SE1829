@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +51,19 @@ public class CompensationRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("compensation.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("customer")) {
+                request.getRequestDispatcher("compensation.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("home");
+
+            }
+        } else {
+            response.sendRedirect("login");
+
+        }
     }
 
     @Override
@@ -68,7 +81,7 @@ public class CompensationRequestServlet extends HttpServlet {
         String estimatedRepairCost = request.getParameter("estimatedRepairCost");
         String image = "images/accidents_image/null.png";
         int contractId = 0;
-        
+
         try {
             Part filePart = request.getPart("supportingDocuments");
             if (filePart != null && filePart.getSize() > 0) {
@@ -82,8 +95,7 @@ public class CompensationRequestServlet extends HttpServlet {
                 }
                 File file = new File(uploadDir, fileName);
                 LOGGER.log(Level.INFO, "File path: {0}", file.getAbsolutePath());
-                try (InputStream input = filePart.getInputStream();
-                     OutputStream output = new FileOutputStream(file)) {
+                try (InputStream input = filePart.getInputStream(); OutputStream output = new FileOutputStream(file)) {
                     byte[] buffer = new byte[1024];
                     int bytesRead;
                     while ((bytesRead = input.read(buffer)) != -1) {
@@ -96,7 +108,7 @@ public class CompensationRequestServlet extends HttpServlet {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "File upload error", e);
         }
-        
+       
         if (cdb.checkContractByCustomerId(contractId, u.getId()) != null) {
             Accident accident = new Accident();
             accident.setCustomerId(u.getId());
