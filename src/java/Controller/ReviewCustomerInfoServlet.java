@@ -5,23 +5,18 @@
 
 package Controller;
 
-import Model.VehicleType;
-import dal.VehicleTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  *
  * @author thuhu
  */
-public class MotorbikeInsuranceServlet extends HttpServlet {
+public class ReviewCustomerInfoServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +33,10 @@ public class MotorbikeInsuranceServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MotorbikeInsuranceServlet</title>");  
+            out.println("<title>Servlet ReviewCustomerInfoServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MotorbikeInsuranceServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ReviewCustomerInfoServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,11 +53,9 @@ public class MotorbikeInsuranceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        VehicleTypeDAO vdb = new VehicleTypeDAO();
-        List<VehicleType> listVT = vdb.getAll();
-        
-        request.getSession().setAttribute("listVT", listVT);
-        request.getRequestDispatcher("motorbikeInsurance.jsp").forward(request, response);
+        if(request.getSession().getAttribute("num_years") == null){
+            response.sendRedirect("motorbikeInsurance");
+        }else  request.getRequestDispatcher("reviewCustomerInfo.jsp").forward(request, response);
     } 
 
     /** 
@@ -75,7 +68,7 @@ public class MotorbikeInsuranceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     /** 

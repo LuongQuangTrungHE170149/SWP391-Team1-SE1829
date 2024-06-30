@@ -82,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="mt-5 mb-5">
+            <form method="post" action="calculateInsurancePage" class="mt-5 mb-5">
                 <div class="text-419FA3 fs-5 fw-bold mb-3">Chọn chương trình bảo hiểm phù hợp</div> 
                 <div class="row mb-4">
                     <div class="col-12 col-lg-4">
@@ -108,7 +108,7 @@
                     <div class="text-419FA3 fs-5 fw-bold mb-3">Bạn có thể chọn thêm</div> 
                     <div class="row p-3 border rounded-3 shadow-1-strong">
                         <div class="col-8 col-lg-3 d-flex align-items-center border-end">
-                            <input type="checkbox" id="isAccidentInsurance" name="isAccidentInsurance" value="1" style="cursor: pointer;"/>
+                            <input type="checkbox" id="isAccidentInsurance" name="isAccidentInsurance" value="true" ${isAccidentInsurance == true?'checked':''} style="cursor: pointer;"/>
                             <label for="isAccidentInsurance" class="lh-sm ms-2" style="cursor: pointer;">BẢO HIỂM TAI NẠN NGƯỜI TRÊN XE</label>
                         </div>
                         <div class="col-8 col-lg-6">
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                         <div class="col-8 col-lg-3" style="align-content: center;">
-                            <p class="fw-bold m-0">Phí bảo hiểm: 20.000đ</p>
+                            <p class="fw-bold m-0">Phí bảo hiểm: <fmt:formatNumber value="${20000*num_years}" type="currency" currencyCode="VND" /></p>
                         </div>
                     </div>
 
@@ -132,6 +132,9 @@
                     <!--tinh phi-->
                     <input type="hidden" id="num_years" name="num_years" value="${num_years}"/>
                     <input type="hidden" id="motocycleTypePrice" name="motocycleTypePrice" value="${v.price}"/>
+                    <input type="hidden" id="vehicleType" name="vehicleType" value="${v.id}"/>
+                    <input type="hidden" id="startDate" name="startDate" value="${startDate}"/>
+                    <input type="hidden" id="endDate" name="endDate" value="${endDate}"/>
                     <div class="row p-3 rounded-3 mt-5" style="background-color: #e6f9fc;">
                         <div class="col-8 col-lg-3 d-flex align-items-center border-end">
                             <p class="m-0 me-3" style="font-size: 14px;">Chọn loại xe:</p>
@@ -147,14 +150,15 @@
                             </div>
                         </div>
                         <div class="col-8 col-lg-3" style="align-content: center;">
-                            <p class="fw-bold m-0">Thành tiền: <span class="fw-bold" id="totalPrice" name="totalPrice"></span></p>
+                            <p class="fw-bold m-0">Thành tiền: <span class="fw-bold" id="totalPrice" ></span></p>
+                            <input type="hidden" name="totalPrice" id="totalPriceInput" value=""/>
                         </div>
                         <div class="col-8 col-lg-2 d-flex align-items-center">
-                            <a href="#" class="btn btn-primary rounded-pill btn-lg">Đặt mua</a>
+                            <button type="submit" class="btn btn-primary rounded-pill btn-lg" data-mdb-ripple-init>Đặt mua</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <a href="motorbikeInsurance" class="btn btn-primary rounded-pill mb-5"><i class="fa-solid fa-angle-left me-2"></i>Thông tin sản phẩm </a>
         </div>
         <jsp:include page="footer.jsp"/>
@@ -167,11 +171,9 @@
                     var num_years = $("#num_years").val();
                     var isAccidentInsurance = $("#isAccidentInsurance").is(':checked') ? 20000 : 0;
                     var totalPrice = (motocycleTypePrice + isAccidentInsurance) * num_years;
-                    console.log('total price: ' + totalPrice);
-                    console.log('isAccident Insurance: ' + isAccidentInsurance);
-                    console.log('motocycleTypePrice: ' + motocycleTypePrice);
-                    console.log('num_years: ' + num_years);
+
                     $("#totalPrice").text(totalPrice.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}));
+                    $("#totalPriceInput").val(totalPrice);
                 }
                 $('#isAccidentInsurance').change(function () {
                     calculateTotalPrice();
