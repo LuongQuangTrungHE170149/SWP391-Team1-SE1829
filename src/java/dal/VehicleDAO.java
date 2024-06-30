@@ -4,6 +4,7 @@ import Model.Vehicle;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import Model.VehicleType;
 
 /**
  *
@@ -11,42 +12,75 @@ import java.util.List;
  */
 public class VehicleDAO extends DBContext {
 
-    public static VehicleDAO INSTANCE = new VehicleDAO();
-    private Connection con;
-
-    public VehicleDAO() {
-        if (INSTANCE == null) {
-            con = new DBContext().connection;
-        } else {
-            INSTANCE = this;
-        }
-    }
-
-    public boolean addVehicle(Vehicle vehicle) throws SQLException {
-        String sql = "INSERT INTO Vehicles (MotocycleType, LicensePlates, Chassis, Engine, OwnerId) VALUES (?, ?, ? , ? , ?)";
-
+    public boolean addVehicle(Vehicle vehicle) {
+        String sql = "INSERT INTO [dbo].[Vehicles]\n"
+                + "           ([OwnerFirstName]\n"
+                + "           ,[OwnerLastName]\n"
+                + "           ,[OwnerAddress]\n"
+                + "           ,[VehicleType]\n"
+                + "           ,[LicensePlates]\n"
+                + "           ,[Chassis]\n"
+                + "           ,[Engine])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?)";
         try {
-            PreparedStatement statement = con.prepareStatement(sql);
-            statement.setString(1, vehicle.getMotocycleType());
-            statement.setString(2, vehicle.getLicensePlates());
-            statement.setString(3, vehicle.getChassis());
-            statement.setString(4, vehicle.getEngine());
-            statement.setInt(5, vehicle.getOwnerId());
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, vehicle.getOwnerFirstName());
+            st.setString(2, vehicle.getOwnerLastName());
+            st.setString(3, vehicle.getOwnerAddress());
+            st.setInt(4, vehicle.getMotocycleType().getId());
+            st.setString(5, vehicle.getLicensePlates());
+            st.setString(6, vehicle.getChassis());
+            st.setString(7, vehicle.getEngine());
 
-            statement.executeUpdate();
+            st.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new SQLException();
-
+            System.out.println(e);
         }
+        return false;
+    }
 
+    public Vehicle getLastVehicle() {
+        String sql = "SELECT TOP (1) [id]\n"
+                + "      ,[OwnerFirstName]\n"
+                + "      ,[OwnerLastName]\n"
+                + "      ,[OwnerAddress]\n"
+                + "      ,[VehicleType]\n"
+                + "      ,[LicensePlates]\n"
+                + "      ,[Chassis]\n"
+                + "      ,[Engine]\n"
+                + "  FROM [SWP391_SE1829_Team1].[dbo].[Vehicles] order by id DESC";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Vehicle v = new Vehicle();
+                v.setId(rs.getInt("id"));
+                v.setOwnerFirstName(rs.getString("OwnerFirstName"));
+                v.setOwnerLastName(rs.getString("OwnerLastName"));
+                v.setOwnerAddress(rs.getString("OwnerAddress"));
+                
+                VehicleTypeDAO vtdb = new VehicleTypeDAO();
+                VehicleType vt = vtdb.getVehicleTypeById(rs.getInt("VehicleType"));
+                v.setMotocycleType(vt);
+                v.setLicensePlates(rs.getString("LicensePlates"));
+                v.setChassis(rs.getString("Chassis"));
+                v.setEngine(rs.getString("Engine"));
+                
+                return v;
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
     }
 
     public int countVehicleByCustomer(int customerId) {
         int total = 0;
         String sql = "select  Count(*) as TotalVehicle from Vehicles where OwnerId = ?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, customerId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -66,7 +100,7 @@ public class VehicleDAO extends DBContext {
             if (searchQuery != null && !searchQuery.trim().isEmpty()) {
                 sql += " AND (MotocycleType LIKE ? OR LicensePlates LIKE ?)";
             }
-            PreparedStatement statement = con.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, customerId);
             if (searchQuery != null && !searchQuery.trim().isEmpty()) {
                 String queryParam = "%" + searchQuery + "%";

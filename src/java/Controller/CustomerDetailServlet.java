@@ -61,13 +61,15 @@ public class CustomerDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         String idRaw = request.getParameter("customerId");
         UserDAO udb = new UserDAO();
+        ContractDAO cdb = new ContractDAO();
+        VehicleDAO vdb = new VehicleDAO();
         try {   
             int customerId = Integer.parseInt(idRaw);
             User user = udb.getUserById(customerId);
-            int totalContract = ContractDAO.INSTANCE.countContractByCustomer(customerId);
-            int totalVehicle = VehicleDAO.INSTANCE.countVehicleByCustomer(customerId);
-            int isPay = ContractDAO.INSTANCE.countIsPayByCustomer(customerId);
-            int notIsPay = ContractDAO.INSTANCE.countNotIsPayByCustomer(customerId);
+            int totalContract = cdb.countContractByCustomer(customerId);
+            int totalVehicle = vdb.countVehicleByCustomer(customerId);
+            int isPay = cdb.countIsPayByCustomer(customerId);
+            int notIsPay = cdb.countNotIsPayByCustomer(customerId);
 
             request.setAttribute("user", user);
             request.setAttribute("totalContract", totalContract);

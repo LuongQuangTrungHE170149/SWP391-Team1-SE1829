@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Yêu cầu thành công</title>
     </head>
     <body>
         <h1>Cảm ơn bạn đã đăng ký bảo hiểm</h1>

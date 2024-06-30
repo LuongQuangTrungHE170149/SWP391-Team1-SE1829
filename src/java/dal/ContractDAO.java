@@ -24,23 +24,13 @@ import java.util.List;
  */
 public class ContractDAO extends DBContext {
 
-    public static ContractDAO INSTANCE = new ContractDAO();
-    private Connection con;
-
-    public ContractDAO() {
-        if (INSTANCE == null) {
-            con = new DBContext().connection;
-        } else {
-            INSTANCE = this;
-        }
-    }
 
     public List<User> getCustomer(String name) {
         List<User> customers = new ArrayList<>();
         try {
 
             String sql = "SELECT * FROM Users WHERE firstName LIKE ? OR lastName LIKE ?";
-            PreparedStatement statement = con.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + name + "%");
             statement.setString(2, "%" + name + "%");
             ResultSet rs = statement.executeQuery();
@@ -51,7 +41,7 @@ public class ContractDAO extends DBContext {
                 customer.setLastName(rs.getString("lastName"));
             }
 
-            con.close();
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,67 +49,85 @@ public class ContractDAO extends DBContext {
     }
 
     public boolean addContract(Contract contract) {
+        String sql = "INSERT INTO [dbo].[Contracts]\n"
+                + "           ([CustomerId]\n"
+                + "           ,[StaffId]\n"
+                + "           ,[VehicleId]\n"
+                + "           ,[StartDate]\n"
+                + "           ,[EndDate]\n"
+                + "           ,[isAccidentInsurance]\n"
+                + "           ,[Description]\n"
+                + "           ,[Code]\n"
+                + "           ,[Payment]\n"
+                + "           ,[status])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,?,?,?)";
         try {
 
             // Calculate End Date
-            String sql = "INSERT INTO Contracts (CustomerId, StaffId, VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = con.prepareStatement(sql);
-
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, contract.getCustomerId());
             stmt.setInt(2, contract.getStaffId());
-            stmt.setInt(3, contract.getVehicleId());
+            stmt.setInt(3, contract.getVehicle().getId());
             stmt.setDate(4, contract.getStartDate());
             stmt.setDate(5, contract.getEndDate());
-            stmt.setString(6, contract.getContractType());
+            stmt.setBoolean(6, contract.isIsAccidentInsurance());
             stmt.setString(7, contract.getDescription());
-            stmt.setDouble(8, contract.getPayment());
-            stmt.setString(9, contract.getStatus());
-
+            stmt.setString(8, contract.getCode());
+            stmt.setDouble(9, contract.getPayment());
+            stmt.setString(10, contract.getStatus());
             stmt.executeUpdate();
             stmt.close();
-            con.close();
+            connection.close();
             return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
     }
 
     public boolean requestContract(Contract contract) {
+        String sql = "INSERT INTO [dbo].[Contracts]\n"
+                + "           ([CustomerId]\n"
+                + "           ,[StaffId]\n"
+                + "           ,[VehicleId]\n"
+                + "           ,[StartDate]\n"
+                + "           ,[EndDate]\n"
+                + "           ,[isAccidentInsurance]\n"
+                + "           ,[Description]\n"
+                + "           ,[Code]\n"
+                + "           ,[Payment]\n"
+                + "           ,[status])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,?,?,?)";
         try {
-
             // Calculate End Date
-            String sql = "INSERT INTO Contracts (CustomerId,  VehicleId, StartDate, EndDate, ContractType, [Description], Payment, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = con.prepareStatement(sql);
-
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, contract.getCustomerId());
-            stmt.setInt(2, contract.getVehicleId());
-            stmt.setDate(3, contract.getStartDate());
-            stmt.setDate(4, contract.getEndDate());
-            stmt.setString(5, contract.getContractType());
-            stmt.setString(6, contract.getDescription());
-            stmt.setDouble(7, contract.getPayment());
-            stmt.setString(8, contract.getStatus());
-
+            stmt.setInt(2, contract.getStaffId());
+            stmt.setInt(3, contract.getVehicle().getId());
+            stmt.setDate(4, contract.getStartDate());
+            stmt.setDate(5, contract.getEndDate());
+            stmt.setBoolean(6, contract.isIsAccidentInsurance());
+            stmt.setString(7, contract.getDescription());
+            stmt.setString(8, contract.getCode());
+            stmt.setDouble(9, contract.getPayment());
+            stmt.setString(10, contract.getStatus());
             stmt.executeUpdate();
             stmt.close();
-            con.close();
+            connection.close();
             return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
     }
 
     public Contract findContractByVehicleId(int vehicleId) {
         String sql = "SELECT * FROM Contracts WHERE VehicleId = ?";
         Contract contract = new Contract();
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, vehicleId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -145,7 +153,7 @@ public class ContractDAO extends DBContext {
         String sql = "SELECT * FROM Contracts WHERE ContractId = ?";
         Contract contract = new Contract();
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, contractId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -172,7 +180,7 @@ public class ContractDAO extends DBContext {
         int total = 0;
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 total = rs.getInt("totalContracts");
@@ -187,7 +195,7 @@ public class ContractDAO extends DBContext {
         int total = 0;
         String sql = " select  Count(*) as TotalContract from Contracts where CustomerId = ?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, customerId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -204,7 +212,7 @@ public class ContractDAO extends DBContext {
         int total = 0;
         String sql = "select count(*) as IsPay from Contracts where CustomerId = ? and IsPay = 0";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, customerId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -221,7 +229,7 @@ public class ContractDAO extends DBContext {
         int total = 0;
         String sql = "select count(*) as IsPay from Contracts where CustomerId = ? and IsPay = 1";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, customerId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -239,7 +247,7 @@ public class ContractDAO extends DBContext {
         String sql = "SELECT * FROM Contracts";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -267,10 +275,10 @@ public class ContractDAO extends DBContext {
 
     public List<Contractdto> getAllContractDto() throws SQLException {
         List<Contractdto> contractdtos = new ArrayList<>();
-        List<Contract> contracts = ContractDAO.INSTANCE.getAllContract();
+        List<Contract> contracts = ContractDAO.getAllContract();
         for (Contract contract : contracts) {
             Contractdto cdto = new Contractdto();
-            Vehicle vehicle = VehicleDAO.INSTANCE.getVehicleById(contract.getVehicleId());
+            Vehicle vehicle = VehicleDAO.getVehicleById(contract.getVehicleId());
             UserDAO userDAO = new UserDAO();
             cdto.setContractId(contract.getContractId());
             cdto.setEndDate(contract.getEndDate());
@@ -335,11 +343,24 @@ public class ContractDAO extends DBContext {
     }
 
     public static void main(String[] args) throws SQLException {
-//        ContractDAO cd = new ContractDAO();
+        ContractDAO cd = new ContractDAO();
 //        List<User> users = cd.getCustomer("jdoe");
         Date startDate = new Date(2024, 6, 12);
         Date endDate = new Date(2025, 6, 12);
-        Contract contract = new Contract(2, 1, 3, startDate, endDate, "bắt buộc", "abcxya", 400000D, "Đang hiêu lực");
-        System.out.println(ContractDAO.INSTANCE.findContractByContractId(3));
+        
+        Contract c = new Contract();
+        c.setCode("ABC12341AHF211");
+        c.setCustomerId(18);
+        c.setDescription("Đã có tài khoản");
+        c.setEndDate(endDate);
+        c.setStartDate(startDate);
+        c.setIsAccidentInsurance(true);
+        
+        Vehicle vehicle = new Vehicle();
+        vehicle.setId(1);
+        c.setVehicle(vehicle);
+        c.setPayment(1000000.0);
+        
+        System.out.println(cd.addContract(c));
     }
 }

@@ -58,6 +58,7 @@ public class CompensationRequestServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
+        ContractDAO cdb = new ContractDAO();
         String policyNumber = request.getParameter("policyNumber");
         String incidentDate = request.getParameter("incidentDate");
         String incidentLocation = request.getParameter("incidentLocation");
@@ -96,7 +97,7 @@ public class CompensationRequestServlet extends HttpServlet {
             LOGGER.log(Level.SEVERE, "File upload error", e);
         }
         
-        if (ContractDAO.INSTANCE.checkContractByCustomerId(contractId, u.getId()) != null) {
+        if (cdb.checkContractByCustomerId(contractId, u.getId()) != null) {
             Accident accident = new Accident();
             accident.setCustomerId(u.getId());
             Date sqlDate = Date.valueOf(incidentDate);
