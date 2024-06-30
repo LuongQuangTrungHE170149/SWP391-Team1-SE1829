@@ -139,6 +139,17 @@
 
                         </a>
                     </li>
+
+                    <li class="nav-item btn-group">
+                        <a href="compensationApprove" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnNews">
+                            <div>
+                             
+                                <i class="fa-solid fa-id-badge me-2"></i>
+                                Đơn bồi thường
+                            </div>
+                            <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalApplication}</span>
+                        </a>
+                    </li>
                     <li class="nav-item btn-group">
                         <a href="#" class="btn btn-light btn-custom d-flex justify-content-between m-0"data-mdb-ripple-init id="btnCustomer">
                             <div>
@@ -147,6 +158,9 @@
 
                         </a>
                     </li>
+
+
+
                 </ul>
                 <hr class="mt-0 bg-light" style="height: 2px;
                     border: none;">
@@ -173,7 +187,7 @@
     </c:if>
 
     <!--    Thanh nav của Manager-->
-    <c:if test="${sessionScope.user.getRole() == 'Manager'}">
+    <c:if test="${sessionScope.user.getRole() == 'Manager' || sessionScope.user.getRole() == 'manager'}">
         <div class="sidebar" id="sidebar">
             <div class="dashboard d-flex flex-column sticky-top p-3 bg-custom" style="width: 250px; height: 100vh;">
                 <div class="d-flex">

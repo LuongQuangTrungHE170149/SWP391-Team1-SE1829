@@ -1,6 +1,7 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
+
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -18,7 +19,6 @@ Create table Users(
 )
 
 GO
-
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,
 			AgencyName nvarchar(255),
@@ -30,7 +30,7 @@ Create table Agencies(
 GO
 Create table Vehicles(
 			MotocycleId int identity(1,1) primary key,
-			VehicleType int foreign references VehicleType(id), /*motorcycle -> VehicleType*/ 
+			VehicleType int foreign key references VehicleType(id),
 			LicensePlates nvarchar(255),
 			Chassis nvarchar(255),
 			Engine nvarchar(255),
@@ -50,7 +50,6 @@ values(N'Xe mô tô 2 bánh dung tích từ 50cc trở xuống',60500),
 	  (N'Xe máy điện',60500),
 	  (N'Xe mô tô 3 bánh',319000),
 	  (N'Các loại xe còn lại',319000)
-
 Create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int references Users(id),
