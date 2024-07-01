@@ -547,6 +547,35 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    public User getUserByPhoneOrEmail(String phone, String email) {
+        String sql = "SELECT * FROM [Users] where (phoneNumber = ?  or email = ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, phone);
+            ps.setString(2, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDob(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
     public User findByUsernameOrEmail(String usernameAndEmail) {
         String sql = "SELECT * FROM [Users] where (username = ?  or email = ?)";
         try {
@@ -645,9 +674,24 @@ public class UserDAO extends DBContext {
 
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-//        System.out.println(udb.sortCusomterById());
-        System.out.println(udb.checkPhoneExistById("0327983593"));
+        
+        System.out.println(udb.updateUserRoleById(15, "customer"));
+    }
 
+    public boolean updateUserRoleById(int id, String role) {
+        String sql = "UPDATE [dbo].[Users]\n"
+                + "   SET [role] = ?\n"
+                + " WHERE id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, role);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return false;
     }
 
     public boolean update(User user) {
@@ -700,7 +744,7 @@ public class UserDAO extends DBContext {
         }
     }
 
-    public int getLastUserId() throws SQLException {
+    public int getLastUserId() {
         String sql = "SELECT TOP 1 id FROM Users ORDER BY id DESC";
         int userId = 0;
         try {
@@ -714,4 +758,5 @@ public class UserDAO extends DBContext {
         }
         return userId;
     }
+
 }

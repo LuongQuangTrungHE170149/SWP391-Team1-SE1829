@@ -24,8 +24,9 @@
                 color: #4f4f4f !important;
             }
             .btn-primary{
-                background: rgb(65,159,163);
-                background: linear-gradient(285deg, rgba(65,159,163,1) 29%, rgba(84,222,252,1) 100%);
+                background-color: #419FA3 !important;
+/*                background: rgb(65,159,163);
+                background: linear-gradient(285deg, rgba(65,159,163,1) 29%, rgba(84,222,252,1) 100%);*/
             }
             .card-hover:hover{
                 border: 1px solid #419FA3;
@@ -187,51 +188,49 @@
                     <hr class="text-419FA3 mb-4" style="opacity: 100%;">
                 </div>
 
-
-            </div>
-            
-            <div class="d-flex justify-content-center mb-5 mt-5">
-                <button type="button" onclick="callBack()" class="btn btn-lg btn-primary rounded-pill  me-5" data-mdb-ripple-init><i class="fa-solid fa-angle-left me-2"></i>Quay lại </button>
-                <button type="button" id="continue" class="btn btn-lg btn-primary rounded-pill " data-mdb-ripple-init>Tiếp tục <i class="fa-solid fa-angle-right ms-2"></i></button>
+                <div class="d-flex justify-content-center">
+                    <a href="#" class="btn btn-danger me-3" data-mdb-ripple-init>Hủy</a>
+                    <a href="submitContract" class="btn btn-primary" data-mdb-ripple-init>Thanh toán</a>
+                </div>
             </div>
         </div>
         <jsp:include page="footer.jsp"/>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-                    function callBack() {
-                        window.history.back();
-                    }
-                    $("#checkConfirm1").change(function () {
-                        if ($(this).is(":checked")) {
-                            $("#confirm-error1").text("");
-                        }
-                    });
-                    $("#checkConfirm2").change(function () {
-                        if ($(this).is(":checked")) {
-                            $("#confirm-error2").text("");
-                        }
-                    });
+            function callBack() {
+                window.history.back();
+            }
+            $("#checkConfirm1").change(function () {
+                if ($(this).is(":checked")) {
+                    $("#confirm-error1").text("");
+                }
+            });
+            $("#checkConfirm2").change(function () {
+                if ($(this).is(":checked")) {
+                    $("#confirm-error2").text("");
+                }
+            });
 
-                    function continueToNextPage() {
-                        let isValid = true;
-                        if (!$("#checkConfirm1").is(":checked")) {
-                            $("#confirm-error1").html("Vui lòng chọn xác nhận!");
-                            isValid = false;
-                        } else {
-                            $("#confirm-error1").text("");
-                        }
+            function continueToNextPage() {
+                let isValid = true;
+                if (!$("#checkConfirm1").is(":checked")) {
+                    $("#confirm-error1").html("Vui lòng chọn xác nhận!");
+                    isValid = false;
+                } else {
+                    $("#confirm-error1").text("");
+                }
 
-                        if (!$("#checkConfirm2").is(":checked")) {
-                            $("#confirm-error2").text("Vui lòng chọn xác nhận!");
-                            isValid = false;
-                        } else {
-                            $("#confirm-error2").text("");
-                        }
+                if (!$("#checkConfirm2").is(":checked")) {
+                    $("#confirm-error2").text("Vui lòng chọn xác nhận!");
+                    isValid = false;
+                } else {
+                    $("#confirm-error2").text("");
+                }
 
-                        if (isValid) {
-                            window.location.href = "payment";
-                        }
-                    }
+                if (isValid) {
+                    window.location.href = "payment";
+                }
+            }
 
 
         </script>

@@ -49,6 +49,7 @@ public class RequestCustomerInforServlet extends HttpServlet {
         request.getSession().setAttribute("firstName", firstName);
         request.getSession().setAttribute("lastName", lastName);
         request.getSession().setAttribute("gender", gender);
+       
         request.getSession().setAttribute("dob", dob);
         request.getSession().setAttribute("address", address);
         request.getSession().setAttribute("email", email);
@@ -59,6 +60,9 @@ public class RequestCustomerInforServlet extends HttpServlet {
         request.getSession().setAttribute("licensePlate", licensePlate);
         request.getSession().setAttribute("chassisNumber", chassisNumber);
         request.getSession().setAttribute("engineNumber", engineNumber);
+        System.out.println("gender: "+gender);
+        System.out.println("dob: "+dob);
+        
         
     }
 

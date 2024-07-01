@@ -71,10 +71,11 @@ public class HomeManagerServlet extends HttpServlet {
 
         UserDAO udb = new UserDAO();
         NewsDAO newsDAO = new NewsDAO();
+        ContractDAO cdb = new ContractDAO();
         int countCustomer = udb.getCountAllCustomer();
         int countStaff = udb.getCountAllStaffs();
         int totalAgency = AgencyDAO.INSTANCE.countAgency();
-        int totalContracts = ContractDAO.INSTANCE.countContracts();
+        int totalContracts = cdb.countContracts();
         int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
         int totalNews = newsDAO.getAll().size();
         BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();

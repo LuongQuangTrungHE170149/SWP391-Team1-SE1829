@@ -5,7 +5,6 @@
 package dal;
 
 import Model.News;
-import Model.NewsType;
 import Model.User;
 import java.sql.Connection;
 import java.sql.Date;

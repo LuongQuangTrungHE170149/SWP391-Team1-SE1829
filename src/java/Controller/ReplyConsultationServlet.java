@@ -130,10 +130,6 @@ public class ReplyConsultationServlet extends HttpServlet {
                 +"</body>\n"
                 +"</html>"
                 ;
-        System.out.println(content);
-        System.out.println(toMail);
-        System.out.println(title);
-        System.out.println(name);
         try{
             Message msg = new MimeMessage(s);
             msg.setFrom(new InternetAddress(username));

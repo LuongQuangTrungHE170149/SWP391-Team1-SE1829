@@ -70,7 +70,6 @@ public class CalculateInsurancePageServlet extends HttpServlet {
         Date startDate = Date.valueOf(request.getParameter("startDate"));
         Date endDate = Date.valueOf(request.getParameter("endDate"));
         int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
-        System.out.println(isAccidentInsurance + ", " + num_years + ", " + vehicleType + ", " + startDate + " - " + endDate + ", total price: " + totalPrice);
 
         request.getSession().setAttribute("isAccidentInsurance", isAccidentInsurance);
         request.getSession().setAttribute("num_years", num_years);

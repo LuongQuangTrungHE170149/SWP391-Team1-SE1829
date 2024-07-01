@@ -15,13 +15,31 @@ public class Contract {
     private int contractId;
     private int customerId;
     private int staffId;
-    private int vehicleId;
+    private Vehicle vehicle;
     private Date startDate;
     private Date endDate;
-    private String contractType;
+    private boolean isAccidentInsurance;
     private String description;
+    private String code;
     private Double payment;
     private String status;
+
+    public Contract() {
+    }
+
+    public Contract(int contractId, int customerId, int staffId, Vehicle vehicle, Date startDate, Date endDate, boolean isAccidentInsurance, String description, String code, Double payment, String status) {
+        this.contractId = contractId;
+        this.customerId = customerId;
+        this.staffId = staffId;
+        this.vehicle = vehicle;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isAccidentInsurance = isAccidentInsurance;
+        this.description = description;
+        this.code = code;
+        this.payment = payment;
+        this.status = status;
+    }
 
     public int getContractId() {
         return contractId;
@@ -47,12 +65,12 @@ public class Contract {
         this.staffId = staffId;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public Date getStartDate() {
@@ -71,20 +89,28 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public String getContractType() {
-        return contractType;
+    public boolean isIsAccidentInsurance() {
+        return isAccidentInsurance;
     }
 
-    public void setContractType(String contractType) {
-        this.contractType = contractType;
+    public void setIsAccidentInsurance(boolean isAccidentInsurance) {
+        this.isAccidentInsurance = isAccidentInsurance;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String descripttion) {
-        this.description = descripttion;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Double getPayment() {
@@ -103,34 +129,9 @@ public class Contract {
         this.status = status;
     }
 
-    public Contract(int contractId, Date startDate, Date endDate, String contractType, String description, Double payment, String status) {
-        this.contractId = contractId;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.contractType = contractType;
-        this.description = description;
-        this.payment = payment;
-        this.status = status;
-    }
-
-    public Contract() {
-    }
-
-    public Contract(int customerId, int staffId, int vehicleId, Date startDate, Date endDate, String contractType, String description, Double payment, String status) {
-        this.customerId = customerId;
-        this.staffId = staffId;
-        this.vehicleId = vehicleId;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.contractType = contractType;
-        this.description = description;
-        this.payment = payment;
-        this.status = status;
-    }
-
     @Override
     public String toString() {
-        return "Contract{" + "contractId=" + contractId + ", customerId=" + customerId + ", staffId=" + staffId + ", vehicleId=" + vehicleId + ", startDate=" + startDate + ", endDate=" + endDate + ", contractType=" + contractType + ", description=" + description + ", payment=" + payment + ", status=" + status + '}';
+        return "Contract{" + "contractId=" + contractId + ", customerId=" + customerId + ", staffId=" + staffId + ", vehicleId=" + vehicle+ ", startDate=" + startDate + ", endDate=" + endDate + ", isAccidentInsurance=" + isAccidentInsurance + ", code=" + code + ", description=" + description + ", payment=" + payment + ", status=" + status + '}';
     }
 
 }
