@@ -66,7 +66,7 @@ Create table Contracts(                                        /*bao hiem xe may
 			[Description] nvarchar(2000),
 			Code varchar(255),
 			Payment Bigint,
-			dateCreated date default getDate(),
+			createDate date default getDate(),
 			[status] nvarchar(255),
 )
 GO

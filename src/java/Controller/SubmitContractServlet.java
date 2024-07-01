@@ -132,7 +132,8 @@ public class SubmitContractServlet extends HttpServlet {
             request.getSession().removeAttribute("totalPrice");
             request.getSession().removeAttribute("num_years");
             request.getSession().removeAttribute("firstName");
-            request.getSession().removeAttribute("lastName");
+            request.getSession().removeAttribute("address");
+            request.getSession().removeAttribute("v");
             request.getSession().removeAttribute("dob");
             request.getSession().removeAttribute("phoneNumber");
             request.getSession().removeAttribute("startDate");
