@@ -54,16 +54,16 @@ public class ListVehicleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int customerId = Integer.parseInt(request.getParameter("customerId"));
-        
+        VehicleDAO vd = new VehicleDAO();
+
         String searchQuery = request.getParameter("searchQuery");
         List<Vehicle> vehicleList = new ArrayList<>();
         try {
-            vehicleList = VehicleDAO.INSTANCE.getListVehicle(customerId, searchQuery);
+            vehicleList = vd.getListVehicle(customerId, searchQuery);
             for (Vehicle vehicle : vehicleList) {
 
-                boolean hasContract = VehicleDAO.INSTANCE.hasContract(vehicle.getId());
+                boolean hasContract = vd.hasContract(vehicle.getId());
                 vehicle.setHasContract(hasContract);
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(ListVehicleServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,5 +106,4 @@ public class ListVehicleServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
 }

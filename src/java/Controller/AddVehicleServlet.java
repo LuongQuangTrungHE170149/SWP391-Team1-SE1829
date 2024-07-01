@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.Vehicle;
+import dal.ContractDAO;
 import dal.VehicleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -87,9 +88,11 @@ public class AddVehicleServlet extends HttpServlet {
         vehicle.setOwnerId(ownerId);
         vehicle.setChassis(chassis);
         vehicle.setEngine(engine);
+        ContractDAO cd = new ContractDAO();
+        VehicleDAO vd = new VehicleDAO();
         try {
-            VehicleDAO.INSTANCE.addVehicle(vehicle);
-            int vehicleId = VehicleDAO.INSTANCE.getVehicleIdAfterAdd();
+            vd .addVehicle(vehicle);
+            int vehicleId = vd.getVehicleIdAfterAdd();
             response.sendRedirect("AddVehicleSuccess?customerId="+ownerId+"&vehicleId="+vehicleId); // Redirect to a success page
         } catch (SQLException e) {
             throw new ServletException(e);

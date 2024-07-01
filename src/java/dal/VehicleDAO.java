@@ -110,13 +110,17 @@ public class VehicleDAO extends DBContext {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("MotocycleId");
-                String motocycleType = resultSet.getString("MotocycleType");
+                int id = resultSet.getInt("id");
+                VehicleType vt = new VehicleType();
+                vt.setId(resultSet.getInt("VehicleType"));
+                String ownerFirstName = resultSet.getString("OwnerFirstName");
+                String ownerLastName = resultSet.getString("OwnerLastName");
+                String ownerAddress = resultSet.getString("OwnerAddress");
                 String licensePlates = resultSet.getString("LicensePlates");
                 String chassis = resultSet.getString("Chassis");
                 String engine = resultSet.getString("Engine");
-                int ownerId = resultSet.getInt("OwnerId");
-                vehicleList.add(new Vehicle(id, motocycleType, licensePlates, chassis, engine, ownerId));
+
+                vehicleList.add(new Vehicle(id, ownerFirstName, ownerLastName, ownerAddress, vt, licensePlates, chassis, engine));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -128,7 +132,7 @@ public class VehicleDAO extends DBContext {
         boolean hasContract = false;
         String sql = "SELECT COUNT(*) FROM Contracts WHERE VehicleId = ?";
 
-        try (PreparedStatement statement = con.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, vehicleId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -144,7 +148,7 @@ public class VehicleDAO extends DBContext {
     public void deleteVehicle(int vehicleId) throws SQLException {
         String sql = "DELETE FROM Vehicles WHERE MotocycleId = ?";
 
-        try (PreparedStatement statement = con.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, vehicleId);
             statement.executeUpdate();
         }
@@ -167,18 +171,18 @@ public class VehicleDAO extends DBContext {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-               Vehicle v = new Vehicle();
-               v.setId(rs.getInt("id"));
-               v.setOwnerFirstName(rs.getString("OwnerFirstName"));
-               v.setOwnerLastName(rs.getString("OwnerLastName"));
-               v.setOwnerAddress(rs.getString("OwnerAddress"));
-               VehicleTypeDAO vtdb = new VehicleTypeDAO();
-               VehicleType vt = vtdb.getVehicleTypeById(rs.getInt("VehicleType"));
-               v.setMotocycleType(vt);
-               v.setLicensePlates(rs.getString("LicensePlates"));
-               v.setChassis(rs.getString("Chassis"));
-               v.setEngine(rs.getString("Engine"));
-               return v;
+                Vehicle v = new Vehicle();
+                v.setId(rs.getInt("id"));
+                v.setOwnerFirstName(rs.getString("OwnerFirstName"));
+                v.setOwnerLastName(rs.getString("OwnerLastName"));
+                v.setOwnerAddress(rs.getString("OwnerAddress"));
+                VehicleTypeDAO vtdb = new VehicleTypeDAO();
+                VehicleType vt = vtdb.getVehicleTypeById(rs.getInt("VehicleType"));
+                v.setMotocycleType(vt);
+                v.setLicensePlates(rs.getString("LicensePlates"));
+                v.setChassis(rs.getString("Chassis"));
+                v.setEngine(rs.getString("Engine"));
+                return v;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,7 +195,7 @@ public class VehicleDAO extends DBContext {
         String sql = "SELECT Top 1 MotocycleId FROM Vehicles ORDER BY MotocycleId DESC";
         int id = 0;
         try {
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -206,17 +210,21 @@ public class VehicleDAO extends DBContext {
         List<Vehicle> list = new ArrayList<>();
         String sql = "select * from Vehicles";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Vehicle ve = new Vehicle();
-                ve.setId(rs.getInt("MotocycleId"));
-                ve.setMotocycleType(rs.getString("MotocycleType"));
-                ve.setLicensePlates(rs.getString("LicensePlates"));
-                ve.setChassis(rs.getString("Chassis"));
-                ve.setEngine(rs.getString("Engine"));
-                ve.setOwnerId(rs.getInt("OwnerId"));
-                list.add(ve);
+                Vehicle v = new Vehicle();
+                v.setId(rs.getInt("id"));
+                v.setOwnerFirstName(rs.getString("OwnerFirstName"));
+                v.setOwnerLastName(rs.getString("OwnerLastName"));
+                v.setOwnerAddress(rs.getString("OwnerAddress"));
+                VehicleTypeDAO vtdb = new VehicleTypeDAO();
+                VehicleType vt = vtdb.getVehicleTypeById(rs.getInt("VehicleType"));
+                v.setMotocycleType(vt);
+                v.setLicensePlates(rs.getString("LicensePlates"));
+                v.setChassis(rs.getString("Chassis"));
+                v.setEngine(rs.getString("Engine"));
+                list.add(v);
             }
         } catch (Exception e) {
         }
