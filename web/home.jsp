@@ -181,6 +181,7 @@
     </style>
     <body>
         <jsp:include page="header.jsp"/>
+        <jsp:include page="spinnerLoading.jsp"/>
         <div class="middle">
             <div class="bg-img"></div>
             <div class="middle-content">
@@ -237,7 +238,7 @@
                     <div class="col-12 col-sm-6 col-md-3 mb-3">
                         <div class="service-items">
                             <a class="simg" href="#" ><img src="images/tao hop dong.png"  alt="alt"/></a>
-                            <a href="#" class="service-items-header" style="text-decoration: none;"><h2>TẠO HỢP ĐỒNG BẢO HIỂM</h2></a>
+                            <a href="calculateInsurancePage" class="service-items-header" style="text-decoration: none;"><h2>TẠO HỢP ĐỒNG BẢO HIỂM</h2></a>
                             <p>Bảo hiểm F-Care là doanh nghiệp đi đầu trong việc bảo đảm tài sản và đền bù thỏa đáng cho khách hàng.</p>
                         </div>
                     </div>

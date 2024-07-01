@@ -133,7 +133,16 @@ public class SubmitContractServlet extends HttpServlet {
             request.getSession().removeAttribute("num_years");
             request.getSession().removeAttribute("firstName");
             request.getSession().removeAttribute("lastName");
+            request.getSession().removeAttribute("dob");
+            request.getSession().removeAttribute("phoneNumber");
+            request.getSession().removeAttribute("startDate");
+            request.getSession().removeAttribute("endDate");
             request.getSession().removeAttribute("vehicleOwnerFirstName");
+            request.getSession().removeAttribute("vehicleOwnerLastName");
+            request.getSession().removeAttribute("vehicleOwnerAddress");
+            request.getSession().removeAttribute("licensePlate");
+            request.getSession().removeAttribute("chassisNumber");
+            request.getSession().removeAttribute("engineNumber");
             response.sendRedirect("requestContractSuccess.jsp");
         } catch (Exception e) {
             System.out.println(e);

@@ -66,6 +66,7 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
+        <jsp:include page="spinnerLoading.jsp"/>
         <div class="container mt-4" style="width: 70%;">
             <div class="mb-2">
                 <a href="home" style="color: #4f4f4f; font-size: 14px;">Trang chủ</a> <i class="fa-solid fa-chevron-right mx-2 text-muted" style="font-size: 12px;"></i>

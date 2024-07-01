@@ -27,6 +27,7 @@
     </head>
     <body>
         <jsp:include page="header.jsp" />
+        <jsp:include page="spinnerLoading.jsp"/>
         <div class="content" style="height: 70vh;">
             <div class="row mt-4 px-3" style="width: 100%;">
                 <div class="col-12 col-lg-4">
