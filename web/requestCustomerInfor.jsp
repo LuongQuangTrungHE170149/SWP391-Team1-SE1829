@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Khai báo chi tiết</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <style>
             .text-419FA3{
                 color: #419FA3 !important;
@@ -648,10 +649,8 @@
             function saveCustomerInfo() {
                 let isValid = true;
 
-                // Xóa thông báo lỗi cũ
                 $(".error-message").html("");
 
-                // Kiểm tra và hiển thị lỗi nếu cần
                 if (!$("#firstName").val()) {
                     $("#firstNameError").html("Vui lòng nhập họ");
                     isValid = false;
@@ -667,11 +666,9 @@
                 if (!validateDateOfBirth()) {
                     isValid = false;
                 }
-
                 if (!validatePhoneNumber()) {
                     isValid = false;
                 }
-
                 if (!validateEmail()) {
 
                     isValid = false;
@@ -680,7 +677,6 @@
                     $("#addressError").html("Vui lòng nhập địa chỉ");
                     isValid = false;
                 }
-                // Nếu không hợp lệ, dừng lại
                 if (!isValid) {
                     return;
                 }
@@ -699,7 +695,8 @@
                     $("#doneGender").html('Nam');
                 else
                     $("#doneGender").html('Nữ');
-                $("#doneDob").html(customerInfo.dob);
+                const formattedDate = moment(customerInfo.dob).format('DD/MM/YYYY');
+                $("#doneDob").html(formattedDate);
                 $("#doneEmail").html(customerInfo.email);
                 $("#doneAddress").html(customerInfo.address);
                 $("#donePhoneNumber").html(customerInfo.phone);

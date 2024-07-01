@@ -13,8 +13,8 @@ import java.sql.Date;
 public class Contract {
 
     private int contractId;
-    private int customerId;
-    private int staffId;
+    private User customer;
+    private User staff;
     private Vehicle vehicle;
     private Date startDate;
     private Date endDate;
@@ -22,15 +22,16 @@ public class Contract {
     private String description;
     private String code;
     private Double payment;
+    private Date createDate;
     private String status;
 
     public Contract() {
     }
 
-    public Contract(int contractId, int customerId, int staffId, Vehicle vehicle, Date startDate, Date endDate, boolean isAccidentInsurance, String description, String code, Double payment, String status) {
+    public Contract(int contractId, User customer, User staff, Vehicle vehicle, Date startDate, Date endDate, boolean isAccidentInsurance, String description, String code, Double payment, Date createDate, String status) {
         this.contractId = contractId;
-        this.customerId = customerId;
-        this.staffId = staffId;
+        this.customer = customer;
+        this.staff = staff;
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -38,6 +39,7 @@ public class Contract {
         this.description = description;
         this.code = code;
         this.payment = payment;
+        this.createDate = createDate;
         this.status = status;
     }
 
@@ -49,20 +51,20 @@ public class Contract {
         this.contractId = contractId;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
-    public int getStaffId() {
-        return staffId;
+    public User getStaff() {
+        return staff;
     }
 
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
+    public void setStaff(User staff) {
+        this.staff = staff;
     }
 
     public Vehicle getVehicle() {
@@ -121,6 +123,14 @@ public class Contract {
         this.payment = payment;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -129,9 +139,5 @@ public class Contract {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Contract{" + "contractId=" + contractId + ", customerId=" + customerId + ", staffId=" + staffId + ", vehicleId=" + vehicle+ ", startDate=" + startDate + ", endDate=" + endDate + ", isAccidentInsurance=" + isAccidentInsurance + ", code=" + code + ", description=" + description + ", payment=" + payment + ", status=" + status + '}';
-    }
-
+    
 }

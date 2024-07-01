@@ -123,7 +123,7 @@ public class SubmitContractServlet extends HttpServlet {
             c.setIsAccidentInsurance(isAccidentInsurance);
             c.setPayment(totalPrice);
             c.setStatus("Pending");
-            c.setCustomerId(user.getId());
+            c.setCustomer(user);
 
             ContractDAO cdb = new ContractDAO();
             System.out.println(cdb.addContract(c));

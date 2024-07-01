@@ -87,6 +87,7 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
+        <jsp:include page="spinnerLoading.jsp"/>
         <div class="middle">
             <div class="bg-img"></div>
             <div class="middle-content">

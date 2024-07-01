@@ -110,7 +110,7 @@
                 <!--hien thi thong tin bao hiem-->
                 <div id="insuranceInfo" class="px-5">
                     <div class="d-flex justify-content-between pt-4">
-                        <div class="fs-5 fw-bold text-419FA3">Thông tin bảo hiểm</div>
+                        <div class="fs-5 fw-bold text-419FA3">Thông tin phương tiện</div>
                         <div></div>
                         <!--<a href="calculateInsurancePage" class="text-info">chọn lại bảo hiểm<i class="fa-regular fa-pen-to-square fs-5 ms-2"></i></a>-->
                     </div>
@@ -120,6 +120,12 @@
                             <div class="text-muted">Tên chủ xe</div>
                         </div>
                         <div class="col-12 col-lg-3">${vehicleOwnerFirstName} ${vehicleOwnerLastName}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 col-lg-2">
+                            <div class="text-muted">Địa chỉ</div>
+                        </div>
+                        <div class="col-12 col-lg-3">${vehicleOwnerAddress}</div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12 col-lg-2">
@@ -152,8 +158,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Loại xe</th>
-                                <th>Loại sản phẩm</th>
+                                <th>Loại phương tiện</th>
+                                <th>Tên sản phẩm</th>
                                 <th>Phí bảo hiểm (đã bao gồm thuế VAT)</th>
                             </tr>
                         </thead>
@@ -171,10 +177,15 @@
                             <td><fmt:formatNumber value="20000" type="currency" currencyCode="VND"/></td>
                         </c:if>
                         <tr>
-                            <td colspan="4" class="fw-bold">Thời gian bảo hiểm: <fmt:formatDate value="${startDate}" pattern="dd/MM/yyyy"/> đến <fmt:formatDate value="${endDate}" pattern="dd/MM/yyyy"/></td>
+                            <td></td>
+                            <td class="fw-bold">Thời gian bảo hiểm:</td>
+                            <td><b><fmt:formatDate value="${startDate}" pattern="dd/MM/yyyy"/></b> đến <b><fmt:formatDate value="${endDate}" pattern="dd/MM/yyyy"/></b></td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="text-center fw-bold">Tổng tiền</td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center fw-bold">Tổng tiền</td>
                             <td><fmt:formatNumber value="${totalPrice}" type="currency" currencyCode="VND"/></td>
                         </tr>
                         </tbody>
