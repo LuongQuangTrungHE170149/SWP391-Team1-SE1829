@@ -83,7 +83,6 @@
                             </tbody>
                         </table>
                 </c:if>
-
             </div>
         </div>
         <jsp:include page="footer.jsp"/>

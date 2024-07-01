@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller;
 
 import Model.Contract;
@@ -25,36 +24,39 @@ import java.util.logging.Logger;
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name="ViewContractById", urlPatterns={"/ViewContractById"})
+@WebServlet(name = "ViewContractById", urlPatterns = {"/ViewContractById"})
 public class ViewContractById extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewContractById</title>");  
+            out.println("<title>Servlet ViewContractById</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewContractById at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ViewContractById at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -62,22 +64,23 @@ public class ViewContractById extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String contractIdParam = request.getParameter("contractId");
         if (contractIdParam == null || contractIdParam.isEmpty()) {
             response.getWriter().println("<h2>Missing contractId parameter</h2>");
             return;
         }
-
+        ContractDAO cd = new ContractDAO();
+        VehicleDAO vd = new VehicleDAO();
         int contractId = Integer.parseInt(contractIdParam);
-        Contract contract = ContractDAO.INSTANCE.findContractByContractId(contractId);
+        Contract contract = cd.findContractByContractId(contractId);
 
         if (contract == null) {
             response.getWriter().println("<h2>No contract found for Vehicle ID: " + contractId + "</h2>");
             return;
         }
-        Vehicle vehicle = VehicleDAO.INSTANCE.getVehicleById(contract.getVehicleId());
+        Vehicle vehicle = vd.getVehicleById(contract.getVehicle().getId());
         UserDAO userDao = new UserDAO();
         String customerName = null;
         try {
@@ -90,10 +93,11 @@ public class ViewContractById extends HttpServlet {
         request.setAttribute("contract", contract);
         // Chuyển hướng đến viewContract.jsp với thông tin hợp đồng
         request.getRequestDispatcher("viewContract.jsp").forward(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -101,12 +105,13 @@ public class ViewContractById extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
@@ -114,6 +119,4 @@ public class ViewContractById extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
-    
 }

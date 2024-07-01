@@ -98,33 +98,34 @@ public class ContractDAO extends DBContext {
                 + "      ,[Payment]\n"
                 + "      ,[status]\n"
                 + "  FROM [dbo].[Contracts] where Code = ?";
-        
-        try{
+
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, contractCode);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 Contract c = new Contract();
                 c.setCode(contractCode);
                 c.setContractId(rs.getInt("ContractId"));
                 c.setStaffId(rs.getInt("StaffId"));
-                
-               VehicleDAO vdb = new VehicleDAO();
+
+                VehicleDAO vdb = new VehicleDAO();
                 Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
                 c.setVehicle(v);
-                
                 c.setStartDate(rs.getDate("startDate"));
                 c.setEndDate(rs.getDate("endDate"));
                 c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
                 c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
                 c.setPayment(rs.getDouble("Payment"));
                 c.setStatus(rs.getString("status"));
-                
+
                 return c;
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
-        } return null;
+        }
+        return null;
     }
 
     public boolean requestContract(Contract contract) {
@@ -175,11 +176,14 @@ public class ContractDAO extends DBContext {
                 contract.setContractId(rs.getInt("ContractId"));
                 contract.setCustomerId(rs.getInt("CustomerId"));
                 contract.setStaffId(rs.getInt("StaffId"));
-                contract.setVehicleId(rs.getInt("VehicleId"));
-                contract.setContractType("ContractType");
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                contract.setVehicle(v);
+                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
                 contract.setStartDate(rs.getDate("StartDate"));
                 contract.setEndDate(rs.getDate("EndDate"));
                 contract.setDescription(rs.getString("Description"));
+                contract.setCode(rs.getString("Code"));
                 contract.setPayment(rs.getDouble("Payment"));
                 contract.setStatus(rs.getString("status"));
             }
@@ -201,11 +205,14 @@ public class ContractDAO extends DBContext {
                 contract.setContractId(rs.getInt("ContractId"));
                 contract.setCustomerId(rs.getInt("CustomerId"));
                 contract.setStaffId(rs.getInt("StaffId"));
-                contract.setVehicleId(rs.getInt("VehicleId"));
-                contract.setContractType("ContractType");
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                contract.setVehicle(v);
+                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
                 contract.setStartDate(rs.getDate("StartDate"));
                 contract.setEndDate(rs.getDate("EndDate"));
                 contract.setDescription(rs.getString("Description"));
+                contract.setCode(rs.getString("Code"));
                 contract.setPayment(rs.getDouble("Payment"));
                 contract.setStatus(rs.getString("status"));
             }
@@ -296,8 +303,11 @@ public class ContractDAO extends DBContext {
                 contract.setContractId(rs.getInt("ContractId"));
                 contract.setCustomerId(rs.getInt("CustomerId"));
                 contract.setStaffId(rs.getInt("StaffId"));
-                contract.setVehicleId(rs.getInt("VehicleId"));
-                contract.setContractType(rs.getString("ContractType"));
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                contract.setVehicle(v);
+                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                contract.setCode(rs.getString("Code"));
                 contract.setStartDate(rs.getDate("StartDate"));
                 contract.setEndDate(rs.getDate("EndDate"));
                 contract.setDescription(rs.getString("Description"));
@@ -316,10 +326,12 @@ public class ContractDAO extends DBContext {
 
     public List<Contractdto> getAllContractDto() throws SQLException {
         List<Contractdto> contractdtos = new ArrayList<>();
-        List<Contract> contracts = ContractDAO.getAllContract();
+        ContractDAO cd = new ContractDAO();
+        List<Contract> contracts = cd.getAllContract();
         for (Contract contract : contracts) {
             Contractdto cdto = new Contractdto();
-            Vehicle vehicle = VehicleDAO.getVehicleById(contract.getVehicleId());
+            VehicleDAO vdb = new VehicleDAO();
+            Vehicle vehicle = vdb.getVehicleById(contract.getVehicle().getId());
             UserDAO userDAO = new UserDAO();
             cdto.setContractId(contract.getContractId());
             cdto.setEndDate(contract.getEndDate());
@@ -340,19 +352,22 @@ public class ContractDAO extends DBContext {
                 + "WHERE v.LicensePlates = ?;";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, plates);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Contract contract = new Contract();
                 contract.setContractId(rs.getInt("ContractId"));
-                contract.setVehicleId(rs.getInt("VehicleId"));
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                contract.setVehicle(v);
+                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
                 contract.setCustomerId(rs.getInt("CustomerId"));
                 contract.setStaffId(rs.getInt("StaffId"));
                 contract.setStartDate(rs.getDate("StartDate"));
                 contract.setEndDate(rs.getDate("EndDate"));
-                contract.setContractType(rs.getString("ContractType"));
                 contract.setDescription(rs.getString("Description"));
+                contract.setCode(rs.getString("Code"));
                 contract.setPayment(rs.getDouble("Payment"));
                 contracts.add(contract);
 
@@ -367,7 +382,7 @@ public class ContractDAO extends DBContext {
     public Contract checkContractByCustomerId(int contractId, int customerId) {
         String sql = "select * from Contracts where ContractId = ? and CustomerId = ?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, contractId);
             ps.setInt(2, customerId);
             ResultSet rs = ps.executeQuery();
@@ -383,11 +398,10 @@ public class ContractDAO extends DBContext {
         return null;
     }
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
-        
+
         System.out.println(cd.getContractByCode("XVPR954NK0RM"));
 
-        
     }
 }

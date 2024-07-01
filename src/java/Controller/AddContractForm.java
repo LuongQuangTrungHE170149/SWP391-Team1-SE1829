@@ -68,12 +68,13 @@ public class AddContractForm extends HttpServlet {
             throws ServletException, IOException {
         int customerId = Integer.parseInt(request.getParameter("customerId"));
         int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
+        VehicleDAO vd = new VehicleDAO();
 
         try {
             UserDAO userDao = new UserDAO();
 
             String customerName = userDao.getCustomerName(customerId);
-            Vehicle vehicle = VehicleDAO.INSTANCE.getVehicleById(vehicleId);
+            Vehicle vehicle = vd.getVehicleById(vehicleId);
             request.setAttribute("customerId", customerId);
             request.setAttribute("customerName", customerName);
             request.setAttribute("vehicleId", vehicleId);
