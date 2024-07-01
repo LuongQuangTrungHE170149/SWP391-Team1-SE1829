@@ -674,8 +674,24 @@ public class UserDAO extends DBContext {
 
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        User u = udb.getUserByPhoneOrEmail("0327983593", "kharrr2001@gmail.com");
-        System.out.println(u);
+        
+        System.out.println(udb.updateUserRoleById(15, "customer"));
+    }
+
+    public boolean updateUserRoleById(int id, String role) {
+        String sql = "UPDATE [dbo].[Users]\n"
+                + "   SET [role] = ?\n"
+                + " WHERE id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, role);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return false;
     }
 
     public boolean update(User user) {

@@ -27,7 +27,7 @@
     </head>
     <body>
         <jsp:include page="header.jsp" />
-        <div class="content">
+        <div class="content" style="height: 70vh;">
             <div class="row mt-4 px-3" style="width: 100%;">
                 <div class="col-12 col-lg-4">
                     <div class="fs-2 fw-bold text-danger">Tra cứu hợp đồng</div> 
@@ -56,7 +56,7 @@
                                 <th>Biển số xe</th>
                                 <th>Số khung</th>
                                 <th>Số máy</th>
-                                <th>Loại bảo hiểm</th>
+                                <th>Loại phương tiện</th>
                                 <th>Ngày hiệu lực</th>
                                 <th>Ngày kết thúc</th>
                                 <th>Mô tả</th>
@@ -77,7 +77,7 @@
                                 <td><a href="#" class="text-info"><i class="fa-regular fa-folder-open"></i></a></td>
                                 <td>
                                     <div class="badge <c:if test="${c.status == 'Pending'}">badge-warning</c:if>">${c.status}</div>
-                                </td>
+                                    </td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -85,10 +85,6 @@
 
             </div>
         </div>
-        <!-- MDB -->
-        <script
-            type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"
-        ></script>
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>
