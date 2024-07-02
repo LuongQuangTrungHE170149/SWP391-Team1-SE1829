@@ -1,6 +1,8 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
+
+select * from Users
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -55,6 +57,7 @@ Create table Vehicles(
 			Engine nvarchar(255),
 )
 
+select * from Contracts
 Create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int foreign key references Users(id),
