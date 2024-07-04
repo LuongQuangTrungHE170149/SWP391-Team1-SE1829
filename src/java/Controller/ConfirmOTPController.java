@@ -60,6 +60,7 @@ public class ConfirmOTPController extends HttpServlet {
                 resp.sendRedirect("changePassword");
             } else if ("register".equals(op)) {
                 System.out.println(udb.insert(u));
+                req.getSession().invalidate();
                 resp.sendRedirect("login");
             }
 

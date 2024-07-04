@@ -57,6 +57,7 @@ public class ChangePasswordController extends HttpServlet {
             } else {
                 dbUser.changePassword(userForgetPassword.getId(), newPassword);
                 req.setAttribute("message", "You change your password successfully!!");
+                req.getSession().invalidate();
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
 
             }
