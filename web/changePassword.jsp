@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="CSS/footer.css"/>
     </head>
     <body>
+        <jsp:include page="spinnerLoading.jsp"/>
         <jsp:include page="header.jsp"></jsp:include>
             <div class="form-container">
                 <p class="form-heading">

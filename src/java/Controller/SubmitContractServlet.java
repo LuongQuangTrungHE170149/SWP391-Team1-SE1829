@@ -123,7 +123,7 @@ public class SubmitContractServlet extends HttpServlet {
             c.setIsAccidentInsurance(isAccidentInsurance);
             c.setPayment(totalPrice);
             c.setStatus("Pending");
-            c.setCustomerId(user.getId());
+            c.setCustomer(user);
 
             ContractDAO cdb = new ContractDAO();
             System.out.println(cdb.addContract(c));
@@ -132,8 +132,18 @@ public class SubmitContractServlet extends HttpServlet {
             request.getSession().removeAttribute("totalPrice");
             request.getSession().removeAttribute("num_years");
             request.getSession().removeAttribute("firstName");
-            request.getSession().removeAttribute("lastName");
+            request.getSession().removeAttribute("address");
+            request.getSession().removeAttribute("v");
+            request.getSession().removeAttribute("dob");
+            request.getSession().removeAttribute("phoneNumber");
+            request.getSession().removeAttribute("startDate");
+            request.getSession().removeAttribute("endDate");
             request.getSession().removeAttribute("vehicleOwnerFirstName");
+            request.getSession().removeAttribute("vehicleOwnerLastName");
+            request.getSession().removeAttribute("vehicleOwnerAddress");
+            request.getSession().removeAttribute("licensePlate");
+            request.getSession().removeAttribute("chassisNumber");
+            request.getSession().removeAttribute("engineNumber");
             response.sendRedirect("requestContractSuccess.jsp");
         } catch (Exception e) {
             System.out.println(e);

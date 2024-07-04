@@ -444,63 +444,10 @@
         <!--mdb bootstrap-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
-
-        <!--chart-->
-        <!--tab chart-->
-        <!--                    <div class="tab-pane fade pt-4 pb-4 shadow-lg" id="chart" 
-                                 role="tabpanel" 
-                                 aria-labelledby="ex-with-icons-tab-2"
-                                 style="background-color: #fff; border-radius:12px;">
-                                <div class="m-2 text-center fs-4 fw-bold" style="color:#419FA3;">Total staff answer chart</div>
-                                <div class="row d-flex justify-content-center">
-                                    <div class=" col-11">
-                                        <canvas class="" id="consultationChart"></canvas>
-                                    </div>
-                                </div>
-        <%/*
-    HashMap<String, Integer> userConsultationMap = (HashMap<String, Integer>) request.getAttribute("totalStaffAnswer");
-    StringBuilder labels = new StringBuilder("[");
-    StringBuilder data = new StringBuilder("[");
-    for (String username : userConsultationMap.keySet()) {
-    labels.append("'").append(username).append("',");
-    data.append(userConsultationMap.get(username)).append(",");
-    }
-    labels.append("]");
-    data.append("]");
-        */%> 
-    </div>-->
-        <!--    <script>
-                                            var ctx = document.getElementById('consultationChart').getContext('2d');
-                                            var myChart = new Chart(ctx, {
-                                                type: 'bar',
-                                                data: {
-                                                    labels: <%/*= labels */%>,
-                                                    datasets: [{
-                                                            label: 'Total Consultations Answer',
-                                                            data: <%/*= data */%>,
-                                                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                                            borderColor: 'rgba(255, 99, 132, 1)',
-                                                            borderWidth: 1
-                                                        }]
-                                                },
-                                                options: {
-                                                    scales: {
-                                                        y: {
-                                                            beginAtZero: true
-                                                        }
-                                                    }
-                                                }
-                                            });
-            </script>-->
-
-        <!--script modal form-->
         <script>
                                         function showLoading() {
                                             document.getElementById('loading-overlay').style.display = 'flex';
                                         }
-
-                                        // Ẩn lớp phủ và spinner
-
                                         window.addEventListener('load', () => {
                                             setTimeout(() => {
                                                 hideLoading();

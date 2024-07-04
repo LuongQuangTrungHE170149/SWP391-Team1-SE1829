@@ -27,24 +27,10 @@ public class CalculateInsurancePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        int motocycleType = Integer.parseInt(request.getParameter("vehicle_type"));
-//        Date startDate = Date.valueOf(request.getParameter("startDate"));
-//        Date endDate = Date.valueOf(request.getParameter("endDate"));
-//        String numYears = request.getParameter("num_years");
-//
-//        VehicleTypeDAO vdb = new VehicleTypeDAO();
-//        List<VehicleType> listVT = vdb.getAll();
-//        VehicleType v = vdb.getVehicleTypeById(motocycleType);
-//
-//        request.setAttribute("v", v);
-//        request.setAttribute("listVT", listVT);
-//        request.setAttribute("motocycleType", motocycleType);
-//        request.setAttribute("startDate", startDate);
-//        request.setAttribute("endDate", endDate);
-//        request.setAttribute("num_years", numYears);
         try {
             if (request.getSession().getAttribute("num_years") == null) {
                 response.sendRedirect("motorbikeInsurance");
+                return;
             }
             request.getRequestDispatcher("calculateInsurancePage.jsp").forward(request, response);
         } catch (Exception e) {

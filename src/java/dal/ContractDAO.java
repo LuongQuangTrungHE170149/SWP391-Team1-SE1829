@@ -7,15 +7,10 @@ package dal;
 import Model.Contract;
 import Model.User;
 import Model.Vehicle;
-import dto.Contractdto;
-import java.math.BigInteger;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -62,11 +57,14 @@ public class ContractDAO extends DBContext {
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?,?,?,?,?)";
         try {
-
-            // Calculate End Date
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, contract.getCustomerId());
-            stmt.setInt(2, contract.getStaffId());
+            stmt.setInt(1, contract.getCustomer().getId());
+            
+            int staffId=0;
+            if(contract.getStaff() != null){
+                staffId = contract.getStaff().getId();
+            }
+            stmt.setInt(2, staffId);
             stmt.setInt(3, contract.getVehicle().getId());
             stmt.setDate(4, contract.getStartDate());
             stmt.setDate(5, contract.getEndDate());
@@ -96,6 +94,7 @@ public class ContractDAO extends DBContext {
                 + "      ,[Description]\n"
                 + "      ,[Code]\n"
                 + "      ,[Payment]\n"
+                + "      ,[createDate]\n"
                 + "      ,[status]\n"
                 + "  FROM [dbo].[Contracts] where Code = ?";
 
@@ -107,7 +106,13 @@ public class ContractDAO extends DBContext {
                 Contract c = new Contract();
                 c.setCode(contractCode);
                 c.setContractId(rs.getInt("ContractId"));
-                c.setStaffId(rs.getInt("StaffId"));
+
+                UserDAO udb = new UserDAO();
+                User customer = udb.getUserById(rs.getInt("CustomerId"));
+                c.setCustomer(customer);
+
+                User staff = udb.getUserById(rs.getInt("StaffId"));
+                c.setStaff(staff);
 
                 VehicleDAO vdb = new VehicleDAO();
                 Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
@@ -118,13 +123,17 @@ public class ContractDAO extends DBContext {
                 c.setDescription(rs.getString("Description"));
                 c.setCode(rs.getString("Code"));
                 c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
                 c.setStatus(rs.getString("status"));
 
                 return c;
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } catch (NullPointerException en) {
+            System.out.println(en);
         }
+
         return null;
     }
 
@@ -290,59 +299,49 @@ public class ContractDAO extends DBContext {
         return total;
     }
 
-    public List<Contract> getAllContract() {
-        List<Contract> contracts = new ArrayList<>();
-        String sql = "SELECT * FROM Contracts";
+    public List<Contract> getAll() {
+        List<Contract> list = new ArrayList<>();
+        String sql = "SELECT [ContractId]\n"
+                + "      ,[CustomerId]\n"
+                + "      ,[StaffId]\n"
+                + "      ,[VehicleId]\n"
+                + "      ,[StartDate]\n"
+                + "      ,[EndDate]\n"
+                + "      ,[isAccidentInsurance]\n"
+                + "      ,[Description]\n"
+                + "      ,[Code]\n"
+                + "      ,[Payment]\n"
+                + "      ,[createDate]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Contracts]";
 
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contract contract = new Contract();
-                contract.setContractId(rs.getInt("ContractId"));
-                contract.setCustomerId(rs.getInt("CustomerId"));
-                contract.setStaffId(rs.getInt("StaffId"));
+                Contract c = new Contract();
+                c.setCode(rs.getString("Code"));
+                c.setContractId(rs.getInt("ContractId"));
+                c.setStaffId(rs.getInt("StaffId"));
+
                 VehicleDAO vdb = new VehicleDAO();
                 Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
-                contract.setVehicle(v);
-                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
-                contract.setCode(rs.getString("Code"));
-                contract.setStartDate(rs.getDate("StartDate"));
-                contract.setEndDate(rs.getDate("EndDate"));
-                contract.setDescription(rs.getString("Description"));
-                contract.setPayment(rs.getDouble("Payment"));
-                contract.setStatus(rs.getString("Status"));
-                contracts.add(contract);
+                c.setVehicle(v);
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setStatus(rs.getString("status"));
+
+                list.add(c);
             }
-            rs.close();
-            ps.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
-
-        return contracts;
-    }
-
-    public List<Contractdto> getAllContractDto() throws SQLException {
-        List<Contractdto> contractdtos = new ArrayList<>();
-        ContractDAO cd = new ContractDAO();
-        List<Contract> contracts = cd.getAllContract();
-        for (Contract contract : contracts) {
-            Contractdto cdto = new Contractdto();
-            VehicleDAO vdb = new VehicleDAO();
-            Vehicle vehicle = vdb.getVehicleById(contract.getVehicle().getId());
-            UserDAO userDAO = new UserDAO();
-            cdto.setContractId(contract.getContractId());
-            cdto.setEndDate(contract.getEndDate());
-            cdto.setCustomerName(userDAO.getCustomerName(contract.getCustomerId()));
-            cdto.setStaffName(userDAO.getCustomerName(contract.getStaffId()));
-            cdto.setMotocycleType(vehicle.getMotocycleType());
-            cdto.setLicensePlates(vehicle.getLicensePlates());
-            contractdtos.add(cdto);
-        }
-
-        return contractdtos;
+        return list;
     }
 
     public List<Contract> searchContractByPlates(String plates) {
@@ -379,11 +378,11 @@ public class ContractDAO extends DBContext {
         return contracts;
     }
 
-    public Contract checkContractByCustomerId(int contractId, int customerId) {
-        String sql = "select * from Contracts where ContractId = ? and CustomerId = ?";
+    public Contract checkContractByCustomerId(String code, int customerId) {
+        String sql = "select * from Contracts where Code = ? and CustomerId = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, contractId);
+            ps.setString(1, code);
             ps.setInt(2, customerId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -401,7 +400,7 @@ public class ContractDAO extends DBContext {
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
-        System.out.println(cd.getContractByCode("XVPR954NK0RM"));
+        System.out.println(cd.getContractByCode("EM0XCP14UH80").getCustomer().getFirstName());
 
     }
 }

@@ -32,6 +32,7 @@
     <body>
         <jsp:include page="header.jsp"/>
         <jsp:include page="consultation.jsp"/>
+        <jsp:include page="spinnerLoading.jsp"/>
         <!--login form--> 
         <section class="h-100 gradient-form" style="background-color: #eee;">
             <div class="container py-5 h-100">

@@ -2,7 +2,6 @@ create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
 
-select * from Users
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -57,7 +56,6 @@ Create table Vehicles(
 			Engine nvarchar(255),
 )
 
-select * from Contracts
 Create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int foreign key references Users(id),
@@ -69,6 +67,7 @@ Create table Contracts(                                        /*bao hiem xe may
 			[Description] nvarchar(2000),
 			Code varchar(255),
 			Payment Bigint,
+			createDate date default getDate(),
 			[status] nvarchar(255),
 )
 GO
@@ -91,7 +90,7 @@ Create table Punishments(
 GO
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
-    ContractId INT REFERENCES Contracts(ContractId),
+    ContractCode varchar(255) REFERENCES Contracts(Code),
     CustomerId INT REFERENCES Users(id),
     AccidentId INT REFERENCES Accidents(AccidentId),
     EstimatedRepairCost DECIMAL(10, 2),
@@ -111,7 +110,6 @@ create TABLE Accidents (
     DescriptionOfAccident NTEXT NOT NULL,
     VehicleDamage NTEXT NOT NULL,
 	image varchar(255),
-
 );
 GO
 

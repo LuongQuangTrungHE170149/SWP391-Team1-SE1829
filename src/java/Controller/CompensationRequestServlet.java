@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Accident;
 import Model.Compensation;
+import Model.Contract;
 import Model.User;
 import dal.AccidentDAO;
 import dal.CompensationDAO;
@@ -80,7 +81,7 @@ public class CompensationRequestServlet extends HttpServlet {
         String incidentDescription = request.getParameter("incidentDescription");
         String estimatedRepairCost = request.getParameter("estimatedRepairCost");
         String image = "images/accidents_image/null.png";
-        int contractId = 0;
+  
 
         try {
             Part filePart = request.getPart("supportingDocuments");
@@ -104,12 +105,13 @@ public class CompensationRequestServlet extends HttpServlet {
                 }
                 image = "images/accidents_image/" + fileName;
             }
-            contractId = Integer.parseInt(policyNumber);
+      
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "File upload error", e);
         }
        
-        if (cdb.checkContractByCustomerId(contractId, u.getId()) != null) {
+        Contract contract = cdb.checkContractByCustomerId(policyNumber, u.getId());
+        if ( contract != null) {
             Accident accident = new Accident();
             accident.setCustomerId(u.getId());
             Date sqlDate = Date.valueOf(incidentDate);
@@ -122,7 +124,7 @@ public class CompensationRequestServlet extends HttpServlet {
             int idAccident = AccidentDAO.INSTANCE.insertAccident(accident);
             Compensation compensation = new Compensation();
             compensation.setCustomerId(u.getId());
-            compensation.setContractId(contractId);
+            compensation.setContractId(contract.getContractId());
             compensation.setAccidentId(idAccident);
             compensation.setEstimatedRepairCost(new BigInteger(estimatedRepairCost));
             LocalDate currentDate = LocalDate.now();

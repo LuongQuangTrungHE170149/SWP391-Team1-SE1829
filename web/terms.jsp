@@ -84,7 +84,8 @@
         </style>
     </head>
     <body>
-        <jsp:include page="header.jsp"></jsp:include>
+        <jsp:include page="spinnerLoading.jsp"/>
+        <jsp:include page="header.jsp"/>
             <div class="middle">
                 <div class="bg-img"></div>
                 <div class="middle-content">
