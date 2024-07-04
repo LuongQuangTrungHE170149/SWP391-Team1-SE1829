@@ -99,18 +99,27 @@
                                             aria-expanded="false">
                                         <i class="fa-solid fa-user" style="color:#fff"></i>
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-                                        <li><a href="
-                                               <c:if test="${sessionScope.user.role eq 'staff' or sessionScope.user.role eq 'staff'}">
-                                                   staffProfile?staffId=${sessionScope.user.id}
-                                               </c:if>
-                                               " class="dropdown-item">Hồ sơ</a></li>
-                                        <li><a href="compensationHistory?id=${sessionScope.user.id}" class="dropdown-item">Đền bù</a></li>
-                                        <li><a href="accidentHistory?id=${sessionScope.user.id}" class="dropdown-item">Lịch sử tai nạn</a></li>
+                                    <c:if test="${sessionScope.user.role eq 'customer' || sessionScope.user.role eq 'Customer'}">
+                                        <ul class="dropdown-menu" aria-labelledby="dropdown-user">
+                                            <li><a href="" class="dropdown-item">Hồ sơ</a></li>
+                                            <li><a href="compensationHistory?id=${sessionScope.user.id}" class="dropdown-item">Đền bù</a></li>
+                                            <li><a href="accidentHistory?id=${sessionScope.user.id}" class="dropdown-item">Lịch sử tai nạn</a></li>
 
-                                        <li class="dropdown-divider"></li>
-                                        <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
-                                    </ul>
+                                            <li class="dropdown-divider"></li>
+                                            <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
+                                        </ul>
+                                    </c:if>
+                                    <c:if test="${sessionScope.user.role eq 'staff' || sessionScope.user.role eq 'Staff'}">
+                                        <ul class="dropdown-menu" aria-labelledby="dropdown-user">
+                                            <li><a href="
+                                                   <c:if test="${sessionScope.user.role eq 'staff' or sessionScope.user.role eq 'Staff'}">
+                                                       staffProfile?staffId=${sessionScope.user.id}
+                                                   </c:if>
+                                                   " class="dropdown-item">Hồ sơ</a></li>                               
+                                            <li class="dropdown-divider"></li>
+                                            <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
+                                        </ul>
+                                    </c:if>
                                 </div>
                             </div>
                         </c:if>

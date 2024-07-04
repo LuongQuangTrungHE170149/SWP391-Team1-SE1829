@@ -378,11 +378,11 @@ public class ContractDAO extends DBContext {
         return contracts;
     }
 
-    public Contract checkContractByCustomerId(int contractId, int customerId) {
-        String sql = "select * from Contracts where ContractId = ? and CustomerId = ?";
+    public Contract checkContractByCustomerId(String code, int customerId) {
+        String sql = "select * from Contracts where Code = ? and CustomerId = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, contractId);
+            ps.setString(1, code);
             ps.setInt(2, customerId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
