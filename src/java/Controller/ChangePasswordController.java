@@ -27,7 +27,7 @@ public class ChangePasswordController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User userForgetPassword = (User) req.getSession().getAttribute("userChangePassword");
+        User userForgetPassword = (User) req.getSession().getAttribute("userForgetPassword");
         User user = (User) req.getSession().getAttribute("user");
         UserDAO dbUser = new UserDAO();
         String oldPassword = req.getParameter("oldPassword");
@@ -57,7 +57,6 @@ public class ChangePasswordController extends HttpServlet {
             } else {
                 dbUser.changePassword(userForgetPassword.getId(), newPassword);
                 req.setAttribute("message", "You change your password successfully!!");
-                req.getSession().invalidate();
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
 
             }

@@ -322,7 +322,14 @@ public class ContractDAO extends DBContext {
                 Contract c = new Contract();
                 c.setCode(rs.getString("Code"));
                 c.setContractId(rs.getInt("ContractId"));
-                c.setStaffId(rs.getInt("StaffId"));
+                
+                User customer = new User();
+                customer.setId(rs.getInt("CustomerId"));
+                c.setCustomer(customer);
+                
+                User staff = new User();
+                staff.setId(rs.getInt("StaffId"));
+                c.setStaff(staff);
 
                 VehicleDAO vdb = new VehicleDAO();
                 Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
