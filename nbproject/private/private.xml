@@ -3,11 +3,59 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/motorbikeInsurance.jsp</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/calculateInsuranceForm.jsp</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/calculateInsurancePage.jsp</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/requestCustomerInfor.jsp</file>
-            <file>file:/E:/Term/5.SU2024/2.SWP391/6_Project/SWP391-Team1-SE1829/web/header.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/searchContract.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/AddVehicleSuccess.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/dal/DBContext.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/serviceCenter.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/forgetPassword.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/staffProfile.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/homeManager.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/staffDashboard.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/updateProfile.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/introduce.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/header.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/newsDetail.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/motorbikeInsurance.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/updatePromotion.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/spinnerLoading.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/customerEdit.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/AddVehicleServlet.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/ChangePasswordController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/terms.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/footer.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/news.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/ConfirmOTPController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/login.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/error.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/ViewContract.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/newsManager.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/viewContract.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/customerDetail.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/home.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/updateStaffProfile.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/privacy.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/editingInstructions.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/editAgency.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/WebSocketServer.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/reviewCustomerInfo.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/ViewContractById.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/userProfile.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/staffHome.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/payment.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/register.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/customerList.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/orderInstructions.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/EmailHelper.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/vehicleManager.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/GenerateContractCode.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/promotion.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/utils/UserIDGenerator.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/listContract.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/Controller/RegisterController.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/src/java/dal/UserDAO.java</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/confirmOTP.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/updateNews.jsp</file>
+            <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/customerAdd.jsp</file>
         </group>
     </open-files>
 </project-private>

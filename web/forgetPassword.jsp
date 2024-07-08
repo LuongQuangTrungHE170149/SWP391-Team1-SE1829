@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
+          <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta charset="utf-8">
         <title>Forgot Password</title>
         <link rel="stylesheet" href="CSS/home.css"/>
