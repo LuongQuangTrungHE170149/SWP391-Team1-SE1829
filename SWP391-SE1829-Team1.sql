@@ -90,7 +90,7 @@ Create table Punishments(
 GO
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
-    ContractCode varchar(255) REFERENCES Contracts(Code),
+    ContractId INT REFERENCES Contracts(ContractId),
     CustomerId INT REFERENCES Users(id),
     AccidentId INT REFERENCES Accidents(AccidentId),
     EstimatedRepairCost DECIMAL(10, 2),
