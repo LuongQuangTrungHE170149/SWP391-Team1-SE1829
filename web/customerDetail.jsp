@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -23,106 +23,109 @@
     <body>
 
         <div id="customerDetail-page">
-            <jsp:include page="header.jsp" />
+            <jsp:include page="staffDashboard.jsp"/>
 
             <c:set var="customer" value="${requestScope.user}" />
+            <div class="main-content" id="main-content">
+                <div style="padding-top: 100px" class=" container customerDetail-wrapper">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="customerDetail-avatar">
+                                <div class="info">
+                                    <img width="200px" height="200px" src=${customer.gender == 0 ? './images/male.jpg' : './images/female.jpg'} alt="" />
+                                    <span style="font-size: 26px; margin-top: 10px;"><strong>${customer.getFullName()}</strong></span>
+                                </div>
+                            </div>
 
-            <div class=" container customerDetail-wrapper">
-                <div style="margin-top: 100px;" class="row">
-                    <div class="col-md-3">
-                        <div class="customerDetail-avatar">
-                            <div class="info">
-                                <img width="200px" height="200px" src=${customer.gender == 0 ? './images/male.jpg' : './images/female.jpg'} alt="" />
-                                <span style="font-size: 26px; margin-top: 10px;"><strong>${customer.getFullName()}</strong></span>
+                            <div class="customer-contract--wrapper">
+                                <div class="customer-contract--info">
+                                    <div style="display: flex; justify-content: space-between">
+                                        <div>
+                                            <span style="margin-right: 8px;"><i class="fa-solid fa-address-book"></i></i></span>
+                                            <span>Bảo hiểm: </span>
+                                        </div>
+                                        <span>${requestScope.totalContract}</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                        <div>
+                                            <span style="margin-right: 8px;"><i class="fa-solid fa-car"></i></span>
+                                            <span>Phương tiện: </span>
+                                        </div>
+                                        <span>${requestScope.totalVehicle}</span>
+                                    </div>
+
+                                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                        <div>
+                                            <span style="margin-right: 8px;"><i class="fa-solid fa-check"></i></span>
+                                            <span>Đã thanh toán: </span>
+                                        </div>
+                                        <span>${requestScope.isPay}</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                        <div>
+                                            <span style="margin-right: 8px;"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                            <span>Chưa thanh toán: </span>
+                                        </div>
+                                        <span>${requestScope.notIsPay}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2"></div>   
+
+
+                        <div class="col-md-7">
+
+
+                            <div class="customer-info--wrapper">   
+                                <a href="customerList" class="back-btn-customer"> 
+                                    <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
+                                    Quay lại
+                                </a>
+                                <div class="info-group">
+                                    <span class="customer-label"><strong>Họ tên: </strong></span>
+                                    <span class="customer-info">${customer.getFullName()}</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="customer-label"><strong>Giới tính: </strong></span>
+                                    <span class="customer-info">${customer.gender == 0 ? 'Nam' : 'Nữ'}</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="customer-label"><strong>Ngày sinh: </strong></span>
+                                    <fmt:parseDate value="${customer.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                    <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
+                                    <span class="customer-info">${formattedDate}</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="customer-label"><strong>Địa chỉ: </strong></span>
+                                    <span class="customer-info">${customer.address}</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="customer-label"><strong>Email: </strong></span>
+                                    <span class="customer-info">${customer.email}</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="customer-label"><strong>Số điện thoại: </strong></span>
+                                    <span class="customer-info">${customer.phone}</span>
+                                </div>
+                                <div class="info-group">
+                                    <span class="customer-label"><strong>Địa chỉ: </strong></span>
+                                    <span class="customer-info">${customer.address}</span>
+                                </div>
+
+                                <a href="customerEdit?customerId=${customer.id}">
+                                    <button class="update-btn">Sửa</button>
+                                </a>
                             </div>
                         </div>
 
-                        <div class="customer-contract--wrapper">
-                            <div class="customer-contract--info">
-                                <div style="display: flex; justify-content: space-between">
-                                    <div>
-                                        <span style="margin-right: 8px;"><i class="fa-solid fa-address-book"></i></i></span>
-                                        <span>Bảo hiểm: </span>
-                                    </div>
-                                    <span>${requestScope.totalContract}</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                    <div>
-                                        <span style="margin-right: 8px;"><i class="fa-solid fa-car"></i></span>
-                                        <span>Phương tiện: </span>
-                                    </div>
-                                    <span>${requestScope.totalVehicle}</span>
-                                </div>
-
-                                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                    <div>
-                                        <span style="margin-right: 8px;"><i class="fa-solid fa-check"></i></span>
-                                        <span>Đã thanh toán: </span>
-                                    </div>
-                                    <span>${requestScope.isPay}</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                    <div>
-                                        <span style="margin-right: 8px;"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                                        <span>Chưa thanh toán: </span>
-                                    </div>
-                                    <span>${requestScope.notIsPay}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-2"></div>   
-
-
-                    <div class="col-md-7">
-
-
-                        <div class="customer-info--wrapper">   
-                            <a href="customerList" class="back-btn-customer"> 
-                                <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
-                                Quay lại
-                            </a>
-                            <div class="info-group">
-                                <span class="customer-label"><strong>Họ tên: </strong></span>
-                                <span class="customer-info">${customer.getFullName()}</span>
-                            </div>
-                            <div class="info-group">
-                                <span class="customer-label"><strong>Giới tính: </strong></span>
-                                <span class="customer-info">${customer.gender == 0 ? 'Nam' : 'Nữ'}</span>
-                            </div>
-                            <div class="info-group">
-                                <span class="customer-label"><strong>Ngày sinh: </strong></span>
-                                <fmt:parseDate value="${customer.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
-                                <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
-                                <span class="customer-info">${formattedDate}</span>
-                            </div>
-                            <div class="info-group">
-                                <span class="customer-label"><strong>Địa chỉ: </strong></span>
-                                <span class="customer-info">${customer.address}</span>
-                            </div>
-                            <div class="info-group">
-                                <span class="customer-label"><strong>Email: </strong></span>
-                                <span class="customer-info">${customer.email}</span>
-                            </div>
-                            <div class="info-group">
-                                <span class="customer-label"><strong>Số điện thoại: </strong></span>
-                                <span class="customer-info">${customer.phone}</span>
-                            </div>
-                            <div class="info-group">
-                                <span class="customer-label"><strong>Địa chỉ: </strong></span>
-                                <span class="customer-info">${customer.address}</span>
-                            </div>
-
-                            <a href="customerEdit?customerId=${customer.id}">
-                                <button class="update-btn">Sửa</button>
-                            </a>
-                        </div>
                     </div>
 
                 </div>
-
             </div>
+
+
 
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>

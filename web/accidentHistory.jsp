@@ -54,6 +54,7 @@
                                 ${accident.vehicleDamage}
 
                             </td>
+                           
                         </tr>
                     </c:forEach>
 

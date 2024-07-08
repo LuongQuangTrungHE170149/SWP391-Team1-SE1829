@@ -75,9 +75,9 @@
                             <c:if test="${compensation.claimStatus eq 'approved'}">
 
                                 <td>  <fmt:formatDate value="${compensation.dateApproved}" pattern="dd/MM/yyyy" /></td>
-                                <td>
-                                    <fmt:formatNumber value="${compensation.paymentAmount}" type="currency" currencySymbol="₫" groupingUsed="true"/>
-                                </td>
+                                <!--<td>/ư-->
+                                    <%--<fmt:formatNumber value="${compensation.paymentAmount}" type="currency" currencySymbol="₫" groupingUsed="true"/>--%>
+                                <!--</td>-->
                                 <td class="text-success">Đã duyệt</td>
                             </c:if>
                             <c:if test="${compensation.claimStatus eq 'rejected'}">

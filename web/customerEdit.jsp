@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -51,98 +51,100 @@
                 </div>
                 <c:remove var="updateFail" scope="session" />
             </c:if>
-           
-                <jsp:include page="./header.jsp" />      
-           
-            <div class="container edit-customer--wrapper">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6 edit-form-wrapper">
-                        <div class="add-form__header">
-                            <h4 class="add-form__title">Sửa thông tin khách hàng</h4>
-                            <a href="customerList" class="back-btn"> 
-                                <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
-                                Quay lại
-                            </a>
-                        </div>
-                        <div class="form-wrapper">
-                            <c:set var="user" value="${user}" />
-                            <form class="edit-form-customer" action="customerEdit" method="post">
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="customer-id">Mã khách hàng</label></br>
-                                    <input type="number" readonly="" id="customer-id" class="input-full" name="customerId" value="${user.id}"/>
-                                    <span class="error-messeage"></span>
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="first-name">Họ</label></br>
-                                    <input type="text" required="" id="first-name" class="input-full" name="firstName" value="${user.firstName}"/>
-                                    <span class="error-messeage"></span>
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="last-name">Tên</label></br>
-                                    <input type="text" required="" id="last-name" class="input-full" name="lastName" value="${user.lastName}"/>
-                                    <span class="error-messeage"></span>
 
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="customer-Address">Địa chỉ</label></br>
-                                    <input type="text" required="" id="customer-Address" class="input-full" name="address" value="${user.address}"/>
-                                    <span class="error-messeage"></span>
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <fmt:parseDate value="${user.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
-                                    <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
-                                    <label class="input-label" for="customer-dob">Năm sinh</label></br>
-                                    <input type="text" required="" id="customer-dob" class="input-full" name="dob" value="${formattedDate}"/>
-                                    <span class="error-messeage"></span>
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" >Trạng thái</label></br>
-                                    <select class="input-select" name="customerStatus">
-                                        <option value="active" ${user.status eq 'active' ? 'selected' : ''} >Hoạt động</option>
-                                        <option value="inactive ${user.status ne 'active' ? 'selected' : ''}">Dừng hoạt động</option>
-                                    </select>
-                                </div>
-
-                                <div style="margin-bottom: 20px" class="input-wrapper">
-                                    <div>
-                                        <label class="input-label" for="customer-phone">Điện thoại</label></br>
-                                        <input type="text" required="" id="customer-phone" class="input-half" name="phone" value="${user.phone}"/>
-                                        <p class="text-danger m-0">${invalidPhone}</p>
+            <jsp:include page="staffDashboard.jsp"/>
+            <div class="main-content" id="main-content">
+                <div class="container edit-customer--wrapper">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 edit-form-wrapper">
+                            <div class="add-form__header">
+                                <h4 class="add-form__title">Sửa thông tin khách hàng</h4>
+                                <a href="customerList" class="back-btn"> 
+                                    <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
+                                    Quay lại
+                                </a>
+                            </div>
+                            <div class="form-wrapper">
+                                <c:set var="user" value="${user}" />
+                                <form class="edit-form-customer" action="customerEdit" method="post">
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="customer-id">Mã khách hàng</label></br>
+                                        <input type="number" readonly="" id="customer-id" class="input-full" name="customerId" value="${user.id}"/>
                                         <span class="error-messeage"></span>
                                     </div>
-                                    <div>
-                                        <label class="input-label" for="customer-gender">Giới tính</label></br
-                                        <select  name="gender">
-                                            <select class="select-half" name="gender">
-                                                <option value="0" ${user.gender == 0  ? 'selected' : ''} >Nam</option>
-                                                <option value="1" ${user.gender == 1  ? 'selected' : ''}>Nữ</option>
-                                            </select>
-
-                                        </select>
-
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="first-name">Họ</label></br>
+                                        <input type="text" required="" id="first-name" class="input-full" name="firstName" value="${user.firstName}"/>
+                                        <span class="error-messeage"></span>
+                                    </div>
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="last-name">Tên</label></br>
+                                        <input type="text" required="" id="last-name" class="input-full" name="lastName" value="${user.lastName}"/>
+                                        <span class="error-messeage"></span>
 
                                     </div>
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="customer-Email">Email</label></br>
-                                    <input type="email" required="" id="customer-Email" class="input-full" name="email" value="${user.email}"/>
-                                    <p class="text-danger m-0">${invalidEmail}</p>
-                                </div>                              
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="customer-Address">Địa chỉ</label></br>
+                                        <input type="text" required="" id="customer-Address" class="input-full" name="address" value="${user.address}"/>
+                                        <span class="error-messeage"></span>
+                                    </div>
+                                    <div style="margin-bottom: 20px">
+                                        <fmt:parseDate value="${user.getDob()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                        <fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy" var="formattedDate" />
+                                        <label class="input-label" for="customer-dob">Năm sinh</label></br>
+                                        <input type="text" required="" id="customer-dob" class="input-full" name="dob" value="${formattedDate}"/>
+                                        <span class="error-messeage"></span>
+                                    </div>
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" >Trạng thái</label></br>
+                                        <select class="input-select" name="customerStatus">
+                                            <option value="active" ${user.status eq 'active' ? 'selected' : ''} >Hoạt động</option>
+                                            <option value="inactive ${user.status ne 'active' ? 'selected' : ''}">Dừng hoạt động</option>
+                                        </select>
+                                    </div>
+
+                                    <div style="margin-bottom: 20px" class="input-wrapper">
+                                        <div>
+                                            <label class="input-label" for="customer-phone">Điện thoại</label></br>
+                                            <input type="text" required="" id="customer-phone" class="input-half" name="phone" value="${user.phone}"/>
+                                            <p class="text-danger m-0">${invalidPhone}</p>
+                                            <span class="error-messeage"></span>
+                                        </div>
+                                        <div>
+                                            <label class="input-label" for="customer-gender">Giới tính</label></br
+                                            <select  name="gender">
+                                                <select class="select-half" name="gender">
+                                                    <option value="0" ${user.gender == 0  ? 'selected' : ''} >Nam</option>
+                                                    <option value="1" ${user.gender == 1  ? 'selected' : ''}>Nữ</option>
+                                                </select>
+
+                                            </select>
 
 
-                                <div style="display: flex; justify-content: space-between; width: 473px">
-                                    <button type="submit" class="btn-wrapper btn-save">Lưu</button>                      
-                                </div>
-                            </form>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="customer-Email">Email</label></br>
+                                        <input type="email" required="" id="customer-Email" class="input-full" name="email" value="${user.email}"/>
+                                        <p class="text-danger m-0">${invalidEmail}</p>
+                                    </div>                              
+
+
+                                    <div style="display: flex; justify-content: space-between; width: 473px">
+                                        <button type="submit" class="btn-wrapper btn-save">Lưu</button>                      
+                                    </div>
+                                </form>
+                            </div>
+
+
                         </div>
-
-
+                        <div class="col-md-3"></div>
                     </div>
-                    <div class="col-md-3"></div>
-                </div>
 
-            </div>      
+                </div>  
+            </div>
+
         </div>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>

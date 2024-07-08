@@ -34,106 +34,107 @@
                 </div>
                 <c:remove var="addFail" scope="session" />
             </c:if>
-            <jsp:include page="./header.jsp" />      
+            <jsp:include page="staffDashboard.jsp"/>
+            <div class="main-content" id="main-content">
+                <div class="container add-customer--wrapper">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 edit-form-wrapper">
+                            <div class="add-form__header">
+                                <h4 class="add-form__title">Thêm khách hàng</h4>
+                                <a href="customerList" class="back-btn"> 
+                                    <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
+                                    Quay lại
+                                </a>
+                            </div>
+                            <div class="form-wrapper">
 
+                                <form class="add-form-customer" action="customerAdd" method="post">
+                                    <div style="margin-bottom: 20px" class="input-wrapper">
+                                        <div >
+                                            <label class="input-label" for="first-name">Họ</label></br>
+                                            <input type="text" required="" id="first-name" class="input-half" name="firstName" value="${firstName}"/>
+                                            <span class="error-messeage"></span>
+                                        </div>
+                                        <div>
+                                            <label class="input-label" for="last-name">Tên</label></br>
+                                            <input type="text" required="" id="last-name" class="input-half" name="lastName" value="${lastName}"/>
+                                            <span class="error-messeage"></span>
 
-            <div class="container add-customer--wrapper">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6 edit-form-wrapper">
-                        <div class="add-form__header">
-                            <h4 class="add-form__title">Thêm khách hàng</h4>
-                            <a href="customerList" class="back-btn"> 
-                                <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
-                                Quay lại
-                            </a>
-                        </div>
-                        <div class="form-wrapper">
-
-                            <form class="add-form-customer" action="customerAdd" method="post">
-                                <div style="margin-bottom: 20px" class="input-wrapper">
-                                    <div >
-                                        <label class="input-label" for="first-name">Họ</label></br>
-                                        <input type="text" required="" id="first-name" class="input-half" name="firstName" value="${firstName}"/>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="customer-Address">Địa chỉ</label></br>
+                                        <input type="text" required="" id="customer-Address" class="input-full" name="address" value="${address}"/>
                                         <span class="error-messeage"></span>
                                     </div>
-                                    <div>
-                                        <label class="input-label" for="last-name">Tên</label></br>
-                                        <input type="text" required="" id="last-name" class="input-half" name="lastName" value="${lastName}"/>
+                                    <div style="margin-bottom: 20px">
+
+                                        <label class="input-label" for="customer-dob">Năm sinh</label></br>
+                                        <input type="text" required="" id="customer-dob" class="input-full" name="dob" value="${dob}"/>
                                         <span class="error-messeage"></span>
-
                                     </div>
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="customer-Address">Địa chỉ</label></br>
-                                    <input type="text" required="" id="customer-Address" class="input-full" name="address" value="${address}"/>
-                                    <span class="error-messeage"></span>
-                                </div>
-                                <div style="margin-bottom: 20px">
 
-                                    <label class="input-label" for="customer-dob">Năm sinh</label></br>
-                                    <input type="text" required="" id="customer-dob" class="input-full" name="dob" value="${dob}"/>
-                                    <span class="error-messeage"></span>
-                                </div>
+                                    <div style="margin-bottom: 20px" class="input-wrapper">
+                                        <div>
+                                            <label class="input-label" for="customer-phone">Điện thoại</label></br>
+                                            <input type="text" required="" id="customer-phone" class="input-half" name="phone" value="${phone}"/>
+                                            <span class="error-messeage"></span>
+                                            <p class="m-0 text-danger">${invalidPhone}</p>
 
-                                <div style="margin-bottom: 20px" class="input-wrapper">
-                                    <div>
-                                        <label class="input-label" for="customer-phone">Điện thoại</label></br>
-                                        <input type="text" required="" id="customer-phone" class="input-half" name="phone" value="${phone}"/>
-                                        <span class="error-messeage"></span>
-                                        <p class="m-0 text-danger">${invalidPhone}</p>
+                                        </div>
+                                        <div>
+                                            <label class="input-label" for="customer-gender">Giới tính</label></br
+                                            <select  name="gender">
+                                                <select class="select-half" name="gender">
+                                                    <option value="0" >Nam</option>
+                                                    <option value="1">Nữ</option>
+                                                    <option value="2">Khác</option>
 
-                                    </div>
-                                    <div>
-                                        <label class="input-label" for="customer-gender">Giới tính</label></br
-                                        <select  name="gender">
-                                            <select class="select-half" name="gender">
-                                                <option value="0" >Nam</option>
-                                                <option value="1">Nữ</option>
-                                                <option value="2">Khác</option>
+                                                </select>
 
                                             </select>
-
-                                        </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="customer-Email">Email</label></br>
-                                    <input type="email" required="" id="customer-Email" class="input-full" name="email" value="${email}"/>
-                                    <p class="m-0 text-danger">${invalidEmail}</p>
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="customer-Email">Email</label></br>
+                                        <input type="email" required="" id="customer-Email" class="input-full" name="email" value="${email}"/>
+                                        <p class="m-0 text-danger">${invalidEmail}</p>
 
-                                </div>     
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="username">Tài khoản</label></br>
-                                    <input type="text" required="" id="username" class="input-full" name="username" value="${username}"/>
-                                    <p class="m-0 text-danger">${invalidUsername}</p>
+                                    </div>     
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="username">Tài khoản</label></br>
+                                        <input type="text" required="" id="username" class="input-full" name="username" value="${username}"/>
+                                        <p class="m-0 text-danger">${invalidUsername}</p>
 
-                                </div>   
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="customer-password">Mật khẩu</label></br>
-                                    <input type="password" required="" id="customer-password" class="input-full" name="password"/>
+                                    </div>   
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="customer-password">Mật khẩu</label></br>
+                                        <input type="password" required="" id="customer-password" class="input-full" name="password"/>
 
-                                </div>   
-                                <div style="margin-bottom: 20px">
-                                    <label class="input-label" for="customer-confirmpassword">Xác nhận</label></br>
-                                    <input type="password" required="" id="customer-confirmpassword" class="input-full" name="confirmPassword"/>
-                                    <p class="m-0 text-danger">${invalidConfirmPassword}</p>
+                                    </div>   
+                                    <div style="margin-bottom: 20px">
+                                        <label class="input-label" for="customer-confirmpassword">Xác nhận</label></br>
+                                        <input type="password" required="" id="customer-confirmpassword" class="input-full" name="confirmPassword"/>
+                                        <p class="m-0 text-danger">${invalidConfirmPassword}</p>
 
-                                </div>   
-                                <div style="display: flex; justify-content: space-between; width: 473px">
-                                    <button type="submit" class="btn-wrapper btn-save">Thêm</button>        
-                                    <button type="reset" class="btn-wrapper">Hủy</button>                      
+                                    </div>   
+                                    <div style="display: flex; justify-content: space-between; width: 473px">
+                                        <button type="submit" class="btn-wrapper btn-save">Thêm</button>        
+                                        <button type="reset" class="btn-wrapper">Hủy</button>                      
 
-                                </div>
-                            </form>
+                                    </div>
+                                </form>
+                            </div>
+
+
                         </div>
-
-
+                        <div class="col-md-3"></div>
                     </div>
-                    <div class="col-md-3"></div>
-                </div>
 
-            </div> 
+                </div> 
+            </div>
+
         </div>
 
 

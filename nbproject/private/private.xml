@@ -2,6 +2,9 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
             <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/searchContract.jsp</file>
             <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/AddVehicleSuccess.jsp</file>
@@ -57,5 +60,6 @@
             <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/updateNews.jsp</file>
             <file>file:/D:/400tr/FuLearning/semeter5/SWP391/Check%20git/SWP%20check%20git/web/customerAdd.jsp</file>
         </group>
+>>>>>>> 961b9182c4cc75e6810770fc9c2c8730bed794e8
     </open-files>
 </project-private>

@@ -1,7 +1,6 @@
--- create database SWP391_SE1829_Team1;
+create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -90,7 +89,7 @@ Create table Punishments(
 GO
 CREATE TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
-    ContractCode varchar(255) REFERENCES Contracts(Code),
+    ContractId INT REFERENCES Contracts(ContractId),
     CustomerId INT REFERENCES Users(id),
     AccidentId INT REFERENCES Accidents(AccidentId),
     EstimatedRepairCost DECIMAL(10, 2),
