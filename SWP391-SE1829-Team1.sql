@@ -1,4 +1,4 @@
-create database SWP391_SE1829_Team1;
+-- create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
 
