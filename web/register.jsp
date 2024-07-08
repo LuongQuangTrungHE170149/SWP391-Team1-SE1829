@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">  
         <meta charset="utf-8">
         <title>F-Care | Register</title>
         <style>

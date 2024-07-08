@@ -23,101 +23,103 @@
 
     </head>
     <body>
-        <div id="addAgency-page">
-          
-                <jsp:include page="./header.jsp" />      
-         
 
-            <div class="wrraper">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
+        <jsp:include page="staffDashboard.jsp"/>
+        <div class="main-content" id="main-content">
+            <div id="addAgency-page">
 
-                            <div class="add-form">
-                                <div class="add-form__header">
-                                    <h4 class="add-form__title">Thêm đại lý</h4>
-                                    <a href="listAgency" class="back-btn"> 
-                                        <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
-                                        Quay lại
-                                    </a>
-                                </div>
+                <div class="wrraper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
 
-                                <div class="form-wrapper">
-                                    <form class="add-form-agency" action="addAgency" method="post">
-                                        <div style="margin-bottom: 30px">
-                                            <label class="input-label" for="agency-name">Tên đại lý</label></br>
-                                            <input type="text" required="" id="agency-name" class="input-full" name="agencyName"/>
-                                            <span class="error-messeage"></span>
+                                <div class="add-form">
+                                    <div class="add-form__header">
+                                        <h4 class="add-form__title">Thêm đại lý</h4>
+                                        <a href="listAgency" class="back-btn"> 
+                                            <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>
+                                            Quay lại
+                                        </a>
+                                    </div>
 
-                                        </div>
-                                        <div style="margin-bottom: 30px">
-                                            <label class="input-label" for="agency-address">Địa chỉ</label></br>
-                                            <input type="text" required="" id="agency-address" class="input-full" name="agencyAddress"/>
-                                            <span class="error-messeage"></span>
-
-                                        </div>
-
-                                        <div style="margin-bottom: 50px" class="input-wrapper">
-                                            <div>
-                                                <label class="input-label" for="agency-hotline">Hotline</label></br>
-                                                <input type="text" required="" id="agency-hotline" class="input-half" name="agencyHotline"/>
-                                                <span class="error-messeage"></span>
-                                            </div>
-                                            <div>
-                                                <label class="input-label" for="agency-worktime">Giờ làm việc</label></br>
-                                                <input type="text" required="" id="agency-worktime" class="input-half" name="agencyWorktime"/>
+                                    <div class="form-wrapper">
+                                        <form class="add-form-agency" action="addAgency" method="post">
+                                            <div style="margin-bottom: 30px">
+                                                <label class="input-label" for="agency-name">Tên đại lý</label></br>
+                                                <input type="text" required="" id="agency-name" class="input-full" name="agencyName"/>
                                                 <span class="error-messeage"></span>
 
                                             </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; width: 473px">
-                                            <button type="submit" class="btn-wrapper btn-save">Lưu</button>        
-                                            <button type="reset" class="btn-wrapper btn-cancel">Hủy</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                            <div style="margin-bottom: 30px">
+                                                <label class="input-label" for="agency-address">Địa chỉ</label></br>
+                                                <input type="text" required="" id="agency-address" class="input-full" name="agencyAddress"/>
+                                                <span class="error-messeage"></span>
 
+                                            </div>
+
+                                            <div style="margin-bottom: 50px" class="input-wrapper">
+                                                <div>
+                                                    <label class="input-label" for="agency-hotline">Hotline</label></br>
+                                                    <input type="text" required="" id="agency-hotline" class="input-half" name="agencyHotline"/>
+                                                    <span class="error-messeage"></span>
+                                                </div>
+                                                <div>
+                                                    <label class="input-label" for="agency-worktime">Giờ làm việc</label></br>
+                                                    <input type="text" required="" id="agency-worktime" class="input-half" name="agencyWorktime"/>
+                                                    <span class="error-messeage"></span>
+
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; justify-content: space-between; width: 473px">
+                                                <button type="submit" class="btn-wrapper btn-save">Lưu</button>        
+                                                <button type="reset" class="btn-wrapper btn-cancel">Hủy</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
                             </div>
+
+
+                            <div class="col-md-2"></div>
+
                         </div>
 
-
-                        <div class="col-md-2"></div>
-
-                    </div>
-
-                </div>     
-                <!-- Hiện thị thông báo add thành công -->
-                <c:if test="${sessionScope.addSuccess != null}">
-                    <div id="toast-success" class="toast-container top-0 end-0 p-3">
-                        <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    ${sessionScope.addSuccess}
+                    </div>     
+                    <!-- Hiện thị thông báo add thành công -->
+                    <c:if test="${sessionScope.addSuccess != null}">
+                        <div id="toast-success" class="toast-container top-0 end-0 p-3">
+                            <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex">
+                                    <div class="toast-body">
+                                        ${sessionScope.addSuccess}
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
-                    </div>
-                    <c:remove var="addSuccess" scope="session" />
-                </c:if>
+                        <c:remove var="addSuccess" scope="session" />
+                    </c:if>
 
-                <!-- Hiện thị thông báo add thất bại -->
-                <c:if test="${sessionScope.addFail != null}">
-                    <div id="toast-fail" class="toast-container top-0 end-0 p-3">
-                        <div class="toast align-items-center text-bg-danger border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    ${sessionScope.addFail}
+                    <!-- Hiện thị thông báo add thất bại -->
+                    <c:if test="${sessionScope.addFail != null}">
+                        <div id="toast-fail" class="toast-container top-0 end-0 p-3">
+                            <div class="toast align-items-center text-bg-danger border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex">
+                                    <div class="toast-body">
+                                        ${sessionScope.addFail}
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
-                    </div>
-                    <c:remove var="addFail" scope="session" />
-                </c:if>
+                        <c:remove var="addFail" scope="session" />
+                    </c:if>
+                </div>
             </div>
         </div>
+
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 

@@ -23,109 +23,96 @@
     </head>
     <body>
 
-        <jsp:include page="./header.jsp" />      
-
+        <jsp:include page="staffDashboard.jsp"/>
         <div id="agencyDetail-page">
+            <div class="main-content" id="main-content">
 
-            <div class="wrraper">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4 agency-info">
-                            <a href="listAgency" class="link-back"><i class="fa-solid fa-chevron-left"></i></a>
-                                <c:set var="agency" value="${requestScope.agency}"/>
-                            <div class="agency-info--wrapper">
-                                <div class="agency-info-detail">
-                                    <span><strong>Tên đại lý: </strong></span>
-                                    <p>${agency.agencyName}</p>
-                                </div>
-                                <div class="agency-info-detail">
-                                    <span><strong>Địa chỉ: </strong></span>
-                                    <p>${agency.agencyAddress}</p>
-                                </div>
-                                <div class="agency-info-detail">
-                                    <span><strong>Hotline: </strong></span>
-                                    <p>${agency.hotline}</p>
-                                </div>
-                                <div class="agency-info-detail">
-                                    <span><strong>Giờ làm việc: </strong></span>
-                                    <p>${agency.worktime}</p>
-                                </div>
-                                <div class="agency-info-detail">
-                                    <span><strong>Trạng thái: </strong></span>
-                                    <p>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</p>
-                                </div>
+                <div class="wrraper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+
                             </div>
-                            <a href="editAgency?id=${agency.agencyId}" class="btn-wrapper btn-edit">Sửa</a>
-
-                        </div>
-                        <div class="col-md-1">
-
-                        </div>
-                        <div class="col-md-7 agency-review">
-                            <h3 style="text-align: center; margin-top: 10px;"><span>Doanh thu</span></h3>
-
-                            <c:if test="${requestScope.totalPayment != null}">
-                                <div style="margin: 20px;">
-                                    <p><strong>Tổng doanh thu: </strong>
-                                        <fmt:formatNumber value="${requestScope.totalPayment}" type="currency" currencySymbol="₫" groupingUsed="true"/>
-                                    </p>
-
-                                    <canvas id="earningsChart"></canvas>
-                                        <c:forEach var="entry" items="${requestScope.monthlyPayment.entrySet()}">
-                                        <p style="display: none" class="month">${entry.key}</p>
-                                        <p style="display: none" class="earning">${entry.value}</p>
-                                    </c:forEach>
+                            <div class="col-md-6 agency-info">
+                                <a href="listAgency" class="link-back"><i class="fa-solid fa-chevron-left"></i></a>
+                                    <c:set var="agency" value="${requestScope.agency}"/>
+                                <div class="agency-info--wrapper">
+                                    <div class="agency-info-detail">
+                                        <span><strong>Tên đại lý: </strong></span>
+                                        <p>${agency.agencyName}</p>
+                                    </div>
+                                    <div class="agency-info-detail">
+                                        <span><strong>Địa chỉ: </strong></span>
+                                        <p>${agency.agencyAddress}</p>
+                                    </div>
+                                    <div class="agency-info-detail">
+                                        <span><strong>Hotline: </strong></span>
+                                        <p>${agency.hotline}</p>
+                                    </div>
+                                    <div class="agency-info-detail">
+                                        <span><strong>Giờ làm việc: </strong></span>
+                                        <p>${agency.worktime}</p>
+                                    </div>
+                                    <div class="agency-info-detail">
+                                        <span><strong>Trạng thái: </strong></span>
+                                        <p>${agency.status eq "active" ? "Hoạt động" : "Dừng hoạt động"}</p>
+                                    </div>
                                 </div>
-                            </c:if>
+                                <a href="editAgency?id=${agency.agencyId}" class="btn-wrapper btn-edit">Sửa</a>
 
+                            </div>
+                            <div class="col-md-3">
 
+                            </div>
 
                         </div>
-                    </div>
-                    <div class="row" style="margin-top: 30px;">
-                        <div class="agency-staffs">
-                            <h4 style="text-align: center; margin-top: 10px;"><span>Danh sách nhân viên</span></h4>
-                            <table class="employee-table">
-                                <thead>
-                                    <tr>
-                                        <th>Mã</th>
-                                        <th>Tên</th>
-                                        <th>Đại lý</th>
-                                        <th>Email</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Giới tính</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Năm sinh</th>
-                                        <th>Trạng thái</th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="staff" items="${requestScope.users}">
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="agency-staffs">
+                                <h4 style="text-align: center; margin-top: 10px;"><span>Danh sách nhân viên</span></h4>
+                                <table class="employee-table">
+                                    <thead>
                                         <tr>
-                                            <td>${staff.id}</td>
-                                            <td>${staff.getFullName()}</td>
-                                            <td>${agency.agencyName}</td>
-                                            <td>${staff.email}</td>
-                                            <td>${staff.phone}</td>
-                                            <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
-                                            <td>${staff.address}</td>
-                                            <td>${staff.getDob()}</td>
-                                            <td>${staff.status eq 'active' ? 'Làm việc' : 'Nghỉ làm' }</td>
-
+                                            <th>Mã</th>
+                                            <th>Tên</th>
+                                            <th>Đại lý</th>
+                                            <th>Email</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Giới tính</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Năm sinh</th>
+                                            <th>Trạng thái</th>
 
 
                                         </tr>
-                                    </c:forEach>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="staff" items="${requestScope.users}">
+                                            <tr>
+                                                <td>${staff.id}</td>
+                                                <td>${staff.getFullName()}</td>
+                                                <td>${agency.agencyName}</td>
+                                                <td>${staff.email}</td>
+                                                <td>${staff.phone}</td>
+                                                <td>${staff.gender == 0 ? "Nam" : "Nữ"}</td>
+                                                <td>${staff.address}</td>
+                                                <td>${staff.getDob()}</td>
+                                                <td>${staff.status eq 'active' ? 'Làm việc' : 'Nghỉ làm' }</td>
 
-                                </tbody>
-                            </table>
+
+
+                                            </tr>
+                                        </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {

@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
+          <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Update Profile</title>
         <style>
@@ -34,7 +34,7 @@
             <div class="main-content" id="main-content">
                 <!--navbar-->
                 <div class="nav navbar bg-light justify-content-start sticky-top mb-3 px-2">
-                    <div class="fs-3 fw-bold text-info">Staff Profile</div>
+                    <div class="fs-3 fw-bold text-info">User Profile</div>
                 </div>
                 <!--end navbar-->
                 <div>
@@ -60,8 +60,8 @@
 
                                 </div>
                             </div>
-                            <form action="changePasswordStaff" method="post" id="changePassword">
-                                <input type="hidden" name="staffId" value="${user.id}"/>
+                            <form action="changePasswordUser" method="post" id="changePassword">
+                                <input type="hidden" name="userId" value="${user.id}"/>
                                 <div class="card shadow-4">
                                     <div class="card-header">
                                         <h4 class="m-0">Change Password</h4> 
@@ -94,8 +94,8 @@
                         </div>
 
                         <div class="col-lg-9">
-                            <form action="updateStaffProfile" method="post">
-                                <input type="hidden" name="staffId" value="${user.id}">
+                            <form action="updateProfile" method="post">
+                                <input type="hidden" name="userId" value="${user.id}">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row mb-3">

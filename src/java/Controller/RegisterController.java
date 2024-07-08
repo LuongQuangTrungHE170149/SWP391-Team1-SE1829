@@ -63,14 +63,10 @@ public class RegisterController extends HttpServlet {
                             req.getSession().setAttribute("userRegister", user);
                             req.getSession().setAttribute("op", "register");
 
-//                            String OTPCode = EmailHelper.generateOTP();
-//                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
-//                            req.getSession().setAttribute("OTP", OTPCode);
-//                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
-//                            String OTPCode = EmailHelper.generateOTP();
-//                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
-//                            req.getSession().setAttribute("OTP", OTPCode);
-//                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
+                            String OTPCode = EmailHelper.generateOTP();
+                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
+                            req.getSession().setAttribute("OTP", OTPCode);
+                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
                             resp.sendRedirect("confirmOTP");
 
                         } else {

@@ -37,7 +37,7 @@
                 <div class="wrapper">
                     <h1>Mẫu Yêu cầu Đền bù</h1>
                     <form action="compensation" method="post" enctype="multipart/form-data">
-                        <label for="policyNumber">Số Hợp đồng Bảo hiểm:</label>
+                        <label for="policyNumber">Mã bảo hiểm:</label>
                         <input type="text" id="policyNumber" name="policyNumber" value="${requestScope.policyNumber}" required>
                         <span style="color: red">${requestScope.error}</span>
                        

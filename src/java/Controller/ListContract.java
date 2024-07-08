@@ -67,7 +67,7 @@ public class ListContract extends HttpServlet {
         ContractDAO cd = new ContractDAO();
 
         try {
-            cdtos = cd .getAllContractDto();
+            cdtos = cd.getAllContractDto();
         } catch (SQLException ex) {
             Logger.getLogger(ListContract.class.getName()).log(Level.SEVERE, null, ex);
         }

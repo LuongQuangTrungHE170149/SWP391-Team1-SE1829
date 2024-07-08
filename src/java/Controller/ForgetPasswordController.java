@@ -43,12 +43,12 @@ public class ForgetPasswordController extends HttpServlet {
             req.getRequestDispatcher("forgetPassword.jsp").forward(req, resp);
         } else {
             String OTPCode = EmailHelper.generateOTP();
-//            String bodyEmailOTP = "Your veriftication code is: " + OTPCode;
-//            req.getSession().setAttribute("OTP", OTPCode);
-            req.getSession().setAttribute("userRegister", user);
+            String bodyEmailOTP = "Your veriftication code is: " + OTPCode;
+            req.getSession().setAttribute("OTP", OTPCode);
+            req.getSession().setAttribute("userForgetPassword", user);
             req.getSession().setAttribute("op", "change-password");
-//            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
-           resp.sendRedirect("confirmOTP");
+            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
+            resp.sendRedirect("confirmOTP");
         }
     }
 

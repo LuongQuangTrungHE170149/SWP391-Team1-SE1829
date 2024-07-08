@@ -153,18 +153,18 @@
                                 </c:if>
                             </span>
                             <div class="dropdown">
-                                <button type="button" 
+                                <button
                                         class="btn btn-info btn-floating"dun
                                         id="dropdown-user"
-                                        data-mdb-ripple-init
-                                        data-mdb-dropdown-init
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
                                         aria-expanded="false">
                                     <i class="fa-solid fa-user" style="color:#fff"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-                                    <li><a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Hồ sơ</a></li>
+                                    <li class="dropdown-item"><a href="userProfile" class="dropdown-item">Hồ sơ</a></li>
                                     <li class="dropdown-divider"></li>
-                                    <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
+                                    <li class="dropdown-item"><a href="logout" class="dropdown-item">Đăng xuất</a></li>
                                 </ul>
                             </div>
                         </div>
