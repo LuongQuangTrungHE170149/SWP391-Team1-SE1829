@@ -59,9 +59,9 @@ public class ContractDAO extends DBContext {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, contract.getCustomer().getId());
-            
-            int staffId=0;
-            if(contract.getStaff() != null){
+
+            int staffId = 0;
+            if (contract.getStaff() != null) {
                 staffId = contract.getStaff().getId();
             }
             stmt.setInt(2, staffId);
@@ -81,6 +81,112 @@ public class ContractDAO extends DBContext {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Contract> getAll() {
+        List<Contract> list = new ArrayList<>();
+        String sql = "SELECT [ContractId]\n"
+                + "      ,[CustomerId]\n"
+                + "      ,[StaffId]\n"
+                + "      ,[VehicleId]\n"
+                + "      ,[StartDate]\n"
+                + "      ,[EndDate]\n"
+                + "      ,[isAccidentInsurance]\n"
+                + "      ,[Description]\n"
+                + "      ,[Code]\n"
+                + "      ,[Payment]\n"
+                + "      ,[createDate]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Contracts]";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Contract c = new Contract();
+                c.setCode(rs.getString("Code"));
+                c.setContractId(rs.getInt("ContractId"));
+
+                User customer = new User();
+                customer.setId(rs.getInt("CustomerId"));
+                c.setCustomer(customer);
+
+                User staff = new User();
+                staff.setId(rs.getInt("StaffId"));
+                c.setStaff(staff);
+
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                c.setVehicle(v);
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setStatus(rs.getString("status"));
+
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Contract> getContractByCustomerId(int id) {
+        List<Contract> list = new ArrayList<>();
+        String sql = "SELECT [ContractId]\n"
+                + "      ,[CustomerId]\n"
+                + "      ,[StaffId]\n"
+                + "      ,[VehicleId]\n"
+                + "      ,[StartDate]\n"
+                + "      ,[EndDate]\n"
+                + "      ,[isAccidentInsurance]\n"
+                + "      ,[Description]\n"
+                + "      ,[Code]\n"
+                + "      ,[Payment]\n"
+                + "      ,[createDate]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Contracts] WHERE CustomerId = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Contract c = new Contract();
+                c.setCode(rs.getString("Code"));
+                c.setContractId(rs.getInt("ContractId"));
+
+                User customer = new User();
+                UserDAO udb = new UserDAO();
+                customer = udb.getUserById(rs.getInt("CustomerId"));
+                c.setCustomer(customer);
+
+                User staff = new User();
+                staff = udb.getUserById(rs.getInt("StaffId"));
+                c.setStaff(staff);
+
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                c.setVehicle(v);
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setStatus(rs.getString("status"));
+
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 
     public Contract getContractByCode(String contractCode) {
@@ -137,100 +243,61 @@ public class ContractDAO extends DBContext {
         return null;
     }
 
-    public boolean requestContract(Contract contract) {
-        String sql = "INSERT INTO [dbo].[Contracts]\n"
-                + "           ([CustomerId]\n"
-                + "           ,[StaffId]\n"
-                + "           ,[VehicleId]\n"
-                + "           ,[StartDate]\n"
-                + "           ,[EndDate]\n"
-                + "           ,[isAccidentInsurance]\n"
-                + "           ,[Description]\n"
-                + "           ,[Code]\n"
-                + "           ,[Payment]\n"
-                + "           ,[status])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,?,?)";
-        try {
-            // Calculate End Date
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, contract.getCustomerId());
-            stmt.setInt(2, contract.getStaffId());
-            stmt.setInt(3, contract.getVehicle().getId());
-            stmt.setDate(4, contract.getStartDate());
-            stmt.setDate(5, contract.getEndDate());
-            stmt.setBoolean(6, contract.isIsAccidentInsurance());
-            stmt.setString(7, contract.getDescription());
-            stmt.setString(8, contract.getCode());
-            stmt.setDouble(9, contract.getPayment());
-            stmt.setString(10, contract.getStatus());
-            stmt.executeUpdate();
-            stmt.close();
-            connection.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    public Contract getContractById (int id){
+        String sql = "SELECT [ContractId]\n"
+                + "      ,[CustomerId]\n"
+                + "      ,[StaffId]\n"
+                + "      ,[VehicleId]\n"
+                + "      ,[StartDate]\n"
+                + "      ,[EndDate]\n"
+                + "      ,[isAccidentInsurance]\n"
+                + "      ,[Description]\n"
+                + "      ,[Code]\n"
+                + "      ,[Payment]\n"
+                + "      ,[createDate]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Contracts] where ContractId = ?";
 
-    public Contract findContractByVehicleId(int vehicleId) {
-        String sql = "SELECT * FROM Contracts WHERE VehicleId = ?";
-        Contract contract = new Contract();
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, vehicleId);
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                contract.setContractId(rs.getInt("ContractId"));
-                contract.setCustomerId(rs.getInt("CustomerId"));
-                contract.setStaffId(rs.getInt("StaffId"));
+                Contract c = new Contract();
+                c.setCode(rs.getString("Code"));
+                c.setContractId(id);
+
+                UserDAO udb = new UserDAO();
+                User customer = udb.getUserById(rs.getInt("CustomerId"));
+                c.setCustomer(customer);
+
+                User staff = udb.getUserById(rs.getInt("StaffId"));
+                c.setStaff(staff);
+
                 VehicleDAO vdb = new VehicleDAO();
                 Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
-                contract.setVehicle(v);
-                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
-                contract.setStartDate(rs.getDate("StartDate"));
-                contract.setEndDate(rs.getDate("EndDate"));
-                contract.setDescription(rs.getString("Description"));
-                contract.setCode(rs.getString("Code"));
-                contract.setPayment(rs.getDouble("Payment"));
-                contract.setStatus(rs.getString("status"));
+                c.setVehicle(v);
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setStatus(rs.getString("status"));
+
+                return c;
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } catch (NullPointerException en) {
+            System.out.println(en);
         }
 
-        return contract;
+        return null;
     }
 
-    public Contract findContractByContractId(int contractId) {
-        String sql = "SELECT * FROM Contracts WHERE ContractId = ?";
-        Contract contract = new Contract();
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, contractId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                contract.setContractId(rs.getInt("ContractId"));
-                contract.setCustomerId(rs.getInt("CustomerId"));
-                contract.setStaffId(rs.getInt("StaffId"));
-                VehicleDAO vdb = new VehicleDAO();
-                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
-                contract.setVehicle(v);
-                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
-                contract.setStartDate(rs.getDate("StartDate"));
-                contract.setEndDate(rs.getDate("EndDate"));
-                contract.setDescription(rs.getString("Description"));
-                contract.setCode(rs.getString("Code"));
-                contract.setPayment(rs.getDouble("Payment"));
-                contract.setStatus(rs.getString("status"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return contract;
-    }
+   
 
     public int countContracts() {
         String sql = "select count(*) as totalContracts from Contracts";
@@ -299,115 +366,10 @@ public class ContractDAO extends DBContext {
         return total;
     }
 
-    public List<Contract> getAll() {
-        List<Contract> list = new ArrayList<>();
-        String sql = "SELECT [ContractId]\n"
-                + "      ,[CustomerId]\n"
-                + "      ,[StaffId]\n"
-                + "      ,[VehicleId]\n"
-                + "      ,[StartDate]\n"
-                + "      ,[EndDate]\n"
-                + "      ,[isAccidentInsurance]\n"
-                + "      ,[Description]\n"
-                + "      ,[Code]\n"
-                + "      ,[Payment]\n"
-                + "      ,[createDate]\n"
-                + "      ,[status]\n"
-                + "  FROM [dbo].[Contracts]";
-
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Contract c = new Contract();
-                c.setCode(rs.getString("Code"));
-                c.setContractId(rs.getInt("ContractId"));
-                
-                User customer = new User();
-                customer.setId(rs.getInt("CustomerId"));
-                c.setCustomer(customer);
-                
-                User staff = new User();
-                staff.setId(rs.getInt("StaffId"));
-                c.setStaff(staff);
-
-                VehicleDAO vdb = new VehicleDAO();
-                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
-                c.setVehicle(v);
-                c.setStartDate(rs.getDate("startDate"));
-                c.setEndDate(rs.getDate("endDate"));
-                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
-                c.setDescription(rs.getString("Description"));
-                c.setCode(rs.getString("Code"));
-                c.setPayment(rs.getDouble("Payment"));
-                c.setCreateDate(rs.getDate("createDate"));
-                c.setStatus(rs.getString("status"));
-
-                list.add(c);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
-    }
-
-    public List<Contract> searchContractByPlates(String plates) {
-        List<Contract> contracts = new ArrayList<>();
-        String sql = "SELECT c.ContractId, c.VehicleId, c.CustomerId, c.StaffId, c.StartDate, c.EndDate, c.ContractType, c.[Description], c.Payment FROM Contracts c\n"
-                + "JOIN Vehicles v ON c.VehicleId = v.MotocycleId\n"
-                + "WHERE v.LicensePlates = ?;";
-
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, plates);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Contract contract = new Contract();
-                contract.setContractId(rs.getInt("ContractId"));
-                VehicleDAO vdb = new VehicleDAO();
-                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
-                contract.setVehicle(v);
-                contract.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
-                contract.setCustomerId(rs.getInt("CustomerId"));
-                contract.setStaffId(rs.getInt("StaffId"));
-                contract.setStartDate(rs.getDate("StartDate"));
-                contract.setEndDate(rs.getDate("EndDate"));
-                contract.setDescription(rs.getString("Description"));
-                contract.setCode(rs.getString("Code"));
-                contract.setPayment(rs.getDouble("Payment"));
-                contracts.add(contract);
-
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return contracts;
-    }
-
-    public Contract checkContractByCustomerId(String code, int customerId) {
-        String sql = "select * from Contracts where Code = ? and CustomerId = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, code);
-            ps.setInt(2, customerId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Contract contract = new Contract();
-                contract.setContractId(rs.getInt("ContractId"));
-                return contract;
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return null;
-    }
-
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
-        System.out.println(cd.getContractByCode("EM0XCP14UH80").getCustomer().getFirstName());
+        System.out.println(cd.getContractById(5));
 
     }
 }
