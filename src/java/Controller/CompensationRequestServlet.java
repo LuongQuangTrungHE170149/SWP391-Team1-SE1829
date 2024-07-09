@@ -81,21 +81,13 @@ public class CompensationRequestServlet extends HttpServlet {
         String incidentDescription = request.getParameter("incidentDescription");
         String estimatedRepairCost = request.getParameter("estimatedRepairCost");
         String image = "images/accidents_image/null.png";
-  
 
         try {
             Part filePart = request.getPart("supportingDocuments");
             if (filePart != null && filePart.getSize() > 0) {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String uploadDir = getServletContext().getRealPath("/") + "images/accidents_image";
-                LOGGER.log(Level.INFO, "Upload directory: {0}", uploadDir);
-                File uploadDirFile = new File(uploadDir);
-                if (!uploadDirFile.exists()) {
-                    boolean dirCreated = uploadDirFile.mkdirs();
-                    LOGGER.log(Level.INFO, "Directory created: {0}", dirCreated);
-                }
+                String uploadDir = getServletContext().getRealPath("/images/accidents_image");
                 File file = new File(uploadDir, fileName);
-                LOGGER.log(Level.INFO, "File path: {0}", file.getAbsolutePath());
                 try (InputStream input = filePart.getInputStream(); OutputStream output = new FileOutputStream(file)) {
                     byte[] buffer = new byte[1024];
                     int bytesRead;
@@ -105,13 +97,13 @@ public class CompensationRequestServlet extends HttpServlet {
                 }
                 image = "images/accidents_image/" + fileName;
             }
-      
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "File upload error", e);
         }
-       
+
         Contract contract = cdb.checkContractByCustomerId(policyNumber, u.getId());
-        if ( contract != null) {
+        if (contract != null) {
             Accident accident = new Accident();
             accident.setCustomerId(u.getId());
             Date sqlDate = Date.valueOf(incidentDate);

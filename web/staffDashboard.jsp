@@ -174,11 +174,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li>
-                            <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Profile</a>
+                            <a href="staffProfile?staffId=${sessionScope.user.id}" class="dropdown-item">Hồ sơ</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a href="logout" class="dropdown-item">Sign out <img src="images/sign-out 1.png" width="16" height="16"" alt="alt"/></a>
+                            <a href="logout" class="dropdown-item">Đăng xuất <img src="images/sign-out 1.png" width="16" height="16"" alt="alt"/></a>
                         </li>
                     </ul>
                 </div>
