@@ -112,7 +112,7 @@
                                                 <p class="mb-0">Date Created</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"/></p>
+                                                <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="DD/MM/YYYY"/></p>
                                             </div>
                                         </div>
                                         <hr>
