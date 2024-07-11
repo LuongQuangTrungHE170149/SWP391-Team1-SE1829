@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User Profile</title>
     </head>
@@ -114,7 +114,7 @@
                         <div class="card-footer">
                             <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-init onclick="location.href = 'updateProfile'"><i class="fa-solid fa-pen-to-square"></i></button>
                             <div class="d-flex justify-content-end"> 
-                                <button class="btn btn-info" onclick="location.href = 'listContract.jsp'">Go to manage contracts</button>
+                                <button class="btn btn-info" onclick="location.href = 'manageContractCustomer.jsp'">Go to manage contracts</button>
                             </div>
                         </div>
 
@@ -124,6 +124,11 @@
             </div>
 
         </div>
+        <script>
+            function goBack() {
+            window.location.href ='home.jsp';                 
+                        }
+        </script>
         <jsp:include page="./footer.jsp"></jsp:include>
     </body>
 </html>
