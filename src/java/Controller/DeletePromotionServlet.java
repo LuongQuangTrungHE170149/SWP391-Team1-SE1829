@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -52,6 +54,8 @@ public class DeletePromotionServlet extends HttpServlet {
         String selectedStaff = request.getParameter("selectedStaff");
         int page = Integer.parseInt(request.getParameter("page"));
         String searchValue = request.getParameter("searchValue");
+        
+        String encodedSearchValue = URLEncoder.encode(searchValue, StandardCharsets.UTF_8.toString());
         System.out.println(searchValue);
         System.out.println(selectedStaff);
         System.out.println(searchValue);
@@ -64,7 +68,7 @@ public class DeletePromotionServlet extends HttpServlet {
                 response.sendRedirect("promotionManager?selectedStaff=" + selectedStaff + "&page=" + page);
             }
         } else {
-            response.sendRedirect("promotionManager?page=" + page + "&searchValue=" + searchValue);
+            response.sendRedirect("promotionManager?page=" + page + "&searchValue=" + encodedSearchValue);
         }
     }
 

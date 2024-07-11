@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -26,6 +28,7 @@ public class DeleteNewsServlet extends HttpServlet {
         String selectedStaff = request.getParameter("selectedStaff");
         int page = Integer.parseInt(request.getParameter("page"));
         String searchValue = request.getParameter("searchValue");
+        String encodedSearchValue = URLEncoder.encode(searchValue, StandardCharsets.UTF_8.toString());
 
         NewsDAO pdb = new NewsDAO();
         pdb.deleteNewsById(id);
@@ -36,7 +39,7 @@ public class DeleteNewsServlet extends HttpServlet {
                 response.sendRedirect("newsManager?selectedStaff=" + selectedStaff + "&page=" + page);
             }
         } else {    
-            response.sendRedirect("newsManager?page=" + page + "&searchValue=" + searchValue);
+            response.sendRedirect("newsManager?page=" + page + "&searchValue=" + encodedSearchValue);
         }
     }
 
