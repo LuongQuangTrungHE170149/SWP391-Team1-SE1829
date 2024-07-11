@@ -101,7 +101,7 @@
                                     </button>
                                     <c:if test="${sessionScope.user.role eq 'customer' || sessionScope.user.role eq 'Customer'}">
                                         <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-                                            <li><a href="" class="dropdown-item">Hồ sơ</a></li>
+                                            <li><a href="userProfile" class="dropdown-item">Hồ sơ</a></li>
                                             <li><a href="compensationHistory?id=${sessionScope.user.id}" class="dropdown-item">Đền bù</a></li>
                                             <li><a href="manageContractCustomer?customerId=${sessionScope.user.id}" class="dropdown-item">Quản lý hợp đồng</a></li>
                                             <li><a href="accidentHistory?id=${sessionScope.user.id}" class="dropdown-item">Lịch sử tai nạn</a></li>
