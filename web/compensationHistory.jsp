@@ -52,7 +52,6 @@
                         <th scope="col">Chi phí sửa chữa ước tính</th>
                         <th scope="col">Ngày làm đơn</th>
                         <th scope="col">Ngày duyệt đơn</th>
-                        <th scope="col">Bồi thường</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Mô tả</th>
                     </tr>
