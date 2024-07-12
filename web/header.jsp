@@ -7,25 +7,65 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"rel="stylesheet"/>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"rel="stylesheet"/>
 <!-- MDB -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"rel="stylesheet"/><body>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"rel="stylesheet"/>
+
+<body>
     <style>
-        body{
+        body {
             font-family: Roboto !important;
         }
         .navbar-custom {
             background: rgb(0,167,209);
             background: linear-gradient(204deg, rgba(0,167,209,1) 0%, rgba(65,159,163,1) 100%);
         }
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .notification-list {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .notification-item:hover {
+            background-color: #f9f9f9;
+        }
+        .notification-item:last-child {
+            border-bottom: none;
+        }
     </style>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light navbar-custom sticky-top bg-body-tertiary ">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom sticky-top bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="home">
                 <img src="images/icon motor.png" alt="Logo" width="35" height="35" class="me-2 mb-2">
@@ -49,7 +89,7 @@
                                 <a class="nav-link" style="color:white;" href="home">Trang chủ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"style="color:white;" href="introduce">Giới thiệu</a>
+                                <a class="nav-link" style="color:white;" href="introduce">Giới thiệu</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" 
@@ -64,14 +104,14 @@
                             </li>
                             <c:if test="${sessionScope.user.getRole() eq 'Staff' || sessionScope.user.getRole() eq 'staff'}">
                                 <li class="nav-item">
-                                    <a class="nav-link"style="color:white;" href="staffHome">Quản lý</a>
+                                    <a class="nav-link" style="color:white;" href="staffHome">Quản lý</a>
                                 </li>
                             </c:if>
                             <li class="nav-item">
-                                <a class="nav-link"style="color:white;" href="promotion">Khuyến mại</a>
+                                <a class="nav-link" style="color:white;" href="promotion">Khuyến mại</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"style="color:white;" href="news">Tin tức</a>
+                                <a class="nav-link" style="color:white;" href="news">Tin tức</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" style="color:white;" href="#">Liên Hệ</a>
@@ -87,12 +127,22 @@
                                 <span class="fs-5 text-white me-2">
                                     <c:if test="${sessionScope.user ne null}">
                                         Chào, ${sessionScope.user.getFullName()}
-
                                     </c:if>
                                 </span>
-                                <div class="dropdown">
+                                <!-- Notification Bell -->
+                                <div class="notification-bell" onclick="toggleNotifications()">
+                                    <i class="fa-solid fa-bell" style="color:#fff"></i>
+                                    <span class="notification-count">3</span>
+                                    <div class="notification-list" id="notificationList">
+                                        <div class="notification-item">Thông báo 1</div>
+                                        <div class="notification-item">Thông báo 2</div>
+                                        <div class="notification-item">Thông báo 3</div>
+                                    </div>
+                                </div>
+                                <!-- User Dropdown -->
+                                <div class="dropdown ms-3">
                                     <button type="button" 
-                                            class="btn btn-info btn-floating"dun
+                                            class="btn btn-info btn-floating"
                                             id="dropdown-user"
                                             data-mdb-ripple-init
                                             data-mdb-dropdown-init
@@ -125,7 +175,7 @@
                         </c:if>
                         <c:if test="${sessionScope.user==null}">
                             <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
-                            <a class="btn btn-light  " href="register.jsp">Đăng Ký</a>
+                            <a class="btn btn-light" href="register.jsp">Đăng Ký</a>
                         </c:if>
                     </div>
                 </c:when>
@@ -135,13 +185,12 @@
                             <a class="nav-link" style="color:white;" href="homeManager">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"style="color:white;" href="listAgency">Danh sách đại lý</a>
+                            <a class="nav-link" style="color:white;" href="listAgency">Danh sách đại lý</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"style="color:white;" href="customerList">Danh sách khách hàng</a>
+                            <a class="nav-link" style="color:white;" href="customerList">Danh sách khách hàng</a>
                         </li>
-
-                    </ul>    
+                    </ul>
                 </div>
                 <div class="d-flex justify-content-center">
                     <c:if test="${sessionScope.user!=null}">
@@ -149,12 +198,22 @@
                             <span class="fs-5 text-white me-2">
                                 <c:if test="${sessionScope.user ne null}">
                                     Chào, ${sessionScope.user.getFullName()}
-
                                 </c:if>
                             </span>
-                            <div class="dropdown">
+                            <!-- Notification Bell -->
+                            <div class="notification-bell" onclick="toggleNotifications()">
+                                <i class="fa-solid fa-bell" style="color:#fff"></i>
+                                <span class="notification-count">#</span>
+                                <div class="notification-list" id="notificationList">
+                                    <div class="notification-item">Thông báo 1</div>
+                                    <div class="notification-item">Thông báo 2</div>
+                                    <div class="notification-item">Thông báo 3</div>
+                                </div>
+                            </div>
+                            <!-- User Dropdown -->
+                            <div class="dropdown ms-3">
                                 <button
-                                    class="btn btn-info btn-floating"dun
+                                    class="btn btn-info btn-floating"
                                     id="dropdown-user"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
@@ -171,14 +230,26 @@
                     </c:if>
                     <c:if test="${sessionScope.user==null}">
                         <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
-                        <a class="btn btn-light  " href="register.jsp">Đăng Ký</a>
+                        <a class="btn btn-light" href="register.jsp">Đăng Ký</a>
                     </c:if>
                 </div>
             </c:otherwise>
         </c:choose>
-
-
     </div>
 </nav>
-<!--mdb bootstrap-->
 </body>
+<script>
+    function toggleNotifications() {
+        const notificationList = document.getElementById('notificationList');
+        notificationList.style.display = notificationList.style.display === 'none' || notificationList.style.display === '' ? 'block' : 'none';
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.notification-bell') && !event.target.matches('.notification-bell *')) {
+            const notificationList = document.getElementById('notificationList');
+            if (notificationList.style.display === 'block') {
+                notificationList.style.display = 'none';
+            }
+        }
+    }
+</script>
