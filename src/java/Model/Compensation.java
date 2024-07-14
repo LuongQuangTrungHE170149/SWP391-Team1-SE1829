@@ -16,29 +16,27 @@ public class Compensation {
     private int id;
     private int contractId;
     private int customerId;
+    private int staffId;
     private int accidentId;
     private BigInteger estimatedRepairCost;
     private String claimStatus;
     private Date dateFiled;
     private Date dateApproved;
-    private BigInteger paymentAmount;
-    private Date paymentDate;
     private String notes;
 
     public Compensation() {
     }
 
-    public Compensation(int id, int contractId, int customerId, int accidentId, BigInteger estimatedRepairCost, String claimStatus, Date dateFiled, Date dateApproved, BigInteger paymentAmount, Date paymentDate, String notes) {
+    public Compensation(int id, int contractId, int customerId, int staffId, int accidentId, BigInteger estimatedRepairCost, String claimStatus, Date dateFiled, Date dateApproved, String notes) {
         this.id = id;
         this.contractId = contractId;
         this.customerId = customerId;
+        this.staffId = staffId;
         this.accidentId = accidentId;
         this.estimatedRepairCost = estimatedRepairCost;
         this.claimStatus = claimStatus;
         this.dateFiled = dateFiled;
         this.dateApproved = dateApproved;
-        this.paymentAmount = paymentAmount;
-        this.paymentDate = paymentDate;
         this.notes = notes;
     }
 
@@ -64,6 +62,14 @@ public class Compensation {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    public int getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
     }
 
     public int getAccidentId() {
@@ -106,22 +112,6 @@ public class Compensation {
         this.dateApproved = dateApproved;
     }
 
-    public BigInteger getPaymentAmount() {
-        return paymentAmount;
-    }
-
-    public void setPaymentAmount(BigInteger paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
-
-    public Date getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -132,8 +122,10 @@ public class Compensation {
 
     @Override
     public String toString() {
-        return "Compensation{" + "id=" + id + ", contractId=" + contractId + ", customerId=" + customerId + ", accidentId=" + accidentId + ", estimatedRepairCost=" + estimatedRepairCost + ", claimStatus=" + claimStatus + ", dateFiled=" + dateFiled + ", dateApproved=" + dateApproved + ", paymentAmount=" + paymentAmount + ", paymentDate=" + paymentDate + ", notes=" + notes + '}';
+        return "Compensation{" + "id=" + id + ", contractId=" + contractId + ", customerId=" + customerId + ", staffId=" + staffId + ", accidentId=" + accidentId + ", estimatedRepairCost=" + estimatedRepairCost + ", claimStatus=" + claimStatus + ", dateFiled=" + dateFiled + ", dateApproved=" + dateApproved + ", notes=" + notes + '}';
     }
+
+   
 
     
    

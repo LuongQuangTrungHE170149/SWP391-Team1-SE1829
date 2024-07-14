@@ -68,8 +68,7 @@
 
                             <c:if test="${compensation.claimStatus eq 'pending'}">
                                 <td class="text-warning">Đang xử lý</td>
-                                <td class="text-warning">Đang xử lý</td>
-                                <td class="text-warning">Đang xử lý</td>
+                                <td class="text-warning">Đang xử lý</td>          
                             </c:if>
                             <c:if test="${compensation.claimStatus eq 'approved'}">
 
@@ -83,7 +82,6 @@
                                 <td> 
                                     <fmt:formatDate value="${compensation.dateApproved}" pattern="dd/MM/yyyy" />
                                 </td>
-                                <td class="text-danger">Bị từ chối</td>
                                 <td class="text-danger">Bị từ chối</td>
                             </c:if>
                             <c:choose >

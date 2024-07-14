@@ -1,7 +1,6 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -19,7 +18,6 @@ Create table Users(
 )
 
 GO
-
 Create table Agencies(
 			AgencyId int  identity(1,1) primary key ,
 			AgencyName nvarchar(255),
@@ -70,7 +68,6 @@ create table Contracts(                                        /*bao hiem xe may
 			[status] nvarchar(255),
 )
 GO
-
 create table Staff_Workplace(
 			swId int identity(1,1) primary key,
 			AgencyId int References Agencies(AgencyId),
@@ -84,15 +81,16 @@ create TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),
     CustomerId INT REFERENCES Users(id),
+	StaffId int default 0,
     AccidentId INT REFERENCES Accidents(AccidentId),
     EstimatedRepairCost DECIMAL(10, 2),
     ClaimStatus NVARCHAR(50) NOT NULL DEFAULT 'pending',
     DateFiled DATE NOT NULL,
-    DateApproved DATE,
-    PaymentAmount DECIMAL(10, 2),
-    PaymentDate DATE,
+    DateApproved DATE, 
     Notes NTEXT
 );
+
+ 
 create TABLE Accidents (
     AccidentId INT IDENTITY(1,1) PRIMARY KEY,
     CustomerId INT REFERENCES Users(id),

@@ -61,13 +61,12 @@ public class CompensationDAO {
                 compensation.setId(rs.getInt("CompensationId"));
                 compensation.setContractId(rs.getInt("ContractId"));
                 compensation.setCustomerId(rs.getInt("CustomerId"));
+                compensation.setStaffId(rs.getInt("StaffId"));
                 compensation.setAccidentId(rs.getInt("AccidentId"));
                 compensation.setEstimatedRepairCost(BigInteger.valueOf(rs.getInt("EstimatedRepairCost")));
                 compensation.setClaimStatus(rs.getString("ClaimStatus"));
                 compensation.setDateFiled(rs.getDate("DateFiled"));
                 compensation.setDateApproved(rs.getDate("DateApproved"));
-                compensation.setPaymentAmount(BigInteger.valueOf(rs.getInt("PaymentAmount")));
-                compensation.setPaymentDate(rs.getDate("PaymentDate"));
                 compensation.setNotes(rs.getString("Notes"));
                 list.add(compensation);
             }
@@ -78,9 +77,8 @@ public class CompensationDAO {
 
         return list;
     }
-    
-    
-      public List<Compensation> getCompensationsNotPending() {
+
+    public List<Compensation> getCompensationsNotPending() {
         List<Compensation> list = new ArrayList<>();
         String sql = "select * from Compensations where ClaimStatus != 'pending'";
         try {
@@ -91,13 +89,12 @@ public class CompensationDAO {
                 compensation.setId(rs.getInt("CompensationId"));
                 compensation.setContractId(rs.getInt("ContractId"));
                 compensation.setCustomerId(rs.getInt("CustomerId"));
+                compensation.setStaffId(rs.getInt("StaffId"));
                 compensation.setAccidentId(rs.getInt("AccidentId"));
                 compensation.setEstimatedRepairCost(BigInteger.valueOf(rs.getInt("EstimatedRepairCost")));
                 compensation.setClaimStatus(rs.getString("ClaimStatus"));
                 compensation.setDateFiled(rs.getDate("DateFiled"));
                 compensation.setDateApproved(rs.getDate("DateApproved"));
-                compensation.setPaymentAmount(BigInteger.valueOf(rs.getInt("PaymentAmount")));
-                compensation.setPaymentDate(rs.getDate("PaymentDate"));
                 compensation.setNotes(rs.getString("Notes"));
                 list.add(compensation);
             }
@@ -108,7 +105,7 @@ public class CompensationDAO {
 
         return list;
     }
-    
+
     public List<Compensation> getCompensationsApproved() {
         List<Compensation> list = new ArrayList<>();
         String sql = "select * from Compensations where ClaimStatus != 'pending'";
@@ -125,8 +122,7 @@ public class CompensationDAO {
                 compensation.setClaimStatus(rs.getString("ClaimStatus"));
                 compensation.setDateFiled(rs.getDate("DateFiled"));
                 compensation.setDateApproved(rs.getDate("DateApproved"));
-                compensation.setPaymentAmount(BigInteger.valueOf(rs.getInt("PaymentAmount")));
-                compensation.setPaymentDate(rs.getDate("PaymentDate"));
+                compensation.setStaffId(rs.getInt("StaffId"));
                 compensation.setNotes(rs.getString("Notes"));
                 list.add(compensation);
             }
@@ -137,10 +133,6 @@ public class CompensationDAO {
 
         return list;
     }
-    
-    
-    
-    
 
     public List<Compensation> getCompensationsByCusId(int id) {
         List<Compensation> list = new ArrayList<>();
@@ -159,8 +151,7 @@ public class CompensationDAO {
                 compensation.setClaimStatus(rs.getString("ClaimStatus"));
                 compensation.setDateFiled(rs.getDate("DateFiled"));
                 compensation.setDateApproved(rs.getDate("DateApproved"));
-                compensation.setPaymentAmount(BigInteger.valueOf(rs.getInt("PaymentAmount")));
-                compensation.setPaymentDate(rs.getDate("PaymentDate"));
+                compensation.setStaffId(rs.getInt("StaffId"));
                 compensation.setNotes(rs.getString("Notes"));
                 list.add(compensation);
             }
@@ -208,22 +199,22 @@ public class CompensationDAO {
 
         return false;
     }
-    
-    
+
     public boolean updateStatusCompensation(Compensation compensation) {
-        String sql = "Update Compensations set ClaimStatus = ?, DateApproved = ?, Notes = ? where CompensationId = ?";
+        String sql = "Update Compensations set ClaimStatus = ? ,DateApproved = ?, Notes = ?, StaffId = ? where CompensationId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, compensation.getClaimStatus());
             ps.setDate(2, compensation.getDateApproved());
             ps.setString(3, compensation.getNotes());
-            ps.setInt(4, compensation.getId());
+            ps.setInt(4, compensation.getStaffId());
+            ps.setInt(5, compensation.getId());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return false;
     }
 
