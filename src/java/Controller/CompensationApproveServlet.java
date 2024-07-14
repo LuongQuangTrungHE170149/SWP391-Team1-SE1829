@@ -105,10 +105,11 @@ public class CompensationApproveServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         String notes = request.getParameter("notes");
         String compensationId = request.getParameter("compensationId");
         String status = request.getParameter("status");
-//        String compensationAmount = request.getParameter("compensationAmount");
         int id = 0;
         try {
             id = Integer.parseInt(compensationId);
@@ -118,6 +119,7 @@ public class CompensationApproveServlet extends HttpServlet {
         Compensation compensation = new Compensation();
         compensation.setNotes(notes);
         compensation.setId(id);
+        compensation.setStaffId(user.getId());
         compensation.setClaimStatus(status);
         LocalDate currentDate = LocalDate.now();
         Date sqlCurrentDate = Date.valueOf(currentDate);

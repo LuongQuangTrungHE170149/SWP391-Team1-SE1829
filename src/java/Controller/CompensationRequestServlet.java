@@ -82,6 +82,23 @@ public class CompensationRequestServlet extends HttpServlet {
         String estimatedRepairCost = request.getParameter("estimatedRepairCost");
         String image = "images/accidents_image/null.png";
 
+        LocalDate incidentDateParst = LocalDate.parse(incidentDate);
+        LocalDate today = LocalDate.now();
+
+        // Check if incidentDate is before today
+        if (!incidentDateParst.isBefore(today)) {
+            request.setAttribute("errorDate", "Ngày xảy ra sự cố phải trước ngày hôm nay");
+            request.setAttribute("policyNumber", policyNumber);
+            request.setAttribute("incidentDate", incidentDate);
+            request.setAttribute("incidentLocation", incidentLocation);
+            request.setAttribute("policeReportNumber", policeReportNumber);
+            request.setAttribute("vehicleDamage", vehicleDamage);
+            request.setAttribute("incidentDescription", incidentDescription);
+            request.setAttribute("estimatedRepairCost", estimatedRepairCost);
+            request.getRequestDispatcher("compensation.jsp").forward(request, response);
+            return;
+        }
+
         try {
             Part filePart = request.getPart("supportingDocuments");
             if (filePart != null && filePart.getSize() > 0) {
