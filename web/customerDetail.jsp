@@ -36,7 +36,6 @@
                                     <span style="font-size: 26px; margin-top: 10px;"><strong>${customer.getFullName()}</strong></span>
                                 </div>
                             </div>
-
                             <div class="customer-contract--wrapper">
                                 <div class="customer-contract--info">
                                     <div style="display: flex; justify-content: space-between">
@@ -52,22 +51,7 @@
                                             <span>Phương tiện: </span>
                                         </div>
                                         <span>${requestScope.totalVehicle}</span>
-                                    </div>
-
-                                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                        <div>
-                                            <span style="margin-right: 8px;"><i class="fa-solid fa-check"></i></span>
-                                            <span>Đã thanh toán: </span>
-                                        </div>
-                                        <span>${requestScope.isPay}</span>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                        <div>
-                                            <span style="margin-right: 8px;"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                                            <span>Chưa thanh toán: </span>
-                                        </div>
-                                        <span>${requestScope.notIsPay}</span>
-                                    </div>
+                                    </div>   
                                 </div>
                             </div>
 
@@ -76,8 +60,6 @@
 
 
                         <div class="col-md-7">
-
-
                             <div class="customer-info--wrapper">   
                                 <a href="customerList" class="back-btn-customer"> 
                                     <span class="back-icon"><i class="fa-solid fa-chevron-left"></i></span>

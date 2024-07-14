@@ -672,23 +672,17 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public static void main(String[] args) {
-        UserDAO udb = new UserDAO();
-        
-        System.out.println(udb.updateUserRoleById(15, "customer"));
-    }
-
     public boolean updateUserRoleById(int id, String role) {
         String sql = "UPDATE [dbo].[Users]\n"
                 + "   SET [role] = ?\n"
                 + " WHERE id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, role);
             st.setInt(2, id);
             st.executeUpdate();
             return true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return false;
@@ -757,6 +751,41 @@ public class UserDAO extends DBContext {
             e.printStackTrace();
         }
         return userId;
+    }
+
+    public List<User> getAllCustomerByStaff(int staffId) {
+        List<User> list = new ArrayList<>();
+        String sql = "select * from Users u join Contracts c on u.id = c.CustomerId where c.StaffId = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, staffId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getInt("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phoneNumber"));
+                user.setDob(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setStatus(rs.getString("status"));
+                list.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static void main(String[] args) {
+        UserDAO udb = new UserDAO();
+        System.out.println(udb.getAllCustomerByStaff(2));
     }
 
 }

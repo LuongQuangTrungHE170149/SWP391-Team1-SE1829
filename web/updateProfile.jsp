@@ -14,6 +14,9 @@
           <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>F-Care | Update Profile</title>
+        <link rel="stylesheet" href="CSS/home.css"/>
+        <link rel="stylesheet" href="CSS/header.css"/>
+        <link rel="stylesheet" href="CSS/footer.css"/>
         <style>
             .navbar-custom {
                 background: rgb(0,167,209);
@@ -30,12 +33,10 @@
     </head>
     <body>
       
-            <jsp:include page="staffDashboard.jsp"/>
+            <jsp:include page="header.jsp"/>
             <div class="main-content" id="main-content">
                 <!--navbar-->
-                <div class="nav navbar bg-light justify-content-start sticky-top mb-3 px-2">
-                    <div class="fs-3 fw-bold text-info">User Profile</div>
-                </div>
+                
                 <!--end navbar-->
                 <div>
 
@@ -203,5 +204,6 @@
                             window.history.back();
                         }
         </script>
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>

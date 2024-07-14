@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Agency;
+import Model.User;
 import dal.AgencyDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,18 +59,33 @@ public class EditAgencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        try {
-            int agencyId = Integer.parseInt(id_raw);
-            Agency agency = AgencyDAO.INSTANCE.getAgencieById(agencyId);
-            if (agency != null) {
-                request.setAttribute("agency", agency);
-                request.getRequestDispatcher("editAgency.jsp").forward(request, response);
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
+                String id_raw = request.getParameter("id");
+                try {
+                    int agencyId = Integer.parseInt(id_raw);
+                    Agency agency = AgencyDAO.INSTANCE.getAgencieById(agencyId);
+                    if (agency != null) {
+                        request.setAttribute("agency", agency);
+                        request.getRequestDispatcher("editAgency.jsp").forward(request, response);
+                    } else {
+                        response.sendRedirect("listAgency"); // Redirect if agency not found
+                    }
+                } catch (NumberFormatException e) {
+                    response.sendRedirect("listAgency"); // Redirect if id is not a valid integer
+                }
+
             } else {
-                response.sendRedirect("listAgency"); // Redirect if agency not found
+                response.sendRedirect("home");
+
             }
-        } catch (NumberFormatException e) {
-            response.sendRedirect("listAgency"); // Redirect if id is not a valid integer
+
+        } else {
+            response.sendRedirect("login");
+
         }
 
     }

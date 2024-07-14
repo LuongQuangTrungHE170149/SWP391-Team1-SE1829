@@ -62,7 +62,21 @@ public class CustomerAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("customerAdd.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
+                request.getRequestDispatcher("customerAdd.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("home");
+
+            }
+
+        } else {
+            response.sendRedirect("login");
+
+        }
+
     }
 
     /**

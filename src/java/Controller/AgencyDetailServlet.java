@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -62,24 +63,39 @@ public class AgencyDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        if (id_raw != null) {
-            int agencyId = Integer.parseInt(id_raw);
-            Agency agency = AgencyDAO.INSTANCE.getAgencyById(agencyId);
-            UserDAO userDao = new UserDAO();
-            List<User> users = userDao.getStaffsByAgencyId(agencyId);
-            BigInteger totalPayment = AgencyDAO.INSTANCE.getTotalPaymentByAgencyId(agencyId);
-            HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoneyByAgency(agencyId);
 
-            request.setAttribute("agency", agency);
-            request.setAttribute("users", users);
-            request.setAttribute("totalPayment", totalPayment);
-            request.setAttribute("monthlyPayment", monthlyPayment);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
+                String id_raw = request.getParameter("id");
+                if (id_raw != null) {
+                    int agencyId = Integer.parseInt(id_raw);
+                    Agency agency = AgencyDAO.INSTANCE.getAgencyById(agencyId);
+                    UserDAO userDao = new UserDAO();
+                    List<User> users = userDao.getStaffsByAgencyId(agencyId);
+                    BigInteger totalPayment = AgencyDAO.INSTANCE.getTotalPaymentByAgencyId(agencyId);
+                    HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoneyByAgency(agencyId);
 
-            request.getRequestDispatcher("agencyDetail.jsp").forward(request, response);
+                    request.setAttribute("agency", agency);
+                    request.setAttribute("users", users);
+                    request.setAttribute("totalPayment", totalPayment);
+                    request.setAttribute("monthlyPayment", monthlyPayment);
+
+                    request.getRequestDispatcher("agencyDetail.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("listAgency");
+                }
+            } else {
+                response.sendRedirect("home");
+
+            }
+
         } else {
-            response.sendRedirect("listAgency");
+            response.sendRedirect("login");
+
         }
+
     }
 
     /**

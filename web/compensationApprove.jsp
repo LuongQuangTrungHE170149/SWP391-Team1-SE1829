@@ -34,9 +34,7 @@
 
         <jsp:include page="staffDashboard.jsp"></jsp:include>
             <div class="main-content" id="main-content">
-
                 <div class="container">
-
                     <ul class="nav nav-pills mb-3" id="ex1" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a
