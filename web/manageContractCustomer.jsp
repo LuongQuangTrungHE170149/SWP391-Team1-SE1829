@@ -202,7 +202,7 @@
                                 status = '<div class="badge badge-warning">Chờ duyệt</div>';
                             } else if (data.status === "Rejected") {
                                 status = '<div class="badge badge-danger">Từ chối</div>';
-                            }else if(data.status === "Approved"){
+                            } else if (data.status === "Approved") {
                                 status = '<div class="badge badge-success">Đã duyệt</div>';
                             }
                             $('#status').html(status);
@@ -213,21 +213,24 @@
                             $('#email').text(data.customer.email);
                             $('#address').text(data.customer.address);
                             $('#owner-address').text(data.vehicle.ownerAddress);
-                            
-                            var owner_firstName =data.vehicle.ownerFirstName;
+
+                            var owner_firstName = data.vehicle.ownerFirstName;
                             var owner_lastName = data.vehicle.ownerLastName;
-                            $('#owner-fullname').text(owner_firstName+" "+owner_lastName);
+                            $('#owner-fullname').text(owner_firstName + " " + owner_lastName);
                             $('#license-plate').text(data.vehicle.licensePlates);
                             $('#chassis-number').text(data.vehicle.chassis);
                             $('#engine-number').text(data.vehicle.engine);
 
                             var startDate = moment(data.startDate).format('DD/MM/YYYY');
                             var endDate = moment(data.endDate).format('DD/MM/YYYY');
-                            
-                            var now = document.getElementById("now").value;
+
+                            var now = moment(document.getElementById("now").value, 'YYYY-MM-DD');
                             var dueDate = '';
-                            if(endDate < now) dueDate = '<span class="text-danger fw-bold">Đã quá hạn</span>';
-                            $('#time-insurance').html("<div>"+startDate + " - " + endDate+" "+dueDate"</div>");
+                            if (moment(data.endDate).isBefore(now)) {
+                                dueDate = '<span class="text-danger fw-bold">Đã quá hạn</span>';
+                            }
+
+                            $('#time-insurance').html("<div>" + startDate + " - " + endDate + " " + dueDate + "</div>");
 
                             var payment = new Number(data.payment).toLocaleString('vi-VN', {
                                 style: 'currency',
