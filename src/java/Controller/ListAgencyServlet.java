@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Agency;
+import Model.User;
 import dal.AgencyDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,28 +60,40 @@ public class ListAgencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         HttpSession session = request.getSession();
-        String sortAction = request.getParameter("action");
-        String currentSortOrder = (String) session.getAttribute("currentSortOrder");
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
+                String sortAction = request.getParameter("action");
+                String currentSortOrder = (String) session.getAttribute("currentSortOrder");
 
-        if ("sort".equals(sortAction)) {
-            List<Agency> listSortAgency;
-            if ("asc".equals(currentSortOrder)) {
-                listSortAgency = AgencyDAO.INSTANCE.getAllAgencies(); // Original order
-                session.setAttribute("currentSortOrder", "desc");
+                if ("sort".equals(sortAction)) {
+                    List<Agency> listSortAgency;
+                    if ("asc".equals(currentSortOrder)) {
+                        listSortAgency = AgencyDAO.INSTANCE.getAllAgencies(); // Original order
+                        session.setAttribute("currentSortOrder", "desc");
+                    } else {
+                        listSortAgency = AgencyDAO.INSTANCE.getAllAgenciesSortById(); // Sorted order
+                        session.setAttribute("currentSortOrder", "asc");
+                    }
+                    request.setAttribute("listAgency", listSortAgency);
+                } else {
+                    List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
+                    request.setAttribute("listAgency", listAgency);
+                    session.removeAttribute("currentSortOrder"); // Reset sort order
+                }
+
+                request.getRequestDispatcher("agencyList.jsp").forward(request, response);
+
             } else {
-                listSortAgency = AgencyDAO.INSTANCE.getAllAgenciesSortById(); // Sorted order
-                session.setAttribute("currentSortOrder", "asc");
-            }
-            request.setAttribute("listAgency", listSortAgency);
-        } else {
-            List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
-            request.setAttribute("listAgency", listAgency);
-            session.removeAttribute("currentSortOrder"); // Reset sort order
-        }
+                response.sendRedirect("home");
 
-        request.getRequestDispatcher("agencyList.jsp").forward(request, response);
+            }
+
+        } else {
+            response.sendRedirect("login");
+
+        }
 
     }
 

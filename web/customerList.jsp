@@ -107,22 +107,13 @@
                                                     <button class="button-customer view">Chi tiết</button>
                                                 </a>
                                                 <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
-                                                <a href="ListVehicleServlet?customerId=${cusomter.id}"> <button class="button-customer edit">Phương tiện</button></a>
+                                            
                                             </div>
                                         </td>
                                     </tr>
                                 </c:forEach>
-
-
-
-
-
-
-
                             </tbody>
                         </table>
-
-
                     </div>
 
                 </div>

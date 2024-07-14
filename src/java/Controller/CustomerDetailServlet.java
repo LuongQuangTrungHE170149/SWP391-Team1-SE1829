@@ -14,6 +14,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -59,29 +61,39 @@ public class CustomerDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idRaw = request.getParameter("customerId");
-        UserDAO udb = new UserDAO();
-        ContractDAO cdb = new ContractDAO();
-        VehicleDAO vdb = new VehicleDAO();
-        try {   
-            int customerId = Integer.parseInt(idRaw);
-            User user = udb.getUserById(customerId);
-            int totalContract = cdb.countContractByCustomer(customerId);
-            int totalVehicle = vdb.countVehicleByCustomer(customerId);
-            int isPay = cdb.countIsPayByCustomer(customerId);
-            int notIsPay = cdb.countNotIsPayByCustomer(customerId);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
-            request.setAttribute("user", user);
-            request.setAttribute("totalContract", totalContract);
-            request.setAttribute("totalVehicle", totalVehicle);
-            request.setAttribute("isPay", isPay);
-            request.setAttribute("notIsPay", notIsPay);
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
 
-        } catch (NumberFormatException e) {
-            request.setAttribute("errr", e);
+                String idRaw = request.getParameter("customerId");
+                UserDAO udb = new UserDAO();
+                ContractDAO cdb = new ContractDAO();
+                VehicleDAO vdb = new VehicleDAO();
+                try {
+                    int customerId = Integer.parseInt(idRaw);
+                    User user1 = udb.getUserById(customerId);
+                    int totalContract = cdb.countContractByCustomer(customerId);
+                    int totalVehicle = vdb.countVehicleByCustomer(customerId);
+                    request.setAttribute("user", user1);
+                    request.setAttribute("totalContract", totalContract);
+                    request.setAttribute("totalVehicle", totalVehicle);
+                } catch (NumberFormatException e) {
+                    request.setAttribute("errr", e);
+                }
+                request.getRequestDispatcher("customerDetail.jsp").forward(request, response);
+
+            } else {
+                response.sendRedirect("home");
+
+            }
+
+        } else {
+            response.sendRedirect("login");
+
         }
 
-        request.getRequestDispatcher("customerDetail.jsp").forward(request, response);
     }
 
     /**

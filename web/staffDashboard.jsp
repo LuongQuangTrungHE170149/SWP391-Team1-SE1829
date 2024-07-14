@@ -111,7 +111,7 @@
                     <li class="nav-item btn-group">
                         <a href="consultationManager" class="btn btn-light btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnConsultation">
                             <div>
-                                <i class="fa-solid fa-message me-2"></i> Consultation
+                                <i class="fa-solid fa-message me-2"></i> Tư vấn
                             </div>
                             <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalConsultation}</span>
                         </a>
@@ -119,7 +119,7 @@
                     <li class="nav-item btn-group">
                         <a href="newsManager" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnNews">
                             <div>
-                                <i class="fa-regular fa-newspaper me-2"></i> News
+                                <i class="fa-regular fa-newspaper me-2"></i> Tin tức
                             </div>
                             <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalNews}</span>
                         </a>
@@ -127,21 +127,21 @@
                     <li class="nav-item btn-group">
 
                         <a href="promotionManager" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnPromotion">
-                            <div><i class="fa-solid fa-gift me-2"></i> Promotion</div>
+                            <div><i class="fa-solid fa-gift me-2"></i> Khuyến mãi</div>
                             <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
                         </a>
                     </li>
                     <li class="nav-item btn-group">
                         <a href="#" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
                             <div>
-                                <i class="fa-solid fa-file-contract me-2"></i>Contract
+                                <i class="fa-solid fa-file-contract me-2"></i>Hợp đồng
                             </div>
 
                         </a>
                     </li>
 
                     <li class="nav-item btn-group">
-                        <a href="compensationApprove" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnNews">
+                        <a href="compensationApprove" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnCompensation">
                             <div>
                              
                                 <i class="fa-solid fa-id-badge me-2"></i>
@@ -151,9 +151,9 @@
                         </a>
                     </li>
                     <li class="nav-item btn-group">
-                        <a href="#" class="btn btn-light btn-custom d-flex justify-content-between m-0"data-mdb-ripple-init id="btnCustomer">
+                        <a href="customerForStaff" class="btn btn-light btn-custom d-flex justify-content-between m-0"data-mdb-ripple-init id="btnCustomer">
                             <div>
-                                <i class="fa-solid fa-user me-2"></i>Customer
+                                <i class="fa-solid fa-user me-2"></i>Khách hàng
                             </div>
 
                         </a>
@@ -274,5 +274,7 @@
             document.getElementById("btnContract").classList.add("activeDash");
         } else if (currentLocation.includes("newsManager")) {
             document.getElementById("btnNews").classList.add("activeDash");
+        }if (currentLocation.includes("compensationApprove")) {
+            document.getElementById("btnCompensation").classList.add("activeDash");
         }
     </script>

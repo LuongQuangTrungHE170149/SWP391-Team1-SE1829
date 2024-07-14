@@ -70,16 +70,16 @@ public class RegisterController extends HttpServlet {
                             resp.sendRedirect("confirmOTP");
 
                         } else {
-                            req.setAttribute("invalidPhone", "Phone number already exist!");
+                            req.setAttribute("invalidPhone", "Số điện thoại đã tồn tại!");
                         }
                     } else {
-                        req.setAttribute("invalidConfirmPassword", "Password and Confirm password do not match!");
+                        req.setAttribute("invalidConfirmPassword", "Mật khẩu và Xác nhận mật khẩu không khớp!");
                     }
                 } else {
-                    req.setAttribute("invalidUsername", "Username already exist!");
+                    req.setAttribute("invalidUsername", "Tên người dùng đã tồn tại!");
                 }
             } else {
-                req.setAttribute("invalidEmail", "Email already exist!");
+                req.setAttribute("invalidEmail", "Email đã tồn tại");
             }
             req.setAttribute("firstName", firstName);
             req.setAttribute("lastName", lastName);

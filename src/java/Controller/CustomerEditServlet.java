@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -61,20 +62,36 @@ public class CustomerEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("customerId");
-        UserDAO udb = new UserDAO();
-        if (id != null) {
-            try {
-                int customerId = Integer.parseInt(id);
-                User user = udb.getUserById(customerId);
-                request.setAttribute("user", user);
-            } catch (NumberFormatException e) {
-                System.out.println(e);
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
+                String id = request.getParameter("customerId");
+                UserDAO udb = new UserDAO();
+                if (id != null) {
+                    try {
+                        int customerId = Integer.parseInt(id);
+                        User user1 = udb.getUserById(customerId);
+                        request.setAttribute("user", user1);
+                    } catch (NumberFormatException e) {
+                        System.out.println(e);
+                    }
+
+                }
+
+                request.getRequestDispatcher("customerEdit.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("home");
+
             }
+
+        } else {
+            response.sendRedirect("login");
 
         }
 
-        request.getRequestDispatcher("customerEdit.jsp").forward(request, response);
     }
 
     /**

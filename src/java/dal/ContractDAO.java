@@ -330,40 +330,6 @@ public class ContractDAO extends DBContext {
         return total;
     }
 
-    public int countIsPayByCustomer(int customerId) {
-        int total = 0;
-        String sql = "select count(*) as IsPay from Contracts where CustomerId = ? and IsPay = 0";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, customerId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                total = rs.getInt("IsPay");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return total;
-    }
-
-    public int countNotIsPayByCustomer(int customerId) {
-        int total = 0;
-        String sql = "select count(*) as IsPay from Contracts where CustomerId = ? and IsPay = 1";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, customerId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                total = rs.getInt("IsPay");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return total;
-    }
-
     public Contract checkContractByCustomerId(String code, int customerId) {
         String sql = "select * from Contracts where Code = ? and CustomerId = ?";
         try {

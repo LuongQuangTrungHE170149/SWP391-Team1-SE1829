@@ -18,8 +18,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .wrraper {
     width: 100%;
-    min-height: 800px;
-
     padding-top: 50px
 
 }
@@ -358,9 +356,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 
 .agency-staffs {
-    width: 100%;
-    min-height: 216px;
+    width: 80%;
     background-color: #fff;
+    margin-bottom: 50px;
 }
 
 .employee-table {
@@ -392,7 +390,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /*Edit Agency*/
 .edit-agency--wrapper {
     width: 100%;
-    min-height: 800px;
+    height: 100vh;
     padding-top: 50px
 }
 
@@ -400,7 +398,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     min-height: 696px;
     border-radius: 14px;
     background-color: #fff;
-
 }
 
 /*Filter btn*/

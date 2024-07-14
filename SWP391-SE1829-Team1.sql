@@ -45,7 +45,7 @@ values(N'Xe mô tô 2 bánh dung tích từ 50cc trở xuống',60500),
 	  (N'Xe mô tô 3 bánh',319000),
 	  (N'Các loại xe còn lại',319000)
 
-Create table Vehicles(
+create table Vehicles(
 			id int identity(1,1) primary key,
 			OwnerFirstName nvarchar(255),
 			OwnerLastName nvarchar(255),
@@ -55,9 +55,7 @@ Create table Vehicles(
 			Chassis nvarchar(255),
 			Engine nvarchar(255),
 )
-select * from Contracts
-
-drop table Contracts(                                        /*bao hiem xe may cua Duong???*/
+create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int foreign key references Users(id),
 			StaffId int ,
@@ -81,15 +79,8 @@ create table Staff_Workplace(
 )
 GO
 
-Create table Punishments(
-			PunishmentId int identity(1,1) primary key,
-			ContractId int references Contracts(ContractId),
-			[Description] nvarchar(255),
-			[Type] nvarchar(255),
-			[Action] nvarchar(255),
-)
 GO
-CREATE TABLE Compensations (
+create TABLE Compensations (
     CompensationId INT IDENTITY(1,1) PRIMARY KEY,
     ContractId INT REFERENCES Contracts(ContractId),
     CustomerId INT REFERENCES Users(id),

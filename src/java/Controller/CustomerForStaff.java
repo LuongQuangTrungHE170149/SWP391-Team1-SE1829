@@ -4,9 +4,8 @@
  */
 package Controller;
 
-import Model.Agency;
 import Model.User;
-import dal.AgencyDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,12 +13,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author tranm
  */
-public class AddAgencyServlet extends HttpServlet {
+public class CustomerForStaff extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class AddAgencyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAgencyServlet</title>");
+            out.println("<title>Servlet CutomerForStaff</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAgencyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CutomerForStaff at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,16 +62,22 @@ public class AddAgencyServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            if (user.getRole().equalsIgnoreCase("manager")) {
-                request.getRequestDispatcher("addAgency.jsp").forward(request, response);
+            if (user.getRole().equalsIgnoreCase("staff")) {
+                UserDAO udb = new UserDAO();
+                List<User> listCustomer = udb.getAllCustomerByStaff(user.getId());
+                
+                request.setAttribute("listCustomer", listCustomer);
+                request.getRequestDispatcher("customerForStaff.jsp").forward(request, response);
             } else {
                 response.sendRedirect("home");
+
             }
 
         } else {
             response.sendRedirect("login");
 
         }
+
     }
 
     /**
@@ -85,27 +91,6 @@ public class AddAgencyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String agencyName = request.getParameter("agencyName");
-        String agencyAddress = request.getParameter("agencyAddress");
-        String agencyHotline = request.getParameter("agencyHotline");
-        String agencyWorktime = request.getParameter("agencyWorktime");
-
-        Agency agency = new Agency();
-        agency.setAgencyName(agencyName);
-        agency.setAgencyAddress(agencyAddress);
-        agency.setHotline(agencyHotline);
-        agency.setWorktime(agencyWorktime);
-
-        HttpSession session = request.getSession();
-        if (AgencyDAO.INSTANCE.insertAgency(agency)) {
-            session.setAttribute("addSuccess", "Thêm đại lý thành công");
-//            request.getRequestDispatcher("view/agency/addAgency.jsp").forward(request, response);
-            response.sendRedirect("addAgency");
-        } else {
-            session.setAttribute("addFail", "Thêm đại lý thất bại");
-            response.sendRedirect("addAgency");
-
-        }
     }
 
     /**

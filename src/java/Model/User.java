@@ -154,4 +154,10 @@ public class User {
         return firstName + " " + lastName;
 
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", role=" + role + ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", dob=" + dob + ", address=" + address + ", dateCreated=" + dateCreated + ", status=" + status + '}';
+    }
+    
 }

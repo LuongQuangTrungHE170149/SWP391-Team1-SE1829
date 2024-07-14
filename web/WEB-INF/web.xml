@@ -212,6 +212,10 @@
         <servlet-name>DetailContractCustomerServlet</servlet-name>
         <servlet-class>Controller.DetailContractCustomerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerForStaff</servlet-name>
+        <servlet-class>Controller.CustomerForStaff</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -423,6 +427,10 @@
     <servlet-mapping>
         <servlet-name>DetailContractCustomerServlet</servlet-name>
         <url-pattern>/detailContractCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerForStaff</servlet-name>
+        <url-pattern>/customerForStaff</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

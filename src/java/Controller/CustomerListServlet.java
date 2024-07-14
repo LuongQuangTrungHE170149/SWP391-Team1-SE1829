@@ -63,64 +63,78 @@ public class CustomerListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
-        UserDAO userDao = new UserDAO();
-        List<User> listCustomer;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
+                UserDAO userDao = new UserDAO();
+                List<User> listCustomer;
 
-        String sortAction = request.getParameter("action");
-        String currentSortOrder = (String) session.getAttribute("currentSortOrder");
+                String sortAction = request.getParameter("action");
+                String currentSortOrder = (String) session.getAttribute("currentSortOrder");
 
-        String status = request.getParameter("filter");
-        String selectedStatus = "";
+                String status = request.getParameter("filter");
+                String selectedStatus = "";
 
-        if (status != null) {
-            switch (status) {
-                case "active":
-                    listCustomer = userDao.getAllCustomerByStatus("active");
-                    selectedStatus = "active";
-                    break;
-                case "inactive":
-                    listCustomer = userDao.getAllCustomerByStatus("inactive");
-                    selectedStatus = "inactive";
-                    break;
-                default:
+                if (status != null) {
+                    switch (status) {
+                        case "active":
+                            listCustomer = userDao.getAllCustomerByStatus("active");
+                            selectedStatus = "active";
+                            break;
+                        case "inactive":
+                            listCustomer = userDao.getAllCustomerByStatus("inactive");
+                            selectedStatus = "inactive";
+                            break;
+                        default:
+                            listCustomer = userDao.getAllUserByRole("Customer");
+                            break;
+                    }
+                    request.setAttribute("selectedStatus", selectedStatus);
+                } else {
                     listCustomer = userDao.getAllUserByRole("Customer");
-                    break;
-            }
-            request.setAttribute("selectedStatus", selectedStatus);
-        } else {
-            listCustomer = userDao.getAllUserByRole("Customer");
-        }
+                }
 
-        String searchValue = request.getParameter("key");
-        if (searchValue != null && !searchValue.isEmpty()) {
-            listCustomer = userDao.searchCustomerByName(searchValue);
-            request.setAttribute("name", searchValue);
-        }
-        if ("sort".equals(sortAction)) {
-            if ("asc".equals(currentSortOrder)) {
-                Collections.sort(listCustomer, new Comparator<User>() {
-                    @Override
-                    public int compare(User u1, User u2) {
-                        return Integer.compare(u1.getId(), u2.getId());
+                String searchValue = request.getParameter("key");
+                if (searchValue != null && !searchValue.isEmpty()) {
+                    listCustomer = userDao.searchCustomerByName(searchValue);
+                    request.setAttribute("name", searchValue);
+                }
+                if ("sort".equals(sortAction)) {
+                    if ("asc".equals(currentSortOrder)) {
+                        Collections.sort(listCustomer, new Comparator<User>() {
+                            @Override
+                            public int compare(User u1, User u2) {
+                                return Integer.compare(u1.getId(), u2.getId());
+                            }
+                        });
+                        session.setAttribute("currentSortOrder", "desc");
+                    } else {
+                        Collections.sort(listCustomer, new Comparator<User>() {
+                            @Override
+                            public int compare(User u1, User u2) {
+                                return Integer.compare(u2.getId(), u1.getId());
+                            }
+                        });
+                        session.setAttribute("currentSortOrder", "asc");
                     }
-                });
-                session.setAttribute("currentSortOrder", "desc");
+                } else {
+                    session.removeAttribute("currentSortOrder");
+                }
+
+                request.setAttribute("listCustomer", listCustomer);
+                request.getRequestDispatcher("customerList.jsp").forward(request, response);
             } else {
-                Collections.sort(listCustomer, new Comparator<User>() {
-                    @Override
-                    public int compare(User u1, User u2) {
-                        return Integer.compare(u2.getId(), u1.getId());
-                    }
-                });
-                session.setAttribute("currentSortOrder", "asc");
+                response.sendRedirect("home");
+
             }
+
         } else {
-            session.removeAttribute("currentSortOrder");
+            response.sendRedirect("login");
+
         }
 
-        request.setAttribute("listCustomer", listCustomer);
-        request.getRequestDispatcher("customerList.jsp").forward(request, response);
     }
 
     /**
