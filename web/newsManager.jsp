@@ -33,7 +33,7 @@
         <div class="main-content" id="main-content">
             <!--nav-->
             <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
-                <div class="fs-3 fw-bold text-info">News Manager</div>
+                <div class="fs-3 fw-bold text-info">Quản lý tin tức</div>
                 <!--search-->
                 <div>
                     <form action="newsManager" method="GET" class="input-group" id="select-Form">
@@ -44,7 +44,7 @@
                                        class="form-control rounded" 
                                        aria-label="Search" aria-describedby="search-addon"
                                        Value="${searchValue!=null?searchValue:''}" 
-                                       placeholder="Title, description..."/>
+                                       placeholder="Tiêu đề, mô tả..."/>
                                 <button type="submit" class="input-group-text border-0" id="search-addon">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -58,7 +58,7 @@
                             <c:set var="selectedStaff" value="${requestScope.selectedStaff}" />
                             <select class="form-select" name="selectedStaff" id="form-select" onchange="document.getElementById('select-Form').submit();">
                                 <option disabled="">Staff</option>
-                                <option value="">All</option>
+                                <option value="">Tất cả</option>
                                 <c:forEach var="record" items="${dataList}">
                                     <option value="${record[0]}" ${record[0] == selectedStaff ? 'selected' : ''}>${record[1]}</option>
                                 </c:forEach>
@@ -73,13 +73,13 @@
                 </div>
                 <div class="">
                     <div>
-                        <button type="button" class="btn btn-info btn-sm" onclick="location.href = 'newsManager?getHeader=true'" data-mdb-ripple-init>Header</button>
+                        <button type="button" class="btn btn-info btn-sm" onclick="location.href = 'newsManager?getHeader=true'" data-mdb-ripple-init>Bài nổi bật</button>
                         <button type="button"
                                 class="btn btn-info btn-sm" 
                                 data-mdb-ripple-init
                                 data-mdb-modal-init
                                 data-mdb-target="#addNewsModal">
-                            <i class="fa-sharp fa-solid fa-plus"></i>Add
+                            <i class="fa-sharp fa-solid fa-plus"></i>Thêm
                         </button>
                     </div>
                     <p class="m-0 text-danger">${invalidHeader}</p>
@@ -129,12 +129,12 @@
                     <table class="table table-hover " >
                         <thead class="text-nowrap">
                             <tr class="">
-                                <th scope="col" class="" >Title</th>
-                                <th scope="col" class="" >Description</th>
-                                <th scope="col" class="" >Type</th>
-                                <th scope="col" class="" >Create Date</th>
-                                <th scope="col" class="text-center" >Set Header</th>
-                                <th scope="col" class="text-center" >Action</th>
+                                <th scope="col" class="" >Tiêu đề</th>
+                                <th scope="col" class="" >Mô tả</th>
+                                <th scope="col" class="" >Loại</th>
+                                <th scope="col" class="" >Ngày tạo</th>
+                                <th scope="col" class="text-center" >Bài nổi bật</th>
+                                <th scope="col" class="text-center" >Hành động</th>
                             </tr>
                         </thead>
 
@@ -244,7 +244,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-info" id="detailNewsModalLabel">News Detail</h5>
+                            <h5 class="modal-title text-info" id="detailNewsModalLabel">Chi tiết tin tức</h5>
                             <button type="button" class="btn-close text-white" data-mdb-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -253,36 +253,36 @@
                                     <div class="col-sm-12 col-md-4">
                                         <div>
                                             <div class="badge badge-primary">ID: <span class="fw-normal" id="id_detail"></span></div>
-                                            <div class="badge badge-secondary">Create By: <span class="fw-normal" id="staff_detail"></span></div>
+                                            <div class="badge badge-secondary">Người tạo: <span class="fw-normal" id="staff_detail"></span></div>
                                         </div>
                                         <div>
-                                            <div class="fw-bold">Image</div>
+                                            <div class="fw-bold">Ảnh</div>
                                             <div id="image_detail"></div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-8">
                                         <div class="row">
-                                            <div class="col-12 col-lg-2 fw-bold"> Title:</div>
+                                            <div class="col-12 col-lg-2 fw-bold"> Tiêu đề:</div>
                                             <div id="title_detail" class="col-12 col-lg-10"></div>
                                         </div>
                                         <hr>
 
                                         <div class="row">
-                                            <div class="col-12 col-lg-2 fw-bold">Create Date:</div>
+                                            <div class="col-12 col-lg-2 fw-bold">Ngày tạo:</div>
                                             <div id="createDate_detail" class="col-12 col-lg-10"></div>
                                         </div>
                                         <hr>
                                         <div class="row">
-                                            <div class="col-12 col-lg-2 fw-bold">Description:</div>
+                                            <div class="col-12 col-lg-2 fw-bold">Mô tả:</div>
                                             <div id="description_detail" class="col-12 col-lg-10"></div>
                                         </div>
                                         <hr>
                                         <div class="row">
-                                            <div class="col-12 col-lg-2 fw-bold">Type:</div>
+                                            <div class="col-12 col-lg-2 fw-bold">Loại:</div>
                                             <div id="type_detail" class="col-12 col-lg-10"></div>
                                         </div>
                                         <hr>
-                                        <div class="fw-bold">Content:</div>
+                                        <div class="fw-bold">Nội dung:</div>
                                         <div class="border border-1 p-3 shadow" style="border-radius: 12px;">
                                             <div id="content_detail"></div>
                                         </div>
@@ -291,7 +291,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-update me-2" data-mdb-ripple-init>Update</button>
+                            <button type="button" class="btn btn-primary btn-update me-2" data-mdb-ripple-init>Chỉnh sửa</button>
                             <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
                         </div>
                     </div>
@@ -303,26 +303,26 @@
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-info" id="addNewsModalLabel">Add News</h5>
+                            <h5 class="modal-title text-info" id="addNewsModalLabel">Thêm mới tin tức</h5>
                             <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="container">
                                 <form action="addNews"id="addNewsForm" method="post" enctype="multipart/form-data">
                                     <div class="row mb-3">
-                                        <label for="title" class="col-sm-2 col-form-label">Title:</label>
+                                        <label for="title" class="col-sm-2 col-form-label">Tiêu đề:</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="title" name="title" required>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="description" class="col-sm-2 col-form-label">Description:</label>
+                                        <label for="description" class="col-sm-2 col-form-label">Mô tả:</label>
                                         <div class="col-sm-10">
                                             <textarea class="form-control" id="description" name="description" required></textarea>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="type" class="col-sm-2 col-form-label">Type:</label>
+                                        <label for="type" class="col-sm-2 col-form-label">Loại:</label>
                                         <div class="col-sm-10">
                                             <select id="type" name="type" class="form-select" required="">
                                                 <option value="Hoạt động công ty">Hoạt động công ty</option>
@@ -332,19 +332,18 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="image" class="col-sm-2 col-form-label">Image:</label>
+                                        <label for="image" class="col-sm-2 col-form-label">Ảnh:</label>
                                         <div class="col-sm-10">
                                             <input type="file" class="form-control" id="image" name="image">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="content" class="col-sm-2 col-form-label">Content:</label>
-                                        <div class="col-sm-10">
+                                        <label for="content" class="col-sm-2 col-form-label">Nội dung
                                             <textarea class="form-control" id="content" rows="3" required=""></textarea>
                                         </div>
                                     </div>
                                     <div class="row mb-3 align-items-center">
-                                        <div  class="col-sm-2">Is Header:</div>
+                                        <div  class="col-sm-2">Bài nổi bật:</div>
                                         <div class="col-sm-10 d-flex">
                                             <div class="form-check me-2">
                                                 <input class="form-check-input" type="radio" id="true"  name="isHeader" value="true">
@@ -359,7 +358,7 @@
 
                                     <div class="col-12">
                                         <hr>
-                                        <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init><i class="fa-solid fa-plus me-2"></i>Add</button>
+                                        <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init><i class="fa-solid fa-plus me-2"></i>Thêm</button>
                                         <button type="button" class="btn btn-secondary btn-block" data-mdb-ripple-init data-mdb-dismiss="modal">Đóng</button>
                                     </div>
                                 </form>
