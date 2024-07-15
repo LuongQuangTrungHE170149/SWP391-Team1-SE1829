@@ -553,7 +553,7 @@
                 }
             }
             function validateLicensePlate() {
-                const licensePlateRegex = /^[0-9]{2}[A-Z][0-9]{1}[0-9]{4,5}$/;
+                const licensePlateRegex = /^[0-9]{2}[A-Z][0-9]{1}[0-9]{3,5}$/;
                 const licensePlateValue = $("#licensePlate").val().trim();
 
                 if (!licensePlateValue) {
