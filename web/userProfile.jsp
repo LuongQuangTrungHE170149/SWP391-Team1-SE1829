@@ -17,7 +17,7 @@
     <body>
         <jsp:include page="./header.jsp"></jsp:include>
             <div class="container" style="width: 80%; height: 100%;">
-                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Back</button>
+                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
                 <div class="row mt-4" style="align-content: center;">
                     <div class="col-lg-3 mb-3">
                         <div class="card shadow-4">
@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Username</p>
+                                    <p class="mb-0">Tên người dùng</p>
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0"> ${user.username}</p>
@@ -50,7 +50,7 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Date of Birth</p>
+                                    <p class="mb-0">Ngày sinh</p>
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0"><fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy"/></p>
@@ -59,7 +59,7 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Full Name</p>
+                                    <p class="mb-0">Họ và tên</p>
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0"> ${user.getFullName()}</p>
@@ -68,22 +68,13 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Gender</p>
+                                    <p class="mb-0">Giới tính</p>
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0"> ${user.gender == 1?'Male':'Female'}</p>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Date of Birth</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0"><fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy"/></p>
-                                </div>
-                            </div>
-                            <hr>
+                            <hr></hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
                                     <p class="mb-0">Email</p>   
@@ -95,7 +86,7 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Phone</p>
+                                    <p class="mb-0">Số điện thoại</p>
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0">${user.phone}</p>
@@ -104,7 +95,7 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Address</p>
+                                    <p class="mb-0">Địa chỉ</p>
                                 </div>
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0">${user.address}</p>
@@ -114,7 +105,7 @@
                         <div class="card-footer">
                             <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-init onclick="location.href = 'updateProfile'"><i class="fa-solid fa-pen-to-square"></i></button>
                             <div class="d-flex justify-content-end"> 
-                                <button class="btn btn-info" onclick="location.href = 'manageContractCustomer.jsp'">Go to manage contracts</button>
+                                <button class="btn btn-info" onclick="location.href = 'manageContractCustomer.jsp'">Xem danh sách bảo hiểm</button>
                             </div>
                         </div>
 
