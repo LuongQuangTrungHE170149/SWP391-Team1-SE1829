@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -76,7 +77,7 @@
                                     </select>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <span class="fw-bold">Ngày tạo:</span> <br> <span>${c.createDate}</span> 
+                                    <span class="fw-bold">Ngày tạo:</span> <br> <span><fmt:formatDate value="${c.createDate}" pattern="dd/MM/yyyy"/></span> 
                                 </div>
                                 <div class="col-4">
                                     <span class="fw-bold">Bài nổi bật:</span>
@@ -135,7 +136,6 @@
                             formData.append("title", $("#title").val());
                             formData.append("description", $("#description").val());
                             formData.append("content", $("#content").val());
-                            console.log("content: " + $("#content").html());
                             formData.append("type", $("#type").val());
 
                             const isHeader = $("input[name=isHeader]:checked").val();
@@ -148,10 +148,6 @@
                                 formData.append("image", null);
                             }
 
-                            console.log("FormData values:");
-                            for (var pair of formData.entries()) {
-                                console.log(pair[0] + ': ' + pair[1]);
-                            }
                             $.ajax({
                                 url: 'updateNews',
                                 type: 'POST',

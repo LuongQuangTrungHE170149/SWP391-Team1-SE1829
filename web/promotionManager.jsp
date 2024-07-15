@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Promotion Manager</title>
+        <title>F-Care | Quản lý khuyến mại</title>
         <!--summer note--> 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
@@ -55,7 +55,7 @@
         <div class="main-content" id="main-content">
             <!--nav-->
             <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
-                <div class="fs-3 fw-bold text-info">Promotion Manager</div>
+                <div class="fs-3 fw-bold text-info">Quản lý khuyến mại</div>
                 <!--search-->
                 <div>
                     <form action="promotionManager" method="GET" class="input-group" id="select-Form">
@@ -66,7 +66,7 @@
                                        class="form-control rounded" 
                                        aria-label="Search" aria-describedby="search-addon"
                                        Value="${searchValue!=null?searchValue:''}" 
-                                       placeholder="Title, description..."/>
+                                       placeholder="Tiêu đề, mô tả..."/>
                                 <button type="submit" class="input-group-text border-0" id="search-addon">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -79,8 +79,8 @@
                             <c:set var="dataList" value="${requestScope.listStaffAddPromotion}" />
                             <c:set var="selectedStaff" value="${requestScope.selectedStaff}" />
                             <select class="form-select" name="selectedStaff" id="form-select" onchange="document.getElementById('select-Form').submit();">
-                                <option disabled="">Staff</option>
-                                <option value="">All</option>
+                                <option disabled="">Nhân viên</option>
+                                <option value="">Tất cả</option>
                                 <c:forEach var="record" items="${dataList}">
                                     <option value="${record[0]}" ${record[0] == selectedStaff ? 'selected' : ''}>${record[1]}</option>
                                 </c:forEach>
@@ -95,13 +95,13 @@
                 </div>
                 <div class="">
                     <div>
-                        <button type="button" class="btn btn-info btn-sm" onclick="location.href = 'promotionManager?getHeader=true'" data-mdb-ripple-init>Header</button>
+                        <button type="button" class="btn btn-info btn-sm" onclick="location.href = 'promotionManager?getHeader=true'" data-mdb-ripple-init>Bài nổi bật</button>
                         <button type="button"
                                 class="btn btn-info btn-sm" 
                                 data-mdb-ripple-init
                                 data-mdb-modal-init
                                 data-mdb-target="#addPromotionModal">
-                            <i class="fa-sharp fa-solid fa-plus"></i>Add
+                            <i class="fa-sharp fa-solid fa-plus"></i>Thêm
                         </button>
                     </div>
                     <p class="m-0 text-danger">${invalidHeader}</p>
@@ -151,11 +151,11 @@
                     <table class="table table-hover " >
                         <thead class="text-nowrap">
                             <tr class="">
-                                <th scope="col" class="" >Title</th>
-                                <th scope="col" class="" >Description</th>
-                                <th scope="col" class="" >Create Date</th>
-                                <th scope="col" class="text-center" >Set Header</th>
-                                <th scope="col" class="text-center" >Action</th>
+                                <th scope="col" class="" >Tiêu đề</th>
+                                <th scope="col" class="" >Mô tả</th>
+                                <th scope="col" class="" >Ngày tạo</th>
+                                <th scope="col" class="text-center" >Bài nổi bật</th>
+                                <th scope="col" class="text-center" >Hành động</th>
                             </tr>
                         </thead>
 
@@ -266,44 +266,44 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-info" id="addPromotionModalLabel">Add Promotion</h5>
+                    <h5 class="modal-title text-info" id="addPromotionModalLabel">Thêm mới khuyến mại</h5>
                     <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
                         <form action="addPromotion"id="addPromotionForm" method="post" enctype="multipart/form-data">
                             <div class="row mb-3">
-                                <label for="title" class="col-sm-2 col-form-label">Title:</label>
+                                <label for="title" class="col-sm-2 col-form-label">Tiêu đề:</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="description" class="col-sm-2 col-form-label">Description:</label>
+                                <label for="description" class="col-sm-2 col-form-label">Mô tả:</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" id="description" name="description" required></textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="timeStart" class="col-sm-2 col-form-label">Start Time:</label>
+                                <label for="timeStart" class="col-sm-2 col-form-label">Ngày bắt đầu:</label>
                                 <div class="col-sm-10">
                                     <input type="date" class="form-control" id="timeStart" name="timeStart" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="timeEnd" class="col-sm-2 col-form-label">End Time:</label>
+                                <label for="timeEnd" class="col-sm-2 col-form-label">Ngày kết thúc:</label>
                                 <div class="col-sm-10">
                                     <input type="date" class="form-control" id="timeEnd" name="timeEnd" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="image" class="col-sm-2 col-form-label">Image:</label>
+                                <label for="image" class="col-sm-2 col-form-label">Ảnh:</label>
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control" id="image" name="image">
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="content" class="col-sm-2 col-form-label">Content:</label>
+                                <label for="content" class="col-sm-2 col-form-label">Nội dung:</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" id="content" rows="3" required=""></textarea>
                                 </div>
@@ -313,18 +313,18 @@
                                 <div class="col-sm-10 d-flex">
                                     <div class="form-check me-2">
                                         <input class="form-check-input" type="radio" id="true"  name="isHeader" value="true">
-                                        <label class="form-check-label" for="true">true</label>
+                                        <label class="form-check-label" for="true">On</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" id="false"  name="isHeader" value="false" checked>
-                                        <label class="form-check-label" for="false">false</label>
+                                        <label class="form-check-label" for="false">Off</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <hr>
-                                <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init><i class="fa-solid fa-plus me-2"></i>Add</button>
+                                <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init><i class="fa-solid fa-plus me-2"></i>Thêm</button>
                                 <button type="button" class="btn btn-secondary btn-block" data-mdb-ripple-init data-mdb-dismiss="modal">Đóng</button>
                             </div>
                         </form>
@@ -340,7 +340,7 @@
         <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-white" id="detailPromotionModalLabel">Promotion Detail</h5>
+                    <h5 class="modal-title text-white" id="detailPromotionModalLabel">Chi tiết khuyến mại</h5>
                     <button type="button" class="btn-close text-white" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -349,30 +349,30 @@
                             <div class="col-sm-12 col-md-4">
                                 <div>
                                     <div class="badge badge-primary">ID: <span class="fw-normal" id="id_detail"></span></div>
-                                    <div class="badge badge-secondary">Create By: <span class="fw-normal" id="staff_detail"></span></div>
+                                    <div class="badge badge-secondary">Tạo bởi: <span class="fw-normal" id="staff_detail"></span></div>
                                 </div>
                                 <div>
-                                    <div class="fw-bold">Image</div>
+                                    <div class="fw-bold">Ảnh</div>
                                     <div id="image_detail"></div>
                                 </div>
                             </div>
 
 
                             <div class="col-12 col-md-8">
-                                <div><span class="fw-bold">Title:</span>
+                                <div><span class="fw-bold">Tiêu đề:</span>
                                     <span id="title_detail"></span></div>
                                 <hr>
-                                <div><span class="fw-bold">Create Date:</span>
+                                <div><span class="fw-bold">Ngày tạo:</span>
                                     <span id="createDate_detail"></span></div>
-                                <div><span class="fw-bold">Start: </span>
+                                <div><span class="fw-bold">Bắt đầu: </span>
                                     <span id="timeStart_detail" class="me-4"></span>
-                                    <span class="fw-bold">End: </span>
+                                    <span class="fw-bold">Kết thúc: </span>
                                     <span id="timeEnd_detail"></span></div>
                                 <hr>
-                                <div><span class="fw-bold">Description:</span>
+                                <div><span class="fw-bold">Mô tả:</span>
                                     <span id="description_detail"></span></div>
                                 <hr><!-- comment -->
-                                <div class="fw-bold">Content:</div>
+                                <div class="fw-bold">Nội dung:</div>
                                 <div class="border border-1 p-3 shadow" style="border-radius: 12px;">
                                     <div id="content_detail"></div>
                                 </div>
@@ -383,7 +383,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-update me-2" data-mdb-ripple-init>Update</button>
+                    <button type="button" class="btn btn-primary btn-update me-2" data-mdb-ripple-init>Chỉnh sửa</button>
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -404,94 +404,97 @@
                                                     height: 200
                                                 });
     </script>
+    
+    <!--format date-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script type="text/javascript">
 
-        function confirmDeletion(id) {
-            const searchValue = document.getElementById('searchValue').value;
+                                                function confirmDeletion(id) {
+                                                    const searchValue = document.getElementById('searchValue').value;
 //            var encodedSearchValue = encodeURIComponent(searchValue); // Mã hóa giá trị searchValue
-            var selectedStaff = document.getElementById('selectedStaff').value;
-            var page = 1;
-            var pageParam = document.getElementById('page').value;
-            if (pageParam && !isNaN(pageParam)) {
-                page = parseInt(pageParam);
-            }
-            if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
-                window.location.href = 'deletePromotion?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
-            }
-        }
+                                                    var selectedStaff = document.getElementById('selectedStaff').value;
+                                                    var page = 1;
+                                                    var pageParam = document.getElementById('page').value;
+                                                    if (pageParam && !isNaN(pageParam)) {
+                                                        page = parseInt(pageParam);
+                                                    }
+                                                    if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
+                                                        window.location.href = 'deletePromotion?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
+                                                    }
+                                                }
 
 
 
-        $(document).ready(function () {
+                                                $(document).ready(function () {
 
-            //add promotion function
-            $('#addPromotionForm').on('submit', function (e) {
-                e.preventDefault();
-                const formData = new FormData();
-                formData.append("title", $("#title").val());
-                formData.append("description", $("#description").val());
-                formData.append("content", $("#content").val());
-                formData.append("timeStart", $("#timeStart").val());
-                formData.append("timeEnd", $("#timeEnd").val());
+                                                    //add promotion function
+                                                    $('#addPromotionForm').on('submit', function (e) {
+                                                        e.preventDefault();
+                                                        const formData = new FormData();
+                                                        formData.append("title", $("#title").val());
+                                                        formData.append("description", $("#description").val());
+                                                        formData.append("content", $("#content").val());
+                                                        formData.append("timeStart", $("#timeStart").val());
+                                                        formData.append("timeEnd", $("#timeEnd").val());
 
-                const isHeader = $("input[name=isHeader]:checked").val();
-                console.log(isHeader);
-                formData.append("isHeader", isHeader);
+                                                        const isHeader = $("input[name=isHeader]:checked").val();
+                                                        console.log(isHeader);
+                                                        formData.append("isHeader", isHeader);
 
-                let imgFile = $("#image")[0].files[0];
-                formData.append("image", imgFile);
+                                                        let imgFile = $("#image")[0].files[0];
+                                                        formData.append("image", imgFile);
 
-                // AJAX request to send the reply to the servlet
-                $.ajax({
-                    url: 'addPromotion',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        alert('Add thành công!');
-                        location.reload();
-                    },
-                    error: function (err) {
-                        console.log(err);
-                        // Show error toast
-                        alert('Add failed, try again!');
-                    }
-                });
-            });
-            $('.btn-detailPromotion').on('click', function (e) {
-                e.preventDefault();
-                let promotionId = $(this).data('id');
-                $.ajax({
-                    url: 'promotionManagerDetail',
-                    type: 'GET',
-                    data: {id: promotionId},
-                    success: function (data) {
-                        $('#id_detail').html(data.id);
-                        $('#staff_detail').html(data.staff.username);
-                        $('#title_detail').html(data.title);
-                        //handle date
-                        var createDate = new Date(data.createDate);
-                        var day = String(createDate.getDate()).padStart(2, '0');
-                        var month = String(createDate.getMonth() + 1).padStart(2, '0');
-                        var year = createDate.getFullYear();
-                        var formattedDate = day + '/' + month + '/' + year;
-                        $('#createDate_detail').html(formattedDate);
-                        $('#timeStart_detail').html(data.timeStart);
-                        $('#timeEnd_detail').html(data.timeEnd);
-                        $('#description_detail').html(data.description);
-                        $('#content_detail').html(data.content);
-                        $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
-                        $('#detailPromotionModal').modal('show');
-                    }
-                });
-            });
+                                                        // AJAX request to send the reply to the servlet
+                                                        $.ajax({
+                                                            url: 'addPromotion',
+                                                            type: 'POST',
+                                                            data: formData,
+                                                            processData: false,
+                                                            contentType: false,
+                                                            success: function (response) {
+                                                                alert('Add thành công!');
+                                                                location.reload();
+                                                            },
+                                                            error: function (err) {
+                                                                console.log(err);
+                                                                // Show error toast
+                                                                alert('Add failed, try again!');
+                                                            }
+                                                        });
+                                                    });
+                                                    $('.btn-detailPromotion').on('click', function (e) {
+                                                        e.preventDefault();
+                                                        let promotionId = $(this).data('id');
+                                                        $.ajax({
+                                                            url: 'promotionManagerDetail',
+                                                            type: 'GET',
+                                                            data: {id: promotionId},
+                                                            success: function (data) {
+                                                                $('#id_detail').html(data.id);
+                                                                $('#staff_detail').html(data.staff.username);
+                                                                $('#title_detail').html(data.title);
+                                                                //handle date
+                                                                var createDate = new Date(data.createDate);
+                                                                var day = String(createDate.getDate()).padStart(2, '0');
+                                                                var month = String(createDate.getMonth() + 1).padStart(2, '0');
+                                                                var year = createDate.getFullYear();
+                                                                var formattedDate = day + '/' + month + '/' + year;
+                                                                $('#createDate_detail').html(formattedDate);
+                                                                $('#timeStart_detail').html(moment(data.timeStart).format("DD/MM/YYYY"));
+                                                                $('#timeEnd_detail').html(moment(data.timeEnd).format("DD/MM/YYYY"));
+                                                                $('#description_detail').html(data.description);
+                                                                $('#content_detail').html(data.content);
+                                                                $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
+                                                                $('#detailPromotionModal').modal('show');
+                                                            }
+                                                        });
+                                                    });
 
-            $('.btn-update').on('click', function () {
-                var id = $('#id_detail').html();
-                window.location.href = 'updatePromotion?id=' + id;
-            });
-        });
+                                                    $('.btn-update').on('click', function () {
+                                                        var id = $('#id_detail').html();
+                                                        window.location.href = 'updatePromotion?id=' + id;
+                                                    });
+                                                });
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- MDB -->
