@@ -122,7 +122,7 @@
                         </ul>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <c:if test="${sessionScope.user!=null}">
+                        <c:if test="${sessionScope.user!= null}">
                             <div class="d-flex justify-content-center align-items-center">
                                 <span class="fs-5 text-white me-2">
                                     <c:if test="${sessionScope.user ne null}">
@@ -149,16 +149,19 @@
                                             aria-expanded="false">
                                         <i class="fa-solid fa-user" style="color:#fff"></i>
                                     </button>
-                                    <c:if test="${sessionScope.user.role eq 'customer' || sessionScope.user.role eq 'Customer'}">
-                                        <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-                                            <li><a href="userProfile" class="dropdown-item">Hồ sơ</a></li>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdown-user">
+
+                                        <li><a href="userProfile" class="dropdown-item">Hồ sơ</a></li>
+                                            <c:if test="${sessionScope.user.role eq 'customer' || sessionScope.user.role eq 'Customer'}">
                                             <li><a href="compensationHistory?id=${sessionScope.user.id}" class="dropdown-item">Đền bù</a></li>
                                             <li><a href="manageContractCustomer?customerId=${sessionScope.user.id}" class="dropdown-item">Quản lý hợp đồng</a></li>
                                             <li><a href="accidentHistory?id=${sessionScope.user.id}" class="dropdown-item">Lịch sử tai nạn</a></li>
-                                            <li class="dropdown-divider"></li>
-                                            <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
-                                        </ul>
-                                    </c:if>
+                                            </c:if>
+                                        <li class="dropdown-divider"></li>
+                                        <li><a href="logout" class="dropdown-item">Đăng xuất</a></li>
+                                    </ul>
+
                                     <c:if test="${sessionScope.user.role eq 'staff' || sessionScope.user.role eq 'Staff'}">
                                         <ul class="dropdown-menu" aria-labelledby="dropdown-user">
                                             <li><a href="
@@ -244,7 +247,7 @@
         notificationList.style.display = notificationList.style.display === 'none' || notificationList.style.display === '' ? 'block' : 'none';
     }
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (!event.target.matches('.notification-bell') && !event.target.matches('.notification-bell *')) {
             const notificationList = document.getElementById('notificationList');
             if (notificationList.style.display === 'block') {
