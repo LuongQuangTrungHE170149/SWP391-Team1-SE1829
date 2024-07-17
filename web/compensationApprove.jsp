@@ -241,7 +241,8 @@
         </div>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
-
+<!--format date-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script>
 
                                                 window.addEventListener('load', () => {
@@ -269,13 +270,11 @@
 
                                                 function showAccidentDetails(description, date, location, image, policeReportNumber, vehicleDamage) {
                                                     document.getElementById('accidentDescription').innerText = "Mô tả: " + description;
-                                                    document.getElementById('accidentDate').innerText = "Ngày: " + date;
+                                                    document.getElementById('accidentDate').innerText = "Ngày: " + moment(date).format("DD/MM/YYYY");
                                                     document.getElementById('accidentLocation').innerText = "Địa điểm: " + location;
                                                     document.getElementById('policeReportNumber').innerText = "Số biên bản cảnh sát: " + policeReportNumber;
                                                     document.getElementById('vehicleDamage').innerText = "Tình trạng xe: " + vehicleDamage;
                                                     document.getElementById('accidentImage').src = image;
-
-
                                                     var exampleModal = new mdb.Modal(document.getElementById('exampleModal'));
                                                     exampleModal.show();
                                                 }
