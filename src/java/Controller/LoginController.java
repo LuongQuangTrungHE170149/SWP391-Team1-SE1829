@@ -1,6 +1,8 @@
 package Controller;
 
+import Model.Compensation;
 import Model.User;
+import dal.CompensationDAO;
 import dal.ConsultationDAO;
 import dal.NewsDAO;
 import dal.PromotionDAO;
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -58,6 +61,9 @@ public class LoginController extends HttpServlet {
                 ConsultationDAO cdb = new ConsultationDAO();
                 PromotionDAO pdb = new PromotionDAO();
                 NewsDAO ndb = new NewsDAO();
+                List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
+                session.setAttribute("totalApplication", listCompensationPending.size());
+
                 int totalConsultation = cdb.CountConsultationByStatus("all");
                 session.setAttribute("totalConsultation", totalConsultation);
                 session.setAttribute("totalPromotion", pdb.getAll().size());
