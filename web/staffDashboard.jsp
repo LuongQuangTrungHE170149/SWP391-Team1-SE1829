@@ -104,7 +104,7 @@
 
                 <ul class="nav flex-column mb-auto">
                     <li class="nav-item btn-group">
-                        <a href="" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
+                        <a href="staffHome" class="btn btn-light btn-sm btn-custom"data-mdb-ripple-init id="btnHome">
                             <i class="fa-solid fa-house me-2"></i>Home 
                         </a>
                     </li>
