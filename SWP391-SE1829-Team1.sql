@@ -54,6 +54,7 @@ create table Vehicles(
 			Chassis nvarchar(255),
 			Engine nvarchar(255),
 )
+
 create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int foreign key references Users(id),
