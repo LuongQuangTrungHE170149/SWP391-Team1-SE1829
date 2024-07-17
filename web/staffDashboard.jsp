@@ -202,7 +202,7 @@
                 <ul class="nav flex-column mb-auto">
                     <li class="nav-item">
                         <a href="homeManager" class="btn btn-light btn-sm btn-custom " id="btnHome">
-                            <i class="fa-solid fa-house me-2"></i>Home 
+                            <i class="fa-solid fa-house me-2"></i>Trang chủ 
                         </a>  
                     </li>
                     <li class="nav-item btn-group">

@@ -45,13 +45,7 @@
                                         </div>
                                         <span>${requestScope.totalContract}</span>
                                     </div>
-                                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                        <div>
-                                            <span style="margin-right: 8px;"><i class="fa-solid fa-car"></i></span>
-                                            <span>Phương tiện: </span>
-                                        </div>
-                                        <span>${requestScope.totalVehicle}</span>
-                                    </div>   
+                                    
                                 </div>
                             </div>
 
