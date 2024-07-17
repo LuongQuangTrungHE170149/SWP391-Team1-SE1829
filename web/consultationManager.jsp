@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>F-Care | Consultation Manager</title>
+        <title>F-Care | Quản lý tư vấn</title>
 
         <!--summernote-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -78,7 +78,7 @@
             .nav-link{
                 padding: 10px !important;
             }
-          
+
         </style>
 
     </head>
@@ -98,7 +98,7 @@
             <div class="nav navbar bg-light sticky-top justify-content-between mb-3 px-2">
                 <input type="hidden" name="status" value="${status}"/>
                 <input type="hidden" name="staff" value="${staff}"/>
-                <div class="fs-3 fw-bold text-info">Consultation Manager</div>
+                <div class="fs-3 fw-bold text-info">Quản lý tư vấn</div>
                 <form action="consultationManager" method="GET" id="select-Form" class="d-flex" >
                     <!--search-->
                     <div>
@@ -109,7 +109,7 @@
                                    class="form-control rounded" 
                                    aria-label="Search" aria-describedby="search-addon"
                                    Value="${searchValue!=null?searchValue:''}" 
-                                   placeholder="Name or Email to search"/>
+                                   placeholder="Tìm kiếm bằng tên hoặc email"/>
                             <button type="submit" class="input-group-text border-0" id="search-addon">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -120,8 +120,8 @@
                     </div>
                     <div class="ms-3">
                         <select class="form-select" name="staff" id="form-select" onchange="document.getElementById('select-Form').submit();">
-                            <option value=""selected="" disabled="">Staff</option>
-                            <option value="" ${staff eq ""?'selected':''}>All</option>
+                            <option value=""selected="" disabled="">Nhân viên</option>
+                            <option value="" ${staff eq ""?'selected':''}>Tất cả</option>
                             <c:forEach items="${listStaffAnswer}" var="s">
                                 <option value="${s[0]}" ${s[0] == staff?'selected':''}>${s[1]}</option>
                             </c:forEach>
@@ -129,10 +129,10 @@
                     </div>
                     <div class="ms-3 me-3">
                         <select class="form-select" name="status" id="form-select" onchange="document.getElementById('select-Form').submit();">
-                            <option disabled="" selected="">Status</option>
-                            <option value="" ${status eq ""?'selected':''}>All</option>
-                            <option value="true" ${status eq "true"?'selected':''} class="text-primary fw-bold">Response</option>
-                            <option value="false" ${status eq "false"?'selected':''} class="text-danger fw-bold">Not Response</option>
+                            <option disabled="" selected="">Trạng thái</option>
+                            <option value="" ${status eq ""?'selected':''}>Tất cả</option>
+                            <option value="true" ${status eq "true"?'selected':''} class="text-primary fw-bold">Đã trả lời</option>
+                            <option value="false" ${status eq "false"?'selected':''} class="text-danger fw-bold">Chưa trả lời</option>
                         </select>
                     </div>
 
@@ -185,11 +185,11 @@
                         <thead class="">
                             <tr class="">
 
-                                <th scope="col">Name</th>
+                                <th scope="col">Họ và Tên</th>
                                 <th scope="col" >Email</th>
-                                <th scope="col" >Create Date</th>
-                                <th scope="col" class="text-center">Detail</th>
-                                <th scope="col" class="text-center">Status</th>
+                                <th scope="col" >Ngày tạo</th>
+                                <th scope="col" class="text-center">Chi tiết</th>
+                                <th scope="col" class="text-center">Trạng thái</th>
 
                             </tr>
                         </thead>
@@ -283,7 +283,7 @@
             <div class="modal-dialog modal-xl  modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title fw-bold fs-4" id="replyModalLabel" style="color:#419FA3;">Respond consultation</h5>
+                        <h5 class="modal-title fw-bold fs-4" id="replyModalLabel" style="color:#419FA3;">Trả lời tư vấn</h5>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="close"></button>
                     </div>
                     <div class="modal-body">
@@ -299,17 +299,17 @@
                                     <input type="text" class="form-control" id="id" name="id" readonly>
                                 </div>
                                 <div class="col-4 mb-3">
-                                    <label for="title" class="form-label">Title</label>
+                                    <label for="title" class="form-label">Tiêu đề</label>
                                     <input type="text" class="form-control" id="title"name="title" value="Tư vấn" readonly>
                                 </div>
                                 <div class="col-6 mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">Họ và Tên</label>
                                     <input type="text" class="form-control" id="name" name="name" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 mb-3">
-                                    <label for="timestamp" class="form-label">Timestamp</label>
+                                    <label for="timestamp" class="form-label">Ngày tạo</label>
                                     <input type="text" class="form-control" id="timestamp" readonly/>
                                 </div>
                                 <div class="col-6 mb-3">
@@ -319,13 +319,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 mb-3">
-                                    <label for="senderMessage" class="form-label text-danger">Consulting content</label>
+                                    <label for="senderMessage" class="form-label text-danger">Nội dụng cần tư vấn</label>
                                     <textarea class="form-control" id="senderMessage" rows="3" name="senderMessage" placeholder=""readonly></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 mb-3">
-                                    <label for="replyMessage" class="form-label  text-primary">Reply message</label>
+                                    <label for="replyMessage" class="form-label  text-primary">Trả lời tư vấn</label>
                                     <textarea class="form-control" id="replyMessage" rows="3" required=""></textarea>
                                 </div>
                             </div>
@@ -356,15 +356,15 @@
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="modal-title fs-4 fw-bold text-nowrap" id="detailModalLabel" style="color:#419FA3;">Consultation Details</div>
-                        <div class="text-nowrap fw-bold fs-6  " id="status" style="margin-left: 100px">Status</div>
+                        <div class="modal-title fs-4 fw-bold text-nowrap" id="detailModalLabel" style="color:#419FA3;">Chi tiết tư vấn</div>
+                        <div class="text-nowrap fw-bold fs-6  " id="status" style="margin-left: 100px">Trạng thái</div>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
                         <div class="row d-flex">
                             <div class="col-6  d-flex align-items-center">
-                                <div class="fs-5 fw-bold me-2">Title: </div>
+                                <div class="fs-5 fw-bold me-2">Tiêu đề: </div>
                                 <div class="fw-bold">Tư Vấn</div>   
                             </div>
                             <div class="col-6  d-flex align-items-center">
@@ -376,36 +376,36 @@
 
                         <div class="col-6 mb-3 d-flex align-items-center">
                             <div class="fs-5 fw-bold me-2">Email:</div>
-                            <div id="senderEmail_detail" class="fw-bold"></div>
+                            <div id="senderEmail_detail" ></div>
                         </div>
                         <div class="col-6 mb-3 d-flex align-items-center">
-                            <div class="fs-5 fw-bold me-2">Name:</div>
-                            <div id="name_detail" class="fw-bold"></div>
+                            <div class="fs-5 me-2 fw-bold">Họ và Tên:</div>
+                            <div id="name_detail"></div>
                         </div>
 
                         <div class="col-12 mb-3 d-flex align-items-center">
-                            <div class="fs-5 fw-bold me-2">Timestamp:</div>
+                            <div class="fs-5 fw-bold me-2">Ngày tạo:</div>
                             <div id="timestamp_detail" class="fw-light" style="font-size: 14px;"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="senderMessage_detail" class="form-label text-primary fs-5" >Message:</label>
+                            <label for="senderMessage_detail" class="form-label text-primary fs-5" >Nội dung cần tư vấn:</label>
                             <textarea class="form-control bg-light" id="senderMessage_detail" readonly></textarea>
                         </div>
 
                         <div class="mb-3 d-flex align-items-center">
-                            <div class="me-2 fw-bold fs-5">Staff: </div>
+                            <div class="me-2 fw-bold fs-5">Nhân viên trả lời: </div>
                             <div class="" id="staff_name"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="replyMessage_detail" class="form-label text-danger fs-5">Reply Message:</label>
+                            <label for="replyMessage_detail" class="form-label text-danger fs-5">Nội dung trả lời:</label>
                             <div class="border bg-light align-items-center border-box" id="replyMessage_detail" readonly></div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
 
-                        <button id="replyButton"  class="btn btn-primary badge-reply" data-mdb-modal-init data-mdb-target="#replyModal">reply</button>
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <button id="replyButton"  class="btn btn-primary badge-reply" data-mdb-modal-init data-mdb-target="#replyModal">Gửi</button>
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
@@ -443,7 +443,9 @@
 
         <!--mdb bootstrap-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
-
+        
+        <!--format date-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script>
                                         function showLoading() {
                                             document.getElementById('loading-overlay').style.display = 'flex';
@@ -495,7 +497,7 @@
                                                         $('#id').val(data.id);
                                                         $('#name').val(data.name);
                                                         $('#senderEmail').val(data.email);
-                                                        var createDate = new Date(data.createDate);
+                                                        var createDate = moment(data.createDate).format('DD/MM/YYYY');
                                                         $('#timestamp').val(createDate);
                                                         $('#senderMessage').val(data.content);
 
@@ -530,16 +532,18 @@
                                                         $('#id_detail').html(data.id);
                                                         $('#name_detail').html(data.name);
                                                         $('#senderEmail_detail').html(data.email);
-                                                        var createDate = new Date(data.createDate);
+                                                        
+                                                        var createDate = moment(data.createDate).format('DD/MM/YYYY');
                                                         $('#timestamp_detail').html(createDate);
+                                                        
                                                         $('#senderMessage_detail').val(data.content);
 
                                                         var staffClass = data.staff ? "text-secondary" : "text-danger";
-                                                        $('#staff_name').html(data.staff ? data.staff.username : "Not Staff Assigned").addClass(staffClass);
-                                                        $('#replyMessage_detail').html(data.replyMessage || "Not Answer Yet");
+                                                        $('#staff_name').html(data.staff ? data.staff.username : "Chưa có nhân viên trả lời").addClass(staffClass);
+                                                        $('#replyMessage_detail').html(data.replyMessage || "Chưa trả lời");
 
                                                         var statusClass = data.status ? "text-primary" : "text-danger";
-                                                        $('#status').html(data.status ? "Responsed" : "Not Responsed").addClass(statusClass);
+                                                        $('#status').html(data.status ? "Responsed" : "Chưa trả lời").addClass(statusClass);
 
                                                         $('#replyButton').data('id', data.id);
                                                         if (!data.status) {
@@ -547,13 +551,7 @@
                                                         } else {
                                                             $('#replyButton').hide();
                                                         }
-                                                        //handle date
-                                                        //var day = String(createDate.getDate()).padStart(2,'0');
-                                                        //var month = String(createDate.getMonth()+1).padStart(2,'0');
-                                                        //var year = createDate.getFullYear();
-                                                        //var formattedDate = day + '/' + month + '/' + year;
 
-                                                        // Show the modal
                                                         $('#detailModal').modal('show');
                                                     }
                                                 });

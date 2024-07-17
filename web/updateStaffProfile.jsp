@@ -41,7 +41,7 @@
 
                 </div>
                 <div class="container" style="width: 80%; height: 100%;">
-                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Back</button>
+                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
 
                     <div class="row mt-4" style="align-content: center;">
 
@@ -64,25 +64,25 @@
                                 <input type="hidden" name="staffId" value="${user.id}"/>
                                 <div class="card shadow-4">
                                     <div class="card-header">
-                                        <h4 class="m-0">Change Password</h4> 
+                                        <h4 class="m-0">Đổi mật khẩu</h4> 
                                     </div>
                                     <div class="card-body">
                                         <p class="text-danger m-0">${invalidPassword}</p>
                                         <div class="form-outline mb-3" data-mdb-input-init>
                                             <input type="password" name="password" value="${password}" id="password" class="form-control" required/>
-                                            <label class="form-label" for="paddword">Password</label>
+                                            <label class="form-label" for="paddword">Mật khẩu hiện tại</label>
                                         </div>
 
                                         <p class="text-danger m-0">${invalidNewPassword}</p>
                                         <div class="form-outline mb-3" data-mdb-input-init>
                                             <input type="password" name="newPassword"  id="newPassword" class="form-control" required/>
-                                            <label class="form-label" for="newPassword">New Password</label>
+                                            <label class="form-label" for="newPassword">Mật khẩu mới</label>
                                         </div>
 
                                         <p class="text-danger m-0">${invalidConfirmPassword}</p>
                                         <div class="form-outline mb-3" data-mdb-input-init>
                                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" required/>
-                                            <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                            <label class="form-label" for="confirmPassword">Xác nhận mật khẩu</label>
                                         </div>
 
                                         <p class="text-success m-0">${success}</p>
@@ -100,7 +100,7 @@
                                     <div class="card-body">
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Username</p>
+                                                <p class="mb-0">Tên người dùng</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0"> ${user.username}</p>
@@ -109,7 +109,7 @@
                                         <hr>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Date Created</p>
+                                                <p class="mb-0">Ngày tạo</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"/></p>
@@ -118,7 +118,7 @@
                                         <hr>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Full Name</p>
+                                                <p class="mb-0">Họ và tên</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0"> ${user.getFullName()}</p>
@@ -127,24 +127,24 @@
                                         <hr>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Gender</p>
+                                                <p class="mb-0">Giới tính</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1" ${user.gender == 1 ?'checked':''}/>
-                                                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                                                    <label class="form-check-label" for="inlineRadio1">Nam</label>
                                                 </div>
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="0" ${user.gender == 0 ?'checked':''}/>
-                                                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                                                    <label class="form-check-label" for="inlineRadio2">Nữ</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Date of Birth</p>
+                                                <p class="mb-0">Ngày sinh</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <input type="date" name="dob" value="${user.dob}" class="form-control" required>
@@ -163,7 +163,7 @@
                                         <hr>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Phone</p>
+                                                <p class="mb-0">Số điện thoại</p>
 
                                             </div>
                                             <div class="col-sm-9">
@@ -174,7 +174,7 @@
                                         <hr>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <p class="mb-0">Address</p>
+                                                <p class="mb-0">Địa chỉ</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <input type="text" name="address" value="${user.address}" class="form-control" required>

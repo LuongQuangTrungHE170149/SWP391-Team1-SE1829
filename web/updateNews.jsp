@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,10 +34,10 @@
             <!--navbar-->
             <div class="nav navbar sticky-top bg-light justify-content-start align-items-center mb-3 px-2">
 
-                <div class="fs-3 fw-bold text-info me-3">Update News</div>
+                <div class="fs-3 fw-bold text-info me-3">Chỉnh sửa tin tức</div>
             </div>
             <!--end navbar-->
-            <button type="button" class="btn btn-secondary btn-sm ms-3" data-mdb-ripple-init onclick="goBack()">Back</button>
+            <button type="button" class="btn btn-secondary btn-sm ms-3" data-mdb-ripple-init onclick="goBack()">Trở lại</button>
             <input type="hidden" name="id" value="${c.id}">
 
             <div class="p-4" style="height: 100vh;">
@@ -45,30 +46,30 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="fw-bold">
                                 <div class="badge badge-primary">ID: <span class="fw-normal">${c.id}</span></div>  
-                                <div class="badge badge-secondary">Create by: <span class="fw-normal">${c.staff.username}</span></div> 
+                                <div class="badge badge-secondary">Tạo bởi: <span class="fw-normal">${c.staff.username}</span></div> 
                             </div>
                             <div class="fw-bold">
-                                Image:
+                                Ảnh:
                                 <img class="img-thumbnail" src="${c.image}" alt="image"/>
                             </div>
                             <div class="text-muted">
-                                Replace image here
+                                Thay đổi ảnh tại đây
                                 <input class="form-control" id="newImage" type="file" name="newImage">
                             </div>
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <div class="fw-bold mb-3">
-                                Title
+                                Tiêu đề
                                 <textarea name="title" id="title" class="form-control">${c.title}</textarea>
                             </div>
                             <div class="fw-bold mb-3">
-                                Description
+                                Mô tả
                                 <textarea name="description" id="description" class="form-control">${c.description}</textarea>
                             </div>
                             <div class="row mb-3 align-items-center">
 
                                 <div class="col-4 d-flex align-items-center">
-                                    <span class="fw-bold me-2">Type:</span>
+                                    <span class="fw-bold me-2">Loại:</span>
                                     <select id="type" name="type" class="form-select">
                                         <option value="Hoạt động công ty" ${c.type == 'Hoạt động công ty'?'selected':''}>Hoạt động công ty</option>
                                         <option value="Hoạt động xã hội" ${c.type == 'Hoạt động xã hội'?'selected':''}>Hoạt động xã hội</option>
@@ -76,25 +77,25 @@
                                     </select>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <span class="fw-bold">Create date:</span> <br> <span>${c.createDate}</span> 
+                                    <span class="fw-bold">Ngày tạo:</span> <br> <span><fmt:formatDate value="${c.createDate}" pattern="dd/MM/yyyy"/></span> 
                                 </div>
                                 <div class="col-4">
-                                    <span class="fw-bold">Set Header:</span>
+                                    <span class="fw-bold">Bài nổi bật:</span>
                                     <div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="isHeader" id="inlineRadio1" value="true" ${c.isHeader == true?'checked':''}/>
-                                            <label class="form-check-label" for="inlineRadio1">True</label>
+                                            <label class="form-check-label" for="inlineRadio1">On</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="isHeader" id="inlineRadio2" value="false" ${c.isHeader == false?'checked':''}/>
-                                            <label class="form-check-label" for="inlineRadio2">False</label>
+                                            <label class="form-check-label" for="inlineRadio2">Off</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div>
-                                <span class="fw-bold">Edit content here</span>
+                                <span class="fw-bold">Chỉnh sửa nội dung tại đây</span>
                                 <textarea id="content" name="content" required>${c.content}</textarea>
                             </div>
                         </div>
@@ -105,8 +106,8 @@
             </div>
 
             <div class="d-flex justify-content-end align-items-center border-top bg-light sticky-bottom" style="padding: 12px; height: 65px;">
-                <button type="submit" class="btn btn-primary btn-update me-2" data-mdb-ripple-init data-id="${c.id}">Update</button>
-                <button type="button" class="btn btn-secondary" data-mdb-ripple-init onclick="goBack()">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-update me-2" data-mdb-ripple-init data-id="${c.id}">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-mdb-ripple-init onclick="goBack()">Hủy</button>
             </div>
         </div>
 
@@ -135,7 +136,6 @@
                             formData.append("title", $("#title").val());
                             formData.append("description", $("#description").val());
                             formData.append("content", $("#content").val());
-                            console.log("content: " + $("#content").html());
                             formData.append("type", $("#type").val());
 
                             const isHeader = $("input[name=isHeader]:checked").val();
@@ -148,10 +148,6 @@
                                 formData.append("image", null);
                             }
 
-                            console.log("FormData values:");
-                            for (var pair of formData.entries()) {
-                                console.log(pair[0] + ': ' + pair[1]);
-                            }
                             $.ajax({
                                 url: 'updateNews',
                                 type: 'POST',

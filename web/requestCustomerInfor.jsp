@@ -553,7 +553,7 @@
                 }
             }
             function validateLicensePlate() {
-                const licensePlateRegex = /^[0-9]{2}[A-Z][0-9]{1}[0-9]{4,5}$/;
+                const licensePlateRegex = /^[0-9]{2}[A-Z][0-9]{1}[0-9]{3,5}$/;
                 const licensePlateValue = $("#licensePlate").val().trim();
 
                 if (!licensePlateValue) {
@@ -568,14 +568,14 @@
                 }
             }
             function validateChassisNumber() {
-                const chassisNumberRegex = /^[A-Z0-9]{17}$/;
+                const chassisNumberRegex = /^[A-Z0-9]{6,17}$/;
                 const chassisNumberValue = $("#chassisNumber").val().trim();
 
                 if (!chassisNumberValue) {
                     $("#chassisNumberError").html("Vui lòng nhập số khung");
                     return false;
                 } else if (!chassisNumberRegex.test(chassisNumberValue)) {
-                    $("#chassisNumberError").html("Số khung bao gồm 17 kí tự A-Z 0-9");
+                    $("#chassisNumberError").html("Số khung bao gồm 6 đến 17 kí tự A-Z 0-9");
                     return false;
                 } else {
                     $("#chassisNumberError").html("");
@@ -583,14 +583,14 @@
                 }
             }
             function validateEngineNumber() {
-                const engineNumberRegex = /^[A-Z0-9]{9,17}$/;
+                const engineNumberRegex = /^[A-Z0-9]{6,17}$/;
                 const engineNumberValue = $("#engineNumber").val().trim();
 
                 if (!engineNumberValue) {
                     $("#engineNumberError").html("Vui lòng nhập số máy");
                     return false;
                 } else if (!engineNumberRegex.test(engineNumberValue)) {
-                    $("#engineNumberError").html("Số máy từ 9 đến 17 kí tự A-Z 0-9");
+                    $("#engineNumberError").html("Số máy từ 6 đến 17 kí tự A-Z 0-9");
                     return false;
                 } else {
                     $("#engineNumberError").html("");

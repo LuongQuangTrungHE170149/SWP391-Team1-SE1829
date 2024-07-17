@@ -11,7 +11,7 @@
     <head>
         <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Update Promotion</title>
+        <title>F-Care | Chỉnh sửa khuyến mại</title>
         <!--summer note-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <style>
@@ -33,10 +33,10 @@
             <!--navbar-->
             <div class="nav navbar sticky-top bg-light justify-content-start align-items-center mb-3 px-2">
 
-                <div class="fs-3 fw-bold text-info me-3">Update Promotion</div>
+                <div class="fs-3 fw-bold text-info me-3">Chỉnh sủa khuyến mại</div>
             </div>
             <!--end navbar-->
-            <button type="button" class="btn btn-secondary btn-sm ms-3" data-mdb-ripple-init onclick="goBack()">Back</button>
+            <button type="button" class="btn btn-secondary btn-sm ms-3" data-mdb-ripple-init onclick="goBack()">Trở lại</button>
             <input type="hidden" name="id" value="${c.id}">
 
             <div class="p-4" style="height: 100vh;">
@@ -45,50 +45,50 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="fw-bold">
                                 <div class="badge badge-primary">ID: <span class="fw-normal">${c.id}</span></div>  
-                                <div class="badge badge-secondary">Create by: <span class="fw-normal">${c.staff.username}</span></div> 
+                                <div class="badge badge-secondary">Tạo bởi: <span class="fw-normal">${c.staff.username}</span></div> 
                             </div>
                             <div class="fw-bold">
-                                Image:
+                                Ảnh:
                                 <img class="img-thumbnail" src="${c.image}" alt="image"/>
                             </div>
                             <div class="text-muted">
-                                Replace image here
+                                Thay đổi ảnh tại đây
                                 <input class="form-control" id="newImage" type="file" name="newImage">
                             </div>
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <div class="fw-bold mb-3">
-                                Title
+                                Tiêu đề
                                 <textarea name="title" id="title" class="form-control">${c.title}</textarea>
                             </div>
                             <div class="fw-bold mb-3">
-                                Description
+                                Mô tả
                                 <textarea name="description" id="description" class="form-control">${c.description}</textarea>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-3">
-                                    <span class="fw-bold">Create date:</span> <br> ${c.createDate}
+                                    <span class="fw-bold">Ngày tạo:</span> <br> ${c.createDate}
                                 </div>
                                 <div class="col-3">
-                                    <span class="fw-bold">Time Start:</span>
+                                    <span class="fw-bold">Bắt đầu:</span>
                                     <input class="form-control" type="date" id="timeStart" name="timeStart" value="${c.timeStart}" required=""/>
                                 </div>
                                 <div class="col-3">
-                                    <span class="fw-bold">Time End:</span>
+                                    <span class="fw-bold">Kết thúc:</span>
                                     <input class="form-control" type="date" id="timeEnd" name="timeEnd" value="${c.timeEnd}" required/>
                                 </div>
                                 <div class="col-3">
-                                    <span class="fw-bold">Set Header:</span>
+                                    <span class="fw-bold">Bài nổi bật:</span>
                                     <div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="isHeader" id="inlineRadio1" value="true" ${c.isHeader == true?'checked':''}/>
-                                            <label class="form-check-label" for="inlineRadio1">True</label>
+                                            <label class="form-check-label" for="inlineRadio1">On</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="isHeader" id="inlineRadio2" value="false" ${c.isHeader == false?'checked':''}/>
-                                            <label class="form-check-label" for="inlineRadio2">False</label>
+                                            <label class="form-check-label" for="inlineRadio2">Off</label>
                                         </div>
                                     </div>
 
@@ -97,7 +97,7 @@
                             </div>
 
                             <div>
-                                <span class="fw-bold">Edit content here</span>
+                                <span class="fw-bold text-danger">Chỉnh sửa nội dung tại đây</span>
                                 <textarea id="content" name="content" required>${c.content}</textarea>
                             </div>
                         </div>
@@ -108,8 +108,8 @@
             </div>
 
             <div class="d-flex justify-content-end align-items-center border-top sticky-bottom" style="padding: 12px; height: 65px;">
-                <button type="submit" class="btn btn-primary btn-update me-2" data-mdb-ripple-init data-id="${c.id}">Update</button>
-                <button type="button" class="btn btn-secondary" data-mdb-ripple-init onclick="goBack()">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-update me-2" data-mdb-ripple-init data-id="${c.id}">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-mdb-ripple-init onclick="goBack()">Hủy</button>
             </div>
         </div>
 
