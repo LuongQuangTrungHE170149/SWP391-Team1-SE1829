@@ -1,6 +1,8 @@
 package Controller;
 
+import Model.Compensation;
 import Model.User;
+import dal.CompensationDAO;
 import dal.ConsultationDAO;
 import dal.NewsDAO;
 import dal.PromotionDAO;
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -45,14 +48,6 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("password");
         HttpSession session = req.getSession();
 
-        ConsultationDAO cdb = new ConsultationDAO();
-        PromotionDAO pdb = new PromotionDAO();
-        NewsDAO ndb = new NewsDAO();
-        int totalConsultation = cdb.CountConsultationByStatus("all");
-        session.setAttribute("totalConsultation", totalConsultation);
-        session.setAttribute("totalPromotion", pdb.getAll().size());
-        session.setAttribute("totalNews", ndb.getAll().size());
-
         UserDAO dbUser = new UserDAO();
         User user = dbUser.findByUsernameOrEmailAndPassword(usernameEmail, password);
         if (user == null) {
@@ -63,6 +58,16 @@ public class LoginController extends HttpServlet {
             if (user.getRole().equalsIgnoreCase("user") || user.getRole().equalsIgnoreCase("customer")) {
                 resp.sendRedirect("home");
             } else if (user.getRole().equalsIgnoreCase("staff")) {
+                ConsultationDAO cdb = new ConsultationDAO();
+                PromotionDAO pdb = new PromotionDAO();
+                NewsDAO ndb = new NewsDAO();
+                List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
+                session.setAttribute("totalApplication", listCompensationPending.size());
+
+                int totalConsultation = cdb.CountConsultationByStatus("all");
+                session.setAttribute("totalConsultation", totalConsultation);
+                session.setAttribute("totalPromotion", pdb.getAll().size());
+                session.setAttribute("totalNews", ndb.getAll().size());
                 resp.sendRedirect("staffHome");
             } else if (user.getRole().equalsIgnoreCase("manager")) {
                 resp.sendRedirect("homeManager");
