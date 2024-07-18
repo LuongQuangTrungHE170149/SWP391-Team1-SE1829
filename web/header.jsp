@@ -132,11 +132,9 @@
                                 <!-- Notification Bell -->
                                 <div class="notification-bell" onclick="toggleNotifications()">
                                     <i class="fa-solid fa-bell" style="color:#fff"></i>
-                                    <span class="notification-count">3</span>
+                                    <span class="notification-count" id="notificationCount">3</span>
                                     <div class="notification-list" id="notificationList">
-                                        <div class="notification-item">Thông báo 1</div>
-                                        <div class="notification-item">Thông báo 2</div>
-                                        <div class="notification-item">Thông báo 3</div>
+
                                     </div>
                                 </div>
                                 <!-- User Dropdown -->
@@ -206,11 +204,9 @@
                             <!-- Notification Bell -->
                             <div class="notification-bell" onclick="toggleNotifications()">
                                 <i class="fa-solid fa-bell" style="color:#fff"></i>
-                                <span class="notification-count">#</span>
+                                <span class="notification-count" id="notificationCount">#</span>
                                 <div class="notification-list" id="notificationList">
-                                    <div class="notification-item">Thông báo 1</div>
-                                    <div class="notification-item">Thông báo 2</div>
-                                    <div class="notification-item">Thông báo 3</div>
+
                                 </div>
                             </div>
                             <!-- User Dropdown -->
@@ -254,5 +250,37 @@
                 notificationList.style.display = 'none';
             }
         }
-    }
+    };
+    let countNotify = 0;
+    var userId = '<%= session.getAttribute("userId")%>';
+    var wsUri = "ws://" + window.location.host + "/SWP391-Team1-SE1829/notifications" + "/" + userId;
+    var websocket = new WebSocket(wsUri);
+
+    websocket.onopen = function (evt) {
+        console.log("Connected to WebSocket");
+    };
+
+    websocket.onmessage = function (evt) {
+        var notification = JSON.parse(evt.data);
+        console.log(notification);
+        var listNotify = document.getElementById('notificationList');
+        let contentNotify = "";
+        if(notification.isClick){
+            contentNotify = `<div class="notification-item"><a href=\"`+ notification.link +`\">`+notification.title+`</a></div>`;
+        }else {
+            contentNotify = `<div class="notification-item">`+notification.title+`</div>`;
+        }
+        listNotify.innerHTML += contentNotify;
+        countNotify++;
+        var displayCount = document.getElementById('notificationCount');
+        displayCount.innerHTML = countNotify;
+    };
+
+    websocket.onerror = function (evt) {
+        console.error("WebSocket error observed:", evt);
+    };
+
+    websocket.onclose = function (evt) {
+        console.log("Disconnected from WebSocket");
+    };
 </script>

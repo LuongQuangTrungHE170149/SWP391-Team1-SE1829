@@ -22,6 +22,7 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div class="container mt-5" style="min-height: 70vh;"> 
+             <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
             <div class="text-center fs-3 fw-bold text-danger mb-3">Quản lý hợp đồng</div>
             <input type="hidden" id="now" value="${now}"/>
             <table class="table table-bordered table-hover table-custom">
@@ -249,6 +250,10 @@
                     });
                 });
             });
+            
+            function goBack() {
+            window.location.href ='home.jsp';                 
+                        }
         </script>
 
     </body>

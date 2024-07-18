@@ -71,7 +71,7 @@
                                     <p class="mb-0">Giới tính</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0"> ${user.gender == 1?'Male':'Female'}</p>
+                                    <p class="text-muted mb-0"> ${user.gender == 1?'Nam':'Nữ'}</p>
                                 </div>
                             </div>
                             <hr></hr>
@@ -103,9 +103,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-init onclick="location.href = 'updateProfile'"><i class="fa-solid fa-pen-to-square"></i></button>
                             <div class="d-flex justify-content-end"> 
-                                <button class="btn btn-info" onclick="location.href = 'manageContractCustomer.jsp'">Xem danh sách bảo hiểm</button>
+                                <button class="btn btn-info" onclick="location.href = 'updateProfile.jsp'">Cập nhật thông tin</button>
                             </div>
                         </div>
 
