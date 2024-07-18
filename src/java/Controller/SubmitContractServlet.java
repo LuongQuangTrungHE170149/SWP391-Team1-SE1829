@@ -1,10 +1,12 @@
 package Controller;
 
 import Model.Contract;
+import Model.Notification;
 import Model.User;
 import Model.Vehicle;
 import Model.VehicleType;
 import dal.ContractDAO;
+import dal.NotificationDAO;
 import utils.GenerateContractCode;
 import dal.UserDAO;
 import dal.VehicleDAO;
@@ -15,6 +17,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.util.List;
+import socket.NotificationWebSocket;
 import utils.EmailHelper;
 
 public class SubmitContractServlet extends HttpServlet {
@@ -103,7 +107,8 @@ public class SubmitContractServlet extends HttpServlet {
                     note = "Chúng tôi đã tạo cho bạn một tài khoản. Hãy sử dụng tài khoản này để đăng nhập và xem thông tin chi tiết hợp đồng! <br>"
                             + "<h3>Tài khoản: <b>" + email + "</b></h3>"
                             + "<h3>Mật khẩu mặc định: <b>" + phoneNumber + "</b></h3>";
-                } else {
+            }
+                else {
                     user = existingUser;
                     user.setId(user.getId());
                     c.setDescription("khách hàng đã có tài khoản mua bảo hiểm");
@@ -145,7 +150,19 @@ public class SubmitContractServlet extends HttpServlet {
             request.getSession().removeAttribute("chassisNumber");
             request.getSession().removeAttribute("engineNumber");
             response.sendRedirect("requestContractSuccess.jsp");
-        } catch (Exception e) {
+        
+         NotificationDAO dbNotify = new NotificationDAO();
+            UserDAO dbUser = new UserDAO();
+            List<User> users = dbUser.getAllUserByRole("User");
+            Notification notification = new Notification();
+            notification.setTitle("Bạn có 1 hợp đồng mới");
+            notification.setIsClick(true);
+            notification.setLink("manageContractCustomer");
+            notification.setUserId(user);
+            dbNotify.insert(notification);
+            NotificationWebSocket.sendMessageToUser(user.getId()+"", notification);
+            }
+        catch (Exception e) {
             System.out.println(e);
         }
     }

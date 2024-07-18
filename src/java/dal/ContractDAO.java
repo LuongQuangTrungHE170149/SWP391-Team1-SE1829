@@ -7,10 +7,12 @@ package dal;
 import Model.Contract;
 import Model.User;
 import Model.Vehicle;
+import dto.Contractdto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -98,7 +100,7 @@ public class ContractDAO extends DBContext {
                 + "      ,[createDate]\n"
                 + "      ,[status]\n"
                 + "  FROM [dbo].[Contracts]";
-
+        UserDAO userDAO = new UserDAO();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -107,8 +109,8 @@ public class ContractDAO extends DBContext {
                 c.setCode(rs.getString("Code"));
                 c.setContractId(rs.getInt("ContractId"));
 
-                User customer = new User();
-                customer.setId(rs.getInt("CustomerId"));
+                User customer = userDAO.getUserById(rs.getInt("CustomerId"));
+
                 c.setCustomer(customer);
 
                 User staff = new User();
@@ -403,10 +405,39 @@ public class ContractDAO extends DBContext {
         return null;
     }
 
+    public void updateContract(int contractId, Date startDate, Date endDate, String description, String status, Double payment) {
+        
+
+        try {String sql = "UPDATE contracts SET startDate=?, endDate=?, description=?, status=?, payment=? WHERE contractId=?";
+
+            PreparedStatement  stmt = connection.prepareStatement(sql);
+
+            // Đặt các tham số vào câu lệnh SQL
+            stmt.setDate(1, startDate);
+            stmt.setDate(2, endDate);
+            stmt.setString(3, description);
+            stmt.setString(4, status);
+            stmt.setDouble(5, payment);
+            stmt.setInt(6, contractId);
+
+            // Thực thi câu lệnh SQL
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Đã cập nhật hợp đồng có ID " + contractId);
+            } else {
+                System.out.println("Không tìm thấy hợp đồng để cập nhật");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
         System.out.println(cd.getListContractByStaff(1).get(0).getStaff().getFullName());
 
     }
+
 }

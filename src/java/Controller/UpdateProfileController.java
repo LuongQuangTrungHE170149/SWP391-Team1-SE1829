@@ -44,11 +44,11 @@ public class UpdateProfileController extends HttpServlet {
             int gender = Integer.parseInt(request.getParameter("gender"));
             String email = request.getParameter("email");
             if (udb.checkEmailExist(email) & !email.equalsIgnoreCase(u.getEmail())) {
-                request.setAttribute("invalidEmail", "Email '" + email + "' already exist! Please try another email!");
+                request.setAttribute("invalidEmail", "Email '" + email + "' đã có! Hãy thử email khác!");
             } else {
                 String phone = request.getParameter("phone");
                 if (udb.checkPhoneExist(phone) & !phone.equalsIgnoreCase(u.getPhone())) {
-                    request.setAttribute("invalidPhone", "Phone number '" + phone + "' already exist! Please try another phone number!");
+                    request.setAttribute("invalidPhone", "Số điện thoại'" + phone + "' đã có! Hãy nhập số mới để thử lại!");
                 } else {
                     String address = request.getParameter("address");
 
@@ -58,10 +58,11 @@ public class UpdateProfileController extends HttpServlet {
                     java.sql.Date dob = new java.sql.Date(dobUtil.getTime());
                     //change password
                     System.out.println(udb.updateStaffProfileById(id, gender, email, phone, dob, address));
-                    request.setAttribute("updateMessage", "Updated successfully!");
+                    request.setAttribute("updateMessage", "Cập nhật thành công!");
                 }
             }
             User uAfterUpdate = udb.getUserById(id);
+            request.getSession().setAttribute("user", uAfterUpdate);
             request.setAttribute("user", uAfterUpdate);
             request.getRequestDispatcher("updateProfile.jsp").forward(request, response);
         } catch (Exception e) {

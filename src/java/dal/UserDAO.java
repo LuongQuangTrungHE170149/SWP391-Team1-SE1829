@@ -256,6 +256,28 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    public User findByUsername(String username) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setLastName(rs.getString("lastName"));
+                user.setFirstName(rs.getString("firstName"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public boolean changePasswordById(int id, String password) {
         String sql = "UPDATE [dbo].[Users]\n"
                 + "   SET [password] = ?\n"
@@ -782,10 +804,42 @@ public class UserDAO extends DBContext {
 
         return list;
     }
+    
+    public User selectUserByEmailOrPhone(String string) {
+        User user = null;
+        String SELECT_USER_BY_EMAIL_OR_PHONE = "SELECT * FROM users WHERE email = ? OR phoneNumber = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_OR_PHONE);) {
+            preparedStatement.setString(1, string);
+            preparedStatement.setString(2, string);
+            ResultSet rs = preparedStatement.executeQuery();
 
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                int gender = rs.getInt("gender");
+                String emailDB = rs.getString("email");
+                String phoneDB = rs.getString("phoneNumber");
+                Date dob = rs.getDate("dob");
+                String address = rs.getString("address");
+                Date dateCreated = rs.getDate("dateCreated");
+                String status = rs.getString("status");
+
+                user = new User(id, username, firstName, lastName, password, role, gender, emailDB, phoneDB, dob, address, dateCreated, status);
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.getAllCustomerByStaff(2));
+        System.out.println(udb.selectUserByEmailOrPhone("0985187536"));
     }
 
 }
