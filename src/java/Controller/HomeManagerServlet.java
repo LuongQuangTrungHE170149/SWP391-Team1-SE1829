@@ -69,38 +69,53 @@ public class HomeManagerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        UserDAO udb = new UserDAO();
-        NewsDAO newsDAO = new NewsDAO();
-        ContractDAO cdb = new ContractDAO();
-        int countCustomer = udb.getCountAllCustomer();
-        int countStaff = udb.getCountAllStaffs();
-        int totalAgency = AgencyDAO.INSTANCE.countAgency();
-        int totalContracts = cdb.countContracts();
-        int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
-        int totalNews = newsDAO.getAll().size();
-        BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
-        HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
-        HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
-        HashMap<String, Integer> countIsPayment = CompensationDAO.INSTANCE.countCompensationsByStatus();
-        List<StaffWorkplace> staffByAgency = StaffWorkplaceDAO.INSTANCE.getAllStaffWorkplace();
-        List<User> listStaffs = udb.getAllStaffs();
-        List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
-        request.setAttribute("countCustomer", countCustomer);
-        request.setAttribute("countStaff", countStaff);
-        request.setAttribute("totalPayment", totalPayment);
-        request.setAttribute("monthlyPayment", monthlyPayment);
-        request.setAttribute("totalAgency", totalAgency);
-        request.setAttribute("totalContracts", totalContracts);
-        request.setAttribute("totalCompensations", totalCompensations);
-        request.setAttribute("listCustomerByGender", listCustomerByGender);
-        request.setAttribute("countIsPayment", countIsPayment);
-        request.setAttribute("listStaffs", listStaffs);
-        request.setAttribute("staffByAgency", staffByAgency);
-        request.setAttribute("listAgency", listAgency);
-        request.setAttribute("totalNews", totalNews);
+        if (user != null) {
+            if (user.getRole().equalsIgnoreCase("manager")) {
 
-        request.getRequestDispatcher("homeManager.jsp").forward(request, response);
+                UserDAO udb = new UserDAO();
+                NewsDAO newsDAO = new NewsDAO();
+                ContractDAO cdb = new ContractDAO();
+                int countCustomer = udb.getCountAllCustomer();
+                int countStaff = udb.getCountAllStaffs();
+                int totalAgency = AgencyDAO.INSTANCE.countAgency();
+                int totalContracts = cdb.countContracts();
+                int totalCompensations = CompensationDAO.INSTANCE.countCompensation();
+                int totalNews = newsDAO.getAll().size();
+                BigInteger totalPayment = AgencyDAO.INSTANCE.totalPayment();
+                HashMap<String, BigInteger> monthlyPayment = AgencyDAO.INSTANCE.getMonthlyMoney();
+                HashMap<String, Integer> listCustomerByGender = udb.countCutomerByGender();
+                HashMap<String, Integer> countIsPayment = CompensationDAO.INSTANCE.countCompensationsByStatus();
+                List<StaffWorkplace> staffByAgency = StaffWorkplaceDAO.INSTANCE.getAllStaffWorkplace();
+                List<User> listStaffs = udb.getAllStaffs();
+                List<Agency> listAgency = AgencyDAO.INSTANCE.getAllAgencies();
+                request.setAttribute("countCustomer", countCustomer);
+                request.setAttribute("countStaff", countStaff);
+                request.setAttribute("totalPayment", totalPayment);
+                request.setAttribute("monthlyPayment", monthlyPayment);
+                request.setAttribute("totalAgency", totalAgency);
+                request.setAttribute("totalContracts", totalContracts);
+                request.setAttribute("totalCompensations", totalCompensations);
+                request.setAttribute("listCustomerByGender", listCustomerByGender);
+                request.setAttribute("countIsPayment", countIsPayment);
+                request.setAttribute("listStaffs", listStaffs);
+                request.setAttribute("staffByAgency", staffByAgency);
+                request.setAttribute("listAgency", listAgency);
+                request.setAttribute("totalNews", totalNews);
+
+                request.getRequestDispatcher("homeManager.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("home");
+
+            }
+
+        } else {
+            response.sendRedirect("login");
+
+        }
+
     }
 
     /**
