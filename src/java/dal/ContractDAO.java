@@ -7,6 +7,7 @@ package dal;
 import Model.Contract;
 import Model.User;
 import Model.Vehicle;
+import dto.Contractdto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -98,7 +99,7 @@ public class ContractDAO extends DBContext {
                 + "      ,[createDate]\n"
                 + "      ,[status]\n"
                 + "  FROM [dbo].[Contracts]";
-
+        UserDAO userDAO = new UserDAO();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -106,9 +107,9 @@ public class ContractDAO extends DBContext {
                 Contract c = new Contract();
                 c.setCode(rs.getString("Code"));
                 c.setContractId(rs.getInt("ContractId"));
-
-                User customer = new User();
-                customer.setId(rs.getInt("CustomerId"));
+                
+                User customer = userDAO.getUserById(rs.getInt("CustomerId"));
+                
                 c.setCustomer(customer);
 
                 User staff = new User();
@@ -355,4 +356,6 @@ public class ContractDAO extends DBContext {
         System.out.println(cd.getContractById(5));
 
     }
+
+    
 }
