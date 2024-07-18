@@ -6,9 +6,11 @@ package Controller;
 
 import Model.Accident;
 import Model.Compensation;
+import Model.Contract;
 import Model.User;
 import dal.AccidentDAO;
 import dal.CompensationDAO;
+import dal.ContractDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,14 +72,17 @@ public class CompensationApproveServlet extends HttpServlet {
         if (user != null) {
             if (user.getRole().equalsIgnoreCase("staff")) {
                 UserDAO userDao = new UserDAO();
+                ContractDAO cd = new ContractDAO();
                 List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
                 List<Compensation> listCompensationNotPending = CompensationDAO.INSTANCE.getCompensationsNotPending();
                 List<User> userList = userDao.getAllUserByRole("customer");
                 List<Accident> accidentList = AccidentDAO.INSTANCE.getAllAccidents();
+                List<Contract> contractList = cd.getAll();
                 request.setAttribute("listCompensationPending", listCompensationPending);
                 request.setAttribute("listCompensationNotPending", listCompensationNotPending);
                 request.setAttribute("userList", userList);
                 request.setAttribute("accidentList", accidentList);
+                request.setAttribute("contractList", contractList);
 
                 request.getRequestDispatcher("compensationApprove.jsp").forward(request, response);
             } else {

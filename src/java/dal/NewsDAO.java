@@ -88,6 +88,46 @@ public class NewsDAO extends DBContext {
         return list;
     }
 
+    public List<News> getListNewsByStaffId(int id) {
+        List<News> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[content]\n"
+                + "      ,[image]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[staff]\n"
+                + "      ,[type]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[News] where staff = ? order by createDate DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                News p = new News();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setType(rs.getString("type"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(id);
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<News> getTop3LatestNews() {
         List<News> list = new ArrayList<>();
         String sql = "SELECT Top(3) [id]\n"
@@ -127,7 +167,7 @@ public class NewsDAO extends DBContext {
         }
         return list;
     }
-    
+
     public News getNewsByIsHeader() {
         String sql = "SELECT [id]\n"
                 + "      ,[title]\n"
@@ -364,7 +404,6 @@ public class NewsDAO extends DBContext {
         return false;
     }
 
-
     public boolean updateNewsById(int id, String title, String description, String content, String type, String image, Boolean isHeader, int staff) {
         String sql = "UPDATE [dbo].[News]\n"
                 + "   SET [title] = ?\n"
@@ -408,9 +447,9 @@ public class NewsDAO extends DBContext {
         }
         return false;
     }
-    
+
     public static void main(String[] args) {
         NewsDAO ndb = new NewsDAO();
-        System.out.println(ndb.getAll().size());
+        System.out.println(ndb.getListNewsByStaffId(1).size());
     }
 }

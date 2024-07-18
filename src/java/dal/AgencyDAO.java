@@ -260,7 +260,7 @@ public class AgencyDAO {
 
     public HashMap<String, BigInteger> getMonthlyMoney() {
         HashMap<String, BigInteger> hash = new HashMap<>();
-        String sql = "SELECT MONTH(StartDate) AS Month, SUM(Payment) AS TotalRevenue FROM Contracts GROUP BY  MONTH(StartDate) ORDER BY Month";
+        String sql = "SELECT MONTH(createDate) AS Month, SUM(Payment) AS TotalRevenue FROM Contracts GROUP BY  MONTH(createDate) ORDER BY Month";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);

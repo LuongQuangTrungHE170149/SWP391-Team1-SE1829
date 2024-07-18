@@ -4,27 +4,25 @@
  */
 package Controller;
 
-import Model.Consultation;
-import Model.News;
-import Model.Promotion;
-import Model.User;
-import dal.ConsultationDAO;
-import dal.NewsDAO;
-import dal.PromotionDAO;
+import Model.Contract;
+import dal.ContractDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 /**
  *
- * @author thuhu
+ * @author QUANG TRUNG
  */
-public class StaffHomeServlet extends HttpServlet {
+@WebServlet(name = "EditContractForm", urlPatterns = {"/EditContractForm"})
+public class EditContractForm extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +41,10 @@ public class StaffHomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StaffManagerServlet</title>");
+            out.println("<title>Servlet EditContractForm</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet StaffManagerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditContractForm at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,44 +62,23 @@ public class StaffHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final String loginFirst = "Bạn cần phải đăng nhập trước!";
-        final String error = "Bạn không có quyền truy cập trang web này!";
-        HttpSession session = request.getSession();
-        User u = (User) session.getAttribute("user");
+        int contractId = Integer.parseInt(request.getParameter("contractId"));
+        ContractDAO contractDAO = new ContractDAO();
+        Contract contract = contractDAO.getContractById(contractId);
+        // Assuming 'contract' is an instance of Contract
+        Date startDate = contract.getStartDate();
+        Date endDate = contract.getEndDate();
+        LocalDate localStartDate = startDate.toLocalDate();
+        LocalDate localEndDate = endDate.toLocalDate();
 
-        //check
-        if (u == null) {
-            request.setAttribute("loginFirst", loginFirst);
-            request.getRequestDispatcher("error").forward(request, response);
-        } //neu da dang nhap => check role
-        else {
-            if (u.getRole().equalsIgnoreCase("user") || u.getRole().equalsIgnoreCase("manager")) {
-                request.setAttribute("error", error);
-                request.getRequestDispatcher("error").forward(request, response);
-            } //manager true =>>
-            else {
-                ConsultationDAO cdb = new ConsultationDAO();
-                List<Consultation> listConByStaff = cdb.getListConsultationByStaffId(u.getId());
-                List<Consultation> listCon = cdb.getAll();
-                
-                NewsDAO ndb = new NewsDAO();
-                List<News> listNews = ndb.getAll();
-                List<News> listNewsByStaff = ndb.getListNewsByStaffId(u.getId());
-                
-                PromotionDAO pdb = new PromotionDAO();
-                List<Promotion> listPromotion = pdb.getAll();
-                List<Promotion> listPromotionByStaff = pdb.getListPromotionsByStaff(u.getId());
-                
-                
-                request.setAttribute("listPromotion", listPromotion);
-                request.setAttribute("listPromotionByStaff", listPromotionByStaff);
-                request.setAttribute("listNewsByStaff", listNewsByStaff);
-                request.setAttribute("listNews", listNews);
-                request.setAttribute("listCon", listCon);
-                request.setAttribute("listConByStaff", listConByStaff);
-                request.getRequestDispatcher("staffHome.jsp").forward(request, response);
-            }
-        }
+// Calculate period between start and end dates
+        Period period = Period.between(localStartDate, localEndDate);
+
+// Extract the number of years from the period
+        int contractYears = period.getYears();
+        request.setAttribute("contract", contract);
+        request.setAttribute("contractYears", contractYears);
+        request.getRequestDispatcher("editContract.jsp").forward(request, response);
     }
 
     /**

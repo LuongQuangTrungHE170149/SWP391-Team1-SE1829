@@ -331,6 +331,45 @@ public class ConsultationDAO extends DBContext {
         }
     }
 
+    public List<Consultation> getListConsultationByStaffId(int id) {
+        List<Consultation> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[name]\n"
+                + "      ,[email]\n"
+                + "      ,[content]\n"
+                + "      ,[createDate]\n"
+                + "      ,[reply_message]\n"
+                + "      ,[staff]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Consultations] where staff = ? order by createDate DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Consultation c = new Consultation();
+                c.setId(id);
+                c.setName(rs.getString("name"));
+                c.setEmail(rs.getString("email"));
+                c.setContent(rs.getString("content"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setReplyMessage(rs.getString("reply_message"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(id);
+                c.setStaff(u);
+
+                c.setStatus(rs.getBoolean("status"));
+
+                list.add(c);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public HashMap<String, Integer> getTotalStaffAnswer() {
         HashMap<String, Integer> total = new HashMap<>();
         String sql = "SELECT\n"
@@ -358,8 +397,6 @@ public class ConsultationDAO extends DBContext {
 
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println(cdb.searchConsultation("9", "0", ""));
-        System.out.println(cdb.searchConsultation("all", "", "").size());
-        System.out.println(cdb.listStaffAnswer().get(0)[1]);
+        System.out.println(cdb.getListConsultationByStaffId(1).size());
     }
 }

@@ -68,29 +68,15 @@ public class ViewContract extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ContractDAO cd = new ContractDAO();
         VehicleDAO vd = new VehicleDAO();
-        String vehicleIdParam = request.getParameter("vehicleId");
-        if (vehicleIdParam == null || vehicleIdParam.isEmpty()) {
-            response.getWriter().println("<h2>Missing vehicleId parameter</h2>");
-            return;
-        }
-
-        int vehicleId = Integer.parseInt(vehicleIdParam);
-        Contract contract = cd.findContractByVehicleId(vehicleId);
+        int contractId = Integer.parseInt(request.getParameter("contractId"));
+        
+        Contract contract = cd.getContractById(contractId);
 
         if (contract == null) {
-            response.getWriter().println("<h2>No contract found for Vehicle ID: " + vehicleId + "</h2>");
+            response.getWriter().println("<h2>No contract found</h2>");
             return;
         }
-        Vehicle vehicle = vd.getVehicleById(vehicleId);
-        UserDAO userDao = new UserDAO();
-        String customerName = null;
-        try {
-            customerName = userDao.getCustomerName(contract.getCustomerId());
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewContract.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        request.setAttribute("customerName", customerName);
-        request.setAttribute("vehicle", vehicle);
+        
         request.setAttribute("contract", contract);
         // Chuyển hướng đến viewContract.jsp với thông tin hợp đồng
         request.getRequestDispatcher("viewContract.jsp").forward(request, response);

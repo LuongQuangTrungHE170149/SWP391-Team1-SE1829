@@ -1,127 +1,136 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-      <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <title>View Insurance Contract</title>
-    <link rel="stylesheet" href="CSS/contract.css"/>
-    <link rel="stylesheet" href="CSS/header.css"/>
-    <link rel="stylesheet" href="CSS/footer.css"/>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        .inline-label {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .inline-label label {
-            flex: 0 0 150px;
-            margin-right: 10px;
-        }
-        .inline-label span {
-            flex: 1;
-        }
-        .btn-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            text-decoration: none; /* Không gạch chân link */
-            display: inline-block; /* Hiển thị như dạng khối */
-            margin-right: 10px; /* Khoảng cách phía bên phải */
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <jsp:include page="./header.jsp" />
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>View Contract</title>
         
+        <style>
+            .container {
+                width: 80%;
+                margin: auto;
+                background-color: #f8f9fa;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                margin-top: 50px;
+            }
+
+            h1 {
+                color: #007bff;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .info {
+                margin-bottom: 30px;
+            }
+
+            .info p {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .info p strong {
+                font-weight: bold;
+            }
+
+            .info .half-width {
+                display: inline-block;
+                width: 48%;
+                vertical-align: top;
+            }
+
+            .badge {
+                padding: 5px 10px;
+                border-radius: 4px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .badge-warning {
+                background-color: #ffc107;
+                color: #000;
+            }
+
+            .badge-danger {
+                background-color: #dc3545;
+                color: #fff;
+            }
+
+            .badge-success {
+                background-color: #28a745;
+                color: #fff;
+            }
+
+            .btn-container {
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            .btn-edit {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                padding: 10px 20px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            .btn-edit:hover {
+                background-color: #0056b3;
+            }
+
+            @media (max-width: 768px) {
+                .info .half-width {
+                    width: 100%;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
         <div class="container">
-            <h2>Thông tin hợp đồng bảo hiểm xe máy</h2>
-            <div class="inline-label">
-                <label>Khách hàng:</label>
-                <span>${customerName}</span>
+            <h1>Thông tin hợp đồng</h1>
+            <div class="info">
+                <div class="info-item">
+                    <p><strong>Họ tên chủ xe:</strong> ${contract.vehicle.ownerFirstName} ${contract.vehicle.ownerLastName}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Địa chỉ:</strong> ${contract.vehicle.ownerAddress}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Biển số xe:</strong> ${contract.vehicle.licensePlates}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Số khung:</strong> ${contract.vehicle.chassis}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Số máy:</strong> ${contract.vehicle.engine}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Ngày bắt đầu:</strong> ${contract.startDate}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Ngày kết thúc:</strong> ${contract.endDate}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Mô tả:</strong> ${contract.description}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Trạng thái:</strong> <span class="badge ${contract.status == 'Pending'?'badge-warning':''}${contract.status == 'Rejected'?'badge-danger':''}${contract.status == 'Active'?'badge-success':''}">${contract.status == 'Pending'?'Chờ duyệt':''}${contract.status == 'Rejected'?'Từ chối':''}${contract.status == 'Active'?'Đã duyệt':''}</span></p>
+                </div>
             </div>
-            
-            <div class="inline-label">
-                <label>Loại xe:</label>
-                <span>${vehicle.motocycleType}</span>
-                <label>Biển số:</label>
-                <span>${vehicle.getLicensePlates()}</span>
-            </div>
-            
-            <div class="inline-label">
-                <label>Số khung:</label>
-                <span>${vehicle.chassis}</span>
-                <label>Số máy:</label>
-                <span>${vehicle.engine}</span>
-            </div>
-            
-            <div class="inline-label">
-                <label>Ngày bắt đầu:</label>
-                <span>${contract.startDate}</span>
-                <label>Ngày kết thúc:</label>
-                <span>${contract.endDate}</span>
-            </div>
-            
-            <div class="inline-label">
-                <label>Số tiền thanh toán:</label>
-                <span>${contract.payment}</span>
-            </div>
-            
-            <div class="inline-label">
-                <label>Trạng thái:</label>
-                <span>${contract.status}</span>
-            </div>
-            
-            <div class="inline-label">
-                <label>Mô tả:</label>
-                <span>${contract.description}</span>
-            </div>
-            
             <div class="btn-container">
-                <a href="extend_contract.jsp" class="btn">Gia hạn hợp đồng</a>
-                <a href="claim_history.jsp" class="btn">Lịch sử đền bù</a>
+                <a href="EditContractForm?contractId=${contract.contractId}" class="btn-edit">Chỉnh sửa hợp đồng</a>
+                <!-- Add any other actions or links here -->
             </div>
         </div>
-        <jsp:include page="footer.jsp"></jsp:include>
-    </div>
-</body>
+    </body>
 </html>

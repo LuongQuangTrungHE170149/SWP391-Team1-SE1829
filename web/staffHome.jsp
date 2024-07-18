@@ -28,6 +28,9 @@
                 <div class="nav navbar sticky-top justify-content-start mb-3 px-2">
                     <div class="fs-3 fw-bold text-info">Staff Home</div>
                 </div>
+                <div class="container">
+                    <div class="fs-3 fw-bold text-info" >Tổng quan</div>    
+                </div>
             </div>
        
     </body>

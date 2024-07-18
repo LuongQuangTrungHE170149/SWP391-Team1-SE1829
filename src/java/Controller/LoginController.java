@@ -1,10 +1,13 @@
 package Controller;
-
 import Model.Compensation;
 import Model.User;
 import dal.CompensationDAO;
+import Model.Notification;
+import Model.User;
+import com.google.gson.Gson;
 import dal.ConsultationDAO;
 import dal.NewsDAO;
+import dal.NotificationDAO;
 import dal.PromotionDAO;
 import dal.UserDAO;
 import jakarta.servlet.ServletException;
@@ -15,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import socket.NotificationWebSocket;
 
 /**
  *
@@ -55,6 +59,7 @@ public class LoginController extends HttpServlet {
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
             session.setAttribute("user", user);
+            session.setAttribute("userId", user.getId());
             if (user.getRole().equalsIgnoreCase("user") || user.getRole().equalsIgnoreCase("customer")) {
                 resp.sendRedirect("home");
             } else if (user.getRole().equalsIgnoreCase("staff")) {
