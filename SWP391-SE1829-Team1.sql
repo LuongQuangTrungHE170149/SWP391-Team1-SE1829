@@ -1,6 +1,8 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
+select * from Compensations
+select * from Contracts
 
 Create table Users(
 			id int identity(1,1) not null primary key,
