@@ -4,8 +4,11 @@
  */
 package Controller;
 
+import Model.Notification;
 import Model.User;
+import dal.NotificationDAO;
 import dal.PromotionDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,6 +21,8 @@ import jakarta.servlet.http.Part;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import socket.NotificationWebSocket;
 
 /**
  *
@@ -105,8 +110,24 @@ public class AddPromotionServlet extends HttpServlet {
                     + "\n User: " + u.getUsername());
             PrintWriter out = response.getWriter();
             out.print(u.getId());
+            
+            
+            NotificationDAO dbNotify = new NotificationDAO();
+            UserDAO dbUser = new UserDAO();
+            List<User> users = dbUser.getAllUserByRole("User");
+            Notification notification = new Notification();
+            notification.setTitle("Phiếu giảm giá mới");
+            notification.setIsClick(true);
+            notification.setLink("promotion");
+            for (User user : users) {
+                notification.setUserId(user);
+                dbNotify.insert(notification);
+                NotificationWebSocket.sendMessageToUser(user.getId()+"", notification);
+            }
+            
 
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println(e);
         }
     }

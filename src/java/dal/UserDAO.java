@@ -256,6 +256,28 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    public User findByUsername(String username) {
+        String sql = "SELECT *\n"
+                + "  FROM [dbo].[Users] \n"
+                + "  where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setLastName(rs.getString("lastName"));
+                user.setFirstName(rs.getString("firstName"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public boolean changePasswordById(int id, String password) {
         String sql = "UPDATE [dbo].[Users]\n"
                 + "   SET [password] = ?\n"

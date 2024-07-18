@@ -4,7 +4,9 @@
  */
 package Controller;
 
+import Model.Notification;
 import Model.User;
+import dal.NotificationDAO;
 import dal.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -45,6 +47,14 @@ public class ConfirmOTPController extends HttpServlet {
                 resp.sendRedirect("changePassword");
             } else if ("register".equals(op)) {
                 System.out.println(udb.insert(u));
+                User userRegis = udb.findByUsername(u.getUsername());
+                Notification model = new Notification();
+                model.setTitle("Chào mừng tới");
+                model.setIsClick(false);
+                model.setLink("");
+                model.setUserId(userRegis);
+                NotificationDAO dbNotify = new NotificationDAO();
+                dbNotify.insert(model);
                 resp.sendRedirect("login");
             }
 
