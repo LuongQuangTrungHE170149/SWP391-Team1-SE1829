@@ -94,6 +94,49 @@ public class PromotionDAO extends DBContext {
         return list;
     }
 
+    public List<Promotion> getListPromotionsByStaff(int id) {
+        List<Promotion> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[image]\n"
+                + "      ,[staff]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[Promotion] where staff = ? order by createDate DESC";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(id);
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<Promotion> searchPromotion(String searchValue, String staff) {
         List<Promotion> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT [id]\n"
@@ -367,7 +410,7 @@ public class PromotionDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Promotion p = new Promotion();
                 p.setId(rs.getInt("id"));
                 p.setTitle(rs.getString("title"));
@@ -513,8 +556,7 @@ public class PromotionDAO extends DBContext {
         PromotionDAO pdb = new PromotionDAO();
 //        System.out.println(pdb.listStaffAddPromotion().get(0)[1]);
 //        System.out.println(pdb.getTop3LatestPromotions());
-        System.out.println(pdb.searchPromotion("", "9"));
-        System.out.println(pdb.searchPromotion("", "9").size());
+        System.out.println(pdb.getListPromotionsByStaff(1).size());
     }
 
 }

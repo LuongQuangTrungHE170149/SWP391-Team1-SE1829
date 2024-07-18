@@ -135,6 +135,60 @@ public class ContractDAO extends DBContext {
         return list;
     }
 
+    public List<Contract> getListContractByStaff(int id) {
+        List<Contract> list = new ArrayList<>();
+        String sql = "SELECT [ContractId]\n"
+                + "      ,[CustomerId]\n"
+                + "      ,[StaffId]\n"
+                + "      ,[VehicleId]\n"
+                + "      ,[StartDate]\n"
+                + "      ,[EndDate]\n"
+                + "      ,[isAccidentInsurance]\n"
+                + "      ,[Description]\n"
+                + "      ,[Code]\n"
+                + "      ,[Payment]\n"
+                + "      ,[createDate]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Contracts] where StaffId = ? ORDER BY createDate DESC";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Contract c = new Contract();
+                c.setCode(rs.getString("Code"));
+                c.setContractId(rs.getInt("ContractId"));
+
+                User customer = new User();
+                customer.setId(rs.getInt("CustomerId"));
+                c.setCustomer(customer);
+
+                User staff = new User();
+                UserDAO udb = new UserDAO();
+                staff = udb.getUserById(id);
+                c.setStaff(staff);
+
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                c.setVehicle(v);
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setStatus(rs.getString("status"));
+
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<Contract> getContractByCustomerId(int id) {
         List<Contract> list = new ArrayList<>();
         String sql = "SELECT [ContractId]\n"
@@ -352,7 +406,7 @@ public class ContractDAO extends DBContext {
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
-        System.out.println(cd.getContractById(5));
+        System.out.println(cd.getListContractByStaff(1).get(0).getStaff().getFullName());
 
     }
 }

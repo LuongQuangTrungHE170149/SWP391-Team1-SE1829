@@ -4,7 +4,12 @@
  */
 package Controller;
 
+import Model.Consultation;
+import Model.News;
+import Model.Promotion;
 import Model.User;
+import dal.ConsultationDAO;
+import dal.NewsDAO;
 import dal.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -74,6 +80,25 @@ public class StaffHomeServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } //manager true =>>
             else {
+                ConsultationDAO cdb = new ConsultationDAO();
+                List<Consultation> listConByStaff = cdb.getListConsultationByStaffId(u.getId());
+                List<Consultation> listCon = cdb.getAll();
+                
+                NewsDAO ndb = new NewsDAO();
+                List<News> listNews = ndb.getAll();
+                List<News> listNewsByStaff = ndb.getListNewsByStaffId(u.getId());
+                
+                PromotionDAO pdb = new PromotionDAO();
+                List<Promotion> listPromotion = pdb.getAll();
+                List<Promotion> listPromotionByStaff = pdb.getListPromotionsByStaff(u.getId());
+                
+                
+                request.setAttribute("listPromotion", listPromotion);
+                request.setAttribute("listPromotionByStaff", listPromotionByStaff);
+                request.setAttribute("listNewsByStaff", listNewsByStaff);
+                request.setAttribute("listNews", listNews);
+                request.setAttribute("listCon", listCon);
+                request.setAttribute("listConByStaff", listConByStaff);
                 request.getRequestDispatcher("staffHome.jsp").forward(request, response);
             }
         }
