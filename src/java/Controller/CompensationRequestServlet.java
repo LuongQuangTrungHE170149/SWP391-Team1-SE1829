@@ -139,8 +139,10 @@ public class CompensationRequestServlet extends HttpServlet {
             LocalDate currentDate = LocalDate.now();
             Date sqlCurrentDate = Date.valueOf(currentDate);
             compensation.setDateFiled(sqlCurrentDate);
-            CompensationDAO.INSTANCE.insertCompensation(compensation);
-            session.setAttribute("requestSuccess", "Gửi yêu cầu bồi thường thành công");
+            if (CompensationDAO.INSTANCE.insertCompensation(compensation)) {
+                session.setAttribute("requestSuccess", "Gửi yêu cầu bồi thường thành công");
+
+            }
             response.sendRedirect("compensationHistory?id=" + u.getId());
         } else {
             request.setAttribute("error", "Số bảo hiểm của bạn không tồn tại");
