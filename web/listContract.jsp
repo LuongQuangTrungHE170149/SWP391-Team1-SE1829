@@ -74,15 +74,13 @@
                             </td>
                             <td><fmt:formatNumber value="${c.payment}" type="currency" currencyCode="VND"/></td>
                             <td>${c.description}</td>
-                            <td><a href="#" 
+                            <td><a href="ViewContract?contractId=${c.contractId}"
                                    class="text-info btn-detailContract"
-                                   data-mdb-modal-init
-                                   data-id="${c.contractId}"
-                                   data-mdb-target="#detailContractModal"
+                                   
                                    ><i class="fa-regular fa-folder-open"></i></a>
                             </td>
                             <td>
-                                <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}</div>
+                                <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Active'?'badge-success':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Active'?'Đã duyệt':''}</div>
                             </td>
                         </tr>
                     </c:forEach>

@@ -5,10 +5,7 @@
 package Controller;
 
 import Model.Contract;
-import Model.Vehicle;
 import dal.ContractDAO;
-import dal.UserDAO;
-import dal.VehicleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,16 +13,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 /**
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name = "ViewContract", urlPatterns = {"/ViewContract"})
-public class ViewContract extends HttpServlet {
+@WebServlet(name = "EditContractForm", urlPatterns = {"/EditContractForm"})
+public class EditContractForm extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +41,10 @@ public class ViewContract extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewContract</title>");
+            out.println("<title>Servlet EditContractForm</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewContract at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditContractForm at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,21 +62,23 @@ public class ViewContract extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        ContractDAO cd = new ContractDAO();
-        VehicleDAO vd = new VehicleDAO();
         int contractId = Integer.parseInt(request.getParameter("contractId"));
-        
-        Contract contract = cd.getContractById(contractId);
+        ContractDAO contractDAO = new ContractDAO();
+        Contract contract = contractDAO.getContractById(contractId);
+        // Assuming 'contract' is an instance of Contract
+        Date startDate = contract.getStartDate();
+        Date endDate = contract.getEndDate();
+        LocalDate localStartDate = startDate.toLocalDate();
+        LocalDate localEndDate = endDate.toLocalDate();
 
-        if (contract == null) {
-            response.getWriter().println("<h2>No contract found</h2>");
-            return;
-        }
-        
+// Calculate period between start and end dates
+        Period period = Period.between(localStartDate, localEndDate);
+
+// Extract the number of years from the period
+        int contractYears = period.getYears();
         request.setAttribute("contract", contract);
-        // Chuyển hướng đến viewContract.jsp với thông tin hợp đồng
-        request.getRequestDispatcher("viewContract.jsp").forward(request, response);
+        request.setAttribute("contractYears", contractYears);
+        request.getRequestDispatcher("editContract.jsp").forward(request, response);
     }
 
     /**
