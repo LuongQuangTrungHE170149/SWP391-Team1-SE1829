@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li class="nav-item btn-group">
-                        <a href="#" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
+                        <a href="ListContract" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
                             <div>
                                 <i class="fa-solid fa-file-contract me-2"></i>Hợp đồng
                             </div>
