@@ -8,11 +8,13 @@ import Model.Contract;
 import Model.User;
 import Model.Vehicle;
 import dto.Contractdto;
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -386,6 +388,25 @@ public class ContractDAO extends DBContext {
         return total;
     }
 
+    public HashMap<String, BigInteger> getMonthlyMoneyByStaff(int StaffId) {
+        HashMap<String, BigInteger> hash = new HashMap<>();
+        String sql = "SELECT MONTH(createDate) AS Month, SUM(Payment) AS TotalRevenue FROM Contracts Where StaffId = ? GROUP BY  MONTH(createDate) ORDER BY Month";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, StaffId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                hash.put(rs.getString("Month"), BigInteger.valueOf(rs.getInt("TotalRevenue")));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return hash;
+
+    }
+
     public Contract checkContractByCustomerId(String code, int customerId) {
         String sql = "select * from Contracts where Code = ? and CustomerId = ?";
         try {
@@ -396,21 +417,22 @@ public class ContractDAO extends DBContext {
             if (rs.next()) {
                 Contract contract = new Contract();
                 contract.setContractId(rs.getInt("ContractId"));
+                contract.setStatus(rs.getString("status"));
                 return contract;
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-
         return null;
     }
+    
 
     public void updateContract(int contractId, Date startDate, Date endDate, String description, String status, Double payment) {
-        
 
-        try {String sql = "UPDATE contracts SET startDate=?, endDate=?, description=?, status=?, payment=? WHERE contractId=?";
+        try {
+            String sql = "UPDATE contracts SET startDate=?, endDate=?, description=?, status=?, payment=? WHERE contractId=?";
 
-            PreparedStatement  stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             // Đặt các tham số vào câu lệnh SQL
             stmt.setDate(1, startDate);
@@ -436,7 +458,7 @@ public class ContractDAO extends DBContext {
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
-        System.out.println(cd.getListContractByStaff(1).get(0).getStaff().getFullName());
+        System.out.println(cd.getMonthlyMoneyByStaff(1));
 
     }
 

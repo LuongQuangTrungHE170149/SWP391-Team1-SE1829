@@ -13,7 +13,7 @@
     <head>
         <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Staff Profile</title>
+        <title>Thông tin cá nhân</title>
         <style>
             .navbar-custom {
                 background: rgb(0,167,209);
@@ -35,7 +35,7 @@
             <!--navbar-->
             <div class="nav navbar sticky-top justify-content-start mb-3 px-2">
                 <c:if test="${user.role ne 'manager' && user.role ne 'Manager' }">
-                    <div class="fs-3 fw-bold text-info">Staff Profile</div>
+                    <div class="fs-3 fw-bold text-info">Thông tin cá nhân</div>
                 </c:if>
                 <c:if test="${user.role eq 'manager' || user.role eq 'Manager' }">
                     <div class="fs-3 fw-bold text-info">Manager Profile</div>
@@ -43,7 +43,7 @@
             </div>
             <!--end navbar-->
             <div class="container" style="width: 80%; height: 100%;">
-                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Back</button>
+                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="location.href='staffHome'">Home</button>
                 <div class="row mt-4" style="align-content: center;">
                     <div class="col-lg-3 mb-3">
                         <div class="card shadow-4">
@@ -54,7 +54,7 @@
                                 <c:if test="${user.gender == 0}">
                                     <img class="image rounded-circle img-fluid"  src="images/female-avatar.png" width="200" height="200" alt="female image"/>
                                 </c:if>
-                                <h1 class="fw-bold  text-nowrap">${user.username} </h1>
+                                <h3 class="fw-bold ">${user.username}</h3>
                                 <p class="text-muted">${user.role} <i class="fa-regular fa-circle-check text-419FA3" style="width: 10px;"></i></p>
                                 <p class="text-muted">${user.address}</p>
 
@@ -67,16 +67,16 @@
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Username</p>
+                                        <p class="mb-0">Tên đăng nhập</p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> ${user.username}</p>
+                                        <p class="text-muted mb-0"> ${user.username}</p> 
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Date Created</p>
+                                        <p class="mb-0">Ngày tạo</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0"><fmt:formatDate value="${user.dateCreated}" pattern="dd/MM/yyyy"/></p>
@@ -85,7 +85,7 @@
                                 <hr>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Full Name</p>
+                                        <p class="mb-0">Họ và Tên</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0"> ${user.getFullName()}</p>
@@ -94,7 +94,7 @@
                                 <hr>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Gender</p>
+                                        <p class="mb-0">Giới tính</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0"> ${user.gender == 1?'Male':'Female'}</p>
@@ -103,7 +103,7 @@
                                 <hr>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Date of Birth</p>
+                                        <p class="mb-0">Ngày sinh</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0"><fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy"/></p>
@@ -121,7 +121,7 @@
                                 <hr>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Phone</p>
+                                        <p class="mb-0">Số điện thoại</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">${user.phone}</p>
@@ -130,7 +130,7 @@
                                 <hr>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <p class="mb-0">Address</p>
+                                        <p class="mb-0">Địa chỉ</p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">${user.address}</p>

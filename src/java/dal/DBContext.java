@@ -9,7 +9,7 @@ public class DBContext {
     protected Connection connection;
 
     public DBContext() {
-        try {
+             try {
             //Change the username password and url to connect your own database
             String username = "sa";
             String password = "123456";

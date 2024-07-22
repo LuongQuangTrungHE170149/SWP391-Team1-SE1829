@@ -1,14 +1,20 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
 
+import Model.Compensation;
 import Model.Consultation;
+import Model.Contract;
 import Model.News;
 import Model.Promotion;
 import Model.User;
+import com.google.gson.Gson;
+import dal.CompensationDAO;
 import dal.ConsultationDAO;
+import dal.ContractDAO;
 import dal.NewsDAO;
 import dal.PromotionDAO;
 import java.io.IOException;
@@ -18,6 +24,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -83,22 +91,44 @@ public class StaffHomeServlet extends HttpServlet {
                 ConsultationDAO cdb = new ConsultationDAO();
                 List<Consultation> listConByStaff = cdb.getListConsultationByStaffId(u.getId());
                 List<Consultation> listCon = cdb.getAll();
-                
+
                 NewsDAO ndb = new NewsDAO();
                 List<News> listNews = ndb.getAll();
                 List<News> listNewsByStaff = ndb.getListNewsByStaffId(u.getId());
-                
+
                 PromotionDAO pdb = new PromotionDAO();
                 List<Promotion> listPromotion = pdb.getAll();
                 List<Promotion> listPromotionByStaff = pdb.getListPromotionsByStaff(u.getId());
+
+                ContractDAO codb = new ContractDAO();
+                List<Contract> listContract = codb.getAll();
+                List<Contract> listContractByStaff = codb.getListContractByStaff(u.getId());
+                double totalMoney = 0;
+                for (Contract contract : listContractByStaff) {
+                    totalMoney += contract.getPayment();
+                }
+
+                CompensationDAO com = new CompensationDAO();
+                List<Compensation> listCompensationByStaff = com.getListCompensationApprovedByStaff(u.getId());
+
+                HashMap<String, BigInteger> monthlyMoneyByStaff = codb.getMonthlyMoneyByStaff(u.getId());
+                Gson gson = new Gson();
+                String jsonMonthlyMoney = gson.toJson(monthlyMoneyByStaff);
+
                 
-                
+                request.setAttribute("monthlyMoneyByStaff", jsonMonthlyMoney);
+
+                request.setAttribute("totalMoney", totalMoney);
+               
                 request.setAttribute("listPromotion", listPromotion);
                 request.setAttribute("listPromotionByStaff", listPromotionByStaff);
                 request.setAttribute("listNewsByStaff", listNewsByStaff);
                 request.setAttribute("listNews", listNews);
                 request.setAttribute("listCon", listCon);
                 request.setAttribute("listConByStaff", listConByStaff);
+                request.setAttribute("listContract", listContract);
+                request.setAttribute("listContractByStaff", listContractByStaff);
+                request.setAttribute("listCompensationByStaff", listCompensationByStaff);
                 request.getRequestDispatcher("staffHome.jsp").forward(request, response);
             }
         }

@@ -10,15 +10,23 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
+            display: flex;
+        }
+        .dashboard {
+            width: 300px; /* Độ rộng của staff dashboard */
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .container {
-            width: 80%;
+            flex: 1;
             margin: auto;
             background-color: #ffffff;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             margin-top: 50px;
+            max-width: 1200px;
         }
         h1 {
             color: #007bff;
@@ -113,7 +121,9 @@
     </script>
 </head>
 <body>
-    <jsp:include page="./header.jsp" /> 
+    <div class="dashboard">
+        <jsp:include page="staffDashboard.jsp"/>
+    </div>
     <div class="container">
         <h1>Thông tin hợp đồng</h1>
         <div class="info">

@@ -94,6 +94,7 @@
     </script>
 </head>
 <body>
+    <jsp:include page="staffDashboard.jsp"/>
     <div class="container">
         <h1>Chỉnh sửa hợp đồng</h1>
         <form action="EditContract" method="post">
