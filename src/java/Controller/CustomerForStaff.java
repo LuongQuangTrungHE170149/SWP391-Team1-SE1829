@@ -4,7 +4,9 @@
  */
 package Controller;
 
+import Model.Contract;
 import Model.User;
+import dal.ContractDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import com.google.gson.Gson;
 
 /**
  *
@@ -64,20 +67,23 @@ public class CustomerForStaff extends HttpServlet {
         if (user != null) {
             if (user.getRole().equalsIgnoreCase("staff")) {
                 UserDAO udb = new UserDAO();
+                ContractDAO cd = new ContractDAO();
+
                 List<User> listCustomer = udb.getAllCustomerByStaff(user.getId());
-                
+                List<Contract> listContract = cd.getAll();
+
+                Gson gson = new Gson();
+                String listContractJson = gson.toJson(listContract);
+
                 request.setAttribute("listCustomer", listCustomer);
+                request.setAttribute("listContractJson", listContractJson);
                 request.getRequestDispatcher("customerForStaff.jsp").forward(request, response);
             } else {
                 response.sendRedirect("home");
-
             }
-
         } else {
             response.sendRedirect("login");
-
         }
-
     }
 
     /**

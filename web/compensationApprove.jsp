@@ -201,8 +201,6 @@
                                         <td>
                                             ${compensation.notes}
                                         </td>
-
-
                                         <td>
                                             <c:if test="${compensation.claimStatus eq 'approved'}">
                                                 <span class="text-success">Đồng ý bồi thường</span>
@@ -236,12 +234,59 @@
                         <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body"> 
-                        <p id="accidentDate"></p>
-                        <p id="accidentLocation"></p>
-                        <p id="policeReportNumber"></p>
-                        <p id="accidentDescription"></p>
-                        <p id="vehicleDamage"></p>
-                        <img id="accidentImage" width="100%" />
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Ngày</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p id="accidentDate"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Địa điểm</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p id="accidentLocation"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Số biên bản cảnh sát</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p id="policeReportNumber"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Mô tả</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p id="accidentDescription"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Tình trạng xe</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p id="vehicleDamage"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <img id="accidentImage" width="70%" />
+                            </div>
+
+                        </div>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Đóng</button>
@@ -284,11 +329,11 @@
                                                 }
 
                                                 function showAccidentDetails(description, date, location, image, policeReportNumber, vehicleDamage) {
-                                                    document.getElementById('accidentDescription').innerText = "Mô tả: " + description;
-                                                    document.getElementById('accidentDate').innerText = "Ngày: " + moment(date).format("DD/MM/YYYY");
-                                                    document.getElementById('accidentLocation').innerText = "Địa điểm: " + location;
-                                                    document.getElementById('policeReportNumber').innerText = "Số biên bản cảnh sát: " + policeReportNumber;
-                                                    document.getElementById('vehicleDamage').innerText = "Tình trạng xe: " + vehicleDamage;
+                                                    document.getElementById('accidentDescription').innerText = description;
+                                                    document.getElementById('accidentDate').innerText = moment(date).format("DD/MM/YYYY");
+                                                    document.getElementById('accidentLocation').innerText = location;
+                                                    document.getElementById('policeReportNumber').innerText = policeReportNumber;
+                                                    document.getElementById('vehicleDamage').innerText = vehicleDamage;
                                                     document.getElementById('accidentImage').src = image;
                                                     var exampleModal = new mdb.Modal(document.getElementById('exampleModal'));
                                                     exampleModal.show();
