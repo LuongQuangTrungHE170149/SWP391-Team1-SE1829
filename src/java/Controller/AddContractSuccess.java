@@ -138,7 +138,7 @@ public class AddContractSuccess extends HttpServlet {
         contractDAO.addContract(contract);
         note = "Hãy nhớ đăng nhập để xem chi tiết hợp đồng của bạn nhé!";
         EmailHelper.sendEmailRequestContractSuccess(customer.getEmail(), "[ĐĂNG KÝ] YÊU CẦU HỢP ĐỒNG BẢO HIỂM XE MÁY THÀNH CÔNG", (vehicleOwnerFirstName + " " + vehicleOwnerLastName).toUpperCase(), contractCode, note);
-        request.getRequestDispatcher("ListContract").forward(request, response);    
+        request.getRequestDispatcher("/ListContract").forward(request, response);    
     }
 
     /**

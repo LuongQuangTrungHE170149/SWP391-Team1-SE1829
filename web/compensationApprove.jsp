@@ -98,9 +98,14 @@
                                             <c:set var="accidentDetail" value="${accident}" />
                                         </c:if>
                                     </c:forEach>
+                                    <c:forEach var="contract" items="${requestScope.contractList}">
+                                        <c:if test="${compensation.contractId == contract.contractId}">
+                                            <c:set var="contractCode" value="${contract.code}" />
+                                        </c:if>
+                                    </c:forEach>
                                 <form id="form-note-${compensation.id}" action="compensationApprove" method="post">
                                     <tr>
-                                        <th>${compensation.contractId}</th>
+                                        <th>${contractCode}</th>
                                         <td>${customerName}</td>
                                         <td>
                                             <span class="accident-detail" data-mdb-ripple-init onclick="showAccidentDetails('${accidentDetail.descriptionOfAccident}', '${accidentDetail.dateOfAccident}',
@@ -170,9 +175,14 @@
                                             <c:set var="accidentDetail" value="${accident}" />
                                         </c:if>
                                     </c:forEach>
+                                    <c:forEach var="contract" items="${requestScope.contractList}">
+                                        <c:if test="${compensation.contractId == contract.contractId}">
+                                            <c:set var="contractCode" value="${contract.code}" />
+                                        </c:if>
+                                    </c:forEach>
                                 <form id="form-note-${compensation.id}" action="compensationApprove" method="post">
                                     <tr>
-                                        <th>${compensation.contractId}</th>
+                                        <th>${contractCode}</th>
                                         <td>${customerName}</td>
                                         <td>
                                             <span class="accident-detail" data-mdb-ripple-init onclick="showAccidentDetails('${accidentDetail.descriptionOfAccident}', '${accidentDetail.dateOfAccident}',
@@ -241,7 +251,7 @@
         </div>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
-<!--format date-->
+        <!--format date-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script>
 

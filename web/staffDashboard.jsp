@@ -132,11 +132,10 @@
                         </a>
                     </li>
                     <li class="nav-item btn-group">
-                        <a href="#" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
+                        <a href="ListContract" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
                             <div>
                                 <i class="fa-solid fa-file-contract me-2"></i>Hợp đồng
                             </div>
-
                         </a>
                     </li>
 
@@ -215,6 +214,14 @@
                         <a href="customerList" class="btn btn-light btn-sm btn-custom" id="btnPromotion">
                             <i class="fa-regular fa-user me-2"></i>
                             Danh sách khách hàng 
+                        </a>
+                    </li>
+                    
+                     <li class="nav-item">
+                        <a href="listContractForManager" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
+                            <div>
+                                <i class="fa-solid fa-file-contract me-2"></i>Danh sách hợp đồng
+                            </div>
                         </a>
                     </li>
                 </ul>

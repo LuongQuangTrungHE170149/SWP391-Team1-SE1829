@@ -219,7 +219,15 @@ public class CompensationDAO {
     }
 
     public static void main(String[] args) {
+        Compensation compensation = new Compensation();
+        compensation.setCustomerId(1);
+        compensation.setContractId(1);
+        compensation.setAccidentId(1);
+        compensation.setEstimatedRepairCost(new BigInteger("10000000"));
+        LocalDate currentDate = LocalDate.now();
+        Date sqlCurrentDate = Date.valueOf(currentDate);
+        compensation.setDateFiled(sqlCurrentDate);
 
-        System.out.println(CompensationDAO.INSTANCE.getCompensationsPending());
+        System.out.println(CompensationDAO.INSTANCE.insertCompensation(compensation));
     }
 }
