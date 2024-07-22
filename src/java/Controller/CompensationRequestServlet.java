@@ -121,29 +121,36 @@ public class CompensationRequestServlet extends HttpServlet {
 
         Contract contract = cdb.checkContractByCustomerId(policyNumber, u.getId());
         if (contract != null) {
-            Accident accident = new Accident();
-            accident.setCustomerId(u.getId());
-            Date sqlDate = Date.valueOf(incidentDate);
-            accident.setDateOfAccident(sqlDate);
-            accident.setAccidentLocation(incidentLocation);
-            accident.setPoliceReportNumber(policeReportNumber);
-            accident.setDescriptionOfAccident(incidentDescription);
-            accident.setVehicleDamage(vehicleDamage);
-            accident.setImage(image);
-            int idAccident = AccidentDAO.INSTANCE.insertAccident(accident);
-            Compensation compensation = new Compensation();
-            compensation.setCustomerId(u.getId());
-            compensation.setContractId(contract.getContractId());
-            compensation.setAccidentId(idAccident);
-            compensation.setEstimatedRepairCost(new BigInteger(estimatedRepairCost));
-            LocalDate currentDate = LocalDate.now();
-            Date sqlCurrentDate = Date.valueOf(currentDate);
-            compensation.setDateFiled(sqlCurrentDate);
-            if (CompensationDAO.INSTANCE.insertCompensation(compensation)) {
-                session.setAttribute("requestSuccess", "Gửi yêu cầu bồi thường thành công");
 
+            if (!contract.getStatus().equalsIgnoreCase("Approved")) {
+                session.setAttribute("messError", "Hợp động của bạn hiện tại không thể thực hiện đền bù");
+                response.sendRedirect("compensation");
+            } else {
+                Accident accident = new Accident();
+                accident.setCustomerId(u.getId());
+                Date sqlDate = Date.valueOf(incidentDate);
+                accident.setDateOfAccident(sqlDate);
+                accident.setAccidentLocation(incidentLocation);
+                accident.setPoliceReportNumber(policeReportNumber);
+                accident.setDescriptionOfAccident(incidentDescription);
+                accident.setVehicleDamage(vehicleDamage);
+                accident.setImage(image);
+                int idAccident = AccidentDAO.INSTANCE.insertAccident(accident);
+                Compensation compensation = new Compensation();
+                compensation.setCustomerId(u.getId());
+                compensation.setContractId(contract.getContractId());
+                compensation.setAccidentId(idAccident);
+                compensation.setEstimatedRepairCost(new BigInteger(estimatedRepairCost));
+                LocalDate currentDate = LocalDate.now();
+                Date sqlCurrentDate = Date.valueOf(currentDate);
+                compensation.setDateFiled(sqlCurrentDate);
+                if (CompensationDAO.INSTANCE.insertCompensation(compensation)) {
+                    session.setAttribute("requestSuccess", "Gửi yêu cầu bồi thường thành công");
+
+                }
+                response.sendRedirect("compensationHistory?id=" + u.getId());
             }
-            response.sendRedirect("compensationHistory?id=" + u.getId());
+
         } else {
             request.setAttribute("error", "Số bảo hiểm của bạn không tồn tại");
             request.setAttribute("policyNumber", policyNumber);

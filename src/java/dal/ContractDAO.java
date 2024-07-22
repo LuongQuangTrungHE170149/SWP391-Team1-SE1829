@@ -417,6 +417,7 @@ public class ContractDAO extends DBContext {
             if (rs.next()) {
                 Contract contract = new Contract();
                 contract.setContractId(rs.getInt("ContractId"));
+                contract.setStatus(rs.getString("status"));
                 return contract;
             }
         } catch (SQLException e) {
@@ -424,6 +425,7 @@ public class ContractDAO extends DBContext {
         }
         return null;
     }
+    
 
     public void updateContract(int contractId, Date startDate, Date endDate, String description, String status, Double payment) {
 

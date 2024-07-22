@@ -32,6 +32,21 @@
     <body>
 
         <jsp:include page="header.jsp" />  
+
+        <c:if test="${sessionScope.messError != null}">
+            <div id="toast-success" class="toast-container top-0 end-0 p-3">
+                <div class="toast align-items-center text-bg-danger border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${sessionScope.messError}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <c:remove var="messError" scope="session" />
+        </c:if>
+
         <div style=" background-color: #f4f4f9; padding: 50px">
             <div class="container">
                 <div class="wrapper">
@@ -72,5 +87,21 @@
             type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"
         ></script>
+
+        <script>
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const successToast = document.getElementById('toast-success');
+                    const failToast = document.getElementById('toast-fail');
+                    if (successToast) {
+                        successToast.style.opacity = '0';
+                        setTimeout(() => successToast.style.display = 'none', 1000);
+                    }
+
+                }, 3000);
+
+
+            });
+        </script>
     </body>
 </html>

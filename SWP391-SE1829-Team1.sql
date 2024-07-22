@@ -1,7 +1,6 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
-
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -140,6 +139,16 @@ Create Table News(
 			createDate Datetime default getdate()
 )
 GO
+
+create table Notifications(
+	id int identity(1,1) primary key,
+	title nvarchar(255),
+	link nvarchar(255),
+	isClick bit,
+	userId int,
+	createdDate datetime,
+	foreign key (userId) references Users(id)
+)
 
 INSERT INTO Accidents (CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
 VALUES (1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
