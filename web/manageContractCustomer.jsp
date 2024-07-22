@@ -22,7 +22,7 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div class="container mt-5" style="min-height: 70vh;"> 
-             <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
+            <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
             <div class="text-center fs-3 fw-bold text-danger mb-3">Quản lý hợp đồng</div>
             <input type="hidden" id="now" value="${now}"/>
             <table class="table table-bordered table-hover table-custom">
@@ -60,7 +60,7 @@
                                    ><i class="fa-regular fa-folder-open"></i></a>
                             </td>
                             <td>
-                                <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}</div>
+                                <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}${c.status == 'Expired'?'badge-danger':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}${c.status == 'Expired'?'Hết hạn':''}</div>                           
                             </td>
                         </tr>
                     </c:forEach>
@@ -189,71 +189,73 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
         <script>
-            $(document).ready(function () {
-                $('.btn-detailContract').on('click', function (e) {
-                    e.preventDefault();
-                    let newsId = $(this).data('id');
-                    $.ajax({
-                        url: 'detailContractCustomer',
-                        type: 'GET',
-                        data: {id: newsId},
-                        success: function (data) {
-                            var status = '';
-                            if (data.status === "Pending") {
-                                status = '<div class="badge badge-warning">Chờ duyệt</div>';
-                            } else if (data.status === "Rejected") {
-                                status = '<div class="badge badge-danger">Từ chối</div>';
-                            } else if (data.status === "Approved") {
-                                status = '<div class="badge badge-success">Đã duyệt</div>';
-                            }
-                            $('#status').html(status);
-                            $('#fullname').text(data.customer.firstName + " " + data.customer.lastName);
-                            $('#description').text(data.description);
-                            $('#isAccidentInsurance').text(data.isAccidentInsurance === true ? 'Có' : 'Không');
-                            $('#phone-number').text(data.customer.phone);
-                            $('#email').text(data.customer.email);
-                            $('#address').text(data.customer.address);
-                            $('#owner-address').text(data.vehicle.ownerAddress);
+                 $(document).ready(function () {
+                     $('.btn-detailContract').on('click', function (e) {
+                         e.preventDefault();
+                         let newsId = $(this).data('id');
+                         $.ajax({
+                             url: 'detailContractCustomer',
+                             type: 'GET',
+                             data: {id: newsId},
+                             success: function (data) {
+                                 var status = '';
+                                 if (data.status === "Pending") {
+                                     status = '<div class="badge badge-warning">Chờ duyệt</div>';
+                                 } else if (data.status === "Rejected") {
+                                     status = '<div class="badge badge-danger">Từ chối</div>';
+                                 } else if (data.status === "Approved") {
+                                     status = '<div class="badge badge-success">Đã duyệt</div>';
+                                 }else if (data.status === "Expired") {
+                                     status = '<div class="badge badge-danger">Hết hạn</div>';
+                                 }
+                                 $('#status').html(status);
+                                 $('#fullname').text(data.customer.firstName + " " + data.customer.lastName);
+                                 $('#description').text(data.description);
+                                 $('#isAccidentInsurance').text(data.isAccidentInsurance === true ? 'Có' : 'Không');
+                                 $('#phone-number').text(data.customer.phone);
+                                 $('#email').text(data.customer.email);
+                                 $('#address').text(data.customer.address);
+                                 $('#owner-address').text(data.vehicle.ownerAddress);
 
-                            var owner_firstName = data.vehicle.ownerFirstName;
-                            var owner_lastName = data.vehicle.ownerLastName;
-                            $('#owner-fullname').text(owner_firstName + " " + owner_lastName);
-                            $('#license-plate').text(data.vehicle.licensePlates);
-                            $('#chassis-number').text(data.vehicle.chassis);
-                            $('#engine-number').text(data.vehicle.engine);
+                                 var owner_firstName = data.vehicle.ownerFirstName;
+                                 var owner_lastName = data.vehicle.ownerLastName;
+                                 $('#owner-fullname').text(owner_firstName + " " + owner_lastName);
+                                 $('#license-plate').text(data.vehicle.licensePlates);
+                                 $('#chassis-number').text(data.vehicle.chassis);
+                                 $('#engine-number').text(data.vehicle.engine);
 
-                            var startDate = moment(data.startDate).format('DD/MM/YYYY');
-                            var endDate = moment(data.endDate).format('DD/MM/YYYY');
+                                 var startDate = moment(data.startDate).format('DD/MM/YYYY');
+                                 var endDate = moment(data.endDate).format('DD/MM/YYYY');
 
-                            var now = moment(document.getElementById("now").value, 'YYYY-MM-DD');
-                            var dueDate = '';
-                            if (moment(data.endDate).isBefore(now)) {
-                                dueDate = '<span class="text-danger fw-bold">Đã quá hạn</span>';
-                            }
+                                 var now = moment(document.getElementById("now").value, 'YYYY-MM-DD');
+                                 var dueDate = '';
+                                 if (moment(data.endDate).isBefore(now)) {
+                                     dueDate = '<span class="text-danger fw-bold">Đã quá hạn</span>';
+                                 }
 
-                            $('#time-insurance').html("<div>" + startDate + " - " + endDate + " " + dueDate + "</div>");
+                                 $('#time-insurance').html("<div>" + startDate + " - " + endDate + " " + dueDate + "</div>");
 
-                            var payment = new Number(data.payment).toLocaleString('vi-VN', {
-                                style: 'currency',
-                                currency: 'VND'
-                            });
-                            $('#payment').text(payment);
+                                 var payment = new Number(data.payment).toLocaleString('vi-VN', {
+                                     style: 'currency',
+                                     currency: 'VND'
+                                 });
+                                 $('#payment').text(payment);
 
 
-                            $('#detailContractModal').modal('show');
-                        },
-                        error: function (err) {
-                            console.log(err);
-                            // Show error toast
-                            alert('Add failed, try again!');
-                        }
-                    });
-                });
-            });
-            
-            function goBack() {
-            window.location.href ='home.jsp';                 
-                        }
+                                 $('#detailContractModal').modal('show');
+                             },
+                             error: function (err) {
+                                 console.log(err);
+                                 // Show error toast
+                                 alert('Add failed, try again!');
+                             }
+                         });
+                     });
+                 });
+
+                 function goBack() {
+                     window.location.href = 'home.jsp';
+                 }
         </script>
 
     </body>

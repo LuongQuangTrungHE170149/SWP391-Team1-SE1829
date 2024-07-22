@@ -31,7 +31,6 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-12 col-lg-5 pe-0">
                                     <div class="form-outline" data-mdb-input-init>
-                                        <label for="usernameEmail" class="form-label"><span class="required"></span></label>
                                         <input type="text" id="usernameEmail" name="usernameEmail" class="form-control" required=""/>
                                     </div>
                                     <p class="m-0 ps-2 text-danger">${message}</p>

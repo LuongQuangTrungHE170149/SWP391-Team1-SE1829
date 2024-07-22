@@ -104,6 +104,17 @@ create TABLE Accidents (
 );
 GO
 
+create table Notifications(
+	id int identity(1,1) primary key,
+	title nvarchar(255),
+	link nvarchar(255),
+	isClick bit,
+	userId int,
+	createdDate datetime default getdate(),
+	foreign key (userId) references Users(id)
+)
+GO
+
 
 Create table Consultations(
 			id int identity(1,1) primary key,

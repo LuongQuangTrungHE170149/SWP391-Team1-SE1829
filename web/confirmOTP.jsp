@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta charset="utf-8">
         <title>Confirm OTP</title>
     </head>
@@ -26,11 +26,14 @@
                                 <c:choose>
                                     <c:when test="${not empty sessionScope.userForgetPassword}">
                                         <p class="m-0 text-danger">Mã OTP đã được gửi đến email <u>${sessionScope.userForgetPassword.email}</u></p>
+                                        <div class="text-center"><a href="#" onclick="window.history.back()">Quay lại</a></div>
+
                                     </c:when>
                                     <c:when test="${not empty sessionScope.userRegister}">
                                         <p class="m-0 text-danger">Mã OTP đã được gửi đến email <u>${sessionScope.userRegister.email}</u></p>
-                                    </c:when>
-                                </c:choose>
+                                        <div class="text-center"><a href="#" onclick="window.history.back()">Quay lại</a></div>
+                                            </c:when>
+                                        </c:choose>
                             </div>
                             <form action="confirmOTP" method="POST">
                                 <div class="card-body">

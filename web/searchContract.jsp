@@ -30,24 +30,21 @@
         <jsp:include page="header.jsp" />
         <%--<jsp:include page="spinnerLoading.jsp"/>--%>
         <div class="content" style="height: 70vh;">
-            <div class="row mt-4 px-3" style="width: 100%;">
-                <div class="col-12 col-lg-4">
-                    <div class="fs-2 fw-bold text-danger">Tra cứu hợp đồng</div> 
-                </div>
 
-                <div class="col-12 col-lg-5 d-flex align-items-center">
-                    <form action="searchContract" method="post" class="flex-grow-1">
-                        <div class="form-outline d-flex align-items-center" data-mdb-input-init>
-                            <input type="search" name="key" class="form-control" value="${key}" id="datatable-search-input">
-                            <button type="submit" class="border-0" style="background-color: #fff"><i class="fa-solid fa-magnifying-glass me-3"></i></button>
-                            <label class="form-label" for="datatable-search-input">Nhập mã hợp đồng</label>
-                        </div>
-                    </form>
-                </div>
-                <c:if test="${message != null and not empty key}">
-                    <div class="text-danger text-center">${message}</div>
-                </c:if>            
+            <div class="fs-2 fw-bold text-danger text-center mt-4 mb-3">Tra cứu hợp đồng</div> 
+            <div style="width: 600px;" class="m-auto">
+                <form action="searchContract" method="post">
+                    <div class="form-outline d-flex align-items-center" data-mdb-input-init>
+                        <input type="search" name="key" class="form-control" value="${key}" id="datatable-search-input">
+                        <button type="submit" class="border-0" style="background-color: #fff"><i class="fa-solid fa-magnifying-glass me-3"></i></button>
+                        <label class="form-label" for="datatable-search-input">Nhập mã hợp đồng</label>
+                    </div>
+                </form>
             </div>
+            <c:if test="${message != null and not empty key}">
+                <div class="text-danger text-center">${message}</div>
+            </c:if>            
+
 
             <div class="mt-5">
                 <c:if test="${not empty c}">
@@ -82,7 +79,7 @@
                                        data-mdb-target="#detailContractModal"
                                        ><i class="fa-regular fa-folder-open"></i></a></td>
                                 <td>
-                                    <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}</div>
+                                    <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}${c.status == 'Expired'?'badge-danger':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}${c.status == 'Expired'?'Hết hạn':''}</div>
                                 </td>
                             </tr> 
                         </tbody>
@@ -101,7 +98,7 @@
                         <div class="container">
                             <div class="row mb-3">
                                 <div class="col">
-                                    <div><span class="fw-bold text-info">Trạng thái: </span><span class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}</span></div>
+                                    <div><span class="fw-bold text-info">Trạng thái: </span><span class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}${c.status == 'Expired'?'badge-danger':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}${c.status == 'Expired'?'Hết hạn':''}</span></div>
                                     <div><span class="fw-bold text-warning">Ghi chú: </span>${c.description}</div>
                                     <div class="row mt-3">
                                         <div class="col-12 col-lg-6">

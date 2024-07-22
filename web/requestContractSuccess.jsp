@@ -59,7 +59,8 @@
                     <div>Thanh toán</div>
                 </div>
                 <div class="step-item text-center">
-                    <div class="rounded-circle fw-bold m-auto mb-3 current-step" style="width: 30px; height: 30px; align-content: center;"> 5 </div>
+                    <div class="rounded-circle border fw-bold m-auto mb-3 done-step position-relative" style="width: 30px; height: 30px; align-content: center;">
+                        5 <i class="fa-solid fa-check text-success position-absolute bottom-0"></i></div>
                     <div>Hoàn tất</div>
                 </div>
             </div>

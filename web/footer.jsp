@@ -134,7 +134,7 @@
                 <a href="promotion">Khuyến Mại</a>
             </div>
             <div class="footer-item">
-                <a href="#">Tin tức</a>
+                <a href="news">Tin tức</a>
             </div> 
         </div>
         <div class="footer-content-list">
@@ -144,7 +144,7 @@
                 </div>
                 <div class="footer-content-items">
                     <ul>
-                        <li><a href="#" target="_blank">Bảo Hiểm Xe Máy</a></li>
+                        <li><a href="motorbikeInsurance" target="_blank">Bảo Hiểm Xe Máy</a></li>
                     </ul>
                 </div>
             </div>
@@ -154,22 +154,22 @@
                 </div>
                 <div class="footer-content-items">
                     <ul>
-                        <li><a href="#" target="_blank">Trung Tâm Dịch Vụ Khách Hàng</a></li>
-                        <li><a href="#" target="_blank">Tạo Hợp Đồng Bảo Hiểm</a></li>
-                        <li><a href="#" target="_blank">Hướng Dẫn Sửa Đổi, Bổ Sung/Hủy Hợp Đồng Bảo Hiểm</a></li>
-                        <li><a href="#" target="_blank">Hướng Dẫn Đặt Mua, Thanh Toán, Giao Nhận</a></li>
+                        <li><a href="view?id=3" target="_blank">Trung Tâm Dịch Vụ Khách Hàng</a></li>
+                        <li><a href="motorbikeInsurance" target="_blank">Tạo Hợp Đồng Bảo Hiểm</a></li>
+                        <li><a href="view?id=4" target="_blank">Hướng Dẫn Sửa Đổi, Bổ Sung/Hủy Hợp Đồng Bảo Hiểm</a></li>
+                        <li><a href="view?id=5" target="_blank">Hướng Dẫn Đặt Mua, Thanh Toán, Giao Nhận</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-content">
-                <div class="footer-content-header">
+<!--                <div class="footer-content-header">
                     <h4>XỬ LÝ BỒI THƯỜNG</h4>
                 </div>
                 <div class="footer-content-items">
                     <ul>
                         <li><a href="#" target="_blank">Bảo Hiểm Xe Máy</a></li>
                     </ul>
-                </div>
+                </div>-->
             </div>
             <div class="footer-content">
                 <div class="footer-contact">
@@ -191,7 +191,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-partner">
+<!--                <div class="footer-partner">
                     <div class="footer-content-header partner">
                         <h4>ĐỐI TÁC</h4>
                     </div>
@@ -215,7 +215,7 @@
                             <img src="images/logo-vnpt-ca.png" alt="alt"/>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
             </div>
         </div>
