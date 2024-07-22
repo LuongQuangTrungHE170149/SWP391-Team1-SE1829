@@ -839,7 +839,7 @@ public class UserDAO extends DBContext {
     
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.selectUserByEmailOrPhone("0985187536"));
+        System.out.println(udb.findByUsernameOrEmailAndPassword("kha21", "123"));
     }
 
 }

@@ -9,6 +9,7 @@ import Model.News;
 import Model.Promotion;
 import Model.User;
 import dal.ConsultationDAO;
+import dal.ContractDAO;
 import dal.NewsDAO;
 import dal.PromotionDAO;
 import java.io.IOException;
@@ -18,6 +19,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -92,7 +95,11 @@ public class StaffHomeServlet extends HttpServlet {
                 List<Promotion> listPromotion = pdb.getAll();
                 List<Promotion> listPromotionByStaff = pdb.getListPromotionsByStaff(u.getId());
                 
+                ContractDAO codb = new ContractDAO();
                 
+                HashMap <String, BigInteger> monthlyMoneyByStaff = codb.getMonthlyMoneyByStaff(u.getId());
+                
+                request.setAttribute("monthlyMoneyByStaff", monthlyMoneyByStaff);
                 request.setAttribute("listPromotion", listPromotion);
                 request.setAttribute("listPromotionByStaff", listPromotionByStaff);
                 request.setAttribute("listNewsByStaff", listNewsByStaff);
