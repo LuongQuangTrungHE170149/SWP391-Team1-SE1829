@@ -109,6 +109,32 @@
                         </a>
                     </li>
                     <li class="nav-item btn-group">
+                        <a href="ListContract" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
+                            <div>
+                                <i class="fa-solid fa-file-contract me-2"></i>Hợp đồng
+                            </div>
+                            <span class="badge badge-notification bg-danger ms-3">${totalContract}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item btn-group">
+                        <a href="compensationApprove" class="btn btn-light btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnCompensation">
+                            <div>
+                                <i class="fa-solid fa-id-badge me-2"></i>
+                                Đơn bồi thường
+                            </div>
+                            <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalApplication}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item btn-group">
+                        <a href="customerForStaff" class="btn btn-light btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnCustomer">
+                            <div>
+                                <i class="fa-solid fa-user me-2"></i>Khách hàng
+                            </div>
+                            <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalCustomerByStaff}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item btn-group">
                         <a href="consultationManager" class="btn btn-light btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnConsultation">
                             <div>
                                 <i class="fa-solid fa-message me-2"></i> Tư vấn
@@ -126,37 +152,13 @@
                     </li>
                     <li class="nav-item btn-group">
 
-                        <a href="promotionManager" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnPromotion">
+                        <a href="promotionManager" class="btn btn-light btn-sm btn-custom d-flex justify-content-between m-0"data-mdb-ripple-init id="btnPromotion">
                             <div><i class="fa-solid fa-gift me-2"></i> Khuyến mãi</div>
                             <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalPromotion}</span>
                         </a>
                     </li>
-                    <li class="nav-item btn-group">
-                        <a href="ListContract" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
-                            <div>
-                                <i class="fa-solid fa-file-contract me-2"></i>Hợp đồng
-                            </div>
-                        </a>
-                    </li>
 
-                    <li class="nav-item btn-group">
-                        <a href="compensationApprove" class="btn btn-light btn-sm btn-custom d-flex justify-content-between"data-mdb-ripple-init id="btnCompensation">
-                            <div>
-                             
-                                <i class="fa-solid fa-id-badge me-2"></i>
-                                Đơn bồi thường
-                            </div>
-                            <span class="badge badge-notification bg-danger ms-3">${sessionScope.totalApplication}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item btn-group">
-                        <a href="customerForStaff" class="btn btn-light btn-custom d-flex justify-content-between m-0"data-mdb-ripple-init id="btnCustomer">
-                            <div>
-                                <i class="fa-solid fa-user me-2"></i>Khách hàng
-                            </div>
 
-                        </a>
-                    </li>
 
 
 
@@ -216,8 +218,8 @@
                             Danh sách khách hàng 
                         </a>
                     </li>
-                    
-                     <li class="nav-item">
+
+                    <li class="nav-item">
                         <a href="listContractForManager" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
                             <div>
                                 <i class="fa-solid fa-file-contract me-2"></i>Danh sách hợp đồng
@@ -281,7 +283,12 @@
             document.getElementById("btnContract").classList.add("activeDash");
         } else if (currentLocation.includes("newsManager")) {
             document.getElementById("btnNews").classList.add("activeDash");
-        }if (currentLocation.includes("compensationApprove")) {
+        }else if (currentLocation.includes("customerForStaff")) {
+            document.getElementById("btnCustomer").classList.add("activeDash");
+        }else if (currentLocation.includes("ListContract")) {
+            document.getElementById("btnContract").classList.add("activeDash");
+        }
+        if (currentLocation.includes("compensationApprove")) {
             document.getElementById("btnCompensation").classList.add("activeDash");
         }
     </script>

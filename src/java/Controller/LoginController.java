@@ -1,11 +1,13 @@
 package Controller;
 import Model.Compensation;
+import Model.Contract;
 import Model.User;
 import dal.CompensationDAO;
 import Model.Notification;
 import Model.User;
 import com.google.gson.Gson;
 import dal.ConsultationDAO;
+import dal.ContractDAO;
 import dal.NewsDAO;
 import dal.NotificationDAO;
 import dal.PromotionDAO;
@@ -68,8 +70,18 @@ public class LoginController extends HttpServlet {
                 NewsDAO ndb = new NewsDAO();
                 List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
                 session.setAttribute("totalApplication", listCompensationPending.size());
-
+                
+                ContractDAO con = new ContractDAO();
+                List<Contract> listContract = con.getAll();
+                
+                UserDAO udb = new UserDAO();
+                List<User> listCustomerByStaff = udb.getAllCustomerByStaff(user.getId());
+                
                 int totalConsultation = cdb.CountConsultationByStatus("all");
+                
+                
+                session.setAttribute("totalCustomerByStaff", listCustomerByStaff.size());
+                session.setAttribute("totalContract", listContract.size());
                 session.setAttribute("totalConsultation", totalConsultation);
                 session.setAttribute("totalPromotion", pdb.getAll().size());
                 session.setAttribute("totalNews", ndb.getAll().size());

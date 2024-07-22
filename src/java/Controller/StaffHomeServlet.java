@@ -4,10 +4,13 @@
  */
 package Controller;
 
+import Model.Compensation;
 import Model.Consultation;
+import Model.Contract;
 import Model.News;
 import Model.Promotion;
 import Model.User;
+import dal.CompensationDAO;
 import dal.ConsultationDAO;
 import dal.ContractDAO;
 import dal.NewsDAO;
@@ -96,6 +99,11 @@ public class StaffHomeServlet extends HttpServlet {
                 List<Promotion> listPromotionByStaff = pdb.getListPromotionsByStaff(u.getId());
                 
                 ContractDAO codb = new ContractDAO();
+                List<Contract> listContract = codb.getAll();
+                List<Contract> listContractByStaff = codb.getListContractByStaff(u.getId());
+                
+                CompensationDAO com = new CompensationDAO();
+                List<Compensation> listCompensationByStaff = com.getListCompensationApprovedByStaff(u.getId());
                 
                 HashMap <String, BigInteger> monthlyMoneyByStaff = codb.getMonthlyMoneyByStaff(u.getId());
                 
@@ -106,6 +114,9 @@ public class StaffHomeServlet extends HttpServlet {
                 request.setAttribute("listNews", listNews);
                 request.setAttribute("listCon", listCon);
                 request.setAttribute("listConByStaff", listConByStaff);
+                request.setAttribute("listContract", listContract);
+                request.setAttribute("listContractByStaff", listContractByStaff);
+                request.setAttribute("listCompensationByStaff", listCompensationByStaff);
                 request.getRequestDispatcher("staffHome.jsp").forward(request, response);
             }
         }

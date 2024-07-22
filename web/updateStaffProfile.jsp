@@ -13,7 +13,7 @@
     <head>
         <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Update Profile</title>
+        <title>Thay đổi thông tin cá nhân</title>
         <style>
             .navbar-custom {
                 background: rgb(0,167,209);
@@ -34,14 +34,14 @@
             <div class="main-content" id="main-content">
                 <!--navbar-->
                 <div class="nav navbar bg-light justify-content-start sticky-top mb-3 px-2">
-                    <div class="fs-3 fw-bold text-info">Staff Profile</div>
+                    <div class="fs-3 fw-bold text-info">Thông tin cá nhân</div>
                 </div>
                 <!--end navbar-->
                 <div>
 
                 </div>
                 <div class="container" style="width: 80%; height: 100%;">
-                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
+                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="location.href='staffProfile?staffId=${user.id}'">Quay lại</button>
 
                     <div class="row mt-4" style="align-content: center;">
 
@@ -54,7 +54,7 @@
                                     <c:if test="${user.gender == 0}">
                                         <img class="image rounded-circle img-fluid"  src="images/female-avatar.png" width="200" height="200" alt="female image"/>
                                     </c:if>
-                                    <h1 class="fw-bold  text-nowrap">${user.username} </h1>
+                                    <h3 class="fw-bold">${user.username} </h3>
                                     <p class="text-muted">${user.role} <i class="fa-regular fa-circle-check text-419FA3" style="width: 10px;"></i></p>
                                     <p class="text-muted">${user.address}</p>
 
@@ -86,7 +86,7 @@
                                         </div>
 
                                         <p class="text-success m-0">${success}</p>
-                                        <button type="submit" class="btn btn-primary btn-sm float-end">Change</button>
+                                        <button type="submit" class="btn btn-primary btn-sm float-end">Thay đổi</button>
                                     </div>
                                 </div>
                             </form>
@@ -183,7 +183,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <p class="text-success m-0 float-start">${updateMessage}</p>
-                                        <button type="submit" class="btn btn-primary btn-sm float-end " data-mdb-ripple-init>Update</button>
+                                        <button type="submit" class="btn btn-primary btn-sm float-end " data-mdb-ripple-init>Cập nhật</button>
                                     </div>
                                 </div>
                             </form>
