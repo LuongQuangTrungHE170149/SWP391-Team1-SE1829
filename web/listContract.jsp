@@ -4,126 +4,79 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="shortcut icon" href="images/icon_motor_color_419fa3.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <title>List of Contracts</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        .content {
-            margin-left:  300px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 1200px;
-        }
-        .title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #007bff;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .text-danger {
-            color: #dc3545 !important;
-        }
-        .fw-bold {
-            font-weight: bold;
-        }
-        .badge {
-            padding: 5px 10px;
-            border-radius: 4px;
-            text-align: center;
-            color: #fff;
-            font-size: 14px;
-        }
-        .badge-warning {
-            background-color: #ffc107;
-        }
-        .badge-danger {
-            background-color: #dc3545;
-        }
-        .badge-success {
-            background-color: #28a745;
-        }
-        .btn-detailContract {
-            text-decoration: none;
-            color: #007bff;
-            font-size: 16px;
-        }
-        .btn-detailContract:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <jsp:include page="staffDashboard.jsp"/>
-    <div class="content">
-        <h2 class="title">Danh sách hợp đồng</h2>
-        <div class="container mt-5">
-            <div class="text-center fs-3 fw-bold text-danger mb-3">Quản lý hợp đồng</div>
+    <head>
+        <link rel="shortcut icon" href="images/icon_motor_color_419fa3.png" type="image/x-icon">
+        <meta charset="UTF-8">
+        <title>Danh sách hợp đồng</title>
+        <style>
+            table td{
+                padding:8px 12px !important;
+                align-content: center;
+            }
+
+            .btn-table{
+                padding: 3px 10px;
+                font-size: 10px!important;
+            }
+        </style>
+    </head>
+    <body>
+        <jsp:include page="staffDashboard.jsp"/>
+        <div class="main-content" id="main-content">
+            <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
+                <div class="fs-3 fw-bold text-info">Danh sách hợp đồng</div>
+            </div>
+
+
             <input type="hidden" id="now" value="${now}"/>
-            <a href="checkEmailPhone.jsp" class="create-contract-btn">Tạo hợp đồng</a>
-            <table>
+            <a href="checkEmailPhone.jsp" class="btn btn-info btn-sm ms-3 mt-4 mb-4" data-mdb-ripple-init>Tạo hợp đồng</a>
+            <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>Mã hợp đồng</th>
-                        <th>Người yêu cầu</th>
-                        <th>Ngày tạo</th>
-                        <th>Thời hạn</th>
-                        <th>Thanh toán</th>
-                        <th>Ghi chú</th>
-                        <th>Chi tiết</th>
-                        <th>Trạng thái</th>
+                        <th class="text-center">Mã hợp đồng</th>
+                        <th class="">Người yêu cầu</th>
+                        <th class="text-center">Ngày tạo</th>
+                        <th class="text-center">Thời hạn</th>
+                        <th class="text-end">Thanh toán</th>
+                        <th class="">Ghi chú</th>
+                        <th class="text-center">Chi tiết</th>
+                        <th class="text-center">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach items="${listAll}" var="c" varStatus="s">
                         <tr>
-                            <td>${s.index+1}</td>
-                            <td>${c.code}</td>
+                            <td class="text-center">${c.code}</td>
                             <td>${c.customer.getFullName()}</td>
-                            <td><fmt:formatDate value="${c.createDate}" pattern="dd/MM/yyyy"/></td>
-                            <td>
+                            <td class="text-center"><fmt:formatDate value="${c.createDate}" pattern="dd/MM/yyyy"/></td>
+                            <td class="text-center">
                                 <fmt:formatDate value="${c.startDate}" pattern="dd/MM/yyyy"/> -
                                 <fmt:formatDate value="${c.endDate}" pattern="dd/MM/yyyy"/> 
                                 ${c.endDate < now ? '<div class="text-danger fw-bold">Đã hết hạn</div>' : ''}
                             </td>
-                            <td><fmt:formatNumber value="${c.payment}" type="currency" currencyCode="VND"/></td>
+                            <td class="text-end"><fmt:formatNumber value="${c.payment}" type="currency" currencyCode="VND"/></td>
                             <td>${c.description}</td>
-                            <td>
+                            <td class="text-center">
                                 <a href="ViewContract?contractId=${c.contractId}" class="btn-detailContract">
-                                    <i class="fa-regular fa-folder-open"></i> Xem chi tiết
+                                    <i class="fa-regular fa-folder-open"></i>
                                 </a>
                             </td>
-                            <td>
-                                <div class="badge ${c.status == 'Pending' ? 'badge-warning' : (c.status == 'Rejected' ? 'badge-danger' : 'badge-success')}">
-                                    ${c.status == 'Pending' ? 'Chờ duyệt' : (c.status == 'Rejected' ? 'Từ chối' : 'Đã duyệt')}
-                                </div>
+                            <td class="text-center">
+                                <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}${c.status == 'Expired'?'badge-danger':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}${c.status == 'Expired'?'Hết hạn':''}</div>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+
         </div>
-    </div>
-</body>
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--mdb bootstrap-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+    </body>
 </html>

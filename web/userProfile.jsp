@@ -13,11 +13,24 @@
         <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User Profile</title>
+        <style>
+            .navbar-custom {
+                background: rgb(0,167,209);
+                background: linear-gradient(204deg, rgba(0,167,209,1) 0%, rgba(65,159,163,1) 100%);
+            }
+            .text-419FA3{
+                color:#419FA3;
+            }
+            .image:hover{
+                transform: scale(1.1);
+                box-shadow: 0 10px 50px #23232333;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="./header.jsp"></jsp:include>
             <div class="container" style="width: 80%; height: 100%;">
-                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
+                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Trở lại</button>
                 <div class="row mt-4" style="align-content: center;">
                     <div class="col-lg-3 mb-3">
                         <div class="card shadow-4">
@@ -28,7 +41,7 @@
                             <c:if test="${user.gender == 0}">
                                 <img class="image rounded-circle img-fluid"  src="images/female-avatar.png" width="200" height="200" alt="female image"/>
                             </c:if>
-                            <h1 class="fw-bold  text-nowrap">${user.username} </h1>
+                            <h3 class="fw-bold">${user.username} </h3>
                             <p class="text-muted">${user.role} <i class="fa-regular fa-circle-check text-419FA3" style="width: 10px;"></i></p>
                             <p class="text-muted">${user.address}</p>
 
@@ -116,8 +129,8 @@
         </div>
         <script>
             function goBack() {
-            window.location.href ='home.jsp';                 
-                        }
+                window.location.href = 'home.jsp';
+            }
         </script>
         <jsp:include page="./footer.jsp"></jsp:include>
     </body>

@@ -13,7 +13,7 @@
     <head>
           <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Update Profile</title>
+        <title>Thay đổi thông tin cá nhân</title>
         <link rel="stylesheet" href="CSS/home.css"/>
         <link rel="stylesheet" href="CSS/header.css"/>
         <link rel="stylesheet" href="CSS/footer.css"/>
@@ -42,7 +42,7 @@
 
                 </div>
                 <div class="container" style="width: 80%; height: 100%;">
-                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Quay lại</button>
+                    <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="goBack()">Trở lại</button>
 
                     <div class="row mt-4" style="align-content: center;">
 
@@ -55,7 +55,7 @@
                                     <c:if test="${user.gender == 0}">
                                         <img class="image rounded-circle img-fluid"  src="images/female-avatar.png" width="200" height="200" alt="female image"/>
                                     </c:if>
-                                    <h1 class="fw-bold  text-nowrap">${user.username} </h1>
+                                    <h3 class="fw-bold">${user.username} </h3>
                                     <p class="text-muted">${user.role} <i class="fa-regular fa-circle-check text-419FA3" style="width: 10px;"></i></p>
                                     <p class="text-muted">${user.address}</p>
 

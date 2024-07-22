@@ -101,7 +101,7 @@ public class ContractDAO extends DBContext {
                 + "      ,[Payment]\n"
                 + "      ,[createDate]\n"
                 + "      ,[status]\n"
-                + "  FROM [dbo].[Contracts]";
+                + "  FROM [dbo].[Contracts] Order by createDate DESC";
         UserDAO userDAO = new UserDAO();
         try {
             PreparedStatement st = connection.prepareStatement(sql);

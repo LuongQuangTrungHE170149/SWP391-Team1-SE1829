@@ -111,6 +111,7 @@ public class SubmitContractServlet extends HttpServlet {
                 else {
                     user = existingUser;
                     user.setId(user.getId());
+                    user.setRole("Customer");
                     c.setDescription("khách hàng đã có tài khoản mua bảo hiểm");
                     note = "Hệ thống kiểm tra bạn đã có tài khoản. "
                             + "Vui lòng dùng tài khoản của bạn để đăng nhập xem thông tin chi tiết hợp đồng!";
@@ -153,7 +154,7 @@ public class SubmitContractServlet extends HttpServlet {
         
          NotificationDAO dbNotify = new NotificationDAO();
             UserDAO dbUser = new UserDAO();
-            List<User> users = dbUser.getAllUserByRole("User");
+            List<User> users = dbUser.getAllUserByRole("Customer");
             Notification notification = new Notification();
             notification.setTitle("Bạn có 1 hợp đồng mới");
             notification.setIsClick(true);

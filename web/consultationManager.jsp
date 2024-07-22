@@ -272,12 +272,6 @@
 
         <!-- main -->
 
-
-
-
-
-
-
         <!--reply modal-->
         <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true" >
             <div class="modal-dialog modal-xl  modal-dialog-centered">
@@ -357,22 +351,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="modal-title fs-4 fw-bold text-nowrap" id="detailModalLabel" style="color:#419FA3;">Chi tiết tư vấn</div>
-                        <div class="text-nowrap fw-bold fs-6  " id="status" style="margin-left: 100px">Trạng thái</div>
+                        <div class="text-nowrap fw-bold fs-6  " id="status" style="margin-left: 100px"></div>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
-                        <div class="row d-flex">
-                            <div class="col-6  d-flex align-items-center">
-                                <div class="fs-5 fw-bold me-2">Tiêu đề: </div>
-                                <div class="fw-bold">Tư Vấn</div>   
-                            </div>
-                            <div class="col-6  d-flex align-items-center">
-                                <div class="fs-5 fw-bold me-2">ID:</div>
-                                <div id="id_detail" class="fw-bold"></div>
-                            </div>
+                        <div class="row">
+                            <div class="col-2 fw-bold">Tiêu đề: </div>
+                            <div class="col-3">Tư Vấn</div>   
                         </div>
-                        <hr>
 
                         <div class="col-6 mb-3 d-flex align-items-center">
                             <div class="fs-5 fw-bold me-2">Email:</div>
@@ -443,7 +430,7 @@
 
         <!--mdb bootstrap-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
-        
+
         <!--format date-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script>
@@ -532,10 +519,10 @@
                                                         $('#id_detail').html(data.id);
                                                         $('#name_detail').html(data.name);
                                                         $('#senderEmail_detail').html(data.email);
-                                                        
+
                                                         var createDate = moment(data.createDate).format('DD/MM/YYYY');
                                                         $('#timestamp_detail').html(createDate);
-                                                        
+
                                                         $('#senderMessage_detail').val(data.content);
 
                                                         var staffClass = data.staff ? "text-secondary" : "text-danger";
@@ -543,7 +530,7 @@
                                                         $('#replyMessage_detail').html(data.replyMessage || "Chưa trả lời");
 
                                                         var statusClass = data.status ? "text-primary" : "text-danger";
-                                                        $('#status').html(data.status ? "Responsed" : "Chưa trả lời").addClass(statusClass);
+                                                        $('#status').html(data.status ? "Đã trả lời" : "Chưa trả lời").addClass(statusClass);
 
                                                         $('#replyButton').data('id', data.id);
                                                         if (!data.status) {
