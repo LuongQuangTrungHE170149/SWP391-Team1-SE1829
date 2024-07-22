@@ -43,7 +43,7 @@
             </div>
             <!--end navbar-->
             <div class="container" style="width: 80%; height: 100%;">
-                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="location.href='staffHome'">Home</button>
+                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="location.href = 'staffHome'">Home</button>
                 <div class="row mt-4" style="align-content: center;">
                     <div class="col-lg-3 mb-3">
                         <div class="card shadow-4">
