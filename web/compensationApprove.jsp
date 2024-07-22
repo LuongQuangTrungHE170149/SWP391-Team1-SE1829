@@ -266,16 +266,21 @@
                                                 function submitPending(id) {
                                                     document.getElementById('status-' + id).value = 'pending';
                                                     document.getElementById('form-note-' + id).submit();
+                                                    alert('Gửi thành công');
                                                 }
 
                                                 function submitApproval(id) {
-                                                    document.getElementById('status-' + id).value = 'approved';
-                                                    document.getElementById('form-note-' + id).submit();
+                                                    if (confirm('Bạn có chắc chắn muốn đồng ý bồi thường?')) {
+                                                        document.getElementById('status-' + id).value = 'approved';
+                                                        document.getElementById('form-note-' + id).submit();
+                                                    }
                                                 }
 
                                                 function rejectCompensation(id) {
-                                                    document.getElementById('status-' + id).value = 'rejected';
-                                                    document.getElementById('form-note-' + id).submit();
+                                                    if (confirm('Bạn có chắc chắn muốn từ chối bồi thường?')) {
+                                                        document.getElementById('status-' + id).value = 'rejected';
+                                                        document.getElementById('form-note-' + id).submit();
+                                                    }
                                                 }
 
                                                 function showAccidentDetails(description, date, location, image, policeReportNumber, vehicleDamage) {
