@@ -136,41 +136,47 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Nhận dữ liệu JSON từ Servlet
-        var monthlyMoneyByStaff = JSON.parse('${monthlyMoneyByStaff}');
+           document.addEventListener("DOMContentLoaded", function () {
+            // Nhận dữ liệu JSON từ Servlet
+            var monthlyMoneyByStaff = JSON.parse('<%= request.getAttribute("monthlyMoneyByStaff") %>');
 
-        // Chuyển đổi dữ liệu thành định dạng phù hợp cho Chart.js
-        var labels = [];
-        var data = [];
+            // Chuyển đổi dữ liệu thành định dạng phù hợp cho Chart.js
+            var labels = [];
+            var data = [];
 
-        for (var key in monthlyMoneyByStaff) {
-            if (monthlyMoneyByStaff.hasOwnProperty(key)) {
-                labels.push(key);
-                data.push(monthlyMoneyByStaff[key]);
+            for (var key in monthlyMoneyByStaff) {
+                if (monthlyMoneyByStaff.hasOwnProperty(key)) {
+                    labels.push(key);
+                    data.push(monthlyMoneyByStaff[key]);
+                }
             }
-        }
 
-        // Cấu hình biểu đồ
-        var ctx = document.getElementById('revenueChart').getContext('2d');
-        var revenueChart = new Chart(ctx, {
-            type: 'bar', // Có thể thay đổi thành 'line' hoặc loại biểu đồ khác nếu muốn
-            data: {
-                labels: labels,
-                datasets: [{
+            // Cấu hình biểu đồ
+            var ctx = document.getElementById('revenueChart').getContext('2d');
+            var revenueChart = new Chart(ctx, {
+                type: 'bar', // Có thể thay đổi thành 'line' hoặc loại biểu đồ khác nếu muốn
+                data: {
+                    labels: labels,
+                    datasets: [{
                         label: 'Doanh thu theo tháng',
                         data: data,
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1
                     }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                },
+                options: {
+                    animation: {
+                        duration: 2000, // Thời gian của hiệu ứng animation (milisecond)
+                        easing: 'easeOutBounce' // Hiệu ứng easing cho animation
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
+            });
         });
     </script>
 </html>
