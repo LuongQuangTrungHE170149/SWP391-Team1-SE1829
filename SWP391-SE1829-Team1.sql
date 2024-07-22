@@ -53,6 +53,7 @@ create table Vehicles(
 			Chassis nvarchar(255),
 			Engine nvarchar(255),
 )
+
 create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
 			CustomerId int foreign key references Users(id),
@@ -149,6 +150,29 @@ create table Notifications(
 	createdDate datetime,
 	foreign key (userId) references Users(id)
 )
+
+
+CREATE TRIGGER trg_UpdateContractStatus
+ON [SWP391_SE1829_Team1].[dbo].[Contracts]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN deleted d ON i.ContractId = d.ContractId
+        WHERE i.EndDate < GETDATE() AND d.EndDate >= GETDATE()
+    )
+    BEGIN
+        UPDATE c
+        SET c.status = 'Expired'
+        FROM [SWP391_SE1829_Team1].[dbo].[Contracts] c
+        JOIN inserted i ON c.ContractId = i.ContractId
+        WHERE i.EndDate < GETDATE();
+    END
+END;
 
 INSERT INTO Accidents (CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
 VALUES (1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
