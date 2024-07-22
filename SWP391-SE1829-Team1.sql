@@ -161,6 +161,28 @@ create table Notifications(
 	foreign key (userId) references Users(id)
 )
 
+CREATE TRIGGER trg_UpdateContractStatus
+ON [SWP391_SE1829_Team1].[dbo].[Contracts]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN deleted d ON i.ContractId = d.ContractId
+        WHERE i.EndDate < GETDATE() AND d.EndDate >= GETDATE()
+    )
+    BEGIN
+        UPDATE c
+        SET c.status = 'Expired'
+        FROM [SWP391_SE1829_Team1].[dbo].[Contracts] c
+        JOIN inserted i ON c.ContractId = i.ContractId
+        WHERE i.EndDate < GETDATE();
+    END
+END;
+
 INSERT INTO Accidents (CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
 VALUES (1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
 
