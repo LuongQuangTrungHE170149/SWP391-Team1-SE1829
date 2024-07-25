@@ -82,6 +82,11 @@
             color: #fff;
         }
 
+        .badge-expired {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
         .btn-container {
             margin-top: 30px;
             text-align: center;
@@ -178,16 +183,19 @@
                 <p class="half-width"><strong>Ngày kết thúc:</strong> ${contract.endDate}</p>
             </div>
             <div class="info-item align-center">
-                <p><strong>Trạng thái:</strong> <span class="badge ${contract.status == 'Pending'?'badge-warning':''}${contract.status == 'Rejected'?'badge-danger':''}${contract.status == 'Approved'?'badge-success':''}">${contract.status == 'Pending'?'Chờ duyệt':''}${contract.status == 'Rejected'?'Từ chối':''}${contract.status == 'Approved'?'Đã duyệt':''}</span></p>
-                <form action="ChangeContractStatusServlet" method="post" style="display: inline;" onsubmit="return confirmChange();">
-                    <input type="hidden" name="contractId" value="${contract.contractId}" />
-                    <select name="newStatus">
-                        <option value="Pending">Chờ duyệt</option>
-                        <option value="Rejected">Từ chối</option>
-                        <option value="Approved">Đã duyệt</option>
-                    </select>
-                    <button type="submit" class="btn-edit">Sửa trạng thái</button>
-                </form>
+                <p><strong>Trạng thái:</strong> <span class="badge ${contract.status == 'Pending'?'badge-warning':''}${contract.status == 'Rejected'?'badge-danger':''}${contract.status == 'Approved'?'badge-success':''}${contract.status == 'Expired'?'badge-expired':''}">${contract.status == 'Pending'?'Chờ duyệt':''}${contract.status == 'Rejected'?'Từ chối':''}${contract.status == 'Approved'?'Đã duyệt':''}${contract.status == 'Expired'?'Hết hạn':''}</span></p>
+                <c:if test="${contract.status != 'Expired'}">
+                    <form action="ChangeContractStatusServlet" method="post" style="display: inline;" onsubmit="return confirmChange();">
+                        <input type="hidden" name="contractId" value="${contract.contractId}" />
+                        <select name="newStatus">
+                            <option value="Pending">Chờ duyệt</option>
+                            <option value="Rejected">Từ chối</option>
+                            <option value="Approved">Đã duyệt</option>
+                            <option value="Expired">Hết hạn</option>
+                        </select>
+                        <button type="submit" class="btn-edit">Sửa trạng thái</button>
+                    </form>
+                </c:if>
             </div>
         </div>
         <div class="btn-container">

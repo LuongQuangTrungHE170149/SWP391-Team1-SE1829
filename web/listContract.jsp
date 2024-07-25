@@ -29,6 +29,10 @@
             .search-form select {
                 margin-right: 0.5rem;
             }
+            .badge-expired {
+                background-color: #6c757d;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -83,7 +87,7 @@
                                 </a>
                             </td>
                             <td class="text-center">
-                                <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}${c.status == 'Expired'?'badge-danger':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}${c.status == 'Expired'?'Hết hạn':''}</div>
+                                <div class="badge ${c.status == 'Pending'?'badge-warning':''}${c.status == 'Rejected'?'badge-danger':''}${c.status == 'Approved'?'badge-success':''}${c.status == 'Expired'?'badge-expired':''}">${c.status == 'Pending'?'Chờ duyệt':''}${c.status == 'Rejected'?'Từ chối':''}${c.status == 'Approved'?'Đã duyệt':''}${c.status == 'Expired'?'Hết hạn':''}</div>
                             </td>
                         </tr>
                     </c:forEach>
