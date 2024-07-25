@@ -186,7 +186,7 @@
                 <label for="status" class="label">Trạng thái</label>
                 <select id="status" name="status" required>
                     <option value="pending">Chờ duyệt</option>
-                    <option value="active">Đang hiệu lực</option>
+                    <option value="Approved">Đang hiệu lực</option>
                 </select>
             </div>
             <button type="submit" class="btn-submit">Lưu hợp đồng</button>

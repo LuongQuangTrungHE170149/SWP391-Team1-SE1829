@@ -27,9 +27,19 @@
                 <div class="fs-3 fw-bold text-info">Danh sách hợp đồng</div>
             </div>
 
+            <!-- Form tìm kiếm -->
+            <form action="ListContract" method="get" class="mb-3">
+                <input type="text" name="search" placeholder="Tìm kiếm theo mã hợp đồng hoặc người yêu cầu" value="${param.search}" />
+                <select name="status">
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="Pending" ${param.status == 'Pending' ? 'selected' : ''}>Chờ duyệt</option>
+                    <option value="Rejected" ${param.status == 'Rejected' ? 'selected' : ''}>Từ chối</option>
+                    <option value="Approved" ${param.status == 'Approved' ? 'selected' : ''}>Đã duyệt</option>
+                    <option value="Expired" ${param.status == 'Expired' ? 'selected' : ''}>Hết hạn</option>
+                </select>
+                <button type="submit" class="btn btn-info btn-sm">Tìm kiếm</button>
+            </form>
 
-            <input type="hidden" id="now" value="${now}"/>
-            <a href="checkEmailPhone.jsp" class="btn btn-info btn-sm ms-3 mt-4 mb-4" data-mdb-ripple-init>Tạo hợp đồng</a>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -69,8 +79,17 @@
                 </tbody>
             </table>
 
+            <!-- Phân trang -->
+            <nav>
+                <ul class="pagination">
+                    <c:forEach begin="1" end="${noOfPages}" var="i">
+                        <li class="page-item ${i == currentPage ? 'active' : ''}">
+                            <a class="page-link" href="ListContract?page=${i}&search=${param.search}&status=${param.status}">${i}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </nav>
         </div>
-
 
 
 
