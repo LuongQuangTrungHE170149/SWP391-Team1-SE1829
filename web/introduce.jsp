@@ -84,8 +84,8 @@
             }
         </style>
     </head>
-    <jsp:include page="consultation.jsp"></jsp:include>
-    <jsp:include page="header.jsp"></jsp:include>
+
+    <jsp:include page="header.jsp"/>
     <jsp:include page="spinnerLoading.jsp"/>
         <body>
             <div class="middle">

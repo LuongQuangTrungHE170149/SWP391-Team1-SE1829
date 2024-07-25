@@ -38,12 +38,12 @@
                     <div class="fs-3 fw-bold text-info">Thông tin cá nhân</div>
                 </c:if>
                 <c:if test="${user.role eq 'manager' || user.role eq 'Manager' }">
-                    <div class="fs-3 fw-bold text-info">Manager Profile</div>
+                    <div class="fs-3 fw-bold text-info">Thông tin cá nhân</div>
                 </c:if>
             </div>
             <!--end navbar-->
             <div class="container" style="width: 80%; height: 100%;">
-                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="location.href = 'staffHome'">Home</button>
+                <button type="button" class="btn btn-secondary btn-sm mt-4" data-mdb-ripple-init onclick="location.href = '${user.role == 'staff' or user.role == 'Staff'?'staffHome':''}${user.role == 'manager' or user.role == 'Manager'?'homeManager':''}'">Home</button>
                 <div class="row mt-4" style="align-content: center;">
                     <div class="col-lg-3 mb-3">
                         <div class="card shadow-4">
