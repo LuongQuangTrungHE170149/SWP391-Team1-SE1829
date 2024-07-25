@@ -387,6 +387,6 @@ public class AgencyDAO {
 //        a.setAgencyAddress("4 Agency Ave, HCMC");
 //        a.setHotline(444444);
 //        
-        System.out.println(AgencyDAO.INSTANCE.getAllAgencies());
+        System.out.println(AgencyDAO.INSTANCE.totalPayment());
     }
 }
