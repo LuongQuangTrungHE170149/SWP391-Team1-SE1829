@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class Notification {
     private String link;
     private boolean isClick;
     private User userId;
-    private Date createdDate;
+    private Timestamp createdDate;
 
     public int getId() {
         return id;
@@ -58,11 +59,11 @@ public class Notification {
         this.isClick = isClick;
     }
 
-    public Date getCreatedDate() {
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
     

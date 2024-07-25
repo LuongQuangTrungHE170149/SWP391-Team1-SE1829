@@ -9,6 +9,9 @@ import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +41,25 @@ public class NotificationDAO extends DBContext {
         return list;
     }
 
+    public List<Notification> findLast7NotifcationsByUserId(int userId) {
+        List<Notification> list = new ArrayList<>();
+        String sql = "select top 7 * from Notifications where userId = ? order by isClick asc, createdDate desc";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(toNotification(rs));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
     public void insert(Notification model) {
         String sql = "insert into Notifications([title], [link], [isClick], [userId], createdDate) values (?,?,?,?,?)";
 
@@ -49,10 +71,23 @@ public class NotificationDAO extends DBContext {
             ps.setBoolean(param++, model.isIsClick());
             ps.setInt(param++, model.getUserId().getId());
             java.util.Date today = new java.util.Date();
-            
+
             java.sql.Date sqlDate = new java.sql.Date(today.getTime());
-            
-            ps.setDate(param++,sqlDate);
+
+            ps.setDate(param++, sqlDate);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateClick(Notification model) {
+        String sql = "update Notifications set [isClick] = 1 where id = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            int param = 1;
+            ps.setInt(param++, model.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -65,7 +100,7 @@ public class NotificationDAO extends DBContext {
         notification.setTitle(rs.getString("title"));
         notification.setLink(rs.getString("link"));
         notification.setIsClick(rs.getBoolean("isClick"));
-        notification.setCreatedDate(rs.getDate("createdDate"));
+        notification.setCreatedDate(rs.getTimestamp("createdDate"));
         return notification;
     }
 }
