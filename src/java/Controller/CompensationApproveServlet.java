@@ -78,6 +78,7 @@ public class CompensationApproveServlet extends HttpServlet {
                 List<User> userList = userDao.getAllUserByRole("customer");
                 List<Accident> accidentList = AccidentDAO.INSTANCE.getAllAccidents();
                 List<Contract> contractList = cd.getAll();
+                session.setAttribute("totalApplication", listCompensationPending.size());
                 request.setAttribute("listCompensationPending", listCompensationPending);
                 request.setAttribute("listCompensationNotPending", listCompensationNotPending);
                 request.setAttribute("userList", userList);
