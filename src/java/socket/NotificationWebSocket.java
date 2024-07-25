@@ -35,10 +35,14 @@ public class NotificationWebSocket {
         System.out.println("WebSocket opened: " + userId);
         sessions.put(userId, session);
         NotificationDAO dbNotification = new NotificationDAO();
-        List<Notification> notifications = dbNotification.findByUserId(Integer.parseInt(userId));
-        System.out.println("Send message");
-        for (Notification notification : notifications) {
-            NotificationWebSocket.sendMessageToUser(userId, notification);
+        if (userId != null) {
+            List<Notification> notifications = dbNotification.findLast7NotifcationsByUserId(Integer.parseInt(userId));
+            System.out.println("Send message");
+            for (Notification notification : notifications) {
+                NotificationWebSocket.sendMessageToUser(userId, notification);
+            }
+        }else{
+            System.out.println(userId);
         }
     }
 

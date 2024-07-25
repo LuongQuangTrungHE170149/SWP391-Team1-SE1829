@@ -47,6 +47,7 @@ public class ConfirmOTPController extends HttpServlet {
                 resp.sendRedirect("changePassword");
             } else if ("register".equals(op)) {
                 System.out.println(udb.insert(u));
+                System.out.println(u);
                 User userRegis = udb.findByUsername(u.getUsername());
                 Notification model = new Notification();
                 model.setTitle("Chào mừng tới");

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Tin tức</title>
         <!--summer note--> 
@@ -338,138 +338,138 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="content" class="col-sm-2 col-form-label">Nội dung
-                                            <textarea class="form-control" id="content" rows="3" required=""></textarea>
-                                        </div>
+                                        <label for="content" class="col-sm-2 col-form-label">Nội dung</label>
+                                        <textarea class="form-control" id="content" rows="3" required=""></textarea>
                                     </div>
-                                    <div class="row mb-3 align-items-center">
-                                        <div  class="col-sm-2">Bài nổi bật:</div>
-                                        <div class="col-sm-10 d-flex">
-                                            <div class="form-check me-2">
-                                                <input class="form-check-input" type="radio" id="true"  name="isHeader" value="true">
-                                                <label class="form-check-label" for="true">true</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" id="false"  name="isHeader" value="false" checked>
-                                                <label class="form-check-label" for="false">false</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <hr>
-                                        <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init><i class="fa-solid fa-plus me-2"></i>Thêm</button>
-                                        <button type="button" class="btn btn-secondary btn-block" data-mdb-ripple-init data-mdb-dismiss="modal">Đóng</button>
-                                    </div>
-                                </form>
                             </div>
+                            <div class="row mb-3 align-items-center">
+                                <div  class="col-sm-2">Bài nổi bật:</div>
+                                <div class="col-sm-10 d-flex">
+                                    <div class="form-check me-2">
+                                        <input class="form-check-input" type="radio" id="true"  name="isHeader" value="true">
+                                        <label class="form-check-label" for="true">true</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="false"  name="isHeader" value="false" checked>
+                                        <label class="form-check-label" for="false">false</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <hr>
+                                <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init><i class="fa-solid fa-plus me-2"></i>Thêm</button>
+                                <button type="button" class="btn btn-secondary btn-block" data-mdb-ripple-init data-mdb-dismiss="modal">Đóng</button>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end new modal-->
         </div>
+        <!--end new modal-->
+    </div>
 
-        <!--summernote-->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-        <script>
-                                                $('#content').summernote({
-                                                    placeholder: 'Write your content here!',
-                                                    tabsize: 2,
-                                                    height: 200
-                                                });
-        </script>
-        <script>
-            function confirmDeletion(id) {
-                var searchValue = document.getElementById('searchValue').value;
-                //                var  = encodeURIComponent(searchValueEncode);
-                var selectedStaff = document.getElementById('selectedStaff').value;
-                var page = 1;
-                var pageParam = document.getElementById('page').value;
-                if (pageParam && !isNaN(pageParam)) {
-                    page = parseInt(pageParam);
-                }
-                if (confirm('Bạn có chắc chắn muốn xóa news với id = ' + id + '?')) {
-                    window.location.href = 'deleteNews?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
-                }
+    <!--summernote-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+                                            $('#content').summernote({
+                                                placeholder: 'Write your content here!',
+                                                tabsize: 2,
+                                                height: 200
+                                            });
+    </script>
+    <script>
+        function confirmDeletion(id) {
+            var searchValue = document.getElementById('searchValue').value;
+            //                var  = encodeURIComponent(searchValueEncode);
+            var selectedStaff = document.getElementById('selectedStaff').value;
+            var page = 1;
+            var pageParam = document.getElementById('page').value;
+            if (pageParam && !isNaN(pageParam)) {
+                page = parseInt(pageParam);
             }
-            $(document).ready(function () {
-                //add news function
-                $('#addNewsForm').on('submit', function (e) {
-                    e.preventDefault();
-                    const formData = new FormData();
-                    formData.append("title", $("#title").val());
-                    formData.append("description", $("#description").val());
-                    formData.append("content", $("#content").val());
-                    formData.append("type", $("#type").val());
-                    const isHeader = $("input[name=isHeader]:checked").val();
-                    console.log(isHeader);
-                    formData.append("isHeader", isHeader);
+            if (confirm('Bạn có chắc chắn muốn xóa news với id = ' + id + '?')) {
+                window.location.href = 'deleteNews?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
+            }
+        }
+        $(document).ready(function () {
+            //add news function
+            $('#addNewsForm').on('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData();
+                formData.append("title", $("#title").val());
+                formData.append("description", $("#description").val());
+                formData.append("content", $("#content").val());
+                formData.append("type", $("#type").val());
+                const isHeader = $("input[name=isHeader]:checked").val();
+                console.log(isHeader);
+                formData.append("isHeader", isHeader);
 
-                    let imgFile = $("#image")[0].files[0];
-                    formData.append("image", imgFile);
+                let imgFile = $("#image")[0].files[0];
+                formData.append("image", imgFile);
 
-                    // AJAX request to send the reply to the servlet
-                    $.ajax({
-                        url: 'addNews',
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            alert('Add thành công!');
-                            location.reload();
-                        },
-                        error: function (err) {
-                            console.log(err);
-                            // Show error toast
-                            alert('Add failed, try again!');
-                        }
-                    });
+                // AJAX request to send the reply to the servlet
+                $.ajax({
+                    url: 'addNews',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert('Add thành công!');
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        // Show error toast
+                        alert('Add failed, try again!');
+                    }
                 });
-
-                $('.btn-detailNews').on('click', function (e) {
-                    e.preventDefault();
-                    let newsId = $(this).data('id');
-                    $.ajax({
-                        url: 'newsManagerDetail',
-                        type: 'GET',
-                        data: {id: newsId},
-                        success: function (data) {
-                            $('#id_detail').html(data.id);
-                            $('#staff_detail').html(data.staff.username);
-                            $('#title_detail').html(data.title);
-                            //handle date
-                            var createDate = new Date(data.createDate);
-                            var day = String(createDate.getDate()).padStart(2, '0');
-                            var month = String(createDate.getMonth() + 1).padStart(2, '0');
-                            var year = createDate.getFullYear();
-                            var formattedDate = day + '/' + month + '/' + year;
-                            $('#createDate_detail').html(formattedDate);
-                            $('#type_detail').html(data.type);
-                            $('#description_detail').html(data.description);
-                            $('#content_detail').html(data.content);
-                            $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
-                            $('#detailNewsModal').modal('show');
-                        },
-                        error: function (err) {
-                            console.log(err);
-                            // Show error toast
-                            alert('Add failed, try again!');
-                        }
-                    });
-                });
-                $('.btn-update').on('click', function () {
-                    var id = $('#id_detail').html();
-                    window.location.href = 'updateNews?id=' + id;
-                });
-
-
             });
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- MDB -->
-        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
-    </body>
+
+            $('.btn-detailNews').on('click', function (e) {
+                e.preventDefault();
+                let newsId = $(this).data('id');
+                $.ajax({
+                    url: 'newsManagerDetail',
+                    type: 'GET',
+                    data: {id: newsId},
+                    success: function (data) {
+                        $('#id_detail').html(data.id);
+                        $('#staff_detail').html(data.staff.username);
+                        $('#title_detail').html(data.title);
+                        //handle date
+                        var createDate = new Date(data.createDate);
+                        var day = String(createDate.getDate()).padStart(2, '0');
+                        var month = String(createDate.getMonth() + 1).padStart(2, '0');
+                        var year = createDate.getFullYear();
+                        var formattedDate = day + '/' + month + '/' + year;
+                        $('#createDate_detail').html(formattedDate);
+                        $('#type_detail').html(data.type);
+                        $('#description_detail').html(data.description);
+                        $('#content_detail').html(data.content);
+                        $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
+                        $('#detailNewsModal').modal('show');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        // Show error toast
+                        alert('Add failed, try again!');
+                    }
+                });
+            });
+            $('.btn-update').on('click', function () {
+                var id = $('#id_detail').html();
+                window.location.href = 'updateNews?id=' + id;
+            });
+
+
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- MDB -->
+    <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+</body>
 </html>

@@ -67,7 +67,8 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div data-mdb-input-init class="form-outline mb-4">
-                                                        <input type="date" name="dob" id="input2" value="${dob}" class="form-control" required="">
+                                                        <p class="m-0 text-danger">${invalidDob}</p>
+                                                        <input type="date" name="dob" id="input2" value="${dob}" class="form-control" required="" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
                                                         <label for="input2" class="form-label">Sinh nhật</label>
                                                     </div>
                                                 </div>

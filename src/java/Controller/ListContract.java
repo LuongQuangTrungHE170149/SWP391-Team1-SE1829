@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Contract;
+import Model.User;
 import dal.ContractDAO;
 import dto.Contractdto;
 import java.io.IOException;
@@ -64,13 +65,26 @@ public class ListContract extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Contract> cdtos = null;
-        ContractDAO cd = new ContractDAO();
-        
-        
-        cdtos = cd.getAll();
-        request.setAttribute("listAll", cdtos);
-        request.getRequestDispatcher("listContract.jsp").forward(request, response);
+        final String loginFirst = "Bạn cần phải đăng nhập trước!";
+        final String error = "Bạn không có quyền truy cập trang web này!";
+        User u = (User) request.getSession().getAttribute("user");
+        if (u == null) {
+            request.setAttribute("loginFirst", loginFirst);
+            request.getRequestDispatcher("error").forward(request, response);
+        } else {
+            if (u.getRole().equalsIgnoreCase("user") || u.getRole().equalsIgnoreCase("manager")) {
+                request.setAttribute("error", error);
+                request.getRequestDispatcher("error").forward(request, response);
+            } //manager true =>>
+            else {
+                List<Contract> cdtos = null;
+                ContractDAO cd = new ContractDAO();
+
+                cdtos = cd.getAll();
+                request.setAttribute("listAll", cdtos);
+                request.getRequestDispatcher("listContract.jsp").forward(request, response);
+            }
+        }
     }
 
     /**

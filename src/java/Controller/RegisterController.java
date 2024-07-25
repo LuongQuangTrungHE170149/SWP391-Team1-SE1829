@@ -44,43 +44,50 @@ public class RegisterController extends HttpServlet {
             String confirmPassword = req.getParameter("confirmPassword");
             String phone = req.getParameter("phone");
             String address = req.getParameter("address");
-            Date dobValue = Date.valueOf(dob);
-            if (!udb.checkEmailExist(email)) {
-                if (!udb.checkUsernameExist(username)) {
-                    if (password.equals(confirmPassword)) {
-                        if (!udb.checkPhoneExist(phone)) {
-                            User user = new User();
-                            user.setUsername(username);
-                            user.setFirstName(firstName);
-                            user.setLastName(lastName);
-                            user.setPassword(password);
-                            user.setRole(Role.USER.getValue());
-                            user.setGender(gender);
-                            user.setEmail(email);
-                            user.setPhone(phone);
-                            user.setDob(dobValue);
-                            user.setAddress(address);
-                            req.getSession().setAttribute("userRegister", user);
-                            req.getSession().setAttribute("op", "register");
+            System.out.println(dob);
+            if (!dob.contains(".*[A-Z].*") && dob.length() <= 8) {
+                if (!udb.checkEmailExist(email)) {
+                    if (!udb.checkUsernameExist(username)) {
+                        if (password.equals(confirmPassword)) {
+                            if (!udb.checkPhoneExist(phone)) {
+                                User user = new User();
+                                user.setUsername(username);
+                                user.setFirstName(firstName);
+                                user.setLastName(lastName);
+                                user.setPassword(password);
+                                user.setRole(Role.USER.getValue());
+                                user.setGender(gender);
+                                user.setEmail(email);
+                                user.setPhone(phone);
+                                Date dobValue = Date.valueOf(dob);
+                                user.setDob(dobValue);
+                                user.setAddress(address);
+                                req.getSession().setAttribute("userRegister", user);
+                                req.getSession().setAttribute("op", "register");
 
-                            String OTPCode = EmailHelper.generateOTP();
-                            String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
-                            req.getSession().setAttribute("OTP", OTPCode);
-                            EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
-                            resp.sendRedirect("confirmOTP");
+                                String OTPCode = EmailHelper.generateOTP();
+                                String bodyEmailOTP = "Your register veriftication code is: " + OTPCode;
+                                req.getSession().setAttribute("OTP", OTPCode);
+                                EmailHelper.sendEmail(user.getEmail(), EmailHelper.TITLE_PROJECT, bodyEmailOTP);
+                                resp.sendRedirect("confirmOTP");
 
+                            } else {
+                                req.setAttribute("invalidPhone", "Số điện thoại đã tồn tại!");
+                            }
                         } else {
-                            req.setAttribute("invalidPhone", "Số điện thoại đã tồn tại!");
+                            req.setAttribute("invalidConfirmPassword", "Mật khẩu và Xác nhận mật khẩu không khớp!");
                         }
                     } else {
-                        req.setAttribute("invalidConfirmPassword", "Mật khẩu và Xác nhận mật khẩu không khớp!");
+                        req.setAttribute("invalidUsername", "Tên người dùng đã tồn tại!");
                     }
                 } else {
-                    req.setAttribute("invalidUsername", "Tên người dùng đã tồn tại!");
+                    req.setAttribute("invalidEmail", "Email đã tồn tại");
                 }
             } else {
-                req.setAttribute("invalidEmail", "Email đã tồn tại");
+                System.out.println("wrong date");
+                req.setAttribute("invalidDob", "Ngày sai");
             }
+
             req.setAttribute("firstName", firstName);
             req.setAttribute("lastName", lastName);
             req.setAttribute("dob", dob);

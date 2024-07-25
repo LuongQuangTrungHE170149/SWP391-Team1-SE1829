@@ -220,6 +220,14 @@
         <servlet-name>ListContractForManager</servlet-name>
         <servlet-class>Controller.ListContractForManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListStaffServlet</servlet-name>
+        <servlet-class>Controller.ListStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddStaffServlet</servlet-name>
+        <servlet-class>Controller.AddStaffServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -439,6 +447,14 @@
     <servlet-mapping>
         <servlet-name>ListContractForManager</servlet-name>
         <url-pattern>/listContractForManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListStaffServlet</servlet-name>
+        <url-pattern>/listStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddStaffServlet</servlet-name>
+        <url-pattern>/addStaff</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

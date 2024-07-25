@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.Notification;
+import Model.Promotion;
 import Model.User;
 import dal.NotificationDAO;
 import dal.PromotionDAO;
@@ -114,11 +115,12 @@ public class AddPromotionServlet extends HttpServlet {
             
             NotificationDAO dbNotify = new NotificationDAO();
             UserDAO dbUser = new UserDAO();
+            Promotion promotion = pdb.getLastPromitionById();
             List<User> users = dbUser.getAllUserByRole("User");
             Notification notification = new Notification();
             notification.setTitle("Phiếu giảm giá mới");
-            notification.setIsClick(true);
-            notification.setLink("promotion");
+            notification.setIsClick(false);
+            notification.setLink("promotionDetail?id="+promotion.getId());
             for (User user : users) {
                 notification.setUserId(user);
                 dbNotify.insert(notification);

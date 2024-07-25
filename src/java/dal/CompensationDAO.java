@@ -117,7 +117,7 @@ public class CompensationDAO extends DBContext{
 
     public List<Compensation> getCompensationsNotPending() {
         List<Compensation> list = new ArrayList<>();
-        String sql = "select * from Compensations where ClaimStatus != 'pending'";
+        String sql = "select * from Compensations where ClaimStatus != 'pending' order by CompensationId DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

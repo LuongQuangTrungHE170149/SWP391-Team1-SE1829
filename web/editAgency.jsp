@@ -41,7 +41,7 @@
                 <div class="container edit-agency--wrapper">
                     <div class="row">
                         <div class="col-md-3"></div>
-                        <div class="col-md-6 edit-form-wrapper">
+                        <div style="padding-top: 50px;" class="col-md-6 edit-form-wrapper">
                             <div class="add-form__header">
                                 <h4 class="add-form__title">Sửa thông tin đại lý</h4>
                                 <a href="listAgency" class="back-btn"> 
@@ -49,7 +49,7 @@
                                     Quay lại
                                 </a>
                             </div>
-                            <div class="form-wrapper">
+                            <div  class="form-wrapper">
                                 <c:set var="agency" value="${agency}" />
                                 <form class="add-form-agency" action="editAgency" method="post">
                                     <div style="margin-bottom: 30px">

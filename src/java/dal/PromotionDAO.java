@@ -551,6 +551,47 @@ public class PromotionDAO extends DBContext {
         }
         return list;
     }
+    
+     public Promotion getLastPromitionById() {
+        String sql = "SELECT TOP 1 [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[timeStart]\n"
+                + "      ,[timeEnd]\n"
+                + "      ,[content]\n"
+                + "      ,[isHeader]\n"
+                + "      ,[image]\n"
+                + "      ,[staff]\n"
+                + "      ,[createDate]\n"
+                + "  FROM [dbo].[Promotion] order by id DESC";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setDescription(rs.getString("description"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setTimeStart(rs.getDate("timeStart"));
+                p.setTimeEnd(rs.getDate("timeEnd"));
+                p.setIsHeader(rs.getBoolean("isHeader"));
+                p.setImage(rs.getString("image"));
+
+                UserDAO udb = new UserDAO();
+                User u = udb.getUserById(rs.getInt("staff"));
+                p.setStaff(u);
+
+                p.setCreateDate(rs.getDate("createDate"));
+
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         PromotionDAO pdb = new PromotionDAO();

@@ -226,6 +226,13 @@
                             </div>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="listStaff" class="btn btn-light btn-custom d-flex justify-content-between" data-mdb-ripple-init id="btnContract">
+                            <div>
+                              <i class="fa-solid fa-user-tie me-2"></i>Danh sách nhân viên
+                            </div>
+                        </a>
+                    </li>
                 </ul>
                 <hr class="mt-0 bg-light" style="height: 2px;
                     border: none;">
@@ -283,9 +290,9 @@
             document.getElementById("btnContract").classList.add("activeDash");
         } else if (currentLocation.includes("newsManager")) {
             document.getElementById("btnNews").classList.add("activeDash");
-        }else if (currentLocation.includes("customerForStaff")) {
+        } else if (currentLocation.includes("customerForStaff")) {
             document.getElementById("btnCustomer").classList.add("activeDash");
-        }else if (currentLocation.includes("ListContract")) {
+        } else if (currentLocation.includes("ListContract")) {
             document.getElementById("btnContract").classList.add("activeDash");
         }
         if (currentLocation.includes("compensationApprove")) {

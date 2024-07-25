@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .wrraper {
     width: 100%;
     padding-top: 50px;
-    height: 100vh;
+    min-height: 100vh;
 
 }
 
@@ -391,14 +391,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /*Edit Agency*/
 .edit-agency--wrapper {
     width: 100%;
-    height: 100vh;
-    padding-top: 50px
+    min-height: 100vh;
 }
 
 .edit-form-wrapper {
     min-height: 696px;
     border-radius: 14px;
-    background-color: #fff;
+    background-color: #fff; 
 }
 
 /*Filter btn*/

@@ -14,6 +14,10 @@
 <!-- MDB -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"rel="stylesheet"/>
 
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
 <body>
     <style>
         body {
@@ -61,6 +65,35 @@
         }
         .notification-item:last-child {
             border-bottom: none;
+        }
+
+        .notify-list {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: 100%; /* This makes sure the list doesn't overflow outside the container */
+            scrollbar-width: thin; /* Firefox */
+        }
+
+        .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .notification-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .notification-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .notification-list::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        .notification-list::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 
@@ -114,9 +147,6 @@
                                 <a class="nav-link" style="color:white;" href="news">Tin tức</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" style="color:white;" href="#">Liên Hệ</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" style="color:white;" href="searchContract">Tra cứu hợp đồng</a>
                             </li>
                         </ul>
@@ -129,10 +159,10 @@
                                         Chào, ${sessionScope.user.getFullName()}
                                     </c:if>
                                 </span>
-                                <!-- Notification Bell -->
-                                <div class="notification-bell" onclick="toggleNotifications()">
+<!--                                 Notification Bell 
+-->                                <div class="notification-bell" onclick="toggleNotifications(event)">
                                     <i class="fa-solid fa-bell" style="color:#fff"></i>
-                                    <span class="notification-count" id="notificationCount">3</span>
+                                    <span class="notification-count" id="notificationCount">0</span>
                                     <div class="notification-list" id="notificationList">
 
                                     </div>
@@ -202,7 +232,7 @@
                                 </c:if>
                             </span>
                             <!-- Notification Bell -->
-                            <div class="notification-bell" onclick="toggleNotifications()">
+                            <div class="notification-bell" onclick="toggleNotifications(event)">
                                 <i class="fa-solid fa-bell" style="color:#fff"></i>
                                 <span class="notification-count" id="notificationCount">#</span>
                                 <div class="notification-list" id="notificationList">
@@ -238,9 +268,18 @@
 </nav>
 </body>
 <script>
-    function toggleNotifications() {
+    var isToggle = false;
+    function toggleNotifications(event) {
         const notificationList = document.getElementById('notificationList');
         notificationList.style.display = notificationList.style.display === 'none' || notificationList.style.display === '' ? 'block' : 'none';
+        var displayCount = document.getElementById('notificationCount');
+        displayCount.innerHTML = 0;
+        isToggle = !isToggle;
+        if (isToggle) {
+            $.get("clickNotification", function (data, status) {
+                console.log("ok");
+            });
+        }
     }
 
     window.onclick = function (event) {
@@ -265,13 +304,17 @@
         console.log(notification);
         var listNotify = document.getElementById('notificationList');
         let contentNotify = "";
-        if(notification.isClick){
-            contentNotify = `<div class="notification-item"><a href=\"`+ notification.link +`\">`+notification.title+`</a></div>`;
-        }else {
-            contentNotify = `<div class="notification-item">`+notification.title+`</div>`;
+
+        if (notification.link && notification.link.length > 0) {
+            contentNotify = `<div class="notification-item"><a ` + ((notification.isClick == false) ? `class=\"fw-bold\"` : ``) + ` href=\"` + notification.link + `\">` + notification.title + `</a></div>`;
+        } else {
+            contentNotify = `<div class="notification-item"><p ` + ((notification.isClick == false) ? `class=\"fw-bold\"` : ``) + `>` + notification.title + `</p></div>`;
+            console.log(contentNotify);
         }
-        listNotify.innerHTML += contentNotify;
-        countNotify++;
+        listNotify.innerHTML = contentNotify + listNotify.innerHTML;
+        if(notification.isClick == false){
+            countNotify++;
+        };
         var displayCount = document.getElementById('notificationCount');
         displayCount.innerHTML = countNotify;
     };

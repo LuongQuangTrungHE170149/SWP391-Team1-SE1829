@@ -107,13 +107,22 @@ public class SubmitContractServlet extends HttpServlet {
                     note = "Chúng tôi đã tạo cho bạn một tài khoản. Hãy sử dụng tài khoản này để đăng nhập và xem thông tin chi tiết hợp đồng! <br>"
                             + "<h3>Tài khoản: <b>" + email + "</b></h3>"
                             + "<h3>Mật khẩu mặc định: <b>" + phoneNumber + "</b></h3>";
-            }
-                else {
+                } else {
                     user = existingUser;
                     user.setId(user.getId());
+                    user.setRole("Customer");
                     c.setDescription("khách hàng đã có tài khoản mua bảo hiểm");
                     note = "Hệ thống kiểm tra bạn đã có tài khoản. "
                             + "Vui lòng dùng tài khoản của bạn để đăng nhập xem thông tin chi tiết hợp đồng!";
+
+                    //TODO: Update sucess
+                    Notification notification = new Notification();
+                    notification.setTitle("Success contract");
+                    notification.setUserId(user);
+                    notification.setIsClick(false);
+                    int contractId = 0;
+                    notification.setLink("/contract?id=" + contractId);
+                    NotificationWebSocket.sendMessageToUser(user.getId() + "", notification);
 
                     // Kiểm tra vai trò của người dùng trước khi cập nhật
                     if (!"staff".equalsIgnoreCase(user.getRole())) {
@@ -150,19 +159,18 @@ public class SubmitContractServlet extends HttpServlet {
             request.getSession().removeAttribute("chassisNumber");
             request.getSession().removeAttribute("engineNumber");
             response.sendRedirect("requestContractSuccess.jsp");
-        
-         NotificationDAO dbNotify = new NotificationDAO();
+
+            NotificationDAO dbNotify = new NotificationDAO();
             UserDAO dbUser = new UserDAO();
-            List<User> users = dbUser.getAllUserByRole("User");
+            List<User> users = dbUser.getAllUserByRole("Customer");
             Notification notification = new Notification();
             notification.setTitle("Bạn có 1 hợp đồng mới");
             notification.setIsClick(true);
             notification.setLink("manageContractCustomer");
             notification.setUserId(user);
             dbNotify.insert(notification);
-            NotificationWebSocket.sendMessageToUser(user.getId()+"", notification);
-            }
-        catch (Exception e) {
+            NotificationWebSocket.sendMessageToUser(user.getId() + "", notification);
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
