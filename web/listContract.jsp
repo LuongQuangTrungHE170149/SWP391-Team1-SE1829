@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="images/icon_motor_color_419fa3.png" type="image/x-icon">
         <meta charset="UTF-8">
         <title>Danh sách hợp đồng</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <style>
             table td{
                 padding:8px 12px !important;
@@ -43,17 +43,26 @@
             </div>
             <a href="AddContractForm" class="btn btn-info btn-sm ms-3 mt-4 mb-4" data-mdb-ripple-init>Tạo hợp đồng</a>
             <!-- Form tìm kiếm -->
-            <form action="ListContract" method="get" class="mb-3 d-flex justify-content-end">
-                <input type="text" name="search" placeholder="Tìm kiếm theo mã hợp đồng hoặc người yêu cầu" value="${param.search}" />
-                <select name="status" class="mx-2">
-                    <option value="">Tất cả trạng thái</option>
-                    <option value="Pending" ${param.status == 'Pending' ? 'selected' : ''}>Chờ duyệt</option>
-                    <option value="Rejected" ${param.status == 'Rejected' ? 'selected' : ''}>Từ chối</option>
-                    <option value="Approved" ${param.status == 'Approved' ? 'selected' : ''}>Đã duyệt</option>
-                    <option value="Expired" ${param.status == 'Expired' ? 'selected' : ''}>Hết hạn</option>
-                </select>
-                <button type="submit" class="btn btn-info btn-sm">Tìm kiếm</button>
-            </form>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a href="checkEmailPhone.jsp" class="btn btn-info btn-sm ms-3" data-mdb-ripple-init>Tạo hợp đồng</a>
+                </div>
+                <div>
+                    <form action="ListContract" method="get" class="mb-3 d-flex justify-content-center">
+                        <input type="text" name="search" placeholder="Tìm kiếm theo mã hợp đồng hoặc người yêu cầu" value="${param.search}" />
+                        <select name="status" class="mx-2">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="Pending" ${param.status == 'Pending' ? 'selected' : ''}>Chờ duyệt</option>
+                            <option value="Rejected" ${param.status == 'Rejected' ? 'selected' : ''}>Từ chối</option>
+                            <option value="Approved" ${param.status == 'Approved' ? 'selected' : ''}>Đã duyệt</option>
+                            <option value="Expired" ${param.status == 'Expired' ? 'selected' : ''}>Hết hạn</option>
+                        </select>
+                        <button type="submit" class="btn btn-info btn-sm">Tìm kiếm</button>
+                    </form>
+                </div>
+
+                <div></div>
+            </div>
 
             <table class="table table-hover">
                 <thead>
