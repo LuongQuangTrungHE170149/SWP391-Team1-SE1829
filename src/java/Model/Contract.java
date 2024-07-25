@@ -139,5 +139,10 @@ public class Contract {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Contract{" + "contractId=" + contractId + ", customer=" + customer + ", staff=" + staff + ", vehicle=" + vehicle + ", startDate=" + startDate + ", endDate=" + endDate + ", isAccidentInsurance=" + isAccidentInsurance + ", description=" + description + ", code=" + code + ", payment=" + payment + ", createDate=" + createDate + ", status=" + status + '}';
+    }
+
     
 }

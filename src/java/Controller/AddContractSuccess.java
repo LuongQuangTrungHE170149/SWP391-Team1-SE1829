@@ -121,6 +121,7 @@ public class AddContractSuccess extends HttpServlet {
         ContractDAO contractDAO = new ContractDAO();
         UserDAO userDAO = new UserDAO();
         Contract contract = new Contract();
+        contract.setVehicle(newVehicle);
         String contractCode = GenerateContractCode.generateContractCode();
         contract.setCode(contractCode);
         contract.setStartDate(startDate);
@@ -136,9 +137,12 @@ public class AddContractSuccess extends HttpServlet {
         
         contract.setCustomer(customer);
         contractDAO.addContract(contract);
+        
+//        request.setAttribute("contract", contract);
+//        request.getRequestDispatcher("checkError.jsp").forward(request, response);
         note = "Hãy nhớ đăng nhập để xem chi tiết hợp đồng của bạn nhé!";
         EmailHelper.sendEmailRequestContractSuccess(customer.getEmail(), "[ĐĂNG KÝ] YÊU CẦU HỢP ĐỒNG BẢO HIỂM XE MÁY THÀNH CÔNG", (vehicleOwnerFirstName + " " + vehicleOwnerLastName).toUpperCase(), contractCode, note);
-        request.getRequestDispatcher("/ListContract").forward(request, response);    
+        response.sendRedirect("ListContract");
     }
 
     /**

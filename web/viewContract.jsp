@@ -87,31 +87,30 @@
             text-align: center;
         }
 
-        .btn-edit {
+        .btn-edit, .btn-back {
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 14px; /* Giảm kích thước chữ */
-            padding: 8px 15px; /* Giảm padding */
+            font-size: 14px;
+            padding: 8px 15px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            margin-left: 10px; /* Khoảng cách giữa nút và trạng thái */
+            margin-left: 10px;
         }
 
-        .btn-edit:hover {
+        .btn-edit:hover, .btn-back:hover {
             background-color: #0056b3;
             transform: translateY(-3px);
         }
 
         select {
-            padding: 10px;
+            padding: 8px;
             border-radius: 5px;
             border: 1px solid #ced4da;
-            font-size: 16px;
-            margin-right: 10px;
+            font-size: 14px;
         }
 
         .half-width {
@@ -146,9 +145,9 @@
                 font-size: 16px;
             }
 
-            .btn-edit {
-                font-size: 10px;
-                padding: 5px 20px;
+            .btn-edit, .btn-back {
+                font-size: 16px;
+                padding: 10px 20px;
             }
 
             .half-width {
@@ -175,8 +174,8 @@
                 <p class="half-width"><strong>Số máy:</strong> ${contract.vehicle.engine}</p>
             </div>
             <div class="info-item">
-                <p class="half-width"><strong>Ngày bắt đầu:</strong> <fmt:formatDate value="${contract.startDate}" pattern="dd/MM/yyyy"/></p>
-                <p class="half-width"><strong>Ngày kết thúc:</strong> <fmt:formatDate value="${contract.endDate}" pattern="dd/MM/yyyy"/></p>
+                <p class="half-width"><strong>Ngày bắt đầu:</strong> ${contract.startDate}</p>
+                <p class="half-width"><strong>Ngày kết thúc:</strong> ${contract.endDate}</p>
             </div>
             <div class="info-item align-center">
                 <p><strong>Trạng thái:</strong> <span class="badge ${contract.status == 'Pending'?'badge-warning':''}${contract.status == 'Rejected'?'badge-danger':''}${contract.status == 'Approved'?'badge-success':''}">${contract.status == 'Pending'?'Chờ duyệt':''}${contract.status == 'Rejected'?'Từ chối':''}${contract.status == 'Approved'?'Đã duyệt':''}</span></p>
@@ -190,6 +189,9 @@
                     <button type="submit" class="btn-edit">Sửa trạng thái</button>
                 </form>
             </div>
+        </div>
+        <div class="btn-container">
+            <a href="ListContract" class="btn-back">Trở lại danh sách hợp đồng</a>
         </div>
     </div>
     <script>
