@@ -41,7 +41,7 @@
             <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
                 <div class="fs-3 fw-bold text-info">Danh sách hợp đồng</div>
             </div>
-            
+            <a href="AddContractForm" class="btn btn-info btn-sm ms-3 mt-4 mb-4" data-mdb-ripple-init>Tạo hợp đồng</a>
             <!-- Form tìm kiếm -->
             <form action="ListContract" method="get" class="mb-3 d-flex justify-content-end">
                 <input type="text" name="search" placeholder="Tìm kiếm theo mã hợp đồng hoặc người yêu cầu" value="${param.search}" />

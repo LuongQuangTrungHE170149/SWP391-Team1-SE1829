@@ -55,9 +55,7 @@ public class AddVehicleForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int customerId = Integer.parseInt(request.getParameter("customerId"));
-        request.setAttribute("customerId", customerId);
-        request.getRequestDispatcher("addVehicle.jsp").forward(request, response);
+        
         
     } 
 
@@ -71,7 +69,9 @@ public class AddVehicleForm extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String customerId = request.getParameter("customerId");
+        request.setAttribute("customerId", customerId);
+        request.getRequestDispatcher("addVehicle.jsp").forward(request, response);
     }
 
     /** 

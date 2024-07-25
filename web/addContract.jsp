@@ -193,7 +193,7 @@
                 <div class="form-group">
                     <label for="status" class="label">Trạng thái</label>
                     <select id="status" name="status" required>
-                        <option value="pending">Chờ duyệt</option>
+                        <option value="Pending">Chờ duyệt</option>
                         <option value="Approved">Đang hiệu lực</option>
                     </select>
                 </div>
