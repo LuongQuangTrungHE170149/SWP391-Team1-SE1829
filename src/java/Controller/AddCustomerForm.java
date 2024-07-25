@@ -68,7 +68,7 @@ public class AddCustomerForm extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        request.getRequestDispatcher("addCustomerInfo.jsp").forward(request, response);
     }
 
     /** 
