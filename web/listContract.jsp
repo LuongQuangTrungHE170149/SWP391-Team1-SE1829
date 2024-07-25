@@ -18,6 +18,17 @@
                 padding: 3px 10px;
                 font-size: 10px!important;
             }
+            .search-form {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+
+            .search-form input,
+            .search-form select {
+                margin-right: 0.5rem;
+            }
         </style>
     </head>
     <body>
@@ -28,9 +39,9 @@
             </div>
 
             <!-- Form tìm kiếm -->
-            <form action="ListContract" method="get" class="mb-3">
+            <form action="ListContract" method="get" class="mb-3 d-flex justify-content-end">
                 <input type="text" name="search" placeholder="Tìm kiếm theo mã hợp đồng hoặc người yêu cầu" value="${param.search}" />
-                <select name="status">
+                <select name="status" class="mx-2">
                     <option value="">Tất cả trạng thái</option>
                     <option value="Pending" ${param.status == 'Pending' ? 'selected' : ''}>Chờ duyệt</option>
                     <option value="Rejected" ${param.status == 'Rejected' ? 'selected' : ''}>Từ chối</option>
@@ -79,16 +90,7 @@
                 </tbody>
             </table>
 
-            <!-- Phân trang -->
-            <nav>
-                <ul class="pagination">
-                    <c:forEach begin="1" end="${noOfPages}" var="i">
-                        <li class="page-item ${i == currentPage ? 'active' : ''}">
-                            <a class="page-link" href="ListContract?page=${i}&search=${param.search}&status=${param.status}">${i}</a>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </nav>
+
         </div>
 
 
