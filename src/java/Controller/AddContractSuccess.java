@@ -132,7 +132,7 @@ public class AddContractSuccess extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         contract.setStaff(user);
-        User customer = userDAO.getUserById(Integer.valueOf(customerId));
+        User customer = userDAO.getUserById(Integer.parseInt(customerId));
         
         contract.setCustomer(customer);
         contractDAO.addContract(contract);
