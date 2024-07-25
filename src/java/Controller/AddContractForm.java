@@ -66,26 +66,7 @@ public class AddContractForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int customerId = Integer.parseInt(request.getParameter("customerId"));
-        int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
-        VehicleDAO vd = new VehicleDAO();
-
-        try {
-            UserDAO userDao = new UserDAO();
-
-            String customerName = userDao.getCustomerName(customerId);
-            Vehicle vehicle = vd.getVehicleById(vehicleId);
-            request.setAttribute("customerId", customerId);
-            request.setAttribute("customerName", customerName);
-            request.setAttribute("vehicleId", vehicleId);
-            request.setAttribute("model", vehicle.getMotocycleType());
-            request.setAttribute("chassis", vehicle.getChassis());
-            request.setAttribute("engine", vehicle.getEngine());
-            request.setAttribute("licensePlates", vehicle.getLicensePlates());
-            request.getRequestDispatcher("addContract.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddContractForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        request.getRequestDispatcher("checkEmailPhone.jsp").forward(request, response);
 
     }
 

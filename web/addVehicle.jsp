@@ -1,13 +1,17 @@
-<%-- 
-    Document   : addVehicle
-    Created on : 30 thg 5, 2024, 13:13:39
-    Author     : QUANG TRUNG
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>addVehicle</title>
+    <style>
+        /* Các kiểu CSS của bạn ở đây */
+        /* ... */
+    </style>
+   
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Điền thông tin phương tiện</title>
@@ -30,6 +34,7 @@
                 <div class="fs-3 fw-bold text-info">Tạo hợp đồng</div>
             </div>
             <div class="m-auto" style="width: 700px; margin-top: 10% !important;">
+
                 <div class="card">
                     <div class="card-body">
                         <form action="AddVehicleSuccess" method="post" onsubmit="return saveVehicleInfo()">    
@@ -133,4 +138,5 @@
                             }
         </script>
     </body>
+
 </html>
