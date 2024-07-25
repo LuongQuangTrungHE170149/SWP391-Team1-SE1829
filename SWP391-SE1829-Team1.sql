@@ -1,6 +1,8 @@
 create database SWP391_SE1829_Team1;
 use SWP391_SE1829_Team1
 go
+
+select * from Users
 Create table Users(
 			id int identity(1,1) not null primary key,
 			username nvarchar(255) not null unique,
@@ -53,6 +55,7 @@ create table Vehicles(
 			Chassis nvarchar(255),
 			Engine nvarchar(255),
 )
+
 
 create table Contracts(                                        /*bao hiem xe may cua Duong???*/
 			ContractId int identity(1,1) primary key,
@@ -181,6 +184,12 @@ INSERT INTO Compensations (ContractId, CustomerId, AccidentId, EstimatedRepairCo
 VALUES (1, 1, 1, 5000.00, N'pending', '2023-06-16', NULL, NULL, NULL, N'Đang chờ xử lý từ phía bảo hiểm');
 
 
+INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
+VALUES ('duc', '123', 'Trần Minh', 'Đức', 'manager', 1, 'minhduc@gmail.com', '01234567890', '1985-06-15', 'Thanh Xuân - Hà Nội')
+
+
+INSERT INTO Users (username, password, firstName, lastName, [role], gender, email, phoneNumber, dob, [address])
+VALUES ('minh', '123', 'Minh', 'Đức', 'staff', 1, 'minhduc1@gmail.com', '0123457890', '1985-06-15', 'Thanh Xuân - Hà Nội')
 
 
 

@@ -18,7 +18,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .wrraper {
     width: 100%;
-    padding-top: 50px
+    padding-top: 50px;
+    height: 100vh;
 
 }
 
