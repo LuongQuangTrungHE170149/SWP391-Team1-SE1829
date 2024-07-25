@@ -425,7 +425,6 @@ public class ContractDAO extends DBContext {
         }
         return null;
     }
-    
 
     public void updateContract(int contractId, Date startDate, Date endDate, String description, String status, Double payment) {
 
@@ -452,6 +451,18 @@ public class ContractDAO extends DBContext {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean updateContractStatus(int contractId, String newStatus) throws SQLException {
+        // Cập nhật trạng thái hợp đồng trong database
+        String query = "UPDATE contracts SET status = ? WHERE contractId = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, newStatus);
+            preparedStatement.setInt(2, contractId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
         }
     }
 

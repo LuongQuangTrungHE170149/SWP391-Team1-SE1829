@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <title>View Contract</title>
-        
+
         <style>
             .container {
                 width: 80%;
@@ -124,13 +124,27 @@
                     <p><strong>Mô tả:</strong> ${contract.description}</p>
                 </div>
                 <div class="info-item">
-                    <p><strong>Trạng thái:</strong> <span class="badge ${contract.status == 'Pending'?'badge-warning':''}${contract.status == 'Rejected'?'badge-danger':''}${contract.status == 'Active'?'badge-success':''}">${contract.status == 'Pending'?'Chờ duyệt':''}${contract.status == 'Rejected'?'Từ chối':''}${contract.status == 'Active'?'Đã duyệt':''}</span></p>
+                    <p><strong>Trạng thái:</strong> <span class="badge ${contract.status == 'Pending'?'badge-warning':''}${contract.status == 'Rejected'?'badge-danger':''}${contract.status == 'Approved'?'badge-success':''}">${contract.status == 'Pending'?'Chờ duyệt':''}${contract.status == 'Rejected'?'Từ chối':''}${contract.status == 'Approved'?'Đã duyệt':''}</span></p>
+                </div>
+                <div class="btn-container">
+                    
+                    <form action="ChangeContractStatusServlet" method="post" style="display: inline;" onsubmit="return confirmChange();">
+                        <input type="hidden" name="contractId" value="${contract.contractId}" />
+                        <select name="newStatus">
+                            <option value="Pending">Chờ duyệt</option>
+                            <option value="Rejected">Từ chối</option>
+                            <option value="Approved">Đã duyệt</option>
+                        </select>
+                        <button type="submit" class="btn-edit">Sửa trạng thái</button>
+                    </form>
                 </div>
             </div>
-            <div class="btn-container">
-                <a href="EditContractForm?contractId=${contract.contractId}" class="btn-edit">Chỉnh sửa hợp đồng</a>
-                <!-- Add any other actions or links here -->
-            </div>
+
         </div>
+        <script>
+            function confirmChange() {
+                return confirm("Bạn có chắc chắn muốn thay đổi trạng thái hợp đồng không?");
+            }
+        </script>
     </body>
 </html>
