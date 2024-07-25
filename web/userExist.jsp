@@ -49,7 +49,7 @@
         <p>Bạn có muốn tiếp tục sử dụng thông tin này không?</p>
         
         <form action="AddVehicleForm" method="post">
-            <input type="hidden" name="customerId" value="user.id">
+            <input type="hidden" name="customerId" value=${user.id}>
             <button type="submit" class="button">Tiếp tục</button>
         </form>
         

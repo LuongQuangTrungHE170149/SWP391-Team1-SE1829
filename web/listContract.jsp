@@ -41,7 +41,7 @@
             <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
                 <div class="fs-3 fw-bold text-info">Danh sách hợp đồng</div>
             </div>
-            <a href="AddContractForm" class="btn btn-info btn-sm ms-3 mt-4 mb-4" data-mdb-ripple-init>Tạo hợp đồng</a>
+           
             <!-- Form tìm kiếm -->
             <div class="d-flex justify-content-between">
                 <div>
