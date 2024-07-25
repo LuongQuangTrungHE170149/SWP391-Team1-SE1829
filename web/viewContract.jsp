@@ -191,7 +191,7 @@
                             <option value="Pending">Chờ duyệt</option>
                             <option value="Rejected">Từ chối</option>
                             <option value="Approved">Đã duyệt</option>
-                            <option value="Expired">Hết hạn</option>
+                            
                         </select>
                         <button type="submit" class="btn-edit">Sửa trạng thái</button>
                     </form>
