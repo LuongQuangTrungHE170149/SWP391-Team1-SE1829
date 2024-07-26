@@ -11,9 +11,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <link rel="stylesheet" href="/SWP391-Team1-SE1829/CSS/manager.css">
-        <title>List Staff</title>
+        <title>Danh sách nhân viên</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
     </head>
     <body>
 
@@ -33,13 +33,13 @@
             <c:remove var="mess" scope="session" />
         </c:if>
         <div class="main-content" id="main-content">
-            <div style="margin-top: 50px" class="container">
+            <div class="nav navbar bg-light sticky-top justify-content-between align-items-start px-2"> 
+                <div class="fs-3 fw-bold text-info">Danh sách nhân viên</div>
+            </div>
+            <div class="mt-3">
                 <div class="users-table table-wrapper">
-                    <h2>Danh sách nhân viên</h2>
-                    <a href="addStaff" >
-                        <button style="margin: 20px 0" type="button" class="btn btn-primary" >
+                    <a href="addStaff" class="btn btn-info my-3 ms-3">
                             Thêm Nhân Viên
-                        </button>
                     </a>
                     <table class="posts-table">
                         <thead>
