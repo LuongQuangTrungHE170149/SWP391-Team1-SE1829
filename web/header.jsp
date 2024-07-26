@@ -162,7 +162,7 @@
 <!--                                 Notification Bell 
 -->                                <div class="notification-bell" onclick="toggleNotifications(event)">
                                     <i class="fa-solid fa-bell" style="color:#fff"></i>
-                                    <span class="notification-count" id="notificationCount">0</span>
+                                    <span class="notification-count badge badge-" id="notificationCount">0</span>
                                     <div class="notification-list" id="notificationList">
 
                                     </div>
@@ -179,7 +179,6 @@
                                     </button>
 
                                     <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-
                                         <li><a href="userProfile" class="dropdown-item">Hồ sơ</a></li>
                                             <c:if test="${sessionScope.user.role eq 'customer' || sessionScope.user.role eq 'Customer'}">
                                             <li><a href="compensationHistory?id=${sessionScope.user.id}" class="dropdown-item">Đền bù</a></li>
@@ -205,8 +204,8 @@
                             </div>
                         </c:if>
                         <c:if test="${sessionScope.user==null}">
-                            <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
-                            <a class="btn btn-light" href="register.jsp">Đăng Ký</a>
+                            <a class="btn btn-info me-2" href="login">Đăng Nhập</a>
+                            <a class="btn btn-light" href="register">Đăng Ký</a>
                         </c:if>
                     </div>
                 </c:when>
@@ -258,8 +257,8 @@
                         </div>
                     </c:if>
                     <c:if test="${sessionScope.user==null}">
-                        <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
-                        <a class="btn btn-light" href="register.jsp">Đăng Ký</a>
+                        <a class="btn btn-info me-2" href="login">Đăng Nhập</a>
+                        <a class="btn btn-light" href="register">Đăng Ký</a>
                     </c:if>
                 </div>
             </c:otherwise>
