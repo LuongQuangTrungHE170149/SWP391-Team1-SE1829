@@ -166,6 +166,10 @@
             <h1>Thông tin hợp đồng</h1>
             <div class="info">
                 <div class="info-item">
+                    <p><strong>Code:</strong> ${contract.code}</p>
+                    
+                </div>
+                <div class="info-item">
                     <p class="half-width"><strong>Họ tên chủ xe:</strong> ${contract.vehicle.ownerFirstName} ${contract.vehicle.ownerLastName}</p>
                     <p class="half-width"><strong>Họ tên Người yêu cầu:</strong> ${contract.customer.firstName} ${contract.customer.lastName}</p>
                 </div>
