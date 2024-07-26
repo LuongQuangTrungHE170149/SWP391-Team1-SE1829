@@ -519,10 +519,77 @@ public class ContractDAO extends DBContext {
         return list;
     }
 
+    private int noOfRecords;
+
+    public List<Contract> searchContracts(String searchQuery, String statusFilter) {
+        List<Contract> contracts = new ArrayList<>();
+        String sql = "SELECT * FROM Contracts WHERE 1=1";
+
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            sql += " AND Code LIKE ? ";
+        }
+        if (statusFilter != null && !statusFilter.isEmpty()) {
+            sql += " AND status = ?";
+        }
+        
+        UserDAO userDAO = new UserDAO();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            int paramIndex = 1;
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + searchQuery + "%");
+                
+            }
+            if (statusFilter != null && !statusFilter.isEmpty()) {
+                stmt.setString(paramIndex++, statusFilter);
+            }
+            
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Contract c = new Contract();
+
+                c.setCode(rs.getString("Code"));
+                c.setContractId(rs.getInt("ContractId"));
+
+                User customer = userDAO.getUserById(rs.getInt("CustomerId"));
+
+                c.setCustomer(customer);
+
+                User staff = new User();
+                staff.setId(rs.getInt("StaffId"));
+                c.setStaff(staff);
+
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                c.setVehicle(v);
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setStatus(rs.getString("status"));
+
+                contracts.add(c);
+            }
+
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contracts;
+    }
+
+    public int getNoOfRecords() {
+        return noOfRecords;
+    }
+
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
-        System.out.println(cd.getMonthlyMoneyByStaff(1));
+        System.out.println(cd.searchContracts("", "pending"));
 
     }
 

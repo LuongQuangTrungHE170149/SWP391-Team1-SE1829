@@ -75,13 +75,23 @@ public class ListContract extends HttpServlet {
             if (u.getRole().equalsIgnoreCase("user") || u.getRole().equalsIgnoreCase("manager")) {
                 request.setAttribute("error", error);
                 request.getRequestDispatcher("error").forward(request, response);
-            } //manager true =>>
-            else {
-                List<Contract> cdtos = null;
-                ContractDAO cd = new ContractDAO();
+            } else {
+                String searchQuery = request.getParameter("search");
+                String statusFilter = request.getParameter("status");
+                int page = 1;
+                int recordsPerPage = 10;
+                if (request.getParameter("page") != null) {
+                    page = Integer.parseInt(request.getParameter("page"));
+                }
 
-                cdtos = cd.getAll();
+                ContractDAO cd = new ContractDAO();
+                List<Contract> cdtos = cd.searchContracts(searchQuery, statusFilter);
+                int noOfRecords = cd.getNoOfRecords();
+                int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+
                 request.setAttribute("listAll", cdtos);
+                request.setAttribute("noOfPages", noOfPages);
+                request.setAttribute("currentPage", page);
                 request.getRequestDispatcher("listContract.jsp").forward(request, response);
             }
         }

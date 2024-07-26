@@ -98,6 +98,7 @@ public class AddContractSuccess extends HttpServlet {
         String chassisNumber = request.getParameter("chassisNumber");
         String engineNumber = request.getParameter("engineNumber");
         String customerId = request.getParameter("customerId");
+        String accidentInsurance = request.getParameter("accidentInsurance");
         // Parse parameters as needed
         Date startDate = Date.valueOf(startDateStr);
         Date endDate = Date.valueOf(endDateStr);
@@ -126,9 +127,18 @@ public class AddContractSuccess extends HttpServlet {
         contract.setCode(contractCode);
         contract.setStartDate(startDate);
         contract.setEndDate(endDate);
-        contract.setIsAccidentInsurance(false);
+        
         contract.setDescription(description);
-        contract.setPayment(Double.valueOf(mt.getPrice() * numYear));
+        // Kiểm tra nếu bảo hiểm tai nạn được chọn
+        boolean isAccidentInsurance = "yes".equalsIgnoreCase(accidentInsurance);
+        contract.setIsAccidentInsurance(isAccidentInsurance);
+
+        // Cập nhật chi phí hợp đồng
+        double payment = mt.getPrice() * numYear;
+        if (isAccidentInsurance) {
+            payment += 20000 * numYear; // Thêm 20,000 mỗi năm nếu có bảo hiểm tai nạn
+        }
+        contract.setPayment(payment);
         contract.setStatus(status);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");

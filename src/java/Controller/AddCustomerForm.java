@@ -4,8 +4,6 @@
  */
 package Controller;
 
-import Model.VehicleType;
-import dal.VehicleTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,14 +11,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name = "AddVehicleForm", urlPatterns = {"/addVehicleForm"})
-public class AddVehicleForm extends HttpServlet {
+@WebServlet(name = "AddCustomerForm", urlPatterns = {"/AddCustomerForm"})
+public class AddCustomerForm extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +36,10 @@ public class AddVehicleForm extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddVehicleForm</title>");
+            out.println("<title>Servlet AddCustomerForm</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddVehicleForm at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddCustomerForm at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,12 +57,7 @@ public class AddVehicleForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String customerId = request.getParameter("customerId");
-        VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
-        List<VehicleType> listVT = vehicleTypeDAO.getAll();
-        request.setAttribute("customerId", customerId);
-        request.setAttribute("listVT", listVT);
-        request.getRequestDispatcher("addVehicle.jsp").forward(request, response);
+        request.getRequestDispatcher("addCustomerInfo.jsp").forward(request, response);
     }
 
     /**
