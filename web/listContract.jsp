@@ -45,7 +45,7 @@
             <!-- Form tìm kiếm -->
             <div class="d-flex justify-content-between">
                 <div>
-                    <a href="checkEmailorPhone" class="btn btn-info btn-sm ms-3" data-mdb-ripple-init>Tạo hợp đồng</a>
+                    <a href="AddContractForm" class="btn btn-info btn-sm ms-3" data-mdb-ripple-init>Tạo hợp đồng</a>
                 </div>
                 <div>
                     <form action="ListContract" method="get" class="mb-3 d-flex justify-content-center">
