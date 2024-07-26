@@ -205,8 +205,8 @@
                             </div>
                         </c:if>
                         <c:if test="${sessionScope.user==null}">
-                            <a class="btn btn-info me-2" href="login.jsp">Đăng Nhập</a>
-                            <a class="btn btn-light" href="register.jsp">Đăng Ký</a>
+                            <a class="btn btn-info me-2" href="login">Đăng Nhập</a>
+                            <a class="btn btn-light" href="register">Đăng Ký</a>
                         </c:if>
                     </div>
                 </c:when>
