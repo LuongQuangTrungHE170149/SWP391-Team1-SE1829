@@ -57,6 +57,8 @@ public class AddCustomerForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String phoneOrEmail = request.getParameter("phoneOrEmail");
+        request.setAttribute("phoneOrEmail", phoneOrEmail);
         request.getRequestDispatcher("addCustomerInfo.jsp").forward(request, response);
     }
 

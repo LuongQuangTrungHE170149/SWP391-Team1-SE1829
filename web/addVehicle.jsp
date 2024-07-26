@@ -30,7 +30,7 @@
                             <div class="fs-5 fw-bold text-419FA3">Thông tin phương tiện</div>
                             <hr class="text-419FA3">
                             <div class="input-form">
-                                <input type="hidden" name="customerId" value="${user.id}">
+                                <input type="hidden" name="customerId" value="${customerId}">
                                 <div class="col-12 col-lg-12 mb-3">
                                     <label for="vehicle_type" class="ms-1">Chọn loại xe</label><br>
                                     <select id="vehicle_type" class="form-select" name="vehicle_type" required>
