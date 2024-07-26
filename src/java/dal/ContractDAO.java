@@ -581,7 +581,7 @@ public class ContractDAO extends DBContext {
     public boolean isLicensePlateActive(String licensePlate) {
         boolean activeContractExists = false;
 
-        String sql = "SELECT COUNT(*) FROM contracts WHERE license_plate = ? AND status = 'Approved' AND end_date > CURDATE()";
+        String sql = "SELECT COUNT(*) FROM Contracts c JOIN Vehicles v ON c.VehicleId = v.id WHERE v.LicensePlates = ? AND c.status = 'Approved' AND c.EndDate > CAST(GETDATE() AS DATE)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -604,7 +604,7 @@ public class ContractDAO extends DBContext {
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
-        System.out.println(cd.searchContracts("", "pending"));
+        System.out.println(cd.isLicensePlateActive("16k11860"));
 
     }
 
