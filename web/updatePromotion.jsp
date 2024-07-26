@@ -11,7 +11,7 @@
     <head>
         <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Chỉnh sửa khuyến mại</title>
+        <title>Chỉnh sửa khuyến mại</title>
         <!--summer note-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <style>

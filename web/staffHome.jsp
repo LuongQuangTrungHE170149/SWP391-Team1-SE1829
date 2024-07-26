@@ -124,10 +124,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="px-5 py-4 mb-4" style="background-color: #fff; border-radius: 8px;">
-                    <div class="fs-3 fw-bold text-info">Thống kê doanh thu</div>
-                    <canvas id="revenueChart" width="400" height="200"></canvas>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="px-5 py-4 mb-4" style="background-color: #fff; border-radius: 8px;">
+                            <div class="fs-5 fw-bold text-info">Thống kê doanh thu</div>
+                            <canvas id="revenueChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         </div>
 
@@ -136,7 +142,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-           document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
             // Nhận dữ liệu JSON từ Servlet
             var monthlyMoneyByStaff = JSON.parse('<%= request.getAttribute("monthlyMoneyByStaff") %>');
 
@@ -158,12 +164,12 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Doanh thu theo tháng',
-                        data: data,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
+                            label: 'Doanh thu theo tháng',
+                            data: data,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
                 },
                 options: {
                     animation: {

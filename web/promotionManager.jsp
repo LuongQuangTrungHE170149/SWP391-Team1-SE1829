@@ -12,7 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>F-Care | Quản lý khuyến mại</title>
+        <title> Quản lý khuyến mại</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <!--summer note--> 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
@@ -190,11 +191,11 @@
                                                data-mdb-ripple-init>
                                                 <i class="fa-regular fa-eye"></i>
                                             </a>
-                                            <a href="promotionDetail?id=${listAll.id}" target="_blank"
+<!--                                            <a href="promotionDetail?id=${listAll.id}" target="_blank"
                                                data-mdb-ripple-init
                                                class="fs-6 text-info me-3">
                                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                            </a>
+                                            </a>-->
                                             <a href="#" class="fs-6 text-info me-3"  
                                                onclick="location.href = 'updatePromotion?id=${listAll.id}'">
                                                 <i class="fa-regular fa-pen-to-square"></i>
@@ -271,7 +272,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <form action="addPromotion"id="addPromotionForm" method="post" enctype="multipart/form-data">
+                        <form action="addPromotion" id="addPromotionForm" method="post" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <label for="title" class="col-sm-2 col-form-label">Tiêu đề:</label>
                                 <div class="col-sm-10">
@@ -282,18 +283,21 @@
                                 <label for="description" class="col-sm-2 col-form-label">Mô tả:</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" id="description" name="description" required></textarea>
+                                    <div class="invalid-feedback" id="descriptionError">Mô tả không được để trống.</div>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="timeStart" class="col-sm-2 col-form-label">Ngày bắt đầu:</label>
                                 <div class="col-sm-10">
                                     <input type="date" class="form-control" id="timeStart" name="timeStart" required>
+                                    <div class="invalid-feedback" id="timeStartError">Ngày bắt đầu không được nhỏ hơn ngày hiện tại.</div>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="timeEnd" class="col-sm-2 col-form-label">Ngày kết thúc:</label>
                                 <div class="col-sm-10">
                                     <input type="date" class="form-control" id="timeEnd" name="timeEnd" required>
+                                    <div class="invalid-feedback" id="timeEndError">Ngày kết thúc phải lớn hơn ít nhất 1 ngày so với ngày bắt đầu.</div>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -305,18 +309,19 @@
                             <div class="row mb-3">
                                 <label for="content" class="col-sm-2 col-form-label">Nội dung:</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="content" rows="3" required=""></textarea>
+                                    <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                                    <div class="invalid-feedback" id="contentError">Nội dung không được để trống.</div>
                                 </div>
                             </div>
                             <div class="row mb-3 align-items-center">
-                                <div  class="col-sm-2">Is Header:</div>
+                                <div class="col-sm-2">Is Header:</div>
                                 <div class="col-sm-10 d-flex">
                                     <div class="form-check me-2">
-                                        <input class="form-check-input" type="radio" id="true"  name="isHeader" value="true">
+                                        <input class="form-check-input" type="radio" id="true" name="isHeader" value="true">
                                         <label class="form-check-label" for="true">On</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="false"  name="isHeader" value="false" checked>
+                                        <input class="form-check-input" type="radio" id="false" name="isHeader" value="false" checked>
                                         <label class="form-check-label" for="false">Off</label>
                                     </div>
                                 </div>
@@ -404,97 +409,160 @@
                                                     height: 200
                                                 });
     </script>
-    
+
     <!--format date-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+
+    </script>
     <script type="text/javascript">
 
-                                                function confirmDeletion(id) {
-                                                    const searchValue = document.getElementById('searchValue').value;
+        function confirmDeletion(id) {
+            const searchValue = document.getElementById('searchValue').value;
 //            var encodedSearchValue = encodeURIComponent(searchValue); // Mã hóa giá trị searchValue
-                                                    var selectedStaff = document.getElementById('selectedStaff').value;
-                                                    var page = 1;
-                                                    var pageParam = document.getElementById('page').value;
-                                                    if (pageParam && !isNaN(pageParam)) {
-                                                        page = parseInt(pageParam);
-                                                    }
-                                                    if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
-                                                        window.location.href = 'deletePromotion?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
-                                                    }
-                                                }
+            var selectedStaff = document.getElementById('selectedStaff').value;
+            var page = 1;
+            var pageParam = document.getElementById('page').value;
+            if (pageParam && !isNaN(pageParam)) {
+                page = parseInt(pageParam);
+            }
+            if (confirm('Bạn có chắc chắn muốn xóa promotion với id = ' + id + '?')) {
+                window.location.href = 'deletePromotion?searchValue=' + searchValue + '&id=' + id + '&selectedStaff=' + selectedStaff + '&page=' + page;
+            }
+        }
 
 
 
-                                                $(document).ready(function () {
+        $(document).ready(function () {
 
-                                                    //add promotion function
-                                                    $('#addPromotionForm').on('submit', function (e) {
-                                                        e.preventDefault();
-                                                        const formData = new FormData();
-                                                        formData.append("title", $("#title").val());
-                                                        formData.append("description", $("#description").val());
-                                                        formData.append("content", $("#content").val());
-                                                        formData.append("timeStart", $("#timeStart").val());
-                                                        formData.append("timeEnd", $("#timeEnd").val());
+            function validateForm() {
+                let valid = true;
 
-                                                        const isHeader = $("input[name=isHeader]:checked").val();
-                                                        console.log(isHeader);
-                                                        formData.append("isHeader", isHeader);
+                const today = new Date().toISOString().split('T')[0];
+                const timeStart = $('#timeStart').val();
+                const timeEnd = $('#timeEnd').val();
+                const description = $('#description').val();
+                const content = $('#content').val();
 
-                                                        let imgFile = $("#image")[0].files[0];
-                                                        formData.append("image", imgFile);
+                // Reset error messages
+                $('.invalid-feedback').hide();
 
-                                                        // AJAX request to send the reply to the servlet
-                                                        $.ajax({
-                                                            url: 'addPromotion',
-                                                            type: 'POST',
-                                                            data: formData,
-                                                            processData: false,
-                                                            contentType: false,
-                                                            success: function (response) {
-                                                                alert('Add thành công!');
-                                                                location.reload();
-                                                            },
-                                                            error: function (err) {
-                                                                console.log(err);
-                                                                // Show error toast
-                                                                alert('Add failed, try again!');
-                                                            }
-                                                        });
-                                                    });
-                                                    $('.btn-detailPromotion').on('click', function (e) {
-                                                        e.preventDefault();
-                                                        let promotionId = $(this).data('id');
-                                                        $.ajax({
-                                                            url: 'promotionManagerDetail',
-                                                            type: 'GET',
-                                                            data: {id: promotionId},
-                                                            success: function (data) {
-                                                                $('#id_detail').html(data.id);
-                                                                $('#staff_detail').html(data.staff.username);
-                                                                $('#title_detail').html(data.title);
-                                                                //handle date
-                                                                var createDate = new Date(data.createDate);
-                                                                var day = String(createDate.getDate()).padStart(2, '0');
-                                                                var month = String(createDate.getMonth() + 1).padStart(2, '0');
-                                                                var year = createDate.getFullYear();
-                                                                var formattedDate = day + '/' + month + '/' + year;
-                                                                $('#createDate_detail').html(formattedDate);
-                                                                $('#timeStart_detail').html(moment(data.timeStart).format("DD/MM/YYYY"));
-                                                                $('#timeEnd_detail').html(moment(data.timeEnd).format("DD/MM/YYYY"));
-                                                                $('#description_detail').html(data.description);
-                                                                $('#content_detail').html(data.content);
-                                                                $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
-                                                                $('#detailPromotionModal').modal('show');
-                                                            }
-                                                        });
-                                                    });
+                // Check if timeStart is not less than today
+                if (timeStart < today) {
+                    $('#timeStartError').show();
+                    valid = false;
+                }
 
-                                                    $('.btn-update').on('click', function () {
-                                                        var id = $('#id_detail').html();
-                                                        window.location.href = 'updatePromotion?id=' + id;
-                                                    });
-                                                });
+                // Check if timeEnd is at least 1 day after timeStart
+                const startDate = new Date(timeStart);
+                const endDate = new Date(timeEnd);
+                const oneDayInMillis = 24 * 60 * 60 * 1000;
+
+                if (endDate - startDate < oneDayInMillis) {
+                    $('#timeEndError').show();
+                    valid = false;
+                }
+
+                // Check description
+                if (description.trim() === "") {
+                    $('#descriptionError').show();
+                    valid = false;
+                }
+
+                // Check content
+                if (content.trim() === "") {
+                    $('#contentError').show();
+                    valid = false;
+                }
+
+                return valid;
+            }
+
+            $('#timeStart').on('change', function () {
+                const timeStart = $(this).val();
+                const startDate = new Date(timeStart);
+                const oneDayInMillis = 24 * 60 * 60 * 1000;
+                const minEndDate = new Date(startDate.getTime() + oneDayInMillis).toISOString().split('T')[0];
+
+                $('#timeEnd').attr('min', minEndDate);
+                validateForm();
+            });
+
+            $('#timeEnd').on('change', validateForm);
+
+
+            //add promotion function
+            $('#addPromotionForm').on('submit', function (e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append("title", $("#title").val());
+                formData.append("description", $("#description").val());
+                formData.append("content", $("#content").val());
+                formData.append("timeStart", $("#timeStart").val());
+                formData.append("timeEnd", $("#timeEnd").val());
+                const isHeader = $("input[name=isHeader]:checked").val();
+                formData.append("isHeader", isHeader);
+                let imgFile = $("#image")[0].files[0];
+                formData.append("image", imgFile);
+
+                // AJAX request to send the reply to the servlet
+                $.ajax({
+                    url: 'addPromotion',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert('Add thành công!');
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        // Show error toast
+                        alert('Add failed, try again!');
+                    }
+                });
+            });
+
+
+            $('.btn-detailPromotion').on('click', function (e) {
+                e.preventDefault();
+                let promotionId = $(this).data('id');
+                $.ajax({
+                    url: 'promotionManagerDetail',
+                    type: 'GET',
+                    data: {id: promotionId},
+                    success: function (data) {
+                        $('#id_detail').html(data.id);
+                        $('#staff_detail').html(data.staff.username);
+                        $('#title_detail').html(data.title);
+                        //handle date
+                        var createDate = new Date(data.createDate);
+                        var day = String(createDate.getDate()).padStart(2, '0');
+                        var month = String(createDate.getMonth() + 1).padStart(2, '0');
+                        var year = createDate.getFullYear();
+                        var formattedDate = day + '/' + month + '/' + year;
+                        $('#createDate_detail').html(formattedDate);
+                        $('#timeStart_detail').html(moment(data.timeStart).format("DD/MM/YYYY"));
+                        $('#timeEnd_detail').html(moment(data.timeEnd).format("DD/MM/YYYY"));
+                        $('#description_detail').html(data.description);
+                        $('#content_detail').html(data.content);
+                        $('#image_detail').html('<img class="img-fluid rounded-4 shadow-3" src="' + data.image + '">');
+                        $('#detailPromotionModal').modal('show');
+                    }
+                });
+            });
+            $('.btn-update').on('click', function () {
+                var id = $('#id_detail').html();
+                window.location.href = 'updatePromotion?id=' + id;
+            });
+
+        });
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- MDB -->

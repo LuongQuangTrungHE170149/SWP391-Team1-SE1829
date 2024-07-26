@@ -10,9 +10,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tin tức</title>
+        <title>Quản lý tin tức</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <!--summer note--> 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <style>
@@ -178,11 +178,11 @@
                                                data-mdb-ripple-init>
                                                 <i class="fa-regular fa-eye"></i>
                                             </a>
-                                            <a href="newsDetail?id=${listAll.id}" target="_blank"
+<!--                                            <a href="newsDetail?id=${listAll.id}" target="_blank"
                                                data-mdb-ripple-init
                                                class="fs-6 text-info me-3">
                                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                            </a>
+                                            </a>-->
                                             <a href="#" class="fs-6 text-info me-3"  
                                                onclick="location.href = 'updateNews?id=${listAll.id}'">
                                                 <i class="fa-regular fa-pen-to-square"></i>
@@ -374,11 +374,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
-                                            $('#content').summernote({
-                                                placeholder: 'Write your content here!',
-                                                tabsize: 2,
-                                                height: 200
-                                            });
+                                                $('#content').summernote({
+                                                    placeholder: 'Write your content here!',
+                                                    tabsize: 2,
+                                                    height: 200
+                                                });
     </script>
     <script>
         function confirmDeletion(id) {
