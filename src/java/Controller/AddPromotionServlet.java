@@ -118,7 +118,7 @@ public class AddPromotionServlet extends HttpServlet {
             Promotion promotion = pdb.getLastPromitionById();
             List<User> users = dbUser.getAllUserByRole("User");
             Notification notification = new Notification();
-            notification.setTitle("Phiếu giảm giá mới");
+            notification.setTitle("Khuyến mãi "+title+"");
             notification.setIsClick(false);
             notification.setLink("promotionDetail?id="+promotion.getId());
             for (User user : users) {

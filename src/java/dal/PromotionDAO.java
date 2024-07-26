@@ -563,7 +563,7 @@ public class PromotionDAO extends DBContext {
                 + "      ,[image]\n"
                 + "      ,[staff]\n"
                 + "      ,[createDate]\n"
-                + "  FROM [dbo].[Promotion] order by id DESC";
+                + "  FROM [dbo].[Promotion] order by createDate DESC";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
