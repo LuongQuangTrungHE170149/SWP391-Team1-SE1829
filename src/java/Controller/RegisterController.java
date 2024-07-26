@@ -45,7 +45,7 @@ public class RegisterController extends HttpServlet {
             String phone = req.getParameter("phone");
             String address = req.getParameter("address");
             System.out.println(dob);
-            if (!dob.contains(".*[A-Z].*") && dob.length() <= 8) {
+//            if (!dob.contains(".*[A-Z].*") && dob.length() <= 8) {
                 if (!udb.checkEmailExist(email)) {
                     if (!udb.checkUsernameExist(username)) {
                         if (password.equals(confirmPassword)) {
@@ -83,10 +83,10 @@ public class RegisterController extends HttpServlet {
                 } else {
                     req.setAttribute("invalidEmail", "Email đã tồn tại");
                 }
-            } else {
-                System.out.println("wrong date");
-                req.setAttribute("invalidDob", "Ngày sai");
-            }
+//            } else {
+////                System.out.println("wrong date");
+//                req.setAttribute("invalidDob", "Ngày sai");
+//            }
 
             req.setAttribute("firstName", firstName);
             req.setAttribute("lastName", lastName);

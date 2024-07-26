@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controller;
 
+import Model.User;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,39 +19,44 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author QUANG TRUNG
  */
-@WebServlet(name = "AddCustomerForm", urlPatterns = {"/AddCustomerForm"})
-public class AddCustomerForm extends HttpServlet {
+@WebServlet(name="CheckExistenceServlet", urlPatterns={"/CheckExistenceServlet"})
+public class CheckExistenceServlet extends HttpServlet {
+   
+    private UserDAO userDAO;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+    @Override
+    public void init() {
+        // Khởi tạo UserDAO
+        userDAO = new UserDAO();
+    }
+
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCustomerForm</title>");
+            out.println("<title>Servlet CheckExistenceServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCustomerForm at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CheckExistenceServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -56,17 +64,12 @@ public class AddCustomerForm extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String phoneOrEmail = request.getParameter("phoneOrEmail");
-        String exist = request.getParameter("exist");
-        request.setAttribute("phoneOrEmail", phoneOrEmail);
-        request.setAttribute("exist", exist);
-        request.getRequestDispatcher("addCustomerInfo.jsp").forward(request, response);
-    }
+    throws ServletException, IOException {
+        processRequest(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -74,13 +77,20 @@ public class AddCustomerForm extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        String field = request.getParameter("field");
+        String value = request.getParameter("value");
 
+        boolean exists = checkIfExists(value);
+
+        response.setContentType("application/json");
+        try (PrintWriter out = response.getWriter()) {
+            out.print("{\"exists\": " + exists + "}");
+        }
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
@@ -88,4 +98,9 @@ public class AddCustomerForm extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private boolean checkIfExists(String value) {
+        // Gọi phương thức selectUserByEmailOrPhone từ UserDAO
+        User user = userDAO.selectUserByEmailOrPhone(value);
+        return user != null; // Trả về true nếu user tồn tại, ngược lại false
+    }
 }

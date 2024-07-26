@@ -6,7 +6,13 @@
 
 package Controller;
 
+import Model.Contract;
+import Model.Notification;
+import Model.Promotion;
+import Model.User;
 import dal.ContractDAO;
+import dal.NotificationDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +20,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import socket.NotificationWebSocket;
 
 /**
  *
@@ -83,6 +91,22 @@ public class ChangeContractStatusServlet extends HttpServlet {
             boolean isUpdated = contractDAO.updateContractStatus(contractId, newStatus);
 
             if (isUpdated) {
+            NotificationDAO dbNotify = new NotificationDAO();
+            UserDAO dbUser = new UserDAO();
+            Contract contract = contractDAO.findLastContract();
+            List<User> users = dbUser.getAllUserByRole("User");
+            Notification notification = new Notification();
+            notification.setTitle("Hợp đồng của bạn đã được cập nhật trạng thái: "+"\""+contract.getStatus()+"\"");
+            notification.setIsClick(false);
+            notification.setLink("manageContractCustomer?customerId="+contract.getCustomer().getId());
+            System.out.println(notification.getLink());
+            for (User user : users) {
+                notification.setUserId(user);
+                dbNotify.insert(notification);
+                NotificationWebSocket.sendMessageToUser(user.getId()+"", notification);
+                
+            }
+            
                 response.sendRedirect("ViewContract?contractId="+contractId); // Chuyển hướng sau khi cập nhật thành công
             } else {
                 response.sendRedirect("error.jsp"); // Chuyển hướng nếu có lỗi

@@ -81,7 +81,7 @@ public class AddCustomerServlet extends HttpServlet {
 
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-
+        String exist = request.getParameter("exist");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("phoneNumber");
         Date dob = Date.valueOf(request.getParameter("dob"));
@@ -111,6 +111,7 @@ public class AddCustomerServlet extends HttpServlet {
             List<VehicleType> listVT = vehicleTypeDAO.getAll();
             request.setAttribute("customerId", customerId);
             request.setAttribute("listVT", listVT);
+            request.setAttribute("exist", exist);
             request.getRequestDispatcher("addVehicle.jsp").forward(request, response);
         } else {
             // Nếu thất bại, chuyển hướng đến trang lỗi

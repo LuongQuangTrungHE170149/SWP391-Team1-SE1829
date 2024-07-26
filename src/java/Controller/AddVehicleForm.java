@@ -61,10 +61,12 @@ public class AddVehicleForm extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String customerId = request.getParameter("customerId");
+        String exist = request.getParameter("exist");
         VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
         List<VehicleType> listVT = vehicleTypeDAO.getAll();
         request.setAttribute("customerId", customerId);
         request.setAttribute("listVT", listVT);
+        request.setAttribute("exist", exist);
         request.getRequestDispatcher("addVehicle.jsp").forward(request, response);
     }
 

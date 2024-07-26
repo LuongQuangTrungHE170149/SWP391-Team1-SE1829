@@ -5,6 +5,7 @@
 package dal;
 
 import Model.Contract;
+import Model.Promotion;
 import Model.User;
 import Model.Vehicle;
 import dto.Contractdto;
@@ -44,6 +45,56 @@ public class ContractDAO extends DBContext {
             e.printStackTrace();
         }
         return customers;
+    }
+     public Contract findLastContract() {
+        String sql = "SELECT top 1[ContractId]\n"
+                + "      ,[CustomerId]\n"
+                + "      ,[StaffId]\n"
+                + "      ,[VehicleId]\n"
+                + "      ,[StartDate]\n"
+                + "      ,[EndDate]\n"
+                + "      ,[isAccidentInsurance]\n"
+                + "      ,[Description]\n"
+                + "      ,[Code]\n"
+                + "      ,[Payment]\n"
+                + "      ,[createDate]\n"
+                + "      ,[status]\n"
+                + "  FROM [dbo].[Contracts] Order by createDate DESC";
+        UserDAO userDAO = new UserDAO();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Contract c = new Contract();
+                c.setCode(rs.getString("Code"));
+                c.setContractId(rs.getInt("ContractId"));
+
+                User customer = userDAO.getUserById(rs.getInt("CustomerId"));
+
+                c.setCustomer(customer);
+
+                User staff = new User();
+                staff.setId(rs.getInt("StaffId"));
+                c.setStaff(staff);
+
+                VehicleDAO vdb = new VehicleDAO();
+                Vehicle v = vdb.getVehicleById(rs.getInt("VehicleId"));
+                c.setVehicle(v);
+                c.setStartDate(rs.getDate("startDate"));
+                c.setEndDate(rs.getDate("endDate"));
+                c.setIsAccidentInsurance(rs.getBoolean("isAccidentInsurance"));
+                c.setDescription(rs.getString("Description"));
+                c.setCode(rs.getString("Code"));
+                c.setPayment(rs.getDouble("Payment"));
+                c.setCreateDate(rs.getDate("createDate"));
+                c.setStatus(rs.getString("status"));
+
+                return c;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     public boolean addContract(Contract contract) {
@@ -86,7 +137,6 @@ public class ContractDAO extends DBContext {
             return false;
         }
     }
-
     public List<Contract> getAll() {
         List<Contract> list = new ArrayList<>();
         String sql = "SELECT [ContractId]\n"

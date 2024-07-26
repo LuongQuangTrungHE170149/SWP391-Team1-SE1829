@@ -78,7 +78,7 @@ public class CheckEmailorPhoneServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         User user = userDAO.selectUserByEmailOrPhone(phoneOrEmail);
         if (user != null) {
-            request.setAttribute("user", user);
+            request.setAttribute("customerId", user.getId()); 
             exist = true;
             message = "Số điện thoại hoặc email đã tồn tại trong hệ thống, bạn có muốn tiếp tục?";
         } else {

@@ -1,4 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="dal.VehicleTypeDAO"%>
+<%@page import="Model.VehicleType"%>
+<%
+    VehicleTypeDAO vehicleTypeDAO = (VehicleTypeDAO) request.getAttribute("vehicleTypeDAO");
+    String vehicleType = (String) request.getAttribute("vehicleType");
+    VehicleType mt = vehicleTypeDAO.getVehicleTypeById(Integer.valueOf(vehicleType));
+    double vehiclePrice = mt.getPrice();
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -89,6 +97,7 @@
                                 </div>
                             </div>
                             <form action="AddContractSuccess" method="post">
+                                <input type="hidden" name="exist" value="${exist}"/>
                                 <input type="hidden" name="vehicleType" value="${vehicleType}">
                                 <input type="hidden" name="vehicleOwnerFirstName" value="${vehicleOwnerFirstName}">
                                 <input type="hidden" name="vehicleOwnerLastName" value="${vehicleOwnerLastName}">
@@ -143,6 +152,14 @@
                                                 <label class="form-check-label" for="accidentInsuranceNo">Không</label>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-5">
+                                        <div>Số tiền thanh toán:</div>
+                                    </div>
+                                    <div class="col-5">
+                                        <input class="form-control" type="text" id="payment" name="payment" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -202,9 +219,28 @@
                                                 document.getElementById('startDate').setAttribute('min', today);
                                             }
 
+                                            function updatePayment() {
+                                                const vehiclePrice = <%= vehiclePrice %>;
+                                                const numYear = parseInt(document.getElementById('numYear').value);
+                                                const accidentInsuranceChecked = document.getElementById('accidentInsuranceYes').checked;
+
+                                                let payment = vehiclePrice * numYear;
+                                                if (accidentInsuranceChecked) {
+                                                    payment += 20000 * numYear; // Thêm 20,000 mỗi năm nếu có bảo hiểm tai nạn
+                                                }
+
+                                                document.getElementById('payment').value = payment;
+                                            }
+
                                             window.onload = function () {
                                                 setMinStartDate();
+                                                updatePayment();
                                             }
+
+                                            // Gọi updatePayment() khi có thay đổi
+                                            document.getElementById('numYear').addEventListener('change', updatePayment);
+                                            document.getElementById('accidentInsuranceYes').addEventListener('change', updatePayment);
+                                            document.getElementById('accidentInsuranceNo').addEventListener('change', updatePayment);
         </script>
     </body>
 </html>

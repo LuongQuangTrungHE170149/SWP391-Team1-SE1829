@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import dal.VehicleTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -78,7 +79,8 @@ public class AddVehicleSuccess extends HttpServlet {
         String licensePlate = request.getParameter("licensePlate");
         String chassisNumber = request.getParameter("chassisNumber");
         String engineNumber = request.getParameter("engineNumber");
-        String customerId =request.getParameter("customerId");
+        String customerId = request.getParameter("customerId");
+        String exist = request.getParameter("exist");
         request.setAttribute("vehicleType", vehicleType);
         request.setAttribute("vehicleOwnerFirstName", vehicleOwnerFirstName);
         request.setAttribute("vehicleOwnerLastName", vehicleOwnerLastName);
@@ -87,6 +89,16 @@ public class AddVehicleSuccess extends HttpServlet {
         request.setAttribute("chassisNumber", chassisNumber);
         request.setAttribute("engineNumber", engineNumber);
         request.setAttribute("customerId", customerId);
+        request.setAttribute("exist", exist);
+        // Truyền vehicleType vào JSP
+        VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
+
+// Đảm bảo rằng các giá trị này không null
+        if (vehicleTypeDAO != null && vehicleType != null) {
+            request.setAttribute("vehicleTypeDAO", vehicleTypeDAO);
+            request.setAttribute("vehicleType", vehicleType);
+        }
+
         request.getRequestDispatcher("addContract.jsp").forward(request, response);
     }
 

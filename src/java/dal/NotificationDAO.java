@@ -43,7 +43,7 @@ public class NotificationDAO extends DBContext {
 
     public List<Notification> findLast7NotifcationsByUserId(int userId) {
         List<Notification> list = new ArrayList<>();
-        String sql = "select top 7 * from Notifications where userId = ? order by isClick asc, createdDate desc";
+        String sql = "select top 7 * from Notifications where userId = ? order by createdDate desc";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);

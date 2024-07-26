@@ -88,7 +88,7 @@ public class AddContractSuccess extends HttpServlet {
         String description = request.getParameter("description");
         String numYearStr = request.getParameter("numYear");
         String status = request.getParameter("status");
-
+        String exist = request.getParameter("exist");
         // Retrieve hidden inputs
         String vehicleType = request.getParameter("vehicleType");
         String vehicleOwnerFirstName = request.getParameter("vehicleOwnerFirstName");
@@ -99,11 +99,12 @@ public class AddContractSuccess extends HttpServlet {
         String engineNumber = request.getParameter("engineNumber");
         String customerId = request.getParameter("customerId");
         String accidentInsurance = request.getParameter("accidentInsurance");
+        String payment =request.getParameter("payment");
         // Parse parameters as needed
         Date startDate = Date.valueOf(startDateStr);
         Date endDate = Date.valueOf(endDateStr);
         int numYear = Integer.parseInt(numYearStr);
-
+        
         VehicleDAO vehicleDAO = new VehicleDAO();
         VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
 
@@ -134,11 +135,8 @@ public class AddContractSuccess extends HttpServlet {
         contract.setIsAccidentInsurance(isAccidentInsurance);
 
         // Cập nhật chi phí hợp đồng
-        double payment = mt.getPrice() * numYear;
-        if (isAccidentInsurance) {
-            payment += 20000 * numYear; // Thêm 20,000 mỗi năm nếu có bảo hiểm tai nạn
-        }
-        contract.setPayment(payment);
+        
+        contract.setPayment(Double.valueOf(payment));
         contract.setStatus(status);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -147,10 +145,14 @@ public class AddContractSuccess extends HttpServlet {
         
         contract.setCustomer(customer);
         contractDAO.addContract(contract);
-        
+        if(exist.equalsIgnoreCase("false")){
+            note="Chúng tôi đã tạo cho bạn một tài khoản. Hãy sử dụng tài khoản này để đăng nhập và xem thông tin chi tiết hợp đồng! <br>"
+                            + "<h3>Tài khoản: <b>" + customer.getEmail() + "</b></h3>"
+                            + "<h3>Mật khẩu mặc định: <b>" + customer.getPhone()+ "</b></h3>";;
+        }
 //        request.setAttribute("contract", contract);
 //        request.getRequestDispatcher("checkError.jsp").forward(request, response);
-        note = "Hãy nhớ đăng nhập để xem chi tiết hợp đồng của bạn nhé!";
+        note += "Hãy nhớ đăng nhập để xem chi tiết hợp đồng của bạn nhé!";
         EmailHelper.sendEmailRequestContractSuccess(customer.getEmail(), "[ĐĂNG KÝ] YÊU CẦU HỢP ĐỒNG BẢO HIỂM XE MÁY THÀNH CÔNG", (vehicleOwnerFirstName + " " + vehicleOwnerLastName).toUpperCase(), contractCode, note);
         response.sendRedirect("ListContract");
     }
