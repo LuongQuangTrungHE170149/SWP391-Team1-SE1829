@@ -48,7 +48,7 @@
             <p>Email hoặc số điện thoại bạn nhập không tồn tại trong hệ thống.</p>
             
 
-            <form action="AddCustomerForm" method="post">
+            <form action="AddCustomerForm" method="get">
                 
                 <button type="submit" class="button">Tiếp tục</button>
             </form>

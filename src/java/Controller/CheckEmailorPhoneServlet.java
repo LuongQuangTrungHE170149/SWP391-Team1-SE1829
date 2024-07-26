@@ -4,23 +4,20 @@
  */
 package Controller;
 
-import Model.VehicleType;
-import dal.VehicleTypeDAO;
+import Model.User;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
- * @author QUANG TRUNG
+ * @author thuhu
  */
-@WebServlet(name = "AddVehicleForm", urlPatterns = {"/addVehicleForm"})
-public class AddVehicleForm extends HttpServlet {
+public class CheckEmailorPhoneServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +36,10 @@ public class AddVehicleForm extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddVehicleForm</title>");
+            out.println("<title>Servlet CheckEmailorPhoneServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddVehicleForm at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CheckEmailorPhoneServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,12 +57,7 @@ public class AddVehicleForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String customerId = request.getParameter("customerId");
-        VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
-        List<VehicleType> listVT = vehicleTypeDAO.getAll();
-        request.setAttribute("customerId", customerId);
-        request.setAttribute("listVT", listVT);
-        request.getRequestDispatcher("addVehicle.jsp").forward(request, response);
+        request.getRequestDispatcher("checkEmailPhone.jsp").forward(request, response);
     }
 
     /**
@@ -80,6 +72,24 @@ public class AddVehicleForm extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String phoneOrEmail = request.getParameter("phoneOrEmail");
+        boolean exist;
+        String message;
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.selectUserByEmailOrPhone(phoneOrEmail);
+        if (user != null) {
+            request.setAttribute("user", user);
+            exist = true;
+            message = "Số điện thoại hoặc email đã tồn tại trong hệ thống, bạn có muốn tiếp tục?";
+        } else {
+            exist = false;
+            message = "Số điện thoại hoặc email chưa tồn tại trong hệ thống, bạn có muốn tiếp tục?";
+        }
+        
+        request.setAttribute("emailOrPhone", phoneOrEmail);
+        request.setAttribute("message", message);
+        request.setAttribute("exist", exist);
+        request.getRequestDispatcher("checkEmailPhone.jsp").forward(request, response);
     }
 
     /**

@@ -81,7 +81,7 @@ public class AddContractForm extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("checkEmailPhone.jsp").forward(request, response);
     }
 
     /**

@@ -228,6 +228,10 @@
         <servlet-name>AddStaffServlet</servlet-name>
         <servlet-class>Controller.AddStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckEmailorPhoneServlet</servlet-name>
+        <servlet-class>Controller.CheckEmailorPhoneServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -455,6 +459,10 @@
     <servlet-mapping>
         <servlet-name>AddStaffServlet</servlet-name>
         <url-pattern>/addStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckEmailorPhoneServlet</servlet-name>
+        <url-pattern>/checkEmailorPhone</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

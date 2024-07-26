@@ -29,15 +29,19 @@
             <div class="text-center fs-3 fw-bold text-info mb-3">Kiểm tra gì gì đó?</div>
 
             <div style="width: 600px;" class="p-3 m-auto shadow rounded-3">
-                <form action="CheckUser" method="post"> 
-                    <div class="d-flex">
+                <form action="checkEmailorPhone" method="post"> 
+                    <div class="d-flex mb-3">
                         <div class="form-outline" data-mdb-input-init>
-                            <input class="form-control" type="text" id="phoneOrEmail" name="phoneOrEmail">
+                            <input class="form-control" type="text" id="phoneOrEmail" name="phoneOrEmail" value="${emailOrPhone}" required="">
                             <label class="form-label" for="phoneOrEmail">Nhập số điện thoại hoặc email</label>
                         </div>
                         <button class="btn btn-primary ms-3" type="submit" data-mdb-ripple-init>Check</button>
                     </div>
-                    <div id="result"></div>
+                    <div class="text-center">
+                        <input type="hidden" id="exist" value="${exist}"/>
+                        <div class="text-danger">${message}</div> <a class="btn btn-sm btn-primary" id="next-btn" href="${exist eq 'true'?'addVehicleForm':'AddCustomerForm'}" style="display: none;">Tiếp tục</a>
+
+                    </div>
                 </form>
 
             </div>
@@ -46,5 +50,17 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!--mdb bootstrap-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var exist = document.getElementById("exist").value;
+                var nextBtn = document.getElementById("next-btn");
+
+                if (exist === "true" || exist === "false") {
+                    nextBtn.style.display = "inline-block";
+                } else {
+                    nextBtn.style.display = "none";
+                }
+            });
+        </script>
     </body>
 </html>

@@ -33,7 +33,7 @@
                             <hr class="text-419FA3">
                             <div class="">
                                 <div class="mb-3">                                
-                                    <a  href="CheckUser">Quay lại chỉnh sửa <i class="fa-solid fa-pen" style="font-size: 14px;"></i></a>
+                                    <a  href="#" onclick="window.history.back()">Quay lại chỉnh sửa <i class="fa-solid fa-pen" style="font-size: 14px;"></i></a>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-5">
@@ -161,7 +161,7 @@
                                     </div>
                                     <div class="col-5">
                                         <select class="form-select" id="status" name="status" required>
-                                            <option value="pending">Chờ duyệt</option>
+                                            <option value="Pending">Chờ duyệt</option>
                                             <option value="Approved">Đang hiệu lực</option>
                                         </select>
                                     </div>

@@ -42,7 +42,7 @@
                             <hr class="text-419FA3">
                             <div class="input-form">
                                 <input type="hidden" name="customerId" value="${user.id}">
-                                <div class="col-12 col-lg-4 mb-3">
+                                <div class="col-12 col-lg-12 mb-3">
                                     <label for="vehicle_type" class="ms-1">Chọn loại xe</label><br>
                                     <select id="vehicle_type" class="form-select" name="vehicle_type" required>
                                         <option value="">-- chọn loại xe --</option>

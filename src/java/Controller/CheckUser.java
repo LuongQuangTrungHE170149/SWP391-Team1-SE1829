@@ -84,23 +84,17 @@ public class CheckUser extends HttpServlet {
             throws ServletException, IOException {
 
         String phoneOrEmail = request.getParameter("phoneOrEmail");
+        String exist;
         UserDAO userDAO = new UserDAO();
         User user = userDAO.selectUserByEmailOrPhone(phoneOrEmail);
-        VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
-        List<VehicleType> listVT = vehicleTypeDAO.getAll();
         if (user != null) {
             request.setAttribute("user", user);
-            request.setAttribute("listVT", listVT);
-            request.getRequestDispatcher("addVehicle.jsp").forward(request, response);
-            request.getRequestDispatcher("userExist.jsp").forward(request, response);
+            exist = "true";
         } else {
-            request.getRequestDispatcher("userNotExist.jsp").forward(request, response);
-
+            exist = "false";
         }
-
+        request.getRequestDispatcher("checkEmailPhone.jsp").forward(request, response);
     }
-
-}
 
 /**
  * Returns a short description of the servlet.
