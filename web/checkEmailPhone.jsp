@@ -26,7 +26,7 @@
             <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
                 <div class="fs-3 fw-bold text-info">Tạo hợp đồng</div>
             </div>
-            <div class="text-center fs-3 fw-bold text-info mb-3">Kiểm tra gì gì đó?</div>
+            <div class="text-center fs-3 fw-bold text-info mb-3">Kiểm tra Email hoặc Số điện thoại</div>
 
             <div style="width: 600px;" class="p-3 m-auto shadow rounded-3">
                 <form action="checkEmailorPhone" method="post"> 
@@ -39,7 +39,9 @@
                     </div>
                     <div class="text-center">
                         <input type="hidden" id="exist" value="${exist}"/>
-                        <div class="text-danger">${message}</div> <a class="btn btn-sm btn-primary" id="next-btn" href="${exist eq 'true'?'addVehicleForm':'AddCustomerForm'}" style="display: none;">Tiếp tục</a>
+                        <div class="text-danger">${message}</div>
+                        <a id="cancel-btn" href="ListContract" class="btn btn-sm btn-danger" style="display: none;">Hủy</a>
+                        <a class="btn btn-sm btn-primary" id="next-btn" href="${exist eq 'true'?'addVehicleForm':'AddCustomerForm'}" style="display: none;">Tiếp tục</a>
 
                     </div>
                 </form>
@@ -54,11 +56,14 @@
             $(document).ready(function () {
                 var exist = document.getElementById("exist").value;
                 var nextBtn = document.getElementById("next-btn");
+                var cancelBtn = document.getElementById("cancel-btn");
 
                 if (exist === "true" || exist === "false") {
                     nextBtn.style.display = "inline-block";
+                    cancelBtn.style.display = "inline-block";
                 } else {
                     nextBtn.style.display = "none";
+                    cancelBtn.style.display = "none";
                 }
             });
         </script>

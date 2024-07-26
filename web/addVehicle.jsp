@@ -33,7 +33,7 @@
             <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
                 <div class="fs-3 fw-bold text-info">Tạo hợp đồng</div>
             </div>
-            <div class="m-auto" style="width: 700px; margin-top: 10% !important;">
+            <div class="container" style="width: 700px;">
 
                 <div class="card">
                     <div class="card-body">
