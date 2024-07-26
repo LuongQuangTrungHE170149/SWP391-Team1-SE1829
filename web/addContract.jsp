@@ -89,6 +89,7 @@
                                 </div>
                             </div>
                             <form action="AddContractSuccess" method="post">
+                                <input type="hiden" name="exist" value="${exist}"/>
                                 <input type="hidden" name="vehicleType" value="${vehicleType}">
                                 <input type="hidden" name="vehicleOwnerFirstName" value="${vehicleOwnerFirstName}">
                                 <input type="hidden" name="vehicleOwnerLastName" value="${vehicleOwnerLastName}">

@@ -79,6 +79,7 @@ public class AddVehicleSuccess extends HttpServlet {
         String chassisNumber = request.getParameter("chassisNumber");
         String engineNumber = request.getParameter("engineNumber");
         String customerId =request.getParameter("customerId");
+        String exist = request.getParameter("exist");
         request.setAttribute("vehicleType", vehicleType);
         request.setAttribute("vehicleOwnerFirstName", vehicleOwnerFirstName);
         request.setAttribute("vehicleOwnerLastName", vehicleOwnerLastName);
@@ -87,6 +88,7 @@ public class AddVehicleSuccess extends HttpServlet {
         request.setAttribute("chassisNumber", chassisNumber);
         request.setAttribute("engineNumber", engineNumber);
         request.setAttribute("customerId", customerId);
+        request.setAttribute("exist", exist);
         request.getRequestDispatcher("addContract.jsp").forward(request, response);
     }
 

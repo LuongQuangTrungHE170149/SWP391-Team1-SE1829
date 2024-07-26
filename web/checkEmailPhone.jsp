@@ -50,43 +50,44 @@
         <!--mdb bootstrap-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
-            function validateInput() {
-                const input = $("#phoneOrEmail").val().trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                const phoneRegex = /^[0-9]{10,11}$/;
+                    function validateInput() {
+                        const input = $("#phoneOrEmail").val().trim();
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        const phoneRegex = /^[0-9]{10,11}$/;
 
-                if (!input) {
-                    $("#inputError").html("Vui lòng nhập số điện thoại hoặc email");
-                    return false;
-                } else if (!emailRegex.test(input) && !phoneRegex.test(input)) {
-                    $("#inputError").html("Vui lòng nhập email hoặc số điện thoại hợp lệ");
-                    return false;
-                } else {
-                    $("#inputError").html("");
-                    return true;
-                }
-            }
+                        if (!input) {
+                            $("#inputError").html("Vui lòng nhập số điện thoại hoặc email");
+                            return false;
+                        } else if (!emailRegex.test(input) && !phoneRegex.test(input)) {
+                            $("#inputError").html("Vui lòng nhập email hoặc số điện thoại hợp lệ");
+                            return false;
+                        } else {
+                            $("#inputError").html("");
+                            return true;
+                        }
+                    }
 
-            $(document).ready(function () {
-                var exist = document.getElementById("exist").value;
-                var nextBtn = document.getElementById("next-btn");
-                var cancelBtn = document.getElementById("cancel-btn");
-                var customerId = document.getElementById("customerId").value;
-                var phoneOrEmail = document.getElementById("phoneOrEmail").value;
+                    $(document).ready(function () {
+                        var exist = document.getElementById("exist").value;
+                        var nextBtn = document.getElementById("next-btn");
+                        var cancelBtn = document.getElementById("cancel-btn");
+                        var customerId = document.getElementById("customerId").value;
+                        var phoneOrEmail = document.getElementById("phoneOrEmail").value;
 
-                if (exist === "true") {
-                    nextBtn.href = "addVehicleForm?customerId=" + customerId;
-                    nextBtn.style.display = "inline-block";
-                    cancelBtn.style.display = "inline-block";
-                } else if (exist === "false") {
-                    nextBtn.href = "AddCustomerForm?phoneOrEmail=" + encodeURIComponent(phoneOrEmail);
-                    nextBtn.style.display = "inline-block";
-                    cancelBtn.style.display = "inline-block";
-                } else {
-                    nextBtn.style.display = "none";
-                    cancelBtn.style.display = "none";
-                }
-            });
+                        if (exist === "true") {
+                            nextBtn.href = "addVehicleForm?customerId=" + customerId + "&exist=" + exist;
+                            nextBtn.style.display = "inline-block";
+                            cancelBtn.style.display = "inline-block";
+                        } else if (exist === "false") {
+                            nextBtn.href = "AddCustomerForm?phoneOrEmail=" + encodeURIComponent(phoneOrEmail) + "&exist=" + exist;
+                            nextBtn.style.display = "inline-block";
+                            cancelBtn.style.display = "inline-block";
+                        } else {
+                            nextBtn.style.display = "none";
+                            cancelBtn.style.display = "none";
+                        }
+                    });
         </script>
+
     </body>
 </html>

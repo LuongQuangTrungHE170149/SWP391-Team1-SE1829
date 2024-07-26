@@ -29,6 +29,7 @@
                         <form action="AddVehicleSuccess" method="post" onsubmit="return validateForm()">    
                             <div class="fs-5 fw-bold text-419FA3">Thông tin phương tiện</div>
                             <hr class="text-419FA3">
+                            <input type="hiden" name="exist" value="${exist}"/>
                             <div class="input-form">
                                 <input type="hidden" name="customerId" value="${customerId}">
                                 <div class="col-12 col-lg-12 mb-3">

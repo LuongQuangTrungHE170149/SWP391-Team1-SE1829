@@ -31,6 +31,7 @@
                         <form action="AddCustomerServlet" method="post" onsubmit="return validateForm()">
                             <div class="fs-5 fw-bold text-419FA3">Thông tin người yêu cầu bảo hiểm</div>
                             <hr class="text-419FA3">
+                            <input type="hiden" name="exist" value="${exist}"/>
                             <div class="input-form mt-4">
                                 <div class="row mb-3">
                                     <div class="col-12 col-lg-6">
@@ -132,25 +133,37 @@
                                 return phoneRegex.test(input);
                             }
 
-                            function validatePhoneNumber() {
+                            async function validatePhoneNumber() {
                                 const phoneNumberValue = $("#phoneNumber").val().trim();
                                 if (!phoneNumberValue) {
                                     $("#phoneNumberError").html("Vui lòng nhập số điện thoại");
                                     return false;
                                 } else {
-                                    checkExistence("phoneNumber", phoneNumberValue);
-                                    return true;
+                                    const exists = await checkExistence("phoneNumber", phoneNumberValue);
+                                    if (exists) {
+                                        $("#phoneNumberError").html("Số điện thoại đã tồn tại");
+                                        return false;
+                                    } else {
+                                        $("#phoneNumberError").html("");
+                                        return true;
+                                    }
                                 }
                             }
 
-                            function validateEmail() {
+                            async function validateEmail() {
                                 const emailValue = $("#email").val().trim();
                                 if (!emailValue) {
                                     $("#emailError").html("Vui lòng nhập email");
                                     return false;
                                 } else {
-                                    checkExistence("email", emailValue);
-                                    return true;
+                                    const exists = await checkExistence("email", emailValue);
+                                    if (exists) {
+                                        $("#emailError").html("Email đã tồn tại");
+                                        return false;
+                                    } else {
+                                        $("#emailError").html("");
+                                        return true;
+                                    }
                                 }
                             }
 
@@ -172,37 +185,28 @@
                                 }
                             }
 
-                            function validateForm() {
-                                const isPhoneNumberValid = validatePhoneNumber();
-                                const isEmailValid = validateEmail();
+                            async function validateForm() {
+                                const isPhoneNumberValid = await validatePhoneNumber();
+                                const isEmailValid = await validateEmail();
                                 const isDobValid = validateDateOfBirth();
 
                                 return isPhoneNumberValid && isEmailValid && isDobValid;
                             }
 
                             function checkExistence(field, value) {
-                                $.ajax({
-                                    url: 'CheckExistenceServlet',
-                                    type: 'POST',
-                                    data: {field: field, value: value},
-                                    success: function (response) {
-                                        if (response.exists) {
-                                            if (field === "phoneNumber") {
-                                                $("#phoneNumberError").html("Số điện thoại đã tồn tại");
-                                            } else if (field === "email") {
-                                                $("#emailError").html("Email đã tồn tại");
-                                            }
-                                        } else {
-                                            if (field === "phoneNumber") {
-                                                $("#phoneNumberError").html("");
-                                            } else if (field === "email") {
-                                                $("#emailError").html("");
-                                            }
+                                return new Promise((resolve, reject) => {
+                                    $.ajax({
+                                        url: 'CheckExistenceServlet',
+                                        type: 'POST',
+                                        data: {field: field, value: value},
+                                        success: function (response) {
+                                            resolve(response.exists);
+                                        },
+                                        error: function () {
+                                            console.error('Lỗi kiểm tra tồn tại');
+                                            resolve(false);
                                         }
-                                    },
-                                    error: function () {
-                                        console.error('Lỗi kiểm tra tồn tại');
-                                    }
+                                    });
                                 });
                             }
         </script>
