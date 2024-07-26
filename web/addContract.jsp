@@ -1,12 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="dal.VehicleTypeDAO"%>
 <%@page import="Model.VehicleType"%>
-<%
-    VehicleTypeDAO vehicleTypeDAO = (VehicleTypeDAO) request.getAttribute("vehicleTypeDAO");
-    String vehicleType = (String) request.getAttribute("vehicleType");
-    VehicleType mt = vehicleTypeDAO.getVehicleTypeById(Integer.valueOf(vehicleType));
-    double vehiclePrice = mt.getPrice();
-%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -159,7 +154,8 @@
                                         <div>Số tiền thanh toán:</div>
                                     </div>
                                     <div class="col-5">
-                                        <input class="form-control" type="text" id="payment" name="payment" readonly>
+                                        <input type="hidden" id="payment" name="payment"/>
+                                        <input class="form-control" type="text" id="paymentParam"  readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -185,7 +181,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-10">
-                                        <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init>Lưu hợp đồng</button>
+                                        <div class="d-flex justify-content-between">
+                                            <button class="btn btn-danger" onclick="location.href='ListContract'">Hủy</button>
+                                        <button type="submit" class="btn btn-info" data-mdb-ripple-init>Lưu hợp đồng</button>
+
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -220,7 +220,7 @@
                                             }
 
                                             function updatePayment() {
-                                                const vehiclePrice = <%= vehiclePrice %>;
+                                                const vehiclePrice = ${vehiclePrice};
                                                 const numYear = parseInt(document.getElementById('numYear').value);
                                                 const accidentInsuranceChecked = document.getElementById('accidentInsuranceYes').checked;
 
@@ -228,7 +228,8 @@
                                                 if (accidentInsuranceChecked) {
                                                     payment += 20000 * numYear; // Thêm 20,000 mỗi năm nếu có bảo hiểm tai nạn
                                                 }
-
+                                                var formattedPayment = payment.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+                                                document.getElementById('paymentParam').value = formattedPayment;
                                                 document.getElementById('payment').value = payment;
                                             }
 

@@ -8,7 +8,6 @@ import dal.VehicleTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,10 +15,9 @@ import java.sql.Date;
 
 /**
  *
- * @author QUANG TRUNG
+ * @author thuhu
  */
-@WebServlet(name = "AddVehicleSuccess", urlPatterns = {"/AddVehicleSuccess"})
-public class AddVehicleSuccess extends HttpServlet {
+public class AddCustomerInforServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +36,10 @@ public class AddVehicleSuccess extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddVehicleSuccess</title>");
+            out.println("<title>Servlet AddCustomerInforServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddVehicleSuccess at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddCustomerInforServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +57,12 @@ public class AddVehicleSuccess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        VehicleTypeDAO vdb = new VehicleTypeDAO();
+        int  vehicleType = (Integer)request.getSession().getAttribute("vehicle_type");
+        System.out.println(vehicleType);
+        double vehiclePrice = vdb.getVehicleTypeById(vehicleType).getPrice();
+        request.setAttribute("vehiclePrice", vehiclePrice);
+        request.getRequestDispatcher("addContract.jsp").forward(request, response);
     }
 
     /**
@@ -73,34 +76,39 @@ public class AddVehicleSuccess extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
-        int vehicleType =Integer.parseInt(request.getParameter("vehicle_type"));
-                
+        int vehicle_type = Integer.parseInt(request.getParameter("vehicleType")) ;
+        System.out.println("vehicle type:  "+vehicle_type);
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String gender = request.getParameter("gender");
+        Date dob = Date.valueOf(request.getParameter("dob"));
+        String phoneNumber = request.getParameter("phoneNumber");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
         String vehicleOwnerFirstName = request.getParameter("vehicleOwnerFirstName");
         String vehicleOwnerLastName = request.getParameter("vehicleOwnerLastName");
         String vehicleOwnerAddress = request.getParameter("vehicleOwnerAddress");
         String licensePlate = request.getParameter("licensePlate");
         String chassisNumber = request.getParameter("chassisNumber");
         String engineNumber = request.getParameter("engineNumber");
-        String customerId = request.getParameter("customerId");
-        String exist = request.getParameter("exist");
-        request.setAttribute("vehicleType", vehicleType);
-        request.setAttribute("vehicleOwnerFirstName", vehicleOwnerFirstName);
-        request.setAttribute("vehicleOwnerLastName", vehicleOwnerLastName);
-        request.setAttribute("vehicleOwnerAddress", vehicleOwnerAddress);
-        request.setAttribute("licensePlate", licensePlate);
-        request.setAttribute("chassisNumber", chassisNumber);
-        request.setAttribute("engineNumber", engineNumber);
-        request.setAttribute("customerId", customerId);
-        request.setAttribute("exist", exist);
-        // Truyền vehicleType vào JSP
-        VehicleTypeDAO vdb = new VehicleTypeDAO();
 
-        double vehiclePrice = vdb.getVehicleTypeById(vehicleType).getPrice();
-
-        request.setAttribute("vehiclePrice", vehiclePrice);
-        request.getRequestDispatcher("addContract.jsp").forward(request, response);
-
+        request.getSession().setAttribute("vehicle_type", vehicle_type);
+        request.getSession().setAttribute("firstName", firstName);
+        request.getSession().setAttribute("lastName", lastName);
+        request.getSession().setAttribute("gender", gender);
+        request.getSession().setAttribute("dob", dob);
+        request.getSession().setAttribute("address", address);
+        request.getSession().setAttribute("email", email);
+        request.getSession().setAttribute("phoneNumber", phoneNumber);
+        
+        request.getSession().setAttribute("vehicleOwnerFirstName", vehicleOwnerFirstName);
+        request.getSession().setAttribute("vehicleOwnerLastName", vehicleOwnerLastName);
+        request.getSession().setAttribute("vehicleOwnerAddress", vehicleOwnerAddress);
+        request.getSession().setAttribute("licensePlate", licensePlate);
+        request.getSession().setAttribute("chassisNumber", chassisNumber);
+        request.getSession().setAttribute("engineNumber", engineNumber);
+        System.out.println("gender: " + gender);
+        System.out.println("dob: " + dob);
     }
 
     /**

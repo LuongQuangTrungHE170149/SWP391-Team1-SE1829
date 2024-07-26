@@ -4,6 +4,10 @@
  */
 package Controller;
 
+import Model.Vehicle;
+import Model.VehicleType;
+import dal.VehicleDAO;
+import dal.VehicleTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -59,8 +64,15 @@ public class AddCustomerForm extends HttpServlet {
             throws ServletException, IOException {
         String phoneOrEmail = request.getParameter("phoneOrEmail");
         String exist = request.getParameter("exist");
+        VehicleTypeDAO vdb = new VehicleTypeDAO();
+        List<VehicleType> listVT = vdb.getAll();
+        
+        
+        
+        request.setAttribute("listVT", listVT);
         request.setAttribute("phoneOrEmail", phoneOrEmail);
         request.setAttribute("exist", exist);
+        
         request.getRequestDispatcher("addCustomerInfo.jsp").forward(request, response);
     }
 

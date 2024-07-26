@@ -232,6 +232,10 @@
         <servlet-name>CheckEmailorPhoneServlet</servlet-name>
         <servlet-class>Controller.CheckEmailorPhoneServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCustomerInforServlet</servlet-name>
+        <servlet-class>Controller.AddCustomerInforServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddAgencyServlet</servlet-name>
         <url-pattern>/addAgency</url-pattern>
@@ -463,6 +467,10 @@
     <servlet-mapping>
         <servlet-name>CheckEmailorPhoneServlet</servlet-name>
         <url-pattern>/checkEmailorPhone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCustomerInforServlet</servlet-name>
+        <url-pattern>/addCustomerInfor</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

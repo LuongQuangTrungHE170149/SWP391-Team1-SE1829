@@ -803,6 +803,5 @@
                 }
             }
         </script>
-        <script src="JS/validateRequestCustomerInfo.js" type="text/javascript"></script>
     </body>
 </html>
