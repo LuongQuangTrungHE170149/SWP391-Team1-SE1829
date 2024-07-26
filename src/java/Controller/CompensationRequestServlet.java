@@ -99,6 +99,19 @@ public class CompensationRequestServlet extends HttpServlet {
             return;
         }
 
+        if (new BigInteger(estimatedRepairCost).compareTo(BigInteger.valueOf(1000000000L)) > 0) {
+            request.setAttribute("errorCost", "Số tiền quá lớn");
+            request.setAttribute("policyNumber", policyNumber);
+            request.setAttribute("incidentDate", incidentDate);
+            request.setAttribute("incidentLocation", incidentLocation);
+            request.setAttribute("policeReportNumber", policeReportNumber);
+            request.setAttribute("vehicleDamage", vehicleDamage);
+            request.setAttribute("incidentDescription", incidentDescription);
+            request.setAttribute("estimatedRepairCost", estimatedRepairCost);
+            request.getRequestDispatcher("compensation.jsp").forward(request, response);
+            return;
+        }
+
         try {
             Part filePart = request.getPart("supportingDocuments");
             if (filePart != null && filePart.getSize() > 0) {
@@ -121,11 +134,11 @@ public class CompensationRequestServlet extends HttpServlet {
 
         Contract contract = cdb.checkContractByCustomerId(policyNumber, u.getId());
         if (contract != null) {
-
             if (!contract.getStatus().equalsIgnoreCase("Approved")) {
                 session.setAttribute("messError", "Hợp động của bạn hiện tại không thể thực hiện đền bù");
                 response.sendRedirect("compensation");
             } else {
+
                 Accident accident = new Accident();
                 accident.setCustomerId(u.getId());
                 Date sqlDate = Date.valueOf(incidentDate);
@@ -144,9 +157,9 @@ public class CompensationRequestServlet extends HttpServlet {
                 LocalDate currentDate = LocalDate.now();
                 Date sqlCurrentDate = Date.valueOf(currentDate);
                 compensation.setDateFiled(sqlCurrentDate);
-                if (CompensationDAO.INSTANCE.insertCompensation(compensation)) {
+                CompensationDAO c = new CompensationDAO();
+                if (c.insertCompensation(compensation)) {
                     session.setAttribute("requestSuccess", "Gửi yêu cầu bồi thường thành công");
-
                 }
                 response.sendRedirect("compensationHistory?id=" + u.getId());
             }
