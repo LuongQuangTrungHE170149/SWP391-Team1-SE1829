@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -173,6 +173,7 @@
                 </div>
                 <div class="info-item">
                     <p><strong>Biển số xe:</strong> ${contract.vehicle.licensePlates}</p>
+                    <button type="button" onclick="checkLicensePlate()">Kiểm tra biển số xe</button>
                 </div>
                 <div class="info-item">
                     <p class="half-width"><strong>Số khung:</strong> ${contract.vehicle.chassis}</p>
@@ -187,11 +188,12 @@
                         <c:if test="${contract.status != 'Expired'}">
                         <form action="ChangeContractStatusServlet" method="post" style="display: inline;" onsubmit="return confirmChange();">
                             <input type="hidden" name="contractId" value="${contract.contractId}" />
-                            <select name="newStatus">
+                            <select name="newStatus" id="statusSelect">
                                 <option value="Pending">Chờ duyệt</option>
                                 <option value="Rejected">Từ chối</option>
-                                <option value="Approved">Đã duyệt</option>
-
+                                <c:if test="${!activeContractExists}">
+                                    <option value="Approved">Đã duyệt</option>
+                                </c:if>
                             </select>
                             <button type="submit" class="btn-edit">Sửa trạng thái</button>
                         </form>
@@ -204,9 +206,25 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script>
-                            function confirmChange() {
-                                return confirm("Bạn có chắc chắn muốn thay đổi trạng thái hợp đồng không?");
-                            }
+            function confirmChange() {
+                return confirm("Bạn có chắc chắn muốn thay đổi trạng thái hợp đồng không?");
+            }
+
+            function checkLicensePlate() {
+                const licensePlate = "${contract.vehicle.licensePlates}";
+                // Assume fetchActiveContractByLicensePlate is a function that checks for active contracts
+                fetch(`CheckLicensePlateServlet?licensePlate=${contract.vehicle.licensePlates}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.activeContractExists) {
+                            alert("Biển số xe này đã có hợp đồng có hiệu lực.");
+                            document.getElementById('statusSelect').querySelector('option[value="Approved"]').style.display = 'none';
+                        } else {
+                            alert("Biển số xe này không có hợp đồng nào có hiệu lực.");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         </script>
     </body>
 </html>

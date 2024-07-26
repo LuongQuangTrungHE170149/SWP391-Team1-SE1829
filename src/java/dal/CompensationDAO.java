@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author tranm
  */
-public class CompensationDAO extends DBContext{
+public class CompensationDAO extends DBContext {
 
     public static CompensationDAO INSTANCE = new CompensationDAO();
     private Connection con;
@@ -256,8 +256,16 @@ public class CompensationDAO extends DBContext{
     }
 
     public static void main(String[] args) {
-        CompensationDAO c= new CompensationDAO();
-        System.out.println(c.getListCompensationApprovedByStaff(1));
-        
+        CompensationDAO c = new CompensationDAO();
+        Compensation compensation = new Compensation();
+        compensation.setCustomerId(3);
+        compensation.setContractId(1);
+        compensation.setAccidentId(1);
+        compensation.setEstimatedRepairCost(new BigInteger("1000000"));
+        LocalDate currentDate = LocalDate.now();
+        Date sqlCurrentDate = Date.valueOf(currentDate);
+        compensation.setDateFiled(sqlCurrentDate);
+        System.out.println(c.insertCompensation(compensation));
+
     }
 }

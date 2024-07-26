@@ -3,15 +3,6 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>addVehicle</title>
-    <style>
-        /* Các kiểu CSS của bạn ở đây */
-        /* ... */
-    </style>
-   
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Điền thông tin phương tiện</title>
@@ -25,7 +16,6 @@
                 color: #dc3545;
             }
         </style>
-
     </head>
     <body>
         <jsp:include page="staffDashboard.jsp"/>
@@ -34,10 +24,9 @@
                 <div class="fs-3 fw-bold text-info">Tạo hợp đồng</div>
             </div>
             <div class="container" style="width: 700px;">
-
                 <div class="card">
                     <div class="card-body">
-                        <form action="AddVehicleSuccess" method="post" onsubmit="return saveVehicleInfo()">    
+                        <form action="AddVehicleSuccess" method="post" onsubmit="return validateForm()">    
                             <div class="fs-5 fw-bold text-419FA3">Thông tin phương tiện</div>
                             <hr class="text-419FA3">
                             <div class="input-form">
@@ -105,7 +94,6 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -113,30 +101,61 @@
         <!--mdb bootstrap-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
         <script>
-                            function saveVehicleInfo() {
-                                // Validate chassis number
-                                var chassisNumber = document.getElementById("chassisNumber").value;
-                                var engineNumber = document.getElementById("engineNumber").value;
+                            function validateLicensePlate() {
+                                const licensePlateRegex = /^[0-9]{2}[A-Z][0-9]{1}[0-9]{3,5}$/;
+                                const licensePlateValue = $("#licensePlate").val().trim();
 
-                                var isValid = true;
-
-                                if (chassisNumber.length < 6 || chassisNumber.length > 17) {
-                                    document.getElementById("chassisNumberError").innerText = "Số khung phải từ 6 đến 17 ký tự.";
-                                    isValid = false;
+                                if (!licensePlateValue) {
+                                    $("#licensePlateError").html("Vui lòng nhập biển số xe");
+                                    return false;
+                                } else if (!licensePlateRegex.test(licensePlateValue)) {
+                                    $("#licensePlateError").html("Biển số xe không hợp lệ");
+                                    return false;
                                 } else {
-                                    document.getElementById("chassisNumberError").innerText = "";
+                                    $("#licensePlateError").html("");
+                                    return true;
                                 }
+                            }
 
-                                if (engineNumber.length < 6 || engineNumber.length > 17) {
-                                    document.getElementById("engineNumberError").innerText = "Số máy phải từ 6 đến 17 ký tự.";
-                                    isValid = false;
+                            function validateChassisNumber() {
+                                const chassisNumberRegex = /^[A-Z0-9]{6,17}$/;
+                                const chassisNumberValue = $("#chassisNumber").val().trim();
+
+                                if (!chassisNumberValue) {
+                                    $("#chassisNumberError").html("Vui lòng nhập số khung");
+                                    return false;
+                                } else if (!chassisNumberRegex.test(chassisNumberValue)) {
+                                    $("#chassisNumberError").html("Số khung bao gồm 6 đến 17 kí tự A-Z 0-9");
+                                    return false;
                                 } else {
-                                    document.getElementById("engineNumberError").innerText = "";
+                                    $("#chassisNumberError").html("");
+                                    return true;
                                 }
+                            }
 
-                                return isValid;
+                            function validateEngineNumber() {
+                                const engineNumberRegex = /^[A-Z0-9]{6,17}$/;
+                                const engineNumberValue = $("#engineNumber").val().trim();
+
+                                if (!engineNumberValue) {
+                                    $("#engineNumberError").html("Vui lòng nhập số máy");
+                                    return false;
+                                } else if (!engineNumberRegex.test(engineNumberValue)) {
+                                    $("#engineNumberError").html("Số máy từ 6 đến 17 kí tự A-Z 0-9");
+                                    return false;
+                                } else {
+                                    $("#engineNumberError").html("");
+                                    return true;
+                                }
+                            }
+
+                            function validateForm() {
+                                const isLicensePlateValid = validateLicensePlate();
+                                const isChassisNumberValid = validateChassisNumber();
+                                const isEngineNumberValid = validateEngineNumber();
+
+                                return isLicensePlateValid && isChassisNumberValid && isEngineNumberValid;
                             }
         </script>
     </body>
-
 </html>

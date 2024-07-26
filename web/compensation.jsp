@@ -68,9 +68,10 @@
 
                         <label for="vehicleDamage">Tình trạng xe<span class="text-danger">*</span> :</label>
                         <input type="text" id="vehicleDamage" name="vehicleDamage" value="${requestScope.vehicleDamage}" required>
-
+                        
                         <label for="estimatedRepairCost">Chi phi sửa chữa<span class="text-danger">*</span> :</label>
                         <input type="number" min="0" id="estimatedRepairCost" name="estimatedRepairCost" value="${requestScope.estimatedRepairCost}" required>
+                        <span style="color: red">${requestScope.errorCost}</span>
 
                         <label for="incidentDescription">Mô tả Sự cố<span class="text-danger">*</span> :</label>
                         <textarea id="incidentDescription" name="incidentDescription" rows="4" value="${requestScope.incidentDescription}" required></textarea>

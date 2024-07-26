@@ -465,8 +465,8 @@ public class ContractDAO extends DBContext {
             return rowsAffected > 0;
         }
     }
-    
-        public List<Contract> getAllContractByStatus(String status) {
+
+    public List<Contract> getAllContractByStatus(String status) {
         List<Contract> list = new ArrayList<>();
         String sql = "SELECT [ContractId]\n"
                 + "      ,[CustomerId]\n"
@@ -519,8 +519,6 @@ public class ContractDAO extends DBContext {
         return list;
     }
 
-    private int noOfRecords;
-
     public List<Contract> searchContracts(String searchQuery, String statusFilter) {
         List<Contract> contracts = new ArrayList<>();
         String sql = "SELECT * FROM Contracts WHERE 1=1";
@@ -531,19 +529,18 @@ public class ContractDAO extends DBContext {
         if (statusFilter != null && !statusFilter.isEmpty()) {
             sql += " AND status = ?";
         }
-        
+
         UserDAO userDAO = new UserDAO();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             int paramIndex = 1;
             if (searchQuery != null && !searchQuery.isEmpty()) {
                 stmt.setString(paramIndex++, "%" + searchQuery + "%");
-                
+
             }
             if (statusFilter != null && !statusFilter.isEmpty()) {
                 stmt.setString(paramIndex++, statusFilter);
             }
-            
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -575,21 +572,39 @@ public class ContractDAO extends DBContext {
                 contracts.add(c);
             }
 
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return contracts;
     }
 
-    public int getNoOfRecords() {
-        return noOfRecords;
+    public boolean isLicensePlateActive(String licensePlate) {
+        boolean activeContractExists = false;
+
+        String sql = "SELECT COUNT(*) FROM Contracts c JOIN Vehicles v ON c.VehicleId = v.id WHERE v.LicensePlates = ? AND c.status = 'Approved' AND c.EndDate > CAST(GETDATE() AS DATE)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, licensePlate);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    activeContractExists = count > 0;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return activeContractExists;
     }
 
     public static void main(String[] args) {
         ContractDAO cd = new ContractDAO();
 
-        System.out.println(cd.searchContracts("", "pending"));
+        System.out.println(cd.isLicensePlateActive("16k11860"));
 
     }
 
