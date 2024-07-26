@@ -13,17 +13,17 @@
     <head>
         <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="/SWP391-Team1-SE1829/CSS/cutomerManage.css">
-        <link rel="stylesheet" href="/SWP391-Team1-SE1829/CSS/agency.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
         <title>Customer list</title>
+        <link rel="stylesheet" href="/SWP391-Team1-SE1829/CSS/agency.css">
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
     </head>
     <body>
         <jsp:include page="staffDashboard.jsp"/>
-
         <div class="main-content" id="main-content">
-            <div id="listCustomer-page">
+            <div class="nav navbar bg-light sticky-top justify-content-between align-items-start px-2"> 
+                <div class="fs-3 fw-bold text-info">Danh sách khách hàng</div>
+            </div>
+            <div>
                 <c:if test="${sessionScope.addSuccess != null}">
                     <div id="toast-success" class="toast-container top-0 end-0 p-3">
                         <div class="toast align-items-center text-bg-success border-0 fade show" role="alert" aria-live="assertive" aria-atomic="true">
@@ -38,22 +38,19 @@
                     <c:remove var="addSuccess" scope="session" />
                 </c:if>
 
-
-                <div class="container">
-
+                <div class="mt-3">
                     <h1>${requestScope.haha}</h1>
-                    <h3 style="text-align: center"><span>Danh sách khách hàng</span></h3>
-                    <div class="container-action">
-                        <div>
+                    <div class="d-flex justify-content-center mb-5">
+                        <div class="me-3">
                             <form action="customerList">
-                                <div class="list-agency--search">
-                                    <input  value="${name}" placeholder="Tìm kiếm tên khách hàng..." name="key"/>
+                                <div class="form-outline d-flex" data-mdb-input-init>
+                                    <input class="form-control" type="search"  value="${name}" placeholder="Tìm kiếm tên khách hàng..." name="key"/>
                                     <button type="submit" class="search-agency--btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                             </form>
                         </div>
-                        <div>
-                            <select name="filter" class="select-filter" onchange="redirectToServlet(this)">
+                        <div class="me-3">
+                            <select name="filter" class="form-select" onchange="redirectToServlet(this)">
                                 <option disabled selected>Trạng thái</option>
                                 <option value="all">Tất cả</option>
                                 <option value="active" ${requestScope.selectedStatus eq "active" ? "selected" : ""} >Hoạt động</option>
@@ -64,13 +61,13 @@
 
 
                         <div style="display: flex;">
-                            <a href="customerList?action=sort" class="btn-wrapper btn-filter">Sắp xếp</a>
-                            <a href="customerAdd" class="btn-wrapper btn-add">Thêm</a>
+                            <a href="customerList?action=sort"  class="btn btn-light me-3 rounded-pill" data-mdb-ripple-init>Sắp xếp</a>
+                            <a href="customerAdd" class="btn btn-info rounded-pill" data-mdb-ripple-init>Thêm</a>
 
                         </div>   
                     </div>
                     <div>
-                        <table class="styled-table">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Họ tên</th>
@@ -80,7 +77,7 @@
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ</th>
                                     <th>Trạng thái</th>           
-                                    <th></th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -102,12 +99,14 @@
                                                 ${cusomter.status eq 'active' ? 'Hoạt động' : 'Ngưng hoạt động' }
                                             </span>
                                         </td> 
-                                        <td> <div class="button-customer-group">
-                                                <a href="customerDetail?customerId=${cusomter.id}">
-                                                    <button class="button-customer view">Chi tiết</button>
+                                        <td> 
+                                            <div class="text-center">
+                                                <a href="customerDetail?customerId=${cusomter.id}" class="me-3">
+                                                    <i class="fa-regular fa-folder-open"></i>
                                                 </a>
-                                                <a href="customerEdit?customerId=${cusomter.id}"> <button class="button-customer edit">Sửa</button></a>
-                                            
+                                                <a href="customerEdit?customerId=${cusomter.id}"> 
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

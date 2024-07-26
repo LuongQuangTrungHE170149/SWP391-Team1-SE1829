@@ -10,11 +10,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 
-.home-manager--wrapper {
-    flex-grow:  1;
-    min-height: 800px;
-    background-color: #f0f2fa;
-}
 
 
 .stat-cards-item {

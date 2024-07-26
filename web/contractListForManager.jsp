@@ -11,13 +11,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>List contract</title>
+        <title>Danh sách hợp đồng</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <style>
             .table-custom td, .table-custom th{
                 padding: 14px 16px !important;
                 text-align: center;
             }
-
             .select-filter {
                 margin-top: 10px;
                 margin-bottom: 30px;
@@ -28,22 +28,27 @@
         <jsp:include page="staffDashboard.jsp"/>
 
         <div class="main-content" id="main-content">
-            <div class="container">
-                <div style="margin: 50px 0">
-                    <h1 style="margin-bottom: 20px">Danh sách hợp đồng</h1>
-                    <form class="form" action="listContractForManager" method="POST">
-                        <select name="filter" class="select-filter" onchange="redirectToServlet()">
-                            <option disabled selected>Trạng thái</option>
-                            <option value="all">Tất cả</option>
-                            <option value="Pending" ${requestScope.selectedCity eq "Pending" ? "selected" : ""}>Chờ duyệt</option>
-                            <option value="Approved" ${requestScope.selectedCity eq "Approved" ? "selected" : ""}>Đã duyệt</option>
-                            <option value="Rejected" ${requestScope.selectedCity eq "Rejected" ? "selected" : ""}>Từ chối</option>
-                            <option value="Expired" ${requestScope.selectedCity eq "Expired" ? "selected" : ""}>Hết hạn</option>
-                        </select>
-                    </form>
+            <div class="nav navbar bg-light sticky-top justify-content-between align-items-start px-2"> 
+                <div class="fs-3 fw-bold text-info">Danh sách hợp đồng</div>
+            </div>
+            <div class="mt-3">
+                <div>
+                    <div class="m-auto mb-3" style="width: 150px;">
+                        <form class="form" action="listContractForManager" method="POST">
+                            <select name="filter" class="form-select" onchange="redirectToServlet()">
+                                <option disabled selected>Trạng thái</option>
+                                <option value="all">Tất cả</option>
+                                <option value="Pending" ${requestScope.selectedCity eq "Pending" ? "selected" : ""}>Chờ duyệt</option>
+                                <option value="Approved" ${requestScope.selectedCity eq "Approved" ? "selected" : ""}>Đã duyệt</option>
+                                <option value="Rejected" ${requestScope.selectedCity eq "Rejected" ? "selected" : ""}>Từ chối</option>
+                                <option value="Expired" ${requestScope.selectedCity eq "Expired" ? "selected" : ""}>Hết hạn</option>
+                            </select>
+                        </form>
+                    </div>
 
 
-                    <table class="table table-bordered table-hover table-custom">
+
+                    <table class="table table-hover">
                         <thead>
                             <tr>   
                                 <th>Mã hợp đồng</th>
@@ -69,7 +74,7 @@
                                         </td>
                                         <td><fmt:formatNumber value="${c.payment}" type="currency" currencyCode="VND"/></td>
                                         <td>${c.description}</td>
-                                        <td><a href="#" 
+                                        <td class="text-center"><a href="#" 
                                                class="text-info btn-detailContract"
                                                data-mdb-modal-init
                                                data-id="${c.contractId}"
