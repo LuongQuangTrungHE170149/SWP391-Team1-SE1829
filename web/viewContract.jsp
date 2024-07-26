@@ -166,10 +166,20 @@
             <h1>Thông tin hợp đồng</h1>
             <div class="info">
                 <div class="info-item">
-                    <p><strong>Họ tên chủ xe:</strong> ${contract.vehicle.ownerFirstName} ${contract.vehicle.ownerLastName}</p>
+                    <p><strong>Code:</strong> ${contract.code}</p>
+                    
                 </div>
                 <div class="info-item">
-                    <p><strong>Địa chỉ:</strong> ${contract.vehicle.ownerAddress}</p>
+                    <p class="half-width"><strong>Họ tên chủ xe:</strong> ${contract.vehicle.ownerFirstName} ${contract.vehicle.ownerLastName}</p>
+                    <p class="half-width"><strong>Họ tên Người yêu cầu:</strong> ${contract.customer.firstName} ${contract.customer.lastName}</p>
+                </div>
+                <div class="info-item">
+                    <p class="half-width"><strong>Địa chỉ chủ xe:</strong> ${contract.vehicle.ownerAddress}</p>
+                    <p class="half-width"><strong>Địa chỉ người yêu cầu:</strong> ${contract.customer.address}</p>
+                </div>
+                <div class="info-item">
+                    <p class="half-width"><strong>Số điện thoại:</strong> ${contract.customer.phone}</p>
+                    <p class="half-width"><strong>Email:</strong> ${contract.customer.email}</p>
                 </div>
                 <div class="info-item">
                     <p><strong>Biển số xe:</strong> ${contract.vehicle.licensePlates}</p>
