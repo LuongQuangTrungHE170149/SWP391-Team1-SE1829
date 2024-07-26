@@ -31,7 +31,7 @@
                         <form action="AddCustomerServlet" method="post" onsubmit="return validateForm()">
                             <div class="fs-5 fw-bold text-419FA3">Thông tin người yêu cầu bảo hiểm</div>
                             <hr class="text-419FA3">
-                            <input type="hiden" name="exist" value="${exist}"/>
+                            <input type="hidden" name="exist" value="${exist}"/>
                             <div class="input-form mt-4">
                                 <div class="row mb-3">
                                     <div class="col-12 col-lg-6">
