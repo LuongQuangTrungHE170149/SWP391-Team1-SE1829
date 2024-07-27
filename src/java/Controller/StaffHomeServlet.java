@@ -17,6 +17,7 @@ import dal.ConsultationDAO;
 import dal.ContractDAO;
 import dal.NewsDAO;
 import dal.PromotionDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -115,11 +116,17 @@ public class StaffHomeServlet extends HttpServlet {
                 Gson gson = new Gson();
                 String jsonMonthlyMoney = gson.toJson(monthlyMoneyByStaff);
 
-                
                 request.setAttribute("monthlyMoneyByStaff", jsonMonthlyMoney);
 
                 request.setAttribute("totalMoney", totalMoney);
-               
+                UserDAO udb = new UserDAO();
+                List<User> listCustomerByStaff = udb.getAllCustomerByStaff(u.getId());
+                ContractDAO con = new ContractDAO();
+                session.setAttribute("totalCustomerByStaff", listCustomerByStaff.size());
+                session.setAttribute("totalContract", con.getAll().size());
+                session.setAttribute("totalConsultation", cdb.getAll().size());
+                session.setAttribute("totalPromotion", pdb.getAll().size());
+                session.setAttribute("totalNews", ndb.getAll().size());
                 request.setAttribute("listPromotion", listPromotion);
                 request.setAttribute("listPromotionByStaff", listPromotionByStaff);
                 request.setAttribute("listNewsByStaff", listNewsByStaff);

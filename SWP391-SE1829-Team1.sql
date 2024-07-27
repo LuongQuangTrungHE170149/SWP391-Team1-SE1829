@@ -79,21 +79,6 @@ create table Staff_Workplace(
 )
 GO
 
-GO
-create TABLE Compensations (
-    CompensationId INT IDENTITY(1,1) PRIMARY KEY,
-    ContractId INT REFERENCES Contracts(ContractId),
-    CustomerId INT REFERENCES Users(id),
-	StaffId int default 0,
-    AccidentId INT REFERENCES Accidents(AccidentId),
-    EstimatedRepairCost DECIMAL(10, 2),
-    ClaimStatus NVARCHAR(50) NOT NULL DEFAULT 'pending',
-    DateFiled DATE NOT NULL,
-    DateApproved DATE, 
-    Notes NTEXT
-);
-
- 
 create TABLE Accidents (
     AccidentId INT IDENTITY(1,1) PRIMARY KEY,
     CustomerId INT REFERENCES Users(id),
@@ -106,6 +91,22 @@ create TABLE Accidents (
 );
 GO
 
+create TABLE Compensations (
+    CompensationId INT IDENTITY(1,1) PRIMARY KEY,
+    ContractId INT REFERENCES Contracts(ContractId),
+    CustomerId INT REFERENCES Users(id),
+	StaffId int default 0,
+    AccidentId INT REFERENCES Accidents(AccidentId),
+    EstimatedRepairCost DECIMAL(10, 2),
+    ClaimStatus NVARCHAR(50) NOT NULL DEFAULT 'pending',
+    DateFiled DATE NOT NULL,
+    DateApproved DATE, 
+    Notes NTEXT
+);
+GO
+ 
+
+
 create table Notifications(
 	id int identity(1,1) primary key,
 	title nvarchar(255),
@@ -117,13 +118,13 @@ create table Notifications(
 )
 GO
 
-
 Create table Consultations(
-			id int identity(1,1) primary key,
-			name nvarchar(255) not null,
-			email nvarchar(255) not null,
-			content nvarchar(255) not null,
+		    id  int Identity(1,1) primary key,
+			name nvarchar(255),
+			email nvarchar(255),
+			content nvarchar(max),
 			createDate datetime default getdate(),
+			reply_message nvarchar(max),
 			staff int foreign key references Users(id),
 			status bit default 0
 )
@@ -154,8 +155,6 @@ Create Table News(
 )
 GO
 
-
-
 CREATE TRIGGER trg_UpdateContractStatus
 ON [SWP391_SE1829_Team1].[dbo].[Contracts]
 AFTER UPDATE
@@ -180,7 +179,6 @@ END;
 
 INSERT INTO Accidents (CustomerId, DateOfAccident, AccidentLocation, PoliceReportNumber, DescriptionOfAccident, VehicleDamage)
 VALUES (1, '2023-06-15', N'Hà Nội', N'PR123456', N'Vụ tai nạn xảy ra ở ngã tư', N'Hư hỏng cản trước');
-
 INSERT INTO Compensations (ContractId, CustomerId, AccidentId, EstimatedRepairCost, ClaimStatus, DateFiled, DateApproved, PaymentAmount, PaymentDate, Notes)
 VALUES (1, 1, 1, 5000.00, N'pending', '2023-06-16', NULL, NULL, NULL, N'Đang chờ xử lý từ phía bảo hiểm');
 

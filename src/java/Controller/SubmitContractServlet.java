@@ -85,6 +85,9 @@ public class SubmitContractServlet extends HttpServlet {
                 user.setRole("customer");
                 note = "Hãy nhớ đăng nhập để xem chi tiết hợp đồng của bạn nhé!";
                 c.setDescription("khách hàng đã có tài khoản mua bảo hiểm");
+                if (!user.getRole().equalsIgnoreCase("Staff")) {
+                        System.out.println("update role: " + udb.updateUserRoleById(user.getId(), "customer"));
+                    } 
             } else {
                 User existingUser = udb.getUserByPhoneOrEmail(phoneNumber, email);
                 if (existingUser == null) {
@@ -99,7 +102,7 @@ public class SubmitContractServlet extends HttpServlet {
                     user.setPhone(phoneNumber);
                     user.setEmail(email);
                     user.setDob(dob);
-
+                    
                     System.out.println(udb.insert(user));
 
                     user.setId(udb.getLastUserId());
@@ -107,25 +110,24 @@ public class SubmitContractServlet extends HttpServlet {
                     note = "Chúng tôi đã tạo cho bạn một tài khoản. Hãy sử dụng tài khoản này để đăng nhập và xem thông tin chi tiết hợp đồng! <br>"
                             + "<h3>Tài khoản: <b>" + email + "</b></h3>"
                             + "<h3>Mật khẩu mặc định: <b>" + phoneNumber + "</b></h3>";
+                    
                 } else {
                     user = existingUser;
-                    user.setId(user.getId());
                     user.setRole("Customer");
                     c.setDescription("khách hàng đã có tài khoản mua bảo hiểm");
                     note = "Hệ thống kiểm tra bạn đã có tài khoản. "
                             + "Vui lòng dùng tài khoản của bạn để đăng nhập xem thông tin chi tiết hợp đồng!";
-
-                    //TODO: Update sucess
-                    Notification notification = new Notification();
-                    notification.setTitle("Success contract");
-                    notification.setUserId(user);
-                    notification.setIsClick(false);
-                    int contractId = 0;
-                    notification.setLink("/contract?id=" + contractId);
-                    NotificationWebSocket.sendMessageToUser(user.getId() + "", notification);
+//                    //TODO: Update sucess
+//                    Notification notification = new Notification();
+//                    notification.setTitle("Success contract");
+//                    notification.setUserId(user);
+//                    notification.setIsClick(false);
+//                    int contractId = 0;
+//                    notification.setLink("/contract?id=" + contractId);
+//                    NotificationWebSocket.sendMessageToUser(user.getId() + "", notification);
 
                     // Kiểm tra vai trò của người dùng trước khi cập nhật
-                    if (!"staff".equalsIgnoreCase(user.getRole())) {
+                    if (!user.getRole().equalsIgnoreCase("Staff")) {
                         System.out.println("update role: " + udb.updateUserRoleById(user.getId(), "customer"));
                     }
                 }
@@ -140,6 +142,7 @@ public class SubmitContractServlet extends HttpServlet {
             c.setCustomer(user);
 
             ContractDAO cdb = new ContractDAO();
+            Contract contract = cdb.findLastContract();
             System.out.println(cdb.addContract(c));
             EmailHelper.sendEmailRequestContractSuccess(email, "[ĐĂNG KÝ] YÊU CẦU HỢP ĐỒNG BẢO HIỂM XE MÁY THÀNH CÔNG", (firstName + " " + lastName).toUpperCase(), contractCode, note);
 
@@ -166,7 +169,7 @@ public class SubmitContractServlet extends HttpServlet {
             Notification notification = new Notification();
             notification.setTitle("Bạn có 1 hợp đồng mới");
             notification.setIsClick(true);
-            notification.setLink("manageContractCustomer");
+            notification.setLink("manageContractCustomer?customerId="+contract.getCustomer().getId());
             notification.setUserId(user);
             dbNotify.insert(notification);
             NotificationWebSocket.sendMessageToUser(user.getId() + "", notification);

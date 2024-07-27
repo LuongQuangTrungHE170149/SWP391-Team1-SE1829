@@ -14,7 +14,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>F-Care | Quản lý tư vấn</title>
+        <title>Quản lý tư vấn</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
 
         <!--summernote-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">

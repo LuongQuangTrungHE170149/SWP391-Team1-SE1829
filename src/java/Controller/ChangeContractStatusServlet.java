@@ -80,6 +80,7 @@ public class ChangeContractStatusServlet extends HttpServlet {
     throws ServletException, IOException {
          // Lấy thông tin contractId và newStatus từ request
         int contractId = Integer.parseInt(request.getParameter("contractId"));
+        User u =(User)request.getSession().getAttribute("user");
         String newStatus = request.getParameter("newStatus");
 
         // Thực hiện thay đổi trạng thái hợp đồng trong database
@@ -88,7 +89,8 @@ public class ChangeContractStatusServlet extends HttpServlet {
         try {
             // Giả sử bạn đã có phương thức cập nhật trạng thái trong lớp ContractDAO
             ContractDAO contractDAO = new ContractDAO();
-            boolean isUpdated = contractDAO.updateContractStatus(contractId, newStatus);
+            boolean isUpdated = contractDAO.updateContractStatus(contractId, newStatus, u.getId());
+            
 
             if (isUpdated) {
             NotificationDAO dbNotify = new NotificationDAO();

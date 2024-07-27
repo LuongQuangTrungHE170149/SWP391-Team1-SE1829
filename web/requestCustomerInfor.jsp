@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Khai báo chi tiết</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <style>
             .text-419FA3{

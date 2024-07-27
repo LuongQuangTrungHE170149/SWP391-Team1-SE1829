@@ -55,6 +55,24 @@ public class UserDAO extends DBContext {
         return list;
     }
 
+    public boolean updateRoleUserById(int id, String role) {
+        String sql = "UPDATE [dbo].[Users]\n"
+                + "   SET [role] = ?\n"
+                + "    \n"
+                + " WHERE id = ?";
+        
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, role);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public List<User> getAllUserByRole(String role) {
         List<User> list = new ArrayList<>();
         String sql = "select * from Users where role = ?";
@@ -804,7 +822,7 @@ public class UserDAO extends DBContext {
 
         return list;
     }
-    
+
     public User selectUserByEmailOrPhone(String string) {
         User user = null;
         String SELECT_USER_BY_EMAIL_OR_PHONE = "SELECT * FROM users WHERE email = ? OR phoneNumber = ?";
@@ -829,17 +847,17 @@ public class UserDAO extends DBContext {
                 String status = rs.getString("status");
 
                 user = new User(id, username, firstName, lastName, password, role, gender, emailDB, phoneDB, dob, address, dateCreated, status);
-                
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return user;
     }
-    
+
     public static void main(String[] args) {
         UserDAO udb = new UserDAO();
-        System.out.println(udb.findByUsernameOrEmailAndPassword("kha21", "123"));
+        System.out.println(udb.updateRoleUserById(3, "user"));
     }
 
 }

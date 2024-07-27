@@ -1,4 +1,3 @@
-
 package Controller;
 
 import Model.Consultation;
@@ -41,13 +40,12 @@ public class ConsultationManagerServlet extends HttpServlet {
                 ConsultationDAO cdb = new ConsultationDAO();
                 List<Consultation> listAll;
                 HashMap<String, Integer> totalStaffAnswer = cdb.getTotalStaffAnswer();
-                List<Object[]> listStaffAnswer  = cdb.listStaffAnswer();
+                List<Object[]> listStaffAnswer = cdb.listStaffAnswer();
 
-                
                 String staff = request.getParameter("staff");
                 String status = request.getParameter("status");
                 String searchValue = request.getParameter("searchValue");
-                System.out.println("staff: "+staff+"\nstatus: " + status + "\n search value: " + searchValue);
+                System.out.println("staff: " + staff + "\nstatus: " + status + "\n search value: " + searchValue);
 
                 listAll = cdb.searchConsultation(staff, status, searchValue);
 
@@ -66,8 +64,7 @@ public class ConsultationManagerServlet extends HttpServlet {
 
                 List<Consultation> listForPage = listAll.subList(start, end);
                 int numberOfPages = (int) Math.ceil(listAll.size() * 1.0 / recordPerPage);
-                
-                
+
                 request.setAttribute("staff", staff);
                 request.setAttribute("listStaffAnswer", listStaffAnswer);
                 request.setAttribute("status", status);
@@ -80,6 +77,7 @@ public class ConsultationManagerServlet extends HttpServlet {
                 request.setAttribute("listAll", listForPage);
                 request.setAttribute("numberOfPages", numberOfPages);
                 request.setAttribute("currentPage", page);
+                session.setAttribute("totalConsultation", cdb.getAll().size());
                 request.getRequestDispatcher("consultationManager.jsp").forward(request, response);
             }
         }

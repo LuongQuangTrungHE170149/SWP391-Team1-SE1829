@@ -50,7 +50,7 @@ public class ConsultationDAO extends DBContext {
                 + "      ,[staff]\n"
                 + "      ,[status]\n"
                 + "  FROM [dbo].[Consultations]\n"
-                + "  order by createDate DESC";
+                + "  order by id DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -122,7 +122,7 @@ public class ConsultationDAO extends DBContext {
             sql.append(" AND ([name] LIKE ? OR [email] LIKE ?)");
         }
         //
-        sql.append(" Order by createDate DESC");
+        sql.append(" Order by id DESC");
 
         try {
             PreparedStatement st = connection.prepareStatement(sql.toString());
@@ -247,7 +247,7 @@ public class ConsultationDAO extends DBContext {
                 + "      ,[reply_message]\n"
                 + "      ,[staff]\n"
                 + "      ,[status]\n"
-                + "  FROM [dbo].[Consultations] where status = ? order by createDate DESC";
+                + "  FROM [dbo].[Consultations] where status = ? order by id DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, status);
@@ -341,7 +341,7 @@ public class ConsultationDAO extends DBContext {
                 + "      ,[reply_message]\n"
                 + "      ,[staff]\n"
                 + "      ,[status]\n"
-                + "  FROM [dbo].[Consultations] where staff = ? order by createDate DESC";
+                + "  FROM [dbo].[Consultations] where staff = ? order by id DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -397,6 +397,6 @@ public class ConsultationDAO extends DBContext {
 
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println(cdb.getListConsultationByStaffId(1).size());
+        System.out.println(cdb.getAll());
     }
 }

@@ -45,14 +45,14 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-outline mb-3" data-mdb-input-init>
-                                            <input class="form-control" type="text" name="vehicleOwnerFirstName" id="vehicleOwnerFirstName" value="${vehicleOwnerFirstName}" required="">
+                                            <input class="form-control" type="text" name="vehicleOwnerFirstName" id="vehicleOwnerFirstName"  required="">
                                             <label class="form-label" for="vehicleOwnerFirstName">Họ chủ xe<span class="text-danger"> *</span></label>
                                         </div>
                                         <span class="error-message" id="vehicleOwnerFirstNameError"></span>
                                     </div>
                                     <div class="col-12 col-lg-6" >
                                         <div class="form-outline mb-3" data-mdb-input-init>
-                                            <input class="form-control" type="text" name="vehicleOwnerLastName" id="vehicleOwnerLastName" value="${vehicleOwnerLastName}" required="">
+                                            <input class="form-control" type="text" name="vehicleOwnerLastName" id="vehicleOwnerLastName"  required="">
                                             <label class="form-label" for="vehicleOwnerLastName">Tên chủ xe<span class="text-danger"> *</span></label>
                                         </div>
                                         <span class="error-message" id="vehicleOwnerLastNameError"></span>
@@ -61,14 +61,14 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-outline mb-3" data-mdb-input-init>
-                                            <input class="form-control" type="text" name="vehicleOwnerAddress" id="vehicleOwnerAddress" value="${vehicleOwnerAddress}" required="">
+                                            <input class="form-control" type="text" name="vehicleOwnerAddress" id="vehicleOwnerAddress"  required="">
                                             <label class="form-label" for="vehicleOwnerAddress">Địa chỉ chủ xe<span class="text-danger"> *</span></label>
                                         </div>
                                         <span class="error-message" id="vehicleOwnerAddressError"></span>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-outline mb-3" data-mdb-input-init>
-                                            <input class="form-control" type="text" name="licensePlate" id="licensePlate" value="${licensePlate}" required="">
+                                            <input class="form-control" type="text" name="licensePlate" id="licensePlate"  required="">
                                             <label class="form-label" for="licensePlate">Biển số xe<span class="text-danger"> *</span></label>
                                         </div>
                                         <span class="error-message" id="licensePlateError"></span>
@@ -77,14 +77,14 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-outline mb-3" data-mdb-input-init>
-                                            <input class="form-control" type="text" name="chassisNumber" id="chassisNumber" value="${chassisNumber}" class="form-control" required=""/>
+                                            <input class="form-control" type="text" name="chassisNumber" id="chassisNumber"  class="form-control" required=""/>
                                             <label class="form-label" for="chassisNumber" class="form-label">Số khung<span class="text-danger"> *</span></label>
                                         </div>
                                         <span class="error-message" id="chassisNumberError"></span>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-outline mb-3" data-mdb-input-init>
-                                            <input class="form-control" type="text" name="engineNumber" id="engineNumber" value="${engineNumber}" class="form-control" required=""/>
+                                            <input class="form-control" type="text" name="engineNumber" id="engineNumber" class="form-control" required=""/>
                                             <label class="form-label" for="engineNumber" class="form-label">Số máy<span class="text-danger"> *</span></label>
                                         </div>
                                         <span class="error-message" id="engineNumberError"></span>

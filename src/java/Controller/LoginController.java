@@ -1,4 +1,5 @@
 package Controller;
+
 import Model.Compensation;
 import Model.Contract;
 import Model.User;
@@ -65,24 +66,20 @@ public class LoginController extends HttpServlet {
             if (user.getRole().equalsIgnoreCase("user") || user.getRole().equalsIgnoreCase("customer")) {
                 resp.sendRedirect("home");
             } else if (user.getRole().equalsIgnoreCase("staff")) {
-                ConsultationDAO cdb = new ConsultationDAO();
-                PromotionDAO pdb = new PromotionDAO();
-                NewsDAO ndb = new NewsDAO();
+
                 List<Compensation> listCompensationPending = CompensationDAO.INSTANCE.getCompensationsPending();
                 session.setAttribute("totalApplication", listCompensationPending.size());
-                
-                ContractDAO con = new ContractDAO();
-                List<Contract> listContract = con.getAll();
-                
+
                 UserDAO udb = new UserDAO();
                 List<User> listCustomerByStaff = udb.getAllCustomerByStaff(user.getId());
                 
-                int totalConsultation = cdb.CountConsultationByStatus("all");
-                
-                
+                ConsultationDAO cdb = new ConsultationDAO();
+                PromotionDAO pdb = new PromotionDAO();
+                ContractDAO con = new ContractDAO();
+                NewsDAO ndb = new NewsDAO();
                 session.setAttribute("totalCustomerByStaff", listCustomerByStaff.size());
-                session.setAttribute("totalContract", listContract.size());
-                session.setAttribute("totalConsultation", totalConsultation);
+                session.setAttribute("totalContract", con.getAll().size());
+                session.setAttribute("totalConsultation", cdb.getAll().size());
                 session.setAttribute("totalPromotion", pdb.getAll().size());
                 session.setAttribute("totalNews", ndb.getAll().size());
                 resp.sendRedirect("staffHome");

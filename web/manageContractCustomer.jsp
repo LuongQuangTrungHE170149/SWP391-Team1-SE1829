@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quản lý hợp đồng</title>
+        <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <style>
             .table-custom td, .table-custom th{
                 padding: 14px 16px !important;

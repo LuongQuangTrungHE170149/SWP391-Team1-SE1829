@@ -257,7 +257,7 @@ public class ContractDAO extends DBContext {
                 + "      ,[Payment]\n"
                 + "      ,[createDate]\n"
                 + "      ,[status]\n"
-                + "  FROM [dbo].[Contracts] WHERE CustomerId = ?";
+                + "  FROM [dbo].[Contracts] WHERE CustomerId = ? order by ContractId DESC";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -504,12 +504,13 @@ public class ContractDAO extends DBContext {
         }
     }
 
-    public boolean updateContractStatus(int contractId, String newStatus) throws SQLException {
+    public boolean updateContractStatus(int contractId, String newStatus, int staffId) throws SQLException {
         // Cập nhật trạng thái hợp đồng trong database
-        String query = "UPDATE contracts SET status = ? WHERE contractId = ?";
+        String query = "UPDATE contracts SET status = ?, StaffId = ? WHERE contractId = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, newStatus);
-            preparedStatement.setInt(2, contractId);
+            preparedStatement.setInt(2, staffId);
+            preparedStatement.setInt(3, contractId);
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;

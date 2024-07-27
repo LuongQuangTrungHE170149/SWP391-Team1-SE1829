@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <title>View Contract</title>
-
+<link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
         <style>
             body {
                 font-family: Arial, sans-serif;

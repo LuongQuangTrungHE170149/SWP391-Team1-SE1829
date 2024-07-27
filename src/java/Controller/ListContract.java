@@ -83,7 +83,7 @@ public class ListContract extends HttpServlet {
                 List<Contract> cdtos = cd.searchContracts(searchQuery, statusFilter);
 
                 request.setAttribute("listAll", cdtos);
-
+                request.getSession().setAttribute("totalContract", cd.getAll().size());
                 request.getRequestDispatcher("listContract.jsp").forward(request, response);
             }
         }

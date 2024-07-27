@@ -28,7 +28,7 @@
             <div class="nav navbar bg-light sticky-top justify-content-between align-items-start mb-3 px-2"> 
                 <div class="fs-3 fw-bold text-info">Tạo hợp đồng</div>
             </div>
-            <div class="container" style="width: 700px;">
+            <div class="container" style="width: 900px;">
                 <div class="Customer-information m-auto mt-5 mb-5 p-5 shadow " style="width: 100%;">
                     <!--Customer info-->
                     <form id="customerInfoForm">

@@ -95,6 +95,7 @@ public class PromotionManagerServlet extends HttpServlet {
                 request.setAttribute("currentPage", page);
                 request.setAttribute("searchValue", searchValue);
                 request.setAttribute("listStaffAddPromotion", listStaffAddPromotion);
+                session.setAttribute("totalPromotion", pdb.getAll().size());
                 request.getRequestDispatcher("promotionManager.jsp").forward(request, response);
             }
         }

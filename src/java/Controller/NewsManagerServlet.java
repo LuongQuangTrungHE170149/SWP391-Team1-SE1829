@@ -131,10 +131,12 @@ public class NewsManagerServlet extends HttpServlet {
                 request.setAttribute("currentPage", page);
                 request.setAttribute("searchValue", searchValue);
                 request.setAttribute("listStaffAddNews", listStaffAddNews);
+              
+                session.setAttribute("totalNews", ndb.getAll().size());
                 request.getRequestDispatcher("newsManager.jsp").forward(request, response);
             }
         }
-        
+
     }
 
     /**
