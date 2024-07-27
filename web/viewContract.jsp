@@ -167,7 +167,7 @@
             <div class="info">
                 <div class="info-item">
                     <p><strong>Code:</strong> ${contract.code}</p>
-                    
+
                 </div>
                 <div class="info-item">
                     <p class="half-width"><strong>Họ tên chủ xe:</strong> ${contract.vehicle.ownerFirstName} ${contract.vehicle.ownerLastName}</p>
@@ -178,8 +178,14 @@
                     <p class="half-width"><strong>Địa chỉ người yêu cầu:</strong> ${contract.customer.address}</p>
                 </div>
                 <div class="info-item">
-                    <p class="half-width"><strong>Số điện thoại:</strong> ${contract.customer.phone}</p>
-                    <p class="half-width"><strong>Email:</strong> ${contract.customer.email}</p>
+                    <div class="half-width">
+
+                    </div>
+                    <div class="half-width">
+                        <p><strong>Số điện thoại:</strong> ${contract.customer.phone}</p>
+                        <p><strong>Email:</strong> ${contract.customer.email}</p>
+                    </div>
+
                 </div>
                 <div class="info-item">
                     <p><strong>Biển số xe:</strong> ${contract.vehicle.licensePlates}</p>
@@ -216,25 +222,25 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script>
-            function confirmChange() {
-                return confirm("Bạn có chắc chắn muốn thay đổi trạng thái hợp đồng không?");
-            }
+                            function confirmChange() {
+                                return confirm("Bạn có chắc chắn muốn thay đổi trạng thái hợp đồng không?");
+                            }
 
-            function checkLicensePlate() {
-                const licensePlate = "${contract.vehicle.licensePlates}";
-                // Assume fetchActiveContractByLicensePlate is a function that checks for active contracts
-                fetch(`CheckLicensePlateServlet?licensePlate=${contract.vehicle.licensePlates}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.activeContractExists) {
-                            alert("Biển số xe này đã có hợp đồng có hiệu lực.");
-                            document.getElementById('statusSelect').querySelector('option[value="Approved"]').style.display = 'none';
-                        } else {
-                            alert("Biển số xe này không có hợp đồng nào có hiệu lực.");
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
+                            function checkLicensePlate() {
+                                const licensePlate = "${contract.vehicle.licensePlates}";
+                                // Assume fetchActiveContractByLicensePlate is a function that checks for active contracts
+                                fetch(`CheckLicensePlateServlet?licensePlate=${contract.vehicle.licensePlates}`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.activeContractExists) {
+                                                alert("Biển số xe này đã có hợp đồng có hiệu lực.");
+                                                document.getElementById('statusSelect').querySelector('option[value="Approved"]').style.display = 'none';
+                                            } else {
+                                                alert("Biển số xe này không có hợp đồng nào có hiệu lực.");
+                                            }
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                            }
         </script>
     </body>
 </html>
