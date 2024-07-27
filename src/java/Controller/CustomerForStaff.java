@@ -75,6 +75,9 @@ public class CustomerForStaff extends HttpServlet {
                 Gson gson = new Gson();
                 String listContractJson = gson.toJson(listContract);
 
+            
+                List<User> listCustomerByStaff = udb.getAllCustomerByStaff(user.getId());
+                session.setAttribute("totalCustomerByStaff", listCustomerByStaff.size());
                 request.setAttribute("listCustomer", listCustomer);
                 request.setAttribute("listContractJson", listContractJson);
                 request.getRequestDispatcher("customerForStaff.jsp").forward(request, response);

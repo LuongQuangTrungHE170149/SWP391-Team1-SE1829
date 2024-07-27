@@ -7,6 +7,7 @@ package Controller;
 import Model.Contract;
 import Model.User;
 import dal.ContractDAO;
+import dal.UserDAO;
 import dto.Contractdto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,6 +83,9 @@ public class ListContract extends HttpServlet {
                 ContractDAO cd = new ContractDAO();
                 List<Contract> cdtos = cd.searchContracts(searchQuery, statusFilter);
 
+                UserDAO udb = new UserDAO();
+                List<User> listCustomerByStaff = udb.getAllCustomerByStaff(u.getId());
+                request.getSession().setAttribute("totalCustomerByStaff", listCustomerByStaff.size());
                 request.setAttribute("listAll", cdtos);
                 request.getSession().setAttribute("totalContract", cd.getAll().size());
                 request.getRequestDispatcher("listContract.jsp").forward(request, response);

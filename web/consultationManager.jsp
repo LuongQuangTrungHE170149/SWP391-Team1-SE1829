@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.util.HashMap" %>
 <!DOCTYPE html>
 
 <html>
@@ -16,12 +15,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Quản lý tư vấn</title>
         <link rel="shortcut icon" href="images/icon motor color 419fa3.png" type="image/x-icon">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
         <!--summernote-->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-
-        <!--chart-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
             /* CSS for modal fields */
@@ -95,7 +91,6 @@
         <!--content-->
         <div class="main-content" id="main-content">
             <!--search-->
-
             <div class="nav navbar bg-light sticky-top justify-content-between mb-3 px-2">
                 <input type="hidden" name="status" value="${status}"/>
                 <input type="hidden" name="staff" value="${staff}"/>
@@ -289,14 +284,11 @@
                         </div>
                         <form action="replyConsultation" id="replyForm" method="post">
                             <div class="row">
-                                <div class="col-2 mb-3">
-                                    <label for="title" class="form-label">ID</label>
-                                    <input type="text" class="form-control" id="id" name="id" readonly>
-                                </div>
-                                <div class="col-4 mb-3">
+                                <div class="col-6 mb-3">
                                     <label for="title" class="form-label">Tiêu đề</label>
                                     <input type="text" class="form-control" id="title"name="title" value="Tư vấn" readonly>
                                 </div>
+                                <input type="hidden" id="id"/>
                                 <div class="col-6 mb-3">
                                     <label for="name" class="form-label">Họ và Tên</label>
                                     <input type="text" class="form-control" id="name" name="name" readonly>
@@ -357,23 +349,23 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-2 fw-bold">Tiêu đề: </div>
                             <div class="col-3">Tư Vấn</div>   
                         </div>
 
-                        <div class="col-6 mb-3 d-flex align-items-center">
-                            <div class="fs-5 fw-bold me-2">Email:</div>
-                            <div id="senderEmail_detail" ></div>
+                        <div class="row mb-3">
+                            <div class="col-2 fw-bold">Email:</div>
+                            <div class="col-3" id="senderEmail_detail" ></div>
                         </div>
-                        <div class="col-6 mb-3 d-flex align-items-center">
-                            <div class="fs-5 me-2 fw-bold">Họ và Tên:</div>
-                            <div id="name_detail"></div>
+                        <div class="row mb-3">
+                            <div class="col-2 fw-bold">Họ và Tên:</div>
+                            <div class="col-3" id="name_detail"></div>
                         </div>
 
-                        <div class="col-12 mb-3 d-flex align-items-center">
-                            <div class="fs-5 fw-bold me-2">Ngày tạo:</div>
-                            <div id="timestamp_detail" class="fw-light" style="font-size: 14px;"></div>
+                        <div class="row mb-3">
+                            <div class="col-2 fw-bold">Ngày tạo:</div>
+                            <div class="col-3" id="timestamp_detail" class="fw-light" style="font-size: 14px;"></div>
                         </div>
                         <div class="mb-3">
                             <label for="senderMessage_detail" class="form-label text-primary fs-5" >Nội dung cần tư vấn:</label>
@@ -392,7 +384,7 @@
                     </div>
                     <div class="modal-footer">
 
-                        <button id="replyButton"  class="btn btn-primary badge-reply" data-mdb-modal-init data-mdb-target="#replyModal">Gửi</button>
+                        <button id="replyButton"  class="btn btn-primary badge-reply" data-mdb-modal-init data-mdb-target="#replyModal">Trả lời</button>
                         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
                     </div>
                 </div>
@@ -423,17 +415,13 @@
         </script>
 
         <!-- jQuery can thiet cho bootstrap!! -->
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>-->
-
-        <!--chart-->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-
         <!--mdb bootstrap-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"></script>
 
         <!--format date-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
         <script>
                                         function showLoading() {
                                             document.getElementById('loading-overlay').style.display = 'flex';
@@ -546,16 +534,16 @@
                                             });
 
                                             $('#replyForm').on('submit', function (e) {
-
                                                 showLoading();
                                                 e.preventDefault();
                                                 let formData = {
-                                                    id: $('#id').val(),
-                                                    title: $('#title').val(),
-                                                    senderEmail: $('#senderEmail').val(),
-                                                    content: $('#replyMessage').val(),
-                                                    name: $('#name').val()
+                                                    id: $("#id").val(),
+                                                    title: $("#title").val(),
+                                                    senderEmail: $("#senderEmail").val(),
+                                                    content: $("#replyMessage").val(),
+                                                    name: $("#name").val()
                                                 };
+                                                console.log(formData);
 
                                                 // AJAX request to send the reply to the servlet
                                                 $.ajax({
@@ -570,6 +558,8 @@
                                                     error: function (err) {
                                                         console.log(err);
                                                         alert('Failed to send the reply. Please try again.');
+                                                        hideLoading();
+                                                        location.reload();
                                                     }
                                                 });
                                             });

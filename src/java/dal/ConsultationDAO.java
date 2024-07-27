@@ -313,7 +313,7 @@ public class ConsultationDAO extends DBContext {
         }
     }
 
-    public void updateConsultationById(int id, String reply, int staff_id, boolean status) {
+    public boolean updateConsultationById(int id, String reply, int staff_id, boolean status) {
         String sql = "UPDATE [dbo].[Consultations]\n"
                 + "   SET [reply_message] = ?\n"
                 + "      ,[staff] = ?\n"
@@ -326,9 +326,10 @@ public class ConsultationDAO extends DBContext {
             st.setBoolean(3, status);
             st.setInt(4, id);
             st.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println(e);
-        }
+        } return false;
     }
 
     public List<Consultation> getListConsultationByStaffId(int id) {
@@ -397,6 +398,6 @@ public class ConsultationDAO extends DBContext {
 
     public static void main(String[] args) {
         ConsultationDAO cdb = new ConsultationDAO();
-        System.out.println(cdb.getAll());
+        System.out.println(cdb.updateConsultationById(1, "test", 2, true));
     }
 }

@@ -110,7 +110,7 @@ public class ReplyConsultationServlet extends HttpServlet {
                 return new PasswordAuthentication(username, password);
             }
         });
-        int id =Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String toMail = request.getParameter("senderEmail");
         String title = request.getParameter("title");

@@ -72,12 +72,12 @@ public class LoginController extends HttpServlet {
 
                 UserDAO udb = new UserDAO();
                 List<User> listCustomerByStaff = udb.getAllCustomerByStaff(user.getId());
-                
+                session.setAttribute("totalCustomerByStaff", listCustomerByStaff.size());
                 ConsultationDAO cdb = new ConsultationDAO();
                 PromotionDAO pdb = new PromotionDAO();
                 ContractDAO con = new ContractDAO();
                 NewsDAO ndb = new NewsDAO();
-                session.setAttribute("totalCustomerByStaff", listCustomerByStaff.size());
+                
                 session.setAttribute("totalContract", con.getAll().size());
                 session.setAttribute("totalConsultation", cdb.getAll().size());
                 session.setAttribute("totalPromotion", pdb.getAll().size());
